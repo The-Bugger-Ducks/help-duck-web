@@ -1,0 +1,26 @@
+.header {
+  background-color: var(--color-primary-main);
+  width: 100%;
+
+  display: flex;
+  justify-content: space-between;
+
+  padding: 2%;
+}
+
+.header h1 {
+  size: 3rem;
+  color: var(--color-white);
+}
+
+.header span {
+  display: none;
+
+  size: 2rem;
+  align-self: center;
+  color: var(--color-white);
+}
+
+.header span.visible {
+  display: block;
+}

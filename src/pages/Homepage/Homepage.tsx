@@ -1,3 +1,9 @@
+import "../../styles/pages/Homepage/Homepage.css";
+
 export default function Homepage() {
-  return <p>Olá</p>;
+  return (
+    <div id="homepage">
+      <p>Olá</p>
+    </div>
+  );
 }

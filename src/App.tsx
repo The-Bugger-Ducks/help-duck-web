@@ -1,6 +1,7 @@
 import { BrowserRouter } from "react-router-dom";
-import "./style/global.css";
 import MyRoutes from "./routes";
+import "./styles/global.css";
+import "./styles/vars.css";
 
 function App() {
   return (
