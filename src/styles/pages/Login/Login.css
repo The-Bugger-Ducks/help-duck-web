@@ -1,0 +1,84 @@
+/* ESTILIZAÇÃO GERAL*/
+
+#login {
+  height: 100vh;
+  width: 100vw;
+  background-color: var(--color-primary-main);
+}
+
+#login h1 {
+  size: 3rem;
+}
+
+#login h2 {
+  size: 2rem;
+}
+
+#login .login-container {
+  margin-left: 10%;
+  margin-right: 10%;
+}
+
+#login .login-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* ESTILIZAÇÃO DO FORMULÁRIO */
+
+#login .login-form,
+#login .login-form section {
+  display: flex;
+  flex-direction: column;
+}
+
+#login .login-form {
+  background-color: var(--color-white-main);
+  padding: 5%;
+  height: 50%;
+  width: 50%;
+  border-radius: 2%;
+  margin-top: 1rem;
+}
+
+#login .login-form input {
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+#login form Button {
+  align-self: center;
+}
+
+#login form label {
+  color: var(--color-black-light);
+}
+
+/* ESTILIZAÇÃO DO TITULO E SUBTITULO DA PÁGINA */
+
+#login .login-content .login-welcome {
+  width: 50%;
+  color: var(--color-white-main);
+  margin-top: 1rem;
+}
+
+#login .login-content .login-welcome h2 {
+  font-weight: 400;
+}
+
+/* ESTILIZAÇÃO DO BOTÃO DE RECUPERAR A SENHA */
+
+#login #recover-password {
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+  text-align: right;
+  color: var(--color-black-light);
+  font-size: 0.9rem;
+}
+
+#login #recover-password:hover {
+  color: var(--color-gray-main);
+  transition: 200ms all;
+}
