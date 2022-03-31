@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Button from "../../components/Button";
 import Footer from "../../components/Footer";
 import Header from "../../components/Header";
@@ -10,6 +10,14 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
   const isAuthenticated = false;
+
+  async function handleLogin(
+    emailParameter: string,
+    passwordParameter: string
+  ) {
+    const email = emailParameter;
+    const password = passwordParameter;
+  }
 
   if (isAuthenticated) {
     console.log("Authenticated");
@@ -47,8 +55,14 @@ export default function Login() {
                 required
               />
             </section>
-            <span id="recover-password">Esqueceu a senha?</span>
-            <Button type="submit" width="80%">
+            <Link to={"#"} id="recover-password">
+              Esqueceu a senha?
+            </Link>
+            <Button
+              type="submit"
+              width="80%"
+              onClick={() => handleLogin(email, password)}
+            >
               Entrar
             </Button>
           </form>

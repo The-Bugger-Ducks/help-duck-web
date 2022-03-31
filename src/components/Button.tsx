@@ -1,4 +1,5 @@
 import React from "react";
+import "../styles/components/Button.css";
 
 interface Props {
   backgroundColor?: string;
@@ -10,6 +11,8 @@ interface Props {
   radius?: string;
   width?: string;
   type?: any;
+  fontSize?: string;
+  fontWeight?: string;
 }
 
 const Button: React.FC<Props> = ({
@@ -22,6 +25,8 @@ const Button: React.FC<Props> = ({
   radius = "0.3rem",
   width = "17rem",
   type = "button",
+  fontSize = "1rem",
+  fontWeight = "600",
 }) => {
   return (
     <button
@@ -33,6 +38,8 @@ const Button: React.FC<Props> = ({
         borderRadius: radius,
         height,
         width,
+        fontSize,
+        fontWeight,
       }}
       className="button-primary"
       type={type}

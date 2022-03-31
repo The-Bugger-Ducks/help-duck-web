@@ -84,5 +84,5 @@
 
 #login #recover-password:hover {
   color: var(--color-gray-main);
-  cursor: pointer;
+  transition: 200ms all;
 }
