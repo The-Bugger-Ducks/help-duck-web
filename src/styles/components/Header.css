@@ -5,12 +5,13 @@
   display: flex;
   justify-content: space-between;
 
-  padding: 2%;
+  padding-top: 2%;
+  padding-bottom: 2%;
 }
 
 .header h1 {
   size: 3rem;
-  color: var(--color-white);
+  color: var(--color-white-main);
 }
 
 .header span {
@@ -18,7 +19,7 @@
 
   size: 2rem;
   align-self: center;
-  color: var(--color-white);
+  color: var(--color-white-main);
 }
 
 .header span.visible {

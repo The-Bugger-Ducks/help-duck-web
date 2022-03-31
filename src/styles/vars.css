@@ -5,7 +5,25 @@
   --main-font-sz-medium: 500 0.9rem/1.5 "Poppins", sans-serif;
   --main-font-sz-regular: 400 0.9rem/1.5 "Poppins", sans-serif;
 
+  --color-primary-lightest: #ADD5F7;
+  --color-primary-light: #7FB2F0;
   --color-primary-main: #4e7ac7;
+  --color-primary-dark: #35478C
+  --color-primary-darkest: #16193B;
 
-  --color-white: #f2f2f3;
+  --color-white-light: #FAFAFA;
+  --color-white-main: #f2f2f3;
+  --color-white-dark: #EDEDEE;
+
+  --color-gray-light: #CED4DA;
+  --color-gray-main: #ADB5BD;
+  --colort-gray-dark: #868E96;
+
+  --color-black-light: #495057;
+  --color-black-main: #343A40;
+  --colort-black-dark: #212529;
+
+  --color-red: #F25050;
+  --colort-yellow: #F2BB16;
+  --color-green: #25C04C;
 }
