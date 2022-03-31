@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Button from "../../components/Button";
 import Footer from "../../components/Footer";
 import Header from "../../components/Header";
+import TextField from "../../components/TextField";
 import "../../styles/pages/Login/Login.css";
 
 export default function Login() {
@@ -36,23 +37,17 @@ export default function Login() {
           <form className="login-form">
             <section className="login-data">
               <label htmlFor="email">E-mail</label>
-              <input
-                type="email"
-                name="email"
-                className="email"
+              <TextField
                 placeholder="jhon.snow@email.com"
                 onChange={(event) => setEmail(event.target.value)}
-                required
+                name="email"
               />
-
               <label htmlFor="password">Senha</label>
-              <input
-                type="password"
-                name="password"
-                className="password"
-                placeholder="senha"
+              <TextField
+                placeholder="Senha"
                 onChange={(event) => setPassword(event.target.value)}
-                required
+                name="password"
+                type="password"
               />
             </section>
             <Link to={"#"} id="recover-password">
