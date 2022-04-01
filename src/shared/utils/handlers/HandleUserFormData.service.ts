@@ -14,4 +14,30 @@ export default class HandleUserFormData {
     let userRequests = new UserRequests();
     userRequests.loginRequest(body);
   }
+
+  public handleRegister(user: User) {
+    let body = {
+      email: user.email,
+      password: user.password,
+      name: user.name ? user.name : null,
+      lastname: user.lastname ? user.lastname : null,
+      role: user.profileType ? user.profileType : null,
+    };
+
+    let userRequests = new UserRequests();
+    userRequests.registerRequest(body);
+  }
+
+  public handleUpdate(user: User) {
+    let body = {
+      email: user.email,
+      password: user.password,
+      name: user.name ? user.name : null,
+      lastname: user.lastname ? user.lastname : null,
+      role: user.profileType ? user.profileType : null,
+    };
+
+    let userRequests = new UserRequests();
+    userRequests.updateRequest(body);
+  }
 }
