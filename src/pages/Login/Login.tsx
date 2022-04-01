@@ -1,12 +1,15 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import Button from "../../components/Button";
-import Footer from "../../components/Footer";
-import Header from "../../components/Header";
-import TextField from "../../components/TextField";
-import HandleFormData from "../../services/HandleFormData.service";
-import User from "../../interfaces/user.interface";
-import "../../styles/pages/Login/Login.css";
+
+import "../../shared/styles/pages/login/Login.css";
+
+import Button from "../../shared/components/Button";
+import Footer from "../../shared/components/Footer";
+import Header from "../../shared/components/Header";
+import TextField from "../../shared/components/TextField";
+
+import HandleUserFormData from "../../shared/utils/handlers/HandleUserFormData.service";
+import User from "../../shared/interfaces/user.interface";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -19,7 +22,7 @@ export default function Login() {
     password,
   };
 
-  let handleFormData = new HandleFormData();
+  let handleUserFormData = new HandleUserFormData();
 
   if (isAuthenticated) {
     console.log("Authenticated");
@@ -57,7 +60,7 @@ export default function Login() {
             <Button
               type="submit"
               width="80%"
-              onClick={() => handleFormData.handleFormData(user)}
+              onClick={() => handleUserFormData.handleLogin(user)}
             >
               Entrar
             </Button>
