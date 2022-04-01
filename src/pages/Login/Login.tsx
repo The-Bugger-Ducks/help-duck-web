@@ -4,6 +4,8 @@ import Button from "../../components/Button";
 import Footer from "../../components/Footer";
 import Header from "../../components/Header";
 import TextField from "../../components/TextField";
+import HandleFormData from "../../services/HandleFormData.service";
+import User from "../../interfaces/user.interface";
 import "../../styles/pages/Login/Login.css";
 
 export default function Login() {
@@ -12,13 +14,12 @@ export default function Login() {
   const navigate = useNavigate();
   const isAuthenticated = false;
 
-  async function handleLogin(
-    emailParameter: string,
-    passwordParameter: string
-  ) {
-    const email = emailParameter;
-    const password = passwordParameter;
-  }
+  const user: User = {
+    email,
+    password,
+  };
+
+  let handleFormData = new HandleFormData();
 
   if (isAuthenticated) {
     console.log("Authenticated");
@@ -38,7 +39,7 @@ export default function Login() {
             <section className="login-data">
               <label htmlFor="email">E-mail</label>
               <TextField
-                placeholder="jhon.snow@email.com"
+                placeholder="john.snow@email.com"
                 onChange={(event) => setEmail(event.target.value)}
                 name="email"
               />
@@ -56,7 +57,7 @@ export default function Login() {
             <Button
               type="submit"
               width="80%"
-              onClick={() => handleLogin(email, password)}
+              onClick={() => handleFormData.handleFormData(user)}
             >
               Entrar
             </Button>
