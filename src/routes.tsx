@@ -1,7 +1,8 @@
 import { Routes, Route } from "react-router-dom";
-import Homepage from "./pages/Homepage/Homepage";
-import Login from "./pages/Login/Login";
-import Signup from "./pages/Login/Signup";
+
+import Homepage from "./pages/homepage/Homepage";
+import Login from "./pages/login/Login";
+import Signup from "./pages/login/Signup";
 
 function MyRoutes() {
   return (
