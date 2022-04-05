@@ -1,10 +1,15 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import Button from "../../components/Button";
-import Footer from "../../components/Footer";
-import Header from "../../components/Header";
-import TextField from "../../components/TextField";
-import "../../styles/pages/Login/Login.css";
+
+import "../../shared/styles/pages/login/Login.css";
+
+import Button from "../../shared/components/Button";
+import Footer from "../../shared/components/Footer";
+import Header from "../../shared/components/Header";
+import TextField from "../../shared/components/TextField";
+
+import HandleUserFormData from "../../shared/utils/handlers/HandleUserFormData.service";
+import User from "../../shared/interfaces/user.interface";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -12,13 +17,12 @@ export default function Login() {
   const navigate = useNavigate();
   const isAuthenticated = false;
 
-  async function handleLogin(
-    emailParameter: string,
-    passwordParameter: string
-  ) {
-    const email = emailParameter;
-    const password = passwordParameter;
-  }
+  const user: User = {
+    email,
+    password,
+  };
+
+  let handleUserFormData = new HandleUserFormData();
 
   if (isAuthenticated) {
     console.log("Authenticated");
@@ -38,7 +42,7 @@ export default function Login() {
             <section className="login-data">
               <label htmlFor="email">E-mail</label>
               <TextField
-                placeholder="jhon.snow@email.com"
+                placeholder="john.snow@email.com"
                 onChange={(event) => setEmail(event.target.value)}
                 name="email"
               />
@@ -56,7 +60,7 @@ export default function Login() {
             <Button
               type="submit"
               width="80%"
-              onClick={() => handleLogin(email, password)}
+              onClick={() => handleUserFormData.handleLogin(user)}
             >
               Entrar
             </Button>
