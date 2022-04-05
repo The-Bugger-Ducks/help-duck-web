@@ -29,6 +29,12 @@ export default function Signup() {
     profileType,
   };
 
+  const userProfiles = [
+    { value: "client", label: "Cliente", selected: true },
+    { value: "support", label: "Suporte", selected: false },
+    { value: "admin", label: "Administrador", selected: false },
+  ];
+
   // let handleUserFormData = new HandleUserFormData();
 
   if (isAuthenticated) {
@@ -67,31 +73,33 @@ export default function Signup() {
                   placeholder="john.snow@email.com"
                   onChange={(event) => setEmail(event.target.value)}
                   name="email"
-                  />
+                />
                 <label htmlFor="password">Senha</label>
                 <TextField
                   placeholder="Senha"
                   onChange={(event) => setPassword(event.target.value)}
                   name="password"
                   type="password"
-                  />
+                />
               </section>
             </section>
             <section className="signup-data-line">
               <section className="signup-data">
                 <ChoiceField
-                    onChange={(event) => setProfileType(event.target.value)}
-                    name="profile_type"
-                    />
+                  onChange={(event) => setProfileType(event.target.value)}
+                  name="profile_type"
+                  items={userProfiles}
+                />
               </section>
               <section className="signup-data">
                 <Button
+                  width="100%"
                   type="submit"
                   // onClick={() => handleUserFormData.handlesignup(user)}
                 >
                   Cadastrar
                 </Button>
-              </section>  
+              </section>
             </section>
           </form>
         </div>

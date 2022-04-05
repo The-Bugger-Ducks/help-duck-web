@@ -8,6 +8,7 @@ interface Props {
   required?: boolean;
   padding?: string;
   onChange?: (event: any) => void;
+  items: Array<{ value: string; label: string; selected: boolean }>;
 }
 
 const SelectInput: React.FC<Props> = ({
@@ -19,26 +20,29 @@ const SelectInput: React.FC<Props> = ({
   required = true,
   padding = "0.5rem",
   onChange,
+  items,
 }) => {
   return (
     <div>
-    <select
-      onChange={onChange}
-      style={{
-        backgroundColor: backgroundColor,
-        border,
-        borderRadius: radius,
-        width,
-        padding,
-      }}
-      className="input-primary"
-      name={name}
-      required={required}
-    >
-      <option value="client" selected>Cliente</option>
-      <option value="support">Suporte</option>
-      <option value="admin">Administrador</option>
-    </select>
+      <select
+        onChange={onChange}
+        style={{
+          backgroundColor: backgroundColor,
+          border,
+          borderRadius: radius,
+          width,
+          padding,
+        }}
+        className="input-primary"
+        name={name}
+        required={required}
+      >
+        {items.map((item) => (
+          <option value={item.value} selected={item.selected}>
+            {item.label}
+          </option>
+        ))}
+      </select>
     </div>
   );
 };
