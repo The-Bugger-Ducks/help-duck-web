@@ -1,4 +1,7 @@
 import React from "react";
+
+import { FiClock, FiFlag, FiArrowLeft } from "react-icons/fi";
+
 import Badge from "../../shared/components/Badge";
 
 import Button from "../../shared/components/Button";
@@ -18,25 +21,36 @@ export default function DetailTicket() {
         ? "Não resolvido"
         : "Resolvido";
 
-    return <span className={status}>{label}</span>;
+    return (
+      <span className={status}>
+        <FiFlag color="var(--color-gray-dark)" size="0.8rem" /> {label}
+      </span>
+    );
   };
 
+  const textMocked = `Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis excepturi autem quasi, est enim distinctio asperiores! Maiores iusto a quia ipsam quas omnis velit adipisci obcaecati quidem, aut tempore facilis?
+  Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis excepturi autem quasi, est enim distinctio asperiores! Maiores iusto a quia ipsam quas omnis velit adipisci obcaecati quidem, aut tempore facilis?
+  Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis excepturi autem quasi, est enim distinctio asperiores! Maiores iusto a quia ipsam quas omnis velit adipisci obcaecati quidem, aut tempore facilis?
+  Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis excepturi autem quasi, est enim distinctio asperiores! Maiores iusto a quia ipsam quas omnis velit adipisci obcaecati quidem, aut tempore facilis?
+  Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis excepturi autem quasi, est enim distinctio asperiores! Maiores iusto a quia ipsam quas omnis velit adipisci obcaecati quidem, aut tempore facilis?
+  `;
+
   return (
-    <>
+    <div id="detail-ticket-page">
       <Header />
       <main id="detail-ticket">
-        <section className="detail-page-title">
-          <h2>Detalhes do chamado</h2>
-
-          <p>
-            <span className="detail-date-created">24/03/2022</span>
-            <StatusTicket status="underAnalysis"></StatusTicket>
-          </p>
-        </section>
-
         <section className="ticket-about">
-          <h3>Título:</h3>
-          <span className="ticket-name">#ID: Titulo da chamado</span>
+          <FiArrowLeft color="var(--color-gray-dark)" />
+          <h3 className="ticket-name">Mouse Quebrado</h3>
+
+          <p>Protocólo: #5533123</p>
+          <p>
+            <span className="detail-date-created">
+              <FiClock color="var(--color-gray-dark)" size="0.8rem" />{" "}
+              24/03/2022
+            </span>
+            <StatusTicket status="underAnalysis" />
+          </p>
         </section>
 
         <section className="ticket-priority">
@@ -51,24 +65,18 @@ export default function DetailTicket() {
         <section>
           <h3>Descrição do problema:</h3>
           <div>
-            Texto Texto Texto Texto Texto Texto Texto Texto TextoTexto Texto
-            Texto Texto Texto Texto Texto Texto Texto Texto Texto Texto
-            TextoTexto Texto Texto Texto Texto Texto Texto Texto Texto Texto
-            Texto Texto TextoTexto Texto Texto Texto Texto Texto Texto Texto
-            Texto Texto Texto Texto TextoTexto Texto Texto Texto Texto Texto
-            Texto Texto Texto Texto Texto Texto TextoTexto Texto Texto Texto.
+            <p className="description-block">{textMocked}</p>
           </div>
         </section>
 
         <section>
           <h3>Descrição da solução:</h3>
           <div>
-            Texto Texto Texto Texto Texto Texto Texto Texto TextoTexto Texto
-            Texto Texto Texto Texto Texto Texto Texto Texto Texto Texto
-            TextoTexto Texto Texto Texto Texto Texto Texto Texto Texto Texto
-            Texto Texto TextoTexto Texto Texto Texto Texto Texto Texto Texto
-            Texto Texto Texto Texto TextoTexto Texto Texto Texto Texto Texto
-            Texto Texto Texto Texto Texto Texto TextoTexto Texto Texto Texto.
+            <textarea
+              className="description-block"
+              id="description-solution"
+              disabled
+            />
           </div>
         </section>
 
@@ -95,6 +103,6 @@ export default function DetailTicket() {
         </section>
       </main>
       <Footer />
-    </>
+    </div>
   );
 }

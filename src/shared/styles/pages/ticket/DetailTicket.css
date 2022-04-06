@@ -1,11 +1,21 @@
-@import '../../vars.css';
 
-#detail-ticket {
-  padding: 3rem 20rem;
+#detail-ticket-page {
+  height: 100vh;
 
   display: flex;
   flex-direction: column;
+}
+
+#detail-ticket {
+  padding: 2rem 12rem 0.5rem;
+
+  flex: 1;
+  display: flex;
+  flex-direction: column;
   gap: 1.3rem;
+
+  max-height: 100%;
+  overflow-y: auto;
 }
 
 #detail-ticket h1, h2, h3, h4 {
@@ -13,35 +23,32 @@
   color: var(--color-black-light)
 }
 
-#detail-ticket .detail-page-title {
-  margin-bottom: 1rem;
-}
-
-#detail-ticket .detail-page-title p {
+#detail-ticket .ticket-about p {
   display: flex;
   gap: 2rem;
   font-size: 0.8rem;
 }
 
-#detail-ticket .detail-page-title p .underAnalysis,
-#detail-ticket .detail-page-title p .waiting {
+#detail-ticket .ticket-about p .underAnalysis,
+#detail-ticket .ticket-about p .waiting {
   color: var(--color-yellow)
 }
 
 
-#detail-ticket .detail-page-title p .done {
+#detail-ticket .ticket-about p .done {
   color: var(--color-green)  
 }
 
-#detail-ticket .detail-page-title p .notSolved {
+#detail-ticket .ticket-about p .notSolved {
   color: var(--color-red)
 }
 
-#detail-ticket .detail-page-title p .detail-date-created {
+#detail-ticket .ticket-about p .detail-date-created {
   color: var(--color-gray-dark);
 }
 
 #detail-ticket .ticket-about .ticket-name {
+  font-size: 1.5rem;
   color: var(--color-gray-dark)
 }
 
@@ -51,8 +58,26 @@
 }
 
 #detail-ticket .ticket-resolve-content div {
-  margin-top: 1rem;
-
   display: flex;
   gap: 1rem
+}
+
+#detail-ticket section h3 {
+}
+
+#detail-ticket .description-block {
+  width: 100%;
+  height: 100%;
+  background: #f5f8fa;
+  border: 1px solid #d3e2e5;
+  border-radius: 20px;
+  outline: none;
+  color: #5c8599;
+}
+
+#detail-ticket .description-block {
+  min-height: 120px;
+  resize: vertical;
+  padding: 16px;
+  line-height: 28px;
 }
