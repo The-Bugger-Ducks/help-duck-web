@@ -5,6 +5,7 @@ import { FiClock, FiFlag, FiArrowLeft } from "react-icons/fi";
 import Badge from "../../shared/components/Badge";
 
 import Button from "../../shared/components/Button";
+import Container from "../../shared/components/Container";
 import Footer from "../../shared/components/Footer";
 import Header from "../../shared/components/Header";
 
@@ -36,7 +37,7 @@ export default function DetailTicket() {
   `;
 
   return (
-    <div id="detail-ticket-page">
+    <Container>
       <Header />
       <main id="detail-ticket">
         <section className="ticket-about">
@@ -103,6 +104,6 @@ export default function DetailTicket() {
         </section>
       </main>
       <Footer />
-    </div>
+    </Container>
   );
 }

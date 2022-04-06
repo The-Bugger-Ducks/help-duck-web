@@ -6,6 +6,19 @@
   background-color: var(--color-primary-main);
 }
 
+#signup .header {
+  padding: 0;
+  padding-top: 2%;
+  padding-bottom: 2%;
+
+  align-items: stretch;
+  height: auto;
+}
+
+#signup .header h1{
+  font-size: 3rem;
+}
+
 
 #signup .header h1 {
   margin: 2% 10%;
@@ -90,6 +103,19 @@
 
 #signup .signup-content .signup-welcome h2 {
   font-weight: 400;
+}
+
+#signup .footer {
+  height: auto;
+  align-items: stretch;
+
+  padding: 0;
+  padding-top: 2%;
+  padding-bottom: 2%;
+
+  position: absolute;
+  bottom: 0;
+  left: 0;
 }
 
 @media only screen and (max-width: 800px) {
