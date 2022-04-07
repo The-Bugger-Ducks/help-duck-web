@@ -26,3 +26,12 @@
   font-weight: normal;
   color: var(--color-black-light);
 }
+
+#homepage .search-or-filter {
+  margin-bottom: 3%;
+}
+
+#homepage .btn-open-ticket {
+  margin-top: 2%;
+  text-align: end;
+}

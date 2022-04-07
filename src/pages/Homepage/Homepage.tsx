@@ -3,6 +3,7 @@ import ChoiceField from "../../shared/components/ChoiceField";
 import Footer from "../../shared/components/Footer";
 import Header from "../../shared/components/Header";
 import TextField from "../../shared/components/TextField";
+import TicketList from "../../shared/components/TicketList";
 import "../../shared/styles/pages/homepage/Homepage.css";
 
 export default function Homepage() {
@@ -36,6 +37,10 @@ export default function Homepage() {
             />
           </div>
         </section>
+        <TicketList />
+        <div className="btn-open-ticket">
+          <Button width="20%">Abrir chamado</Button>
+        </div>
       </div>
       <Footer />
     </div>
