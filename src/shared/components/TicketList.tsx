@@ -1,4 +1,5 @@
 import "../styles/components/TicketList.css";
+import Ticket from "./Ticket";
 
 export default function TicketList() {
   return (
@@ -11,12 +12,12 @@ export default function TicketList() {
             <th>Data de criação</th>
             <th>Status</th>
           </tr>
-          <tr>
-            <td>Teste</td>
-            <td>Teste</td>
-            <td>Teste</td>
-            <td>Teste</td>
-          </tr>
+          <Ticket
+            priority={"Teste"}
+            title={"Teste"}
+            creationDate={"Teste"}
+            status={"Teste"}
+          />
         </table>
       </div>
     </section>
