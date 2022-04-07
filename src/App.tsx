@@ -1,10 +1,8 @@
 import { BrowserRouter } from "react-router-dom";
 import MyRoutes from "./routes";
-import "./shared/styles/global.css";
-import "./shared/styles/vars.css";
 
-import "./shared/styles/global.css";
 import "./shared/styles/vars.css";
+import "./shared/styles/global.css";
 
 function App() {
   return (

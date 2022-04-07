@@ -1,7 +1,0 @@
-button:hover.button-primary {
-  border: 2px solid var(--color-black-light) !important;
-  color: var(--color-black-light) !important;
-  background-color: var(--color-white-main) !important;
-  transition: 200ms all;
-  cursor: pointer;
-}
