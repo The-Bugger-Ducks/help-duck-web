@@ -1,18 +1,17 @@
 import React from "react";
-import "../styles/components/Tickets.css";
 
 interface TicketInformationProps {
-  priority: string;
+  priority: any;
   title: string;
   creationDate: string;
-  status: string;
+  status: any;
 }
 
 const Ticket: React.FC<TicketInformationProps> = ({
-  priority = "",
-  title = "",
-  creationDate = "",
-  status = "",
+  priority,
+  title,
+  creationDate,
+  status,
 }) => {
   return (
     <tr>

@@ -30,7 +30,6 @@ export default function Homepage() {
                 {
                   value: "opcao01",
                   label: "Todos os chamados",
-                  selected: true,
                 },
               ]}
               width="100%"

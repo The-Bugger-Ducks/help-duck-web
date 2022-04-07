@@ -1,6 +1,4 @@
-import React from "react";
-
-import { FiClock, FiFlag, FiArrowLeft } from "react-icons/fi";
+import { FiClock, FiArrowLeft } from "react-icons/fi";
 
 import Badge from "../../shared/components/Badge";
 
@@ -8,27 +6,11 @@ import Button from "../../shared/components/Button";
 import Container from "../../shared/components/Container";
 import Footer from "../../shared/components/Footer";
 import Header from "../../shared/components/Header";
+import StatusTicket from "../../shared/components/StatusTicket";
 
 import "../../shared/styles/pages/ticket/DetailTicket.css";
 
 export default function DetailTicket() {
-  const StatusTicket: React.FC<{ status: string }> = ({ status }) => {
-    const label =
-      status === "underAnalysis"
-        ? "Em análise"
-        : status === "waiting"
-        ? "Aguardando"
-        : status === "notSolved"
-        ? "Não resolvido"
-        : "Resolvido";
-
-    return (
-      <span className={status}>
-        <FiFlag color="var(--color-gray-dark)" size="0.8rem" /> {label}
-      </span>
-    );
-  };
-
   const textMocked = `Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis excepturi autem quasi, est enim distinctio asperiores! Maiores iusto a quia ipsam quas omnis velit adipisci obcaecati quidem, aut tempore facilis?
   Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis excepturi autem quasi, est enim distinctio asperiores! Maiores iusto a quia ipsam quas omnis velit adipisci obcaecati quidem, aut tempore facilis?
   Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis excepturi autem quasi, est enim distinctio asperiores! Maiores iusto a quia ipsam quas omnis velit adipisci obcaecati quidem, aut tempore facilis?
