@@ -3,3 +3,6 @@ export enum USER_ENDPOINTS {
   USER_UPDATE = "/",
   USER_LOGIN = "/login",
 }
+
+export enum TICKET_ENDPOINTS {
+}

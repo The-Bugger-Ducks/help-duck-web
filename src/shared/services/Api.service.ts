@@ -1,15 +1,15 @@
 import axios from "axios";
 
 const apiUsers = axios.create({
-  baseURL: "http://localhost:8080",
+  baseURL: "https://help-duck-users.herokuapp.com",
 });
 
 const apiTickets = axios.create({
-  baseURL: "http://localhost:8081",
+  baseURL: "https://help-duck-tickets.herokuapp.com/tickets",
 });
 
 const apiAuth = axios.create({
-  baseURL: "http://localhost:3000",
+  baseURL: "https://apple-surprise-88616.herokuapp.com",
 });
 
 const apiReports = axios.create({
