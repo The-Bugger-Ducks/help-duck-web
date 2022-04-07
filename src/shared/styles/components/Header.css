@@ -10,9 +10,9 @@
   padding: 0 10rem;
 }
 
-.header h1 {  
+.header h1 {
   color: var(--color-white-main);
-  font-size:  1.3rem;
+  font-size: 1.3rem;
 }
 
 .header span {

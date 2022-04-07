@@ -9,8 +9,8 @@
   height: auto;
 }
 
-#login .header h1{
-  font-size: 3rem;
+#login .header h1 {
+  font-size: 2rem;
 }
 
 #login {
@@ -25,6 +25,7 @@
 
 #login h2 {
   size: 2rem;
+  color: var(--color-white-main);
 }
 
 #login .login-container {

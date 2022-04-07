@@ -15,13 +15,12 @@
   height: auto;
 }
 
-#signup .header h1{
-  font-size: 3rem;
+#signup .header h1 {
+  font-size: 2rem;
 }
 
-
 #signup .header h1 {
-  margin: 2% 10%;
+  margin: 0 10%;
 }
 
 #signup .signup-welcome h1 {
@@ -30,8 +29,8 @@
 
 #signup .signup-welcome h2 {
   font-size: 1.5vw;
+  color: var(--color-white-main);
 }
-
 
 #signup .signup-content {
   display: flex;
@@ -121,22 +120,21 @@
 @media only screen and (max-width: 800px) {
   #signup .signup-content .signup-welcome {
     width: 80%;
-
   }
 
   #signup .signup-welcome h1 {
     font-size: 5vw;
   }
-  
+
   #signup .signup-welcome h2 {
     font-size: 3vw;
   }
- 
+
   #signup .signup-content {
     margin-top: 3rem;
     padding: 0%;
   }
-  
+
   #signup .signup-form {
     width: 90%;
     background-color: rgba(0, 0, 0, 0);
@@ -150,8 +148,6 @@
     margin: 0;
   }
 
-  
-  
   #signup form label {
     color: var(--color-white-main);
   }
