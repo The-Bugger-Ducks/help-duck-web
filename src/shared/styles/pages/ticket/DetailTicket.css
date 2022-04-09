@@ -25,19 +25,6 @@ h4 {
   color: var(--color-gray-dark);
 }
 
-#detail-ticket .ticket-about p .underAnalysis,
-#detail-ticket .ticket-about p .waiting {
-  color: var(--color-yellow);
-}
-
-#detail-ticket .ticket-about p .done {
-  color: var(--color-green);
-}
-
-#detail-ticket .ticket-about p .notSolved {
-  color: var(--color-red);
-}
-
 #detail-ticket .ticket-about p .detail-date-created {
   color: var(--color-gray-dark);
 }
@@ -72,4 +59,21 @@ h4 {
   resize: vertical;
   padding: 16px;
   line-height: 28px;
+}
+
+@media only screen and (max-width: 800px) {
+  #detail-ticket {
+    padding: 2rem 4rem 0.5rem;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  #detail-ticket {
+    padding: 2rem 2rem 4rem;
+  }
+
+  #detail-ticket .ticket-resolve-content div {
+    justify-content: space-around;
+    align-items: stretch;
+  }
 }
