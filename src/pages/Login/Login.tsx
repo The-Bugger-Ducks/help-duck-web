@@ -1,21 +1,21 @@
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 
-import "../../shared/styles/pages/login/Login.css";
+import '../../shared/styles/pages/login/Login.css';
 
-import Button from "../../shared/components/Button";
-import Footer from "../../shared/components/Footer";
-import Header from "../../shared/components/Header";
-import TextField from "../../shared/components/TextField";
+import Button from '../../shared/components/Button';
+import Footer from '../../shared/components/Footer';
+import Header from '../../shared/components/Header';
+import TextField from '../../shared/components/TextField';
 
-import HandleUserFormData from "../../shared/utils/handlers/HandleUserFormData.service";
-import User from "../../shared/interfaces/user.interface";
+import HandleUserFormData from '../../shared/utils/handlers/HandleUserFormData.service';
+import User from '../../shared/interfaces/user.interface';
 
 export default function Login() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const navigate = useNavigate();
-  const isAuthenticated = false;
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   const user: User = {
     email,
@@ -24,10 +24,32 @@ export default function Login() {
 
   let handleUserFormData = new HandleUserFormData();
 
-  if (isAuthenticated) {
-    console.log("Authenticated");
-    navigate("/homepage");
-  }
+  useEffect(() => {
+    localStorage.setItem('authentication_token', '');
+  }, []);
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      console.log('Authenticated');
+      navigate('/homepage');
+    }
+  }, [isAuthenticated]);
+
+  const submit = (e: any) => {
+    e.preventDefault();
+  };
+
+  const authenticate = () => {
+    try {
+      handleUserFormData.handleLogin(user).then(data => {
+        localStorage.setItem('authentication_token', data.token);
+        setIsAuthenticated(true);
+      });
+    } catch (err) {
+      console.log(err);
+      setIsAuthenticated(false);
+    }
+  };
 
   return (
     <div id="login">
@@ -38,30 +60,26 @@ export default function Login() {
             <h2>Bem vindo(a)!</h2>
             <h1>Entre na sua conta</h1>
           </section>
-          <form className="login-form">
+          <form className="login-form" onSubmit={submit}>
             <section className="login-data">
               <label htmlFor="email">E-mail</label>
               <TextField
                 placeholder="john.snow@email.com"
-                onChange={(event) => setEmail(event.target.value)}
+                onChange={event => setEmail(event.target.value)}
                 name="email"
               />
               <label htmlFor="password">Senha</label>
               <TextField
                 placeholder="Senha"
-                onChange={(event) => setPassword(event.target.value)}
+                onChange={event => setPassword(event.target.value)}
                 name="password"
                 type="password"
               />
             </section>
-            <Link to={"#"} id="recover-password">
+            <Link to={'#'} id="recover-password">
               Esqueceu a senha?
             </Link>
-            <Button
-              type="submit"
-              width="80%"
-              onClick={() => handleUserFormData.handleLogin(user)}
-            >
+            <Button type="submit" width="80%" onClick={authenticate}>
               Entrar
             </Button>
           </form>
