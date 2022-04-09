@@ -1,40 +1,76 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import { FiClock, FiFlag, FiArrowLeft } from "react-icons/fi";
 
-import Badge from "../../shared/components/Badge";
+import { useParams } from "react-router-dom";
 
 import Button from "../../shared/components/Button";
 import Container from "../../shared/components/Container";
 import Footer from "../../shared/components/Footer";
 import Header from "../../shared/components/Header";
+import PriorityLevelBadge from "../../shared/components/PriorityLevelBadge";
+import Ticket from "../../shared/interfaces/ticket.interface";
+import { TicketRequests } from "../../shared/utils/requests/Ticket.requests";
 
 import "../../shared/styles/pages/ticket/DetailTicket.css";
 
 export default function DetailTicket() {
-  const StatusTicket: React.FC<{ status: string }> = ({ status }) => {
-    const label =
+  const [ticket, setTicket] = useState<Ticket>();
+  const [createdAt, setCreatedAt] = useState<Date>();
+
+  const { id } = useParams();
+  const ticketRequest = new TicketRequests();
+
+  useEffect(() => {
+    getTicket();
+  }, []);
+
+  const getTicket = async () => {
+    const response: Ticket = await ticketRequest.showRequest(id ?? "");
+
+    setTicket(response);
+    const date = new Date(response.createdAt);
+    setCreatedAt(date);
+  };
+
+  const StatusTicket: React.FC<{ status: string | undefined }> = ({
+    status,
+  }) => {
+    const ticketDone = {
+      label: "Resolvido",
+      color: "var(--color-green)",
+    };
+
+    const ticketUnderAnalysis = {
+      label: "Em análise",
+      color: "var(--color-yellow)",
+    };
+
+    const ticketWaiting = {
+      label: "Aguardando",
+      color: "var(--color-yellow)",
+    };
+
+    const ticketNotSolved = {
+      label: "Não resolvido",
+      color: "var(--color-red)",
+    };
+
+    const ticketStatus =
       status === "underAnalysis"
-        ? "Em análise"
+        ? ticketUnderAnalysis
         : status === "waiting"
-        ? "Aguardando"
+        ? ticketWaiting
         : status === "notSolved"
-        ? "Não resolvido"
-        : "Resolvido";
+        ? ticketNotSolved
+        : ticketDone;
 
     return (
-      <span className={status}>
-        <FiFlag color="var(--color-gray-dark)" size="0.8rem" /> {label}
+      <span style={{ color: ticketStatus.color }}>
+        <FiFlag color={ticketStatus.color} size="0.8rem" /> {ticketStatus.label}
       </span>
     );
   };
-
-  const textMocked = `Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis excepturi autem quasi, est enim distinctio asperiores! Maiores iusto a quia ipsam quas omnis velit adipisci obcaecati quidem, aut tempore facilis?
-  Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis excepturi autem quasi, est enim distinctio asperiores! Maiores iusto a quia ipsam quas omnis velit adipisci obcaecati quidem, aut tempore facilis?
-  Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis excepturi autem quasi, est enim distinctio asperiores! Maiores iusto a quia ipsam quas omnis velit adipisci obcaecati quidem, aut tempore facilis?
-  Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis excepturi autem quasi, est enim distinctio asperiores! Maiores iusto a quia ipsam quas omnis velit adipisci obcaecati quidem, aut tempore facilis?
-  Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis excepturi autem quasi, est enim distinctio asperiores! Maiores iusto a quia ipsam quas omnis velit adipisci obcaecati quidem, aut tempore facilis?
-  `;
 
   return (
     <Container>
@@ -42,31 +78,27 @@ export default function DetailTicket() {
       <main id="detail-ticket">
         <section className="ticket-about">
           <FiArrowLeft color="var(--color-gray-dark)" />
-          <h3 className="ticket-name">Mouse Quebrado</h3>
+          <h1 className="ticket-name">{ticket?.title ?? "Carregando..."}</h1>
 
-          <p>Protocólo: #5533123</p>
+          <p>Protocólo: #{ticket?.id ?? "..."}</p>
           <p>
             <span className="detail-date-created">
               <FiClock color="var(--color-gray-dark)" size="0.8rem" />{" "}
-              24/03/2022
+              {createdAt?.toLocaleString("pt-br") ?? "..."}
             </span>
-            <StatusTicket status="underAnalysis" />
+            <StatusTicket status={ticket?.status} />
           </p>
         </section>
 
         <section className="ticket-priority">
           <h3>Grau de prioridade:</h3>
-          <Badge
-            label="Alta"
-            border="1px solid var(--color-red)"
-            color="var(--color-red)"
-          />
+          <PriorityLevelBadge priority={ticket?.priorityLevel} />
         </section>
 
         <section>
           <h3>Descrição do problema:</h3>
           <div>
-            <p className="description-block">{textMocked}</p>
+            <p className="description-block">{ticket?.description ?? "..."}</p>
           </div>
         </section>
 
