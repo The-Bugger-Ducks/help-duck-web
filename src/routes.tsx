@@ -12,7 +12,7 @@ function MyRoutes() {
       <Route path="/homepage" element={<Homepage />} />
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Signup />} />
-      <Route path="/ticket" element={<DetailTicket />} />
+      <Route path="/ticket/:id" element={<DetailTicket />} />
     </Routes>
   );
 }
