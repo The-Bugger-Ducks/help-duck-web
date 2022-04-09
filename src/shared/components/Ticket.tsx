@@ -2,7 +2,7 @@ import React from "react";
 
 interface TicketInformationProps {
   priority: any;
-  title: string;
+  title: any;
   creationDate: string;
   status: any;
 }

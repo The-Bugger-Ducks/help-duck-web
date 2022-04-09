@@ -18,6 +18,7 @@ export default function Homepage() {
               placeholder="Buscar por título do chamado"
               name="search"
               width="75%"
+              backgroundColor="#FAFAFA"
             />
             <Button width="20%" type="submit" fontSize="0.8rem">
               Buscar
@@ -33,6 +34,7 @@ export default function Homepage() {
                 },
               ]}
               width="100%"
+              backgroundColor="#FAFAFA"
             />
           </div>
         </section>
