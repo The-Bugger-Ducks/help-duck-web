@@ -5,6 +5,14 @@
   border-bottom: 1px solid var(--color-white-dark);
 }
 
+.ticket-list-container .ticket-title {
+  max-width: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding-right: 1%;
+}
+
 .ticket-list-container table {
   width: 100%;
 }

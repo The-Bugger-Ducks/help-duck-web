@@ -2,13 +2,13 @@ import "../styles/components/TicketList.css";
 import StatusTicket from "./StatusTicket";
 import Ticket from "./Ticket";
 import PriorityLevelBadge from "../components/PriorityLevelBadge";
-import TitleTicketFormated from "../components/TitleTicketFormated";
 
 export default function TicketList() {
   const ticketInformationMocked = [
     {
       priority: "medium",
-      title: "titulooooooooooooooooooooooooooo...",
+      title:
+        "tituloooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo",
       creationDate: "12/03/2022",
       status: "underAnalysis",
     },
@@ -38,7 +38,7 @@ export default function TicketList() {
                   priority={
                     <PriorityLevelBadge priority={ticket?.priority as any} />
                   }
-                  title={<TitleTicketFormated title={ticket.title} />}
+                  title={ticket.title}
                   creationDate={ticket.creationDate}
                   status={<StatusTicket status="underAnalysis" />}
                 />

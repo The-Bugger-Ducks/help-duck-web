@@ -1,10 +1,10 @@
 import React from "react";
 
 interface TicketInformationProps {
-  priority: any;
-  title: any;
-  creationDate: string;
-  status: any;
+  priority: React.ReactElement | string;
+  title: React.ReactElement | string;
+  creationDate: React.ReactElement | string;
+  status: React.ReactElement | string;
 }
 
 const Ticket: React.FC<TicketInformationProps> = ({
@@ -16,7 +16,7 @@ const Ticket: React.FC<TicketInformationProps> = ({
   return (
     <tr>
       <td>{priority}</td>
-      <td>{title}</td>
+      <td className="ticket-title">{title}</td>
       <td>{creationDate}</td>
       <td>{status}</td>
     </tr>
