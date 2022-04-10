@@ -3,7 +3,7 @@ import React from "react";
 interface TicketInformationProps {
   priority: React.ReactElement | string;
   title: React.ReactElement | string;
-  creationDate: React.ReactElement | string;
+  creationDate: string;
   status: React.ReactElement | string;
 }
 

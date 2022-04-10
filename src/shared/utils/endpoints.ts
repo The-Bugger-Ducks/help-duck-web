@@ -5,4 +5,5 @@ export enum USER_ENDPOINTS {
 }
 
 export enum TICKET_ENDPOINTS {
+  TICKET_LIST_ALL = `/`,
 }
