@@ -33,13 +33,10 @@ export default function Login() {
       console.log('Authenticated');
       navigate('/homepage');
     }
-  }, [isAuthenticated]);
+  }, [isAuthenticated, navigate]);
 
-  const submit = (e: any) => {
-    e.preventDefault();
-  };
-
-  const authenticate = () => {
+  const authenticate = (event: any) => {
+    event.preventDefault();
     try {
       handleUserFormData.handleLogin(user).then(data => {
         localStorage.setItem('authentication_token', data.token);
@@ -60,7 +57,7 @@ export default function Login() {
             <h2>Bem vindo(a)!</h2>
             <h1>Entre na sua conta</h1>
           </section>
-          <form className="login-form" onSubmit={submit}>
+          <form className="login-form" onSubmit={authenticate}>
             <section className="login-data">
               <label htmlFor="email">E-mail</label>
               <TextField
@@ -79,7 +76,7 @@ export default function Login() {
             <Link to={'#'} id="recover-password">
               Esqueceu a senha?
             </Link>
-            <Button type="submit" width="80%" onClick={authenticate}>
+            <Button type="submit" width="80%">
               Entrar
             </Button>
           </form>
