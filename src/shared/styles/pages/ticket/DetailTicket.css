@@ -10,16 +10,19 @@
   overflow-y: auto;
 }
 
-#detail-ticket h1, h2, h3, h4 {
+#detail-ticket h1,
+h2,
+h3,
+h4 {
   font-weight: 400;
-  color: var(--color-black-light)
+  color: var(--color-black-light);
 }
 
 #detail-ticket .ticket-about p {
   display: flex;
   gap: 2rem;
   font-size: 0.8rem;
-  color: var(--color-gray-dark)
+  color: var(--color-gray-dark);
 }
 
 #detail-ticket .ticket-about p .detail-date-created {
@@ -28,17 +31,17 @@
 
 #detail-ticket .ticket-about .ticket-name {
   font-size: 1.5rem;
-  color: var(--color-gray-dark)
+  color: var(--color-gray-dark);
 }
 
 #detail-ticket .ticket-priority {
   display: flex;
-  gap: 1rem
+  gap: 1rem;
 }
 
 #detail-ticket .ticket-resolve-content div {
   display: flex;
-  gap: 1rem
+  gap: 1rem;
 }
 
 #detail-ticket .description-block {
@@ -57,7 +60,6 @@
   padding: 16px;
   line-height: 28px;
 }
-
 
 @media only screen and (max-width: 800px) {
   #detail-ticket {
