@@ -39,15 +39,13 @@ export default function TicketList() {
                   <TicketComponent
                     key={index}
                     priority={
-                      <PriorityLevelBadge
-                        priority={ticket?.priorityLevel as any}
-                      />
+                      <PriorityLevelBadge priority={ticket?.priorityLevel} />
                     }
                     title={ticket.title}
                     creationDate={new Date(
                       ticket.createdAt
                     ).toLocaleDateString()}
-                    status={<StatusTicket status="underAnalysis" />}
+                    status={<StatusTicket status={ticket?.status} />}
                     onClick={() => navigate(`/ticket/${ticket.id}`)}
                   />
                 );
