@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
+import { FiArrowLeft } from "react-icons/fi";
+
 import "../../shared/styles/pages/ticket/TicketRegister.css";
 
 import Button from "../../shared/components/Button";
@@ -11,19 +13,38 @@ import ChoiceField from "../../shared/components/ChoiceField";
 
 // import HandleUserFormData from "../../shared/utils/handlers/HandleUserFormData.service";
 import Ticket from "../../shared/interfaces/ticket.interface";
+import User from "../../shared/interfaces/user.interface";
 
 export default function TicketRegister() {
+  const [id, setId] = useState("");
+  const [support, setSupport] = useState("");
+  const [tags, setTags] = useState([]);
+  const [status, setStatus] = useState("waiting");
+  const [reserved, setReserved] = useState(false);
+  const [createdAt, setCreatedAt] = useState<Date>();  
+  const [updatedAt, setUpdatedAt] = useState<Date>();  
   const [title, setTitle] = useState("");
-  const [priority, setPriority] = useState("");
+  const [priorityLevel, setPriorityLevel] = useState("");
   const [description, setDescription] = useState("");
   const navigate = useNavigate();
   const isAuthenticated = false;
 
   const ticket: Ticket = {
+    id,
+    support,
+    tags,
+    status,
+    reserved,
     title,
-    priority,
+    priorityLevel,
     description,
   };
+
+  const ticketPriority = [
+    { value: "low", label: "Prioridade baixa", selected: true },
+    { value: "medium", label: "Prioridade média", selected: false },
+    { value: "high", label: "Prioridade alta", selected: false },
+  ];
 
   // let handleUserFormData = new HandleUserFormData();
 
@@ -37,8 +58,11 @@ export default function TicketRegister() {
       <div className="ticket-register-container">
         <Header />
         <div className="ticket-register-content">
-          <section className="ticket-register-welcome">
-            <h1>Cadastro de chamado</h1>
+          <section className="ticket-register-title">
+            <h1>
+              <FiArrowLeft className="Icon" color="var(--color-gray-dark)" />
+              Cadastro de chamado
+            </h1>
           </section>
           <form className="ticket-register-form">
             <section className="form-sections">
@@ -51,8 +75,9 @@ export default function TicketRegister() {
                 />
                 <label htmlFor="prioridade">Grau de prioridade:</label>
                 <ChoiceField
-                  onChange={(event) => setPriority(event.target.value)}
-                  name="prioridade"
+                  onChange={(event) => setPriorityLevel(event.target.value)}
+                  name="prioridade" 
+                  items={ticketPriority}
                 />
               </section> 
               <section className="ticket-register-description">
@@ -66,8 +91,7 @@ export default function TicketRegister() {
               <section className="ticket-register-submit">
                 <Button
                   type="submit"
-                  width = "30%"
-
+                  width = "12rem"
                   // onClick={() => handleUserFormData.handleticket-register(user)}
                 >
                   Abrir Chamado
