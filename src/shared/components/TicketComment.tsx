@@ -24,7 +24,8 @@ const TicketComment: React.FC<Props> = ({ commentData }) => {
     <li className="comment-item">
       <p>{comment}</p>
       <div className="comment-wrap">
-        {ownerComment.role === "support" ? <TicketCommentSupport /> : null}
+        {/* Removido temporáriamente por falta de definição */}
+        {/* {ownerComment.role === "support" ? <TicketCommentSupport /> : null} */}
 
         <p className="owner-comment">{ownerComment.email}</p>
       </div>

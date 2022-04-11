@@ -1,23 +1,23 @@
-import React, { useEffect, useState, useRef, useCallback } from "react";
-
-import { FiClock, FiArrowLeft } from "react-icons/fi";
+import React, { useEffect, useState, useRef } from "react";
 
 import { useParams, useNavigate } from "react-router-dom";
+import { FiClock, FiArrowLeft } from "react-icons/fi";
 
 import Button from "../../shared/components/Button";
+import Comment from "../../shared/interfaces/comment.interface";
 import Container from "../../shared/components/Container";
 import Footer from "../../shared/components/Footer";
 import Header from "../../shared/components/Header";
 import PriorityLevelBadge from "../../shared/components/PriorityLevelBadge";
 import StatusTicket from "../../shared/components/StatusTicket";
 import Ticket from "../../shared/interfaces/ticket.interface";
+import TicketComment from "../../shared/components/TicketComment";
+import TicketAddComment from "../../shared/components/TicketAddComment";
+
 import { TicketRequests } from "../../shared/utils/requests/Ticket.requests";
 
 import "../../shared/styles/pages/ticket/DetailTicket.css";
-import TicketComment from "../../shared/components/TicketComment";
-import TicketAddComment from "../../shared/components/TicketAddComment";
-import User from "../../shared/interfaces/user.interface";
-import Comment from "../../shared/interfaces/comment.interface";
+import SessionController from "../../shared/utils/handlers/SessionController";
 
 export default function DetailTicket() {
   const navigate = useNavigate();
@@ -53,36 +53,30 @@ export default function DetailTicket() {
     setCreatedAt(date);
   };
 
-  const handleSubmitComment = useCallback(async () => {
+  const handleSubmitComment = async () => {
     const { newComment } = formCommentRef.current.submit();
 
-    const fakeUser: User = {
-      id: "624cc87fc8dc664f77492597",
-      firstName: "Gabriel",
-      lastName: "Camargo",
-      email: "gabriel.camargo@outlook.com",
-      role: "user",
-    };
+    const user = SessionController.getUserInfo();
+
+    if (!user) return alert("Não foi possível inserir comentário");
 
     const comment: Comment = {
       comment: newComment,
-      ownerComment: fakeUser,
+      ownerComment: user,
     };
 
     try {
       const response = await ticketRequest.insertComment(id ?? "", comment);
 
       if (response?.status === 200) {
-        // setComments((prevState) => {
-        //   return {
-        //     ...prevState,
-        //     comment,
-        //   };
-        // });
+        alert("Comentário adicionado");
+        setComments((prevState) => {
+          return [...prevState, comment];
+        });
       }
       console.log(response);
     } catch (error) {}
-  }, [id]);
+  };
 
   return (
     <Container>
@@ -121,14 +115,16 @@ export default function DetailTicket() {
           </div>
         </section>
 
-        <section>
-          <h3>Discussão</h3>
-          <ul className="comments-block">
-            {comments.map((comment, index) => (
-              <TicketComment commentData={comment} key={index} />
-            ))}
-          </ul>
-        </section>
+        {comments.length !== 0 ? (
+          <section>
+            <h3>Discussão</h3>
+            <ul className="comments-block">
+              {comments.map((comment, index) => (
+                <TicketComment commentData={comment} key={index} />
+              ))}
+            </ul>
+          </section>
+        ) : null}
 
         <section id="add-comment-container">
           <TicketAddComment ref={formCommentRef} />
@@ -148,7 +144,8 @@ export default function DetailTicket() {
           </div>
         </section>
 
-        <section className="ticket-resolve-content">
+        {/* Removido temporáriamente por falta de definição */}
+        {/* <section className="ticket-resolve-content">
           <h3>A resolução adicionada pelo suporte foi útil?</h3>
           <div>
             <Button
@@ -168,7 +165,7 @@ export default function DetailTicket() {
               Não
             </Button>
           </div>
-        </section>
+        </section> */}
       </main>
       <Footer />
     </Container>
