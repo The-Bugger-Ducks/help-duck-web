@@ -1,0 +1,18 @@
+.button-link {
+  color: var(--color-gray-dark);
+
+
+  background-color: transparent;
+  border: none;
+  outline: none;
+  text-decoration: underline;
+
+
+  cursor: pointer;
+
+  transition: 200ms all;
+}
+
+.button-link:hover {
+  filter: brightness(20%);
+}
