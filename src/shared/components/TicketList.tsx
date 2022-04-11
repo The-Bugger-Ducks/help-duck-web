@@ -5,10 +5,12 @@ import PriorityLevelBadge from "../components/PriorityLevelBadge";
 import { TicketRequests } from "../utils/requests/Ticket.requests";
 import Ticket from "../../shared/interfaces/ticket.interface";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function TicketList() {
   const ticketRequest = new TicketRequests();
   const [tickets, setTickets] = useState<Ticket[]>();
+  const navigate = useNavigate();
 
   useEffect(() => {
     getTicketList();
@@ -46,6 +48,7 @@ export default function TicketList() {
                       ticket.createdAt
                     ).toLocaleDateString()}
                     status={<StatusTicket status="underAnalysis" />}
+                    onClick={() => navigate(`/ticket/${ticket.id}`)}
                   />
                 );
               })}
