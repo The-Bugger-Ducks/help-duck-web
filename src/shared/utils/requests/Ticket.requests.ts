@@ -6,7 +6,7 @@ import { TICKET_ENDPOINTS } from "../endpoints";
 export class TicketRequests {
   public async showRequest(ticketId: string) {
     try {
-      const response = await apiTickets.get(`/${ticketId}`, {
+      const response = await apiTickets.get(`/tickets/${ticketId}`, {
         validateStatus,
       });
       return response.data;
@@ -22,7 +22,7 @@ export class TicketRequests {
       });
       return response.data;
     } catch (error) {
-      alert("Não foi possível encontrar o chamado. Tente novamente!");
+      alert("Não foi possível carregar os chamados. Tente novamente!");
     }
   }
 
