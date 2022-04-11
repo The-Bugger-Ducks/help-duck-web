@@ -1,5 +1,5 @@
-import User from "../../interfaces/user.interface";
-import { UserRequests } from "../requests/User.requests";
+import User from '../../interfaces/user.interface';
+import { UserRequests } from '../requests/User.requests';
 
 export default class HandleUserFormData {
   public handleLogin(user: User) {
@@ -12,7 +12,7 @@ export default class HandleUserFormData {
     };
 
     let userRequests = new UserRequests();
-    userRequests.loginRequest(body);
+    return userRequests.loginRequest(body);
   }
 
   public handleRegister(user: User) {
