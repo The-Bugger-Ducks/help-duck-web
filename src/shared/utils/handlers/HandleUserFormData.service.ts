@@ -6,8 +6,8 @@ export default class HandleUserFormData {
     let body = {
       email: user.email,
       password: user.password,
-      name: user.name ? user.name : null,
-      lastname: user.lastname ? user.lastname : null,
+      firstName: user.firstName ? user.firstName : null,
+      lastName: user.lastName ? user.lastName : null,
       role: user.profileType ? user.profileType : null,
     };
 
@@ -19,8 +19,8 @@ export default class HandleUserFormData {
     let body = {
       email: user.email,
       password: user.password,
-      name: user.name ? user.name : null,
-      lastname: user.lastname ? user.lastname : null,
+      firstName: user.firstName ? user.firstName : null,
+      lastName: user.lastName ? user.lastName : null,
       role: user.profileType ? user.profileType : null,
     };
 
@@ -32,8 +32,8 @@ export default class HandleUserFormData {
     let body = {
       email: user.email,
       password: user.password,
-      name: user.name ? user.name : null,
-      lastname: user.lastname ? user.lastname : null,
+      name: user.firstName ? user.firstName : null,
+      lastName: user.lastName ? user.lastName : null,
       role: user.profileType ? user.profileType : null,
     };
 

@@ -3,9 +3,14 @@ import StatusTicket from "./StatusTicket";
 import Ticket from "./Ticket";
 import PriorityLevelBadge from "../components/PriorityLevelBadge";
 
+import { useNavigate } from "react-router-dom";
+
 export default function TicketList() {
+  const navigate = useNavigate();
+
   const ticketInformationMocked = [
     {
+      id: "6250a1cbfaa3df5a2a88faae",
       priority: "medium",
       title:
         "tituloooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo",
@@ -13,6 +18,7 @@ export default function TicketList() {
       status: "underAnalysis",
     },
     {
+      id: "6250a2a3faa3df5a2a88faaf",
       priority: "medium",
       title: "tituloooooooooooooooooooooooo",
       creationDate: "12/03/2022",
@@ -41,6 +47,7 @@ export default function TicketList() {
                   title={ticket.title}
                   creationDate={ticket.creationDate}
                   status={<StatusTicket status="underAnalysis" />}
+                  onClick={() => navigate(`/ticket/${ticket.id}`)}
                 />
               );
             })}

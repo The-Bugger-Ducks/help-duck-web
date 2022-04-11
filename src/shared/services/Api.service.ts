@@ -5,7 +5,7 @@ const apiUsers = axios.create({
 });
 
 const apiTickets = axios.create({
-  baseURL: 'https://help-duck-tickets.herokuapp.com/tickets',
+  baseURL: "https://help-duck-tickets.herokuapp.com",
 });
 
 const apiAuth = axios.create({
