@@ -8,7 +8,7 @@ interface Props {
   required?: boolean;
   padding?: string;
   onChange?: (event: any) => void;
-  items: Array<{ value: string; label: string; selected: boolean }>;
+  items: Array<{ value: string; label: string; selected?: boolean }>;
 }
 
 const SelectInput: React.FC<Props> = ({
@@ -37,8 +37,8 @@ const SelectInput: React.FC<Props> = ({
         name={name}
         required={required}
       >
-        {items.map((item) => (
-          <option value={item.value} selected={item.selected}>
+        {items.map((item, index) => (
+          <option value={item.value} selected={item.selected} key={index}>
             {item.label}
           </option>
         ))}

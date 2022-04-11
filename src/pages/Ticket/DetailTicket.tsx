@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef, useCallback } from "react";
 
-import { FiClock, FiFlag, FiArrowLeft } from "react-icons/fi";
+import { FiClock, FiArrowLeft } from "react-icons/fi";
 
 import { useParams, useNavigate } from "react-router-dom";
 
@@ -9,6 +9,7 @@ import Container from "../../shared/components/Container";
 import Footer from "../../shared/components/Footer";
 import Header from "../../shared/components/Header";
 import PriorityLevelBadge from "../../shared/components/PriorityLevelBadge";
+import StatusTicket from "../../shared/components/StatusTicket";
 import Ticket from "../../shared/interfaces/ticket.interface";
 import { TicketRequests } from "../../shared/utils/requests/Ticket.requests";
 
@@ -82,45 +83,6 @@ export default function DetailTicket() {
       console.log(response);
     } catch (error) {}
   }, [id]);
-
-  const StatusTicket: React.FC<{ status: string | undefined }> = ({
-    status,
-  }) => {
-    const ticketDone = {
-      label: "Resolvido",
-      color: "var(--color-green)",
-    };
-
-    const ticketUnderAnalysis = {
-      label: "Em análise",
-      color: "var(--color-yellow)",
-    };
-
-    const ticketWaiting = {
-      label: "Aguardando",
-      color: "var(--color-yellow)",
-    };
-
-    const ticketNotSolved = {
-      label: "Não resolvido",
-      color: "var(--color-red)",
-    };
-
-    const ticketStatus =
-      status === "underAnalysis"
-        ? ticketUnderAnalysis
-        : status === "waiting"
-        ? ticketWaiting
-        : status === "notSolved"
-        ? ticketNotSolved
-        : ticketDone;
-
-    return (
-      <span style={{ color: ticketStatus.color }}>
-        <FiFlag color={ticketStatus.color} size="0.8rem" /> {ticketStatus.label}
-      </span>
-    );
-  };
 
   return (
     <Container>
