@@ -2,6 +2,7 @@ import Comment from "../../interfaces/comment.interface";
 import { apiTickets } from "../../services/Api.service";
 import validateStatus from "../handlers/HandlerResponseStatusCodeFound";
 import { TICKET_ENDPOINTS } from "../endpoints";
+import SessionController from "../handlers/SessionController";
 
 export class TicketRequests {
   public async showRequest(ticketId: string) {
@@ -16,10 +17,14 @@ export class TicketRequests {
   }
 
   public async ticketListRequest() {
+    const userInformation = SessionController.getUserInfo();
     try {
-      const response = await apiTickets.get(TICKET_ENDPOINTS.TICKET_LIST_ALL, {
-        validateStatus,
-      });
+      const response = await apiTickets.get(
+        `/tickets/user/${userInformation?.id}`,
+        {
+          validateStatus,
+        }
+      );
       return response.data;
     } catch (error) {
       alert("Não foi possível carregar os chamados. Tente novamente!");

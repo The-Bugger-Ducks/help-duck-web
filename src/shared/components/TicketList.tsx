@@ -33,7 +33,7 @@ export default function TicketList() {
               <th>Data de criação</th>
               <th>Status</th>
             </tr>
-            {tickets &&
+            {tickets && tickets.length > 0 ? (
               tickets.map((ticket, index) => {
                 return (
                   <TicketComponent
@@ -49,7 +49,14 @@ export default function TicketList() {
                     onClick={() => navigate(`/ticket/${ticket.id}`)}
                   />
                 );
-              })}
+              })
+            ) : (
+              <tr>
+                <td colSpan={4} className="no-results">
+                  Não foi encontrado nenhum chamado
+                </td>
+              </tr>
+            )}
           </tbody>
         </table>
       </div>
