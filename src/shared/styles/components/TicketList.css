@@ -28,3 +28,14 @@
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
 }
+
+.ticket-list-container table tr {
+  cursor: pointer;
+}
+
+.ticket-list-container table .no-results {
+  text-align: center;
+  padding-top: 3%;
+  color: var(--color-red);
+  cursor: default;
+}

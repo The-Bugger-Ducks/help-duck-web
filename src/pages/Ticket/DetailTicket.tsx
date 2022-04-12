@@ -87,7 +87,7 @@ export default function DetailTicket() {
             className="navigation-button"
             color="var(--color-gray-dark)"
             onClick={() => {
-              navigate("/");
+              navigate("/homepage");
             }}
           />
           <h1 className="ticket-name">{ticket?.title ?? "Carregando..."}</h1>
