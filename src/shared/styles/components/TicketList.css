@@ -1,0 +1,40 @@
+.ticket-list-container {
+  width: 100%;
+  height: 50vh;
+  overflow-y: scroll;
+  border-bottom: 1px solid var(--color-white-dark);
+}
+
+.ticket-list-container .ticket-title {
+  max-width: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding-right: 1%;
+}
+
+.ticket-list-container table {
+  width: 100%;
+}
+
+.ticket-list-container table th {
+  text-align: left;
+  font-weight: normal;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--color-gray-dark);
+}
+
+.ticket-list-container table td {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+.ticket-list-container table tr {
+  cursor: pointer;
+}
+
+.ticket-list-container table .no-results {
+  text-align: center;
+  padding-top: 3%;
+  cursor: default;
+}

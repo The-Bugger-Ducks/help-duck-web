@@ -5,11 +5,11 @@ const apiUsers = axios.create({
 });
 
 const apiTickets = axios.create({
-  baseURL: "https://help-duck-tickets.herokuapp.com/tickets",
+  baseURL: "https://help-duck-tickets.herokuapp.com",
 });
 
 const apiAuth = axios.create({
-  baseURL: "https://apple-surprise-88616.herokuapp.com",
+  baseURL: "https://help-duck-auth.herokuapp.com",
 });
 
 const apiReports = axios.create({
