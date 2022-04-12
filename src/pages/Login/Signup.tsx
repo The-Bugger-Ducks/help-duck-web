@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { FormEvent, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import "../../shared/styles/pages/login/Signup.css";
 
@@ -8,6 +8,8 @@ import Footer from "../../shared/components/Footer";
 import Header from "../../shared/components/Header";
 import TextField from "../../shared/components/TextField";
 import ChoiceField from "../../shared/components/ChoiceField";
+
+import { UserRequests } from "../../shared/utils/requests/User.requests";
 
 // import HandleUserFormData from "../../shared/utils/handlers/HandleUserFormData.service";
 import User from "../../shared/interfaces/user.interface";
@@ -21,13 +23,7 @@ export default function Signup() {
   const navigate = useNavigate();
   const isAuthenticated = false;
 
-  const user: User = {
-    email,
-    password,
-    firstName: name,
-    lastName: lastname,
-    profileType,
-  };
+  const userRequest = new UserRequests();
 
   const userProfiles = [
     { value: "client", label: "Cliente", selected: true },
@@ -42,6 +38,18 @@ export default function Signup() {
     navigate("/login");
   }
 
+  function submitSignup(event: FormEvent) {
+    event.preventDefault();
+    const payload = {
+      firstName: name,
+      lastName: lastname,
+      email: email,
+      password: password,
+      role: profileType,
+    };
+    console.log(payload);
+  }
+
   return (
     <div id="signup">
       <div className="signup-container">
@@ -51,17 +59,19 @@ export default function Signup() {
             <h2>Bem vindo(a)!</h2>
             <h1>Cadastre a conta</h1>
           </section>
-          <form className="signup-form">
+          <form className="signup-form" onSubmit={submitSignup}>
             <section className="form-sections">
               <section className="signup-data">
                 <label htmlFor="name">Nome</label>
                 <TextField
+                  type="text"
                   placeholder="John"
                   onChange={(event) => setName(event.target.value)}
                   name="name"
                 />
                 <label htmlFor="lastname">Sobrenome</label>
                 <TextField
+                  type="text"
                   placeholder="Snow"
                   onChange={(event) => setLastname(event.target.value)}
                   name="lastname"
@@ -92,11 +102,7 @@ export default function Signup() {
                 />
               </section>
               <section className="signup-data">
-                <Button
-                  width="100%"
-                  type="submit"
-                  // onClick={() => handleUserFormData.handlesignup(user)}
-                >
+                <Button width="100%" type="submit">
                   Cadastrar
                 </Button>
               </section>
