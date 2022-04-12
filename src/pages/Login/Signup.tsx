@@ -24,8 +24,8 @@ export default function Signup() {
   const user: User = {
     email,
     password,
-    name,
-    lastname,
+    firstName: name,
+    lastName: lastname,
     profileType,
   };
 

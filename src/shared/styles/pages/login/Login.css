@@ -1,5 +1,18 @@
 /* ESTILIZAÇÃO GERAL*/
 
+#login .header {
+  padding: 0;
+  padding-top: 2%;
+  padding-bottom: 2%;
+
+  align-items: stretch;
+  height: auto;
+}
+
+#login .header h1 {
+  font-size: 2rem;
+}
+
 #login {
   height: 100vh;
   width: 100vw;
@@ -12,6 +25,7 @@
 
 #login h2 {
   size: 2rem;
+  color: var(--color-white-main);
 }
 
 #login .login-container {
@@ -81,4 +95,17 @@
 #login #recover-password:hover {
   color: var(--color-gray-main);
   transition: 200ms all;
+}
+
+#login .footer {
+  height: auto;
+  align-items: stretch;
+
+  padding: 0;
+  padding-top: 2%;
+  padding-bottom: 2%;
+
+  position: absolute;
+  bottom: 0;
+  left: 0;
 }
