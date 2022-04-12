@@ -45,7 +45,7 @@ export default function Signup() {
   return (
     <div id="signup">
       <div className="signup-container">
-        <Header />
+        <Header hiddenDropdown={true} />
         <div className="signup-content">
           <section className="signup-welcome">
             <h2>Bem vindo(a)!</h2>
