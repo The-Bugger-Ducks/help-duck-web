@@ -76,7 +76,7 @@ export default function Login() {
   return (
     <div id="login">
       <div className="login-container">
-        <Header />
+        <Header hiddenDropdown={true} />
         <div className="login-content">
           <section className="login-welcome">
             <h2>Bem vindo(a)!</h2>

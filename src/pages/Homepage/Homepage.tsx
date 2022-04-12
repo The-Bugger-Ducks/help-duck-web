@@ -9,7 +9,7 @@ import "../../shared/styles/pages/homepage/Homepage.css";
 export default function Homepage() {
   return (
     <div id="homepage">
-      <Header />
+      <Header hiddenDropdown={false} />
       <div className="homepage-container">
         <h1>Chamados</h1>
         <section className="search-or-filter">
