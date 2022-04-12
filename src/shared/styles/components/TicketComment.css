@@ -1,0 +1,46 @@
+ .comment-item {
+  color: #5c8599;
+
+  border-bottom: 1px solid #d3e2e5;
+  outline: none;
+
+  min-height: 120px;
+  line-height: 28px;
+  padding: 16px;
+}
+
+.comment-item {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.comment-wrap {
+  display: flex;
+  gap: 1rem;
+}
+
+.owner-comment {
+  width: 100%;
+  text-align: end;
+
+  font-weight: 400;
+  font-size: 0.8rem;
+}
+
+.button-wrap {
+  display: flex;
+  gap: 1rem;
+}
+
+
+#add-comment-container {
+  display: flex;
+  flex-direction: column;
+}
+
+#add-comment-container .button-container {
+  align-self: flex-end;
+  padding-top: 1rem;
+  padding-right: 0.5rem;
+}

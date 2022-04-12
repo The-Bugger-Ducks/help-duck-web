@@ -12,6 +12,7 @@ import TextField from "../../shared/components/TextField";
 import ChoiceField from "../../shared/components/ChoiceField";
 
 import "../../shared/styles/pages/ticket/TicketRegister.css";
+import SessionController from "../../shared/utils/handlers/SessionController";
 
 export default function TicketRegister() {
   const [title, setTitle] = useState("");
@@ -23,7 +24,7 @@ export default function TicketRegister() {
   const navigate = useNavigate();
 
   const ticketPriority = [
-    { value: "low", label: "Prioridade baixa", selected: true },
+    { value: "low", label: "Prioridade baixa", selected: false },
     { value: "medium", label: "Prioridade média", selected: false },
     { value: "high", label: "Prioridade alta", selected: false },
   ];
@@ -31,18 +32,16 @@ export default function TicketRegister() {
   async function submitForm(event: FormEvent) {
     event.preventDefault();
     if (title === "" || description === "" || priorityLevel === "") {
-      alert("Preencha todos os campos");
+      return alert("Preencha todos os campos");
     }
+
+    const user = SessionController.getUserInfo();
+    if (!user) return alert("Não foi possivel cadastrar seu chamado");
+
     const payload = {
       title: title,
       description: description,
-      user: {
-        id: "624cc87fc8dc664f77492597",
-        firstName: "Gabriel",
-        lastName: "Camargo",
-        email: "gabriel.camargo@outlook.com",
-      },
-      // "tags":["problema", "mouse", "quebrado"],
+      user,
       priorityLevel: priorityLevel,
     };
 
@@ -85,8 +84,7 @@ export default function TicketRegister() {
               </section>
               <section className="ticket-register-description">
                 <label htmlFor="titulo">Descrição do problema:</label>
-                <TextField
-                  type="text"
+                <textarea
                   placeholder="Descreva seu problema aqui."
                   onChange={(event) => setDescription(event.target.value)}
                   name="description"

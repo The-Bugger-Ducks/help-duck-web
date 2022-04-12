@@ -8,7 +8,7 @@ interface Props {
   required?: boolean;
   padding?: string;
   onChange?: (event: any) => void;
-  items: Array<{ value: string; label: string; selected: boolean }>;
+  items: Array<{ value: string; label: string; selected?: boolean }>;
 }
 
 const SelectInput: React.FC<Props> = ({

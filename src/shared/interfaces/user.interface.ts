@@ -1,7 +1,9 @@
 export default interface User {
-  name?: string;
-  lastname?: string;
+  id?: string
+  firstName?: string;
+  lastName?: string;
   email: string;
   password?: string;
   profileType?: string;
+  role?: "admin" | "support" | "user"
 }
