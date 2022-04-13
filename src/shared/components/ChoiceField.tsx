@@ -37,8 +37,11 @@ const SelectInput: React.FC<Props> = ({
         name={name}
         required={required}
       >
+        <option value="" selected>
+          Selecione uma opção
+        </option>
         {items.map((item, index) => (
-          <option value={item.value} selected={item.selected} key={index}>
+          <option key={index} value={item.value} selected={item.selected}>
             {item.label}
           </option>
         ))}

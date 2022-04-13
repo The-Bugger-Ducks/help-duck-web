@@ -1,0 +1,129 @@
+/* ESTILIZAÇÃO GERAL*/
+
+#ticket-register {
+  width: 100vw;
+  height: 100vh;
+}
+
+#ticket-register Header{
+  padding-left: 5%;
+  width: 100vw;
+  height: 80px;
+}
+
+/* ESTILIZAÇÃO DO TITULO E SUBTITULO DA PÁGINA */
+#ticket-register .ticket-register-content .ticket-register-title {
+  padding: 5% 10% 0 5%;
+}
+
+#ticket-register .ticket-register-title h1 {
+  font-size: 2rem;
+  font-weight: 400;
+  color: var(--color-black-light)
+}
+
+/* ESTILIZAÇÃO DO FORMULÁRIO */
+
+#ticket-register .ticket-register-form {
+  padding: 2% 5%;
+  height: 50%;
+  width: 100%;
+  border-bottom: 100px;
+}
+
+#ticket-register .ticket-register-form .form-sections {
+  display: flex;
+  flex-direction: column;
+  column-gap: 2rem;
+}
+
+#ticket-register .ticket-register-form input {
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+#ticket-register .ticket-register-form .ticket-register-data {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+}
+
+#ticket-register .ticket-register-form .ticket-register-description textarea {
+  width: 100%;
+  background-color: #f2f2f3;
+  border: 1px solid #d3d3d3;
+  border-radius: 20px;
+  outline: none;
+  min-height: 120px;
+  resize: vertical;
+  padding: 16px;
+  line-height: 28px;
+}
+
+#ticket-register .ticket-register-form .ticket-register-submit {
+  text-align: end;
+  padding-top: 1%;
+}
+
+#ticket-register .ticket-register-form select {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+#ticket-register form label {
+  font-size: 1.5rem;
+  color: var(--color-black-light);
+}
+
+#ticket-register Footer {
+  padding: 1.5;
+
+  position: fixed;
+  bottom: 0;
+  left: 0;
+}
+
+@media only screen and (max-width: 800px) {
+  #ticket-register Header{
+    padding: 10%;
+  }
+
+  #ticket-register .ticket-register-content {
+    margin-left: 5%;
+  }
+
+  #ticket-register .ticket-register-title h1 {
+    font-size: 1.5rem;
+  }
+
+  #ticket-register .ticket-register-content {
+    margin-top: 3rem;
+    padding: 0%;
+  }
+  
+  #ticket-register .ticket-register-form {
+    width: 90%;
+  }
+
+  #ticket-register button {
+    width: 100px;
+  }
+
+  #ticket-register .ticket-register-form .ticket-register-data {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  #ticket-register .ticket-register-form .ticket-register-data,
+  #ticket-register .ticket-register-form .form-sections,
+  #ticket-register .ticket-register-form .ticket-register-data-line {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+  }
+
+  #ticket-register form label {
+    color: var(--color-black-light);
+  }
+}

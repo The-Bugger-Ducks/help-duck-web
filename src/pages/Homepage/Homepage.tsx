@@ -1,13 +1,17 @@
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+
+import { useNavigate, Link } from "react-router-dom";
+
 import Button from "../../shared/components/Button";
 import ChoiceField from "../../shared/components/ChoiceField";
 import Footer from "../../shared/components/Footer";
 import Header from "../../shared/components/Header";
 import TextField from "../../shared/components/TextField";
 import TicketList from "../../shared/components/TicketList";
-import "../../shared/styles/pages/homepage/Homepage.css";
+
 import SessionController from "../../shared/utils/handlers/SessionController";
+
+import "../../shared/styles/pages/homepage/Homepage.css";
 
 export default function Homepage() {
   const token = SessionController.getToken();
@@ -52,7 +56,9 @@ export default function Homepage() {
         </section>
         <TicketList />
         <div className="btn-open-ticket">
-          <Button width="20%">Abrir chamado</Button>
+          <Link to="/ticket_register">
+            <Button width="20%">Abrir chamado</Button>
+          </Link>
         </div>
       </div>
       <Footer />
