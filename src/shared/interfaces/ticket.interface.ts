@@ -1,4 +1,4 @@
-import User from "./user.interface"
+import {User} from "./user.interface"
 import Comment from "./comment.interface"
 
 export default interface Ticket {

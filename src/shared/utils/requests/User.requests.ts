@@ -12,10 +12,10 @@ export class UserRequests {
     }
   }
 
-  public async registerRequest(body: object) {
+  public async registerRequest(body: {email: string, password: string, firstName: string, lastName: string, role: 'admin' | 'support' | 'client'}) {
     try {
       const response = await apiUsers.post(USER_ENDPOINTS.USER_REGISTER, body);
-      return response.data;
+      return response;
     } catch (error) {
       console.log(error);
       alert('Não foi possível cadastrar usuário');

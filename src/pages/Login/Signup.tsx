@@ -1,7 +1,7 @@
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { FormEvent, useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
-import "../../shared/styles/pages/login/Signup.css";
+import { UserRequests } from "../../shared/utils/requests/User.requests";
 
 import Button from "../../shared/components/Button";
 import Footer from "../../shared/components/Footer";
@@ -9,37 +9,58 @@ import Header from "../../shared/components/Header";
 import TextField from "../../shared/components/TextField";
 import ChoiceField from "../../shared/components/ChoiceField";
 
-// import HandleUserFormData from "../../shared/utils/handlers/HandleUserFormData.service";
-import User from "../../shared/interfaces/user.interface";
+
+import SessionController from "../../shared/utils/handlers/SessionController";
+import "../../shared/styles/pages/login/Signup.css";
 
 export default function Signup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [lastname, setLastname] = useState("");
-  const [profileType, setProfileType] = useState("");
-  const navigate = useNavigate();
-  const isAuthenticated = false;
+  const [role, setRole] = useState<'admin' | 'support' | 'client'>("client");
 
-  const user: User = {
-    email,
-    password,
-    firstName: name,
-    lastName: lastname,
-    profileType,
-  };
+  const userRequest = new UserRequests();
+
+  const navigate = useNavigate();
 
   const userProfiles = [
-    { value: "client", label: "Cliente", selected: true },
+    { value: "client", label: "Cliente", selected: false },
     { value: "support", label: "Suporte", selected: false },
     { value: "admin", label: "Administrador", selected: false },
   ];
 
-  // let handleUserFormData = new HandleUserFormData();
+  const token = SessionController.getToken();
+  const user = SessionController.getUserInfo();
+  
+  useEffect(() => {
+    if (!token || user?.role !== 'admin') {
+      navigate("/");
+    }
+    }, []);
 
-  if (isAuthenticated) {
-    console.log("Authenticated");
-    navigate("/login");
+  async function submitSignup(event: FormEvent) {
+    event.preventDefault();
+    if (email === "" || password === "" || name === "" || lastname === "") {
+      return alert("Preencha todos os campos");
+    }
+
+    const payload = {
+      email: email,
+      password: password,
+      firstName: name,
+      lastName: lastname,
+      role: role,
+    };
+    console.log(payload);
+
+    const response = await userRequest.registerRequest(payload);
+
+    if (response?.status === 201) {
+      alert("Usuário cadastrado com sucesso!")
+
+      navigate("/homepage")
+    }
   }
 
   return (
@@ -51,17 +72,19 @@ export default function Signup() {
             <h2>Bem vindo(a)!</h2>
             <h1>Cadastre a conta</h1>
           </section>
-          <form className="signup-form">
+          <form className="signup-form" onSubmit={submitSignup}>
             <section className="form-sections">
               <section className="signup-data">
                 <label htmlFor="name">Nome</label>
                 <TextField
+                  type="text"
                   placeholder="John"
                   onChange={(event) => setName(event.target.value)}
                   name="name"
                 />
                 <label htmlFor="lastname">Sobrenome</label>
                 <TextField
+                  type="text"
                   placeholder="Snow"
                   onChange={(event) => setLastname(event.target.value)}
                   name="lastname"
@@ -86,17 +109,13 @@ export default function Signup() {
             <section className="signup-data-line">
               <section className="signup-data">
                 <ChoiceField
-                  onChange={(event) => setProfileType(event.target.value)}
+                  onChange={(event) => setRole(event.target.value)}
                   name="profile_type"
                   items={userProfiles}
                 />
               </section>
               <section className="signup-data">
-                <Button
-                  width="100%"
-                  type="submit"
-                  // onClick={() => handleUserFormData.handlesignup(user)}
-                >
+                <Button width="100%" type="submit">
                   Cadastrar
                 </Button>
               </section>
