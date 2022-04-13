@@ -32,6 +32,11 @@
   color: var(--color-white-main);
 }
 
+#signup .signup-welcome h2 svg:hover {
+  color: var(--color-gray-light) !important;
+  cursor: pointer;
+}
+
 #signup .signup-content {
   display: flex;
   flex-direction: column;

@@ -6,18 +6,30 @@ import { TicketRequests } from "../utils/requests/Ticket.requests";
 import Ticket from "../../shared/interfaces/ticket.interface";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import SessionController from "../utils/handlers/SessionController";
 
 export default function TicketList() {
   const ticketRequest = new TicketRequests();
   const [tickets, setTickets] = useState<Ticket[]>();
   const navigate = useNavigate();
+  const userInformation = SessionController.getUserInfo();
 
   useEffect(() => {
-    getTicketList();
+    if (userInformation?.role === "client") {
+      getTicketListClient();
+    } else if (userInformation?.role === "support") {
+      getTicketListSupport();
+    }
   }, []);
 
-  const getTicketList = async () => {
-    const response: { content: [] } = await ticketRequest.ticketListRequest();
+  const getTicketListClient = async () => {
+    const response: { content: [] } = await ticketRequest.ticketListById();
+    const tickets: Ticket[] = response.content;
+    setTickets(tickets);
+  };
+
+  const getTicketListSupport = async () => {
+    const response: { content: [] } = await ticketRequest.ticketListAll();
     const tickets: Ticket[] = response.content;
     setTickets(tickets);
   };
