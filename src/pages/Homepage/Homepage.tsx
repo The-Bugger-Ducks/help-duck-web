@@ -18,8 +18,17 @@ export default function Homepage() {
   const token = SessionController.getToken();
   const navigate = useNavigate();
   const userInformation = SessionController.getUserInfo();
-  const [hiddenSearchAndFilter, setHiddenSearchAndFilter] = useState(false);
   const [pageTitle, setPageTitle] = useState("Chamados");
+  const [searchPlaceholder, setSearchPlaceholder] = useState(
+    "Buscar por título do chamado"
+  );
+  const [filterOptions, setFilterOptions] = useState([
+    {
+      value: "allTickets",
+      label: "Todos os chamados",
+      selected: true,
+    },
+  ]);
 
   useEffect(() => {
     if (!token) {
@@ -27,8 +36,15 @@ export default function Homepage() {
     }
 
     if (userInformation?.role === "admin") {
-      setHiddenSearchAndFilter(true);
+      setSearchPlaceholder("Buscar pelo nome do usuário");
       setPageTitle("Usuários");
+      setFilterOptions([
+        {
+          value: "allUsers",
+          label: "Todos os usuários",
+          selected: true,
+        },
+      ]);
     }
   }, []);
 
@@ -37,10 +53,10 @@ export default function Homepage() {
       <Header hiddenDropdown={false} />
       <div className="homepage-container">
         <h1>{pageTitle}</h1>
-        <section className="search-or-filter" hidden={hiddenSearchAndFilter}>
+        <section className="search-or-filter">
           <form className="searchTicket">
             <TextField
-              placeholder="Buscar por título do chamado"
+              placeholder={searchPlaceholder}
               name="search"
               width="75%"
               backgroundColor="#FAFAFA"
@@ -52,12 +68,7 @@ export default function Homepage() {
           <div className="filter">
             <ChoiceField
               name="filter"
-              items={[
-                {
-                  value: "opcao01",
-                  label: "Todos os chamados",
-                },
-              ]}
+              items={filterOptions}
               width="100%"
               backgroundColor="#FAFAFA"
             />
