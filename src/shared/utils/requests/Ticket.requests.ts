@@ -1,10 +1,9 @@
 import Comment from "../../interfaces/comment.interface";
 import { apiTickets } from "../../services/Api.service";
 import validateStatus from "../handlers/HandlerResponseStatusCodeFound";
-import { TICKET_ENDPOINTS } from "../endpoints";
 import SessionController from "../handlers/SessionController";
 
-import User from "../../interfaces/user.interface"
+import {User} from "../../interfaces/user.interface"
 
 export class TicketRequests {
   public async showRequest(ticketId: string) {
