@@ -12,10 +12,12 @@ import TicketList from "../../shared/components/TicketList";
 import SessionController from "../../shared/utils/handlers/SessionController";
 
 import "../../shared/styles/pages/homepage/Homepage.css";
+import UserList from "../../shared/components/UserList";
 
 export default function Homepage() {
   const token = SessionController.getToken();
   const navigate = useNavigate();
+  const userInformation = SessionController.getUserInfo();
 
   useEffect(() => {
     if (!token) {
@@ -54,12 +56,18 @@ export default function Homepage() {
             />
           </div>
         </section>
-        <TicketList />
-        <div className="btn-open-ticket">
-          <Link to="/ticket_register">
-            <Button width="20%">Abrir chamado</Button>
-          </Link>
-        </div>
+        {userInformation?.role === "admin" ? (
+          <UserList />
+        ) : (
+          <>
+            <TicketList />
+            <div className="btn-open-ticket">
+              <Link to="/ticket_register">
+                <Button width="20%">Abrir chamado</Button>
+              </Link>
+            </div>
+          </>
+        )}
       </div>
       <Footer />
     </div>
