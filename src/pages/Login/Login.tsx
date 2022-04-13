@@ -9,7 +9,7 @@ import Header from "../../shared/components/Header";
 import TextField from "../../shared/components/TextField";
 
 import HandleUserFormData from "../../shared/utils/handlers/HandleUserFormData.service";
-import User from "../../shared/interfaces/user.interface";
+import {UserLogin} from "../../shared/interfaces/user.interface";
 import SessionController from "../../shared/utils/handlers/SessionController";
 import { apiAuth } from "../../shared/services/Api.service";
 
@@ -19,7 +19,7 @@ export default function Login() {
   const navigate = useNavigate();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  const user: User = {
+  const user: UserLogin = {
     email,
     password,
   };
@@ -32,7 +32,6 @@ export default function Login() {
 
   useEffect(() => {
     if (isAuthenticated) {
-      console.log("Authenticated");
       navigate("/homepage");
     }
   }, [isAuthenticated, navigate]);

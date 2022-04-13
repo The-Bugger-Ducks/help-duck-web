@@ -31,7 +31,8 @@
   margin-bottom: 3%;
 }
 
-#homepage .btn-open-ticket {
+#homepage .btn-open-ticket,
+.btn-create-user {
   margin-top: 2%;
   text-align: end;
 }

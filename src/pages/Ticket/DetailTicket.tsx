@@ -99,7 +99,7 @@ export default function DetailTicket() {
     }
 
     // const response = await ticketRequest.reserveTicket(id ?? "", user);
-    alert("Cadastro fechado com sucesso!");
+    alert("Chamado fechado com sucesso!");
 
     navigate("/homepage");
   }
@@ -145,7 +145,7 @@ export default function DetailTicket() {
                 </Button>
               ) : (
                 <>
-                  {comments.length > 0 ? (
+                  {comments.length > 0 && user.id === ticket?.support.id ? (
                     <Button
                       backgroundColor="var(--color-green)"
                       color="var(--color-white-light)"
