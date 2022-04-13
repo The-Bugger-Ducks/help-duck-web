@@ -1,0 +1,31 @@
+.dropdown-container span {
+  margin-bottom: 0.8em;
+  font-size: 1rem;
+  color: var(--color-white-main);
+  align-self: center;
+  cursor: pointer;
+}
+
+.dropdown-container ul {
+  position: fixed;
+  padding: 1em;
+  background-color: var(--color-white-main);
+  color: var(--color-black-light);
+  font-size: 1rem;
+  border-radius: 5px;
+  box-shadow: 3px 3px 5px rgba(33, 37, 41, 0.08);
+}
+
+.dropdown-container ul:first-child {
+  padding-top: 0.8em;
+}
+
+.dropdown-container li {
+  list-style: none;
+  text-align: center;
+}
+
+.dropdown-container li:hover {
+  cursor: pointer;
+  color: var(--color-gray-dark);
+}

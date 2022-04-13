@@ -36,6 +36,5 @@
 .ticket-list-container table .no-results {
   text-align: center;
   padding-top: 3%;
-  color: var(--color-red);
   cursor: default;
 }

@@ -64,9 +64,6 @@ h4 {
   border-radius: 20px;
   outline: none;
   color: #5c8599;
-}
-
-#detail-ticket .description-block {
   min-height: 120px;
   resize: vertical;
   padding: 16px;
