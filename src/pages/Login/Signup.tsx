@@ -1,14 +1,14 @@
 import { FormEvent, useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { UserRequests } from "../../shared/utils/requests/User.requests";
+import { FiArrowLeft } from "react-icons/fi";
 
 import Button from "../../shared/components/Button";
 import Footer from "../../shared/components/Footer";
 import Header from "../../shared/components/Header";
 import TextField from "../../shared/components/TextField";
 import ChoiceField from "../../shared/components/ChoiceField";
-
 
 import SessionController from "../../shared/utils/handlers/SessionController";
 import "../../shared/styles/pages/login/Signup.css";
@@ -18,7 +18,7 @@ export default function Signup() {
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [lastname, setLastname] = useState("");
-  const [role, setRole] = useState<'admin' | 'support' | 'client'>("client");
+  const [role, setRole] = useState<"admin" | "support" | "client">("client");
 
   const userRequest = new UserRequests();
 
@@ -32,12 +32,12 @@ export default function Signup() {
 
   const token = SessionController.getToken();
   const user = SessionController.getUserInfo();
-  
+
   useEffect(() => {
-    if (!token || user?.role !== 'admin') {
+    if (!token || user?.role !== "admin") {
       navigate("/");
     }
-    }, []);
+  }, []);
 
   async function submitSignup(event: FormEvent) {
     event.preventDefault();
@@ -57,9 +57,9 @@ export default function Signup() {
     const response = await userRequest.registerRequest(payload);
 
     if (response?.status === 201) {
-      alert("Usuário cadastrado com sucesso!")
+      alert("Usuário cadastrado com sucesso!");
 
-      navigate("/homepage")
+      navigate("/homepage");
     }
   }
 
@@ -69,7 +69,14 @@ export default function Signup() {
         <Header hiddenDropdown={true} />
         <div className="signup-content">
           <section className="signup-welcome">
-            <h2>Bem vindo(a)!</h2>
+            <h2>
+              <FiArrowLeft
+                color="var(--color-withe-main)"
+                onClick={() => {
+                  navigate("/homepage");
+                }}
+              />
+            </h2>
             <h1>Cadastre a conta</h1>
           </section>
           <form className="signup-form" onSubmit={submitSignup}>
