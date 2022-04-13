@@ -60,6 +60,7 @@ export default function Homepage() {
               name="search"
               width="75%"
               backgroundColor="#FAFAFA"
+              type="text"
             />
             <Button width="20%" type="submit" fontSize="0.8rem">
               Buscar
@@ -78,7 +79,7 @@ export default function Homepage() {
           <>
             <UserList />
             <div className="btn-create-user">
-              <Link to="#">
+              <Link to="/signup">
                 <Button width="20%">Cadastrar usuário</Button>
               </Link>
             </div>
