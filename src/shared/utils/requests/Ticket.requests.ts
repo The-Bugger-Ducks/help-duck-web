@@ -43,6 +43,31 @@ export class TicketRequests {
     }
   }
 
+  public async ticketListRequestOpened() {
+    try {
+      const response = await apiTickets.get(
+        `/tickets/`,
+        {
+          validateStatus,
+        }
+      );
+      return response.data;
+    } catch (error) {
+      alert("Não foi possível carregar os chamados. Tente novamente!");
+    }
+  }
+
+  public async reserveTicket(ticketId: string, payload: User) {
+    try {
+      return await apiTickets.put(
+        `helpUser/reserveTicket/${ticketId}`,
+        payload
+      );
+    } catch (error) {
+      alert("Não foi possível reservar o chamado, tente novamente!");
+    }
+  }
+
   public async insertComment(ticketId: string, payload: Comment) {
     try {
       return await apiTickets.put(

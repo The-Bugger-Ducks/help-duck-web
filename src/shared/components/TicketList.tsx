@@ -6,8 +6,9 @@ import { TicketRequests } from "../utils/requests/Ticket.requests";
 import Ticket from "../../shared/interfaces/ticket.interface";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import User from "../interfaces/user.interface";
 
-export default function TicketList() {
+const TicketList: React.FC<{ role: User["role"] }> = ({ role = "client" }) => {
   const ticketRequest = new TicketRequests();
   const [tickets, setTickets] = useState<Ticket[]>();
   const navigate = useNavigate();
@@ -17,9 +18,18 @@ export default function TicketList() {
   }, []);
 
   const getTicketList = async () => {
-    const response: { content: [] } = await ticketRequest.ticketListRequest();
-    const tickets: Ticket[] = response.content;
-    setTickets(tickets);
+    if (role === "client") {
+      const response: { content: Array<Ticket> } =
+        await ticketRequest.ticketListRequest();
+      setTickets(response.content);
+    } else if (role === "support") {
+      const response: { content: Array<Ticket> } =
+        await ticketRequest.ticketListRequestOpened();
+      setTickets(response.content);
+    } else {
+      alert("Usuário sem permissão para visualizar chamados");
+      setTickets([]);
+    }
   };
 
   return (
@@ -62,4 +72,6 @@ export default function TicketList() {
       </div>
     </section>
   );
-}
+};
+
+export default TicketList;

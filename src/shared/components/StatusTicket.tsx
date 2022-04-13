@@ -24,11 +24,9 @@ const StatusTicket: React.FC<{ status: string | undefined }> = ({ status }) => {
   const ticketStatus =
     status === "underAnalysis"
       ? ticketUnderAnalysis
-      : status === "waiting"
-      ? ticketWaiting
-      : status === "notSolved"
-      ? ticketNotSolved
-      : ticketDone;
+      : status === "done"
+      ? ticketDone
+      : ticketWaiting;
 
   return (
     <span style={{ color: ticketStatus.color }}>

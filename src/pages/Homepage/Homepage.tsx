@@ -12,13 +12,15 @@ import TicketList from "../../shared/components/TicketList";
 import SessionController from "../../shared/utils/handlers/SessionController";
 
 import "../../shared/styles/pages/homepage/Homepage.css";
+import { userInfo } from "os";
 
 export default function Homepage() {
   const token = SessionController.getToken();
+  const user = SessionController.getUserInfo();
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!token) {
+    if (!token || !user) {
       navigate("/");
     }
   }, []);
@@ -54,7 +56,7 @@ export default function Homepage() {
             />
           </div>
         </section>
-        <TicketList />
+        <TicketList role={user?.role} />
         <div className="btn-open-ticket">
           <Link to="/ticket_register">
             <Button width="20%">Abrir chamado</Button>
