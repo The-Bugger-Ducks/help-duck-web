@@ -11,8 +11,8 @@ import Header from "../../shared/components/Header";
 import TextField from "../../shared/components/TextField";
 import ChoiceField from "../../shared/components/ChoiceField";
 
-import "../../shared/styles/pages/ticket/TicketRegister.css";
 import SessionController from "../../shared/utils/handlers/SessionController";
+import "../../shared/styles/pages/ticket/TicketRegister.css";
 
 export default function TicketRegister() {
   const [title, setTitle] = useState("");
@@ -57,7 +57,7 @@ export default function TicketRegister() {
   return (
     <div id="ticket-register">
       <div className="ticket-register-container">
-        <Header />
+        <Header hiddenDropdown={false} />
         <div className="ticket-register-content">
           <section className="ticket-register-title">
             <h1>

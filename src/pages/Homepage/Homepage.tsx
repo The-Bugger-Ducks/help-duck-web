@@ -1,16 +1,31 @@
-import { Link } from "react-router-dom";
+import { useEffect } from "react";
+
+import { useNavigate, Link } from "react-router-dom";
+
 import Button from "../../shared/components/Button";
 import ChoiceField from "../../shared/components/ChoiceField";
 import Footer from "../../shared/components/Footer";
 import Header from "../../shared/components/Header";
 import TextField from "../../shared/components/TextField";
 import TicketList from "../../shared/components/TicketList";
+
+import SessionController from "../../shared/utils/handlers/SessionController";
+
 import "../../shared/styles/pages/homepage/Homepage.css";
 
 export default function Homepage() {
+  const token = SessionController.getToken();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!token) {
+      navigate("/");
+    }
+  }, []);
+
   return (
     <div id="homepage">
-      <Header />
+      <Header hiddenDropdown={false} />
       <div className="homepage-container">
         <h1>Chamados</h1>
         <section className="search-or-filter">

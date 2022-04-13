@@ -23,7 +23,7 @@ const Button: React.FC<Props> = ({
   height = "42px",
   onClick,
   radius = "0.3rem",
-  width = "100%",
+  width = "17rem",
   type = "button",
   fontSize = "1rem",
   fontWeight = "600",

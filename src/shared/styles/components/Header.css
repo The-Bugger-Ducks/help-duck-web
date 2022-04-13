@@ -15,19 +15,6 @@
   font-size: 1.3rem;
 }
 
-.header span {
-  display: none;
-
-  font-size: 2rem;
-  align-self: center;
-  color: var(--color-white-main);
-}
-
-.header span.visible {
-  display: block;
-}
-
-
 @media only screen and (max-width: 800px) {
   .header {
     padding: 0 3rem;
