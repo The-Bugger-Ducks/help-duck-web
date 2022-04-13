@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import { useNavigate, Link } from "react-router-dom";
 
@@ -18,10 +18,17 @@ export default function Homepage() {
   const token = SessionController.getToken();
   const navigate = useNavigate();
   const userInformation = SessionController.getUserInfo();
+  const [hiddenSearchAndFilter, setHiddenSearchAndFilter] = useState(false);
+  const [pageTitle, setPageTitle] = useState("Chamados");
 
   useEffect(() => {
     if (!token) {
       navigate("/");
+    }
+
+    if (userInformation?.role === "admin") {
+      setHiddenSearchAndFilter(true);
+      setPageTitle("Usuários");
     }
   }, []);
 
@@ -29,8 +36,8 @@ export default function Homepage() {
     <div id="homepage">
       <Header hiddenDropdown={false} />
       <div className="homepage-container">
-        <h1>Chamados</h1>
-        <section className="search-or-filter">
+        <h1>{pageTitle}</h1>
+        <section className="search-or-filter" hidden={hiddenSearchAndFilter}>
           <form className="searchTicket">
             <TextField
               placeholder="Buscar por título do chamado"
@@ -57,7 +64,14 @@ export default function Homepage() {
           </div>
         </section>
         {userInformation?.role === "admin" ? (
-          <UserList />
+          <>
+            <UserList />
+            <div className="btn-create-user">
+              <Link to="#">
+                <Button width="20%">Cadastrar usuário</Button>
+              </Link>
+            </div>
+          </>
         ) : (
           <>
             <TicketList />
