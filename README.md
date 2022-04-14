@@ -1,46 +1,39 @@
-# Getting Started with Create React App
+<h1 align="center"> 
+  Projeto "Help Duck"
+</h1>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Este repositório se refere ao projeto "Help Duck",que consiste em um sistema com 3 frentes:
 
-## Available Scripts
+- **usuário comum**: pode abrir um chamado e acompanhar seu ciclo de vida;
+- **usuário suporte**: atende os chamados abertos;
+- **usuário administrador**: cadastra usuários e gera relatórios relacionado aos chamados.
 
-In the project directory, you can run:
+> Aplicação desenvolvida por alunos do 3º semestre do tecnólogo em Desenvolvimento de Software Multiplataforma, na FATEC Profº Jessen Vidal - São José dos Campos, SP :rocket:
 
-### `yarn start`
+### :hammer_and_wrench: Tecnologias
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+As seguintes tecnologias e ferramentas foram utilizadas neste projeto: `Figma, React, TypeScript, HTML, CSS, Axios, Netlify`
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### :gear: Como utilizar
 
-### `yarn test`
+É possível acessar a aplicação pelo link de seu deploy (clicando [aqui](https://help-duck.netlify.app/)) mas também é possível rodar localmente seguindo o passo a passo abaixo:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- Tutorial para rodar o projeto
 
-### `yarn build`
+Com o [Node](https://nodejs.org/en/) instalado em sua máquina, utilize estes comandos em um terminal:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```bash
+# Baixe ou clone este repositório
+$ git clone https://github.com/The-Bugger-Ducks/help-duck-web.git
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+# Acesse a pasta, instale as dependências e inicie o projeto
+$ cd help-duck-web
+$ yarn
+$ yarn start
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+A aplicação inciará localmente na porta 3000. Use o navegador para acessar o link [http://localhost:3000](http://localhost:3000) e executar as funcionalidades da aplicação.
 
-### `yarn eject`
+## 💻 Demonstração
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+> Em breve
