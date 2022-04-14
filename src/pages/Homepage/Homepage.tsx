@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { useNavigate, Link } from "react-router-dom";
 
@@ -10,28 +10,50 @@ import TextField from "../../shared/components/TextField";
 import TicketList from "../../shared/components/TicketList";
 
 import SessionController from "../../shared/utils/handlers/SessionController";
+import UserList from "../../shared/components/UserList";
+import { status } from "../../shared/types/status";
 
 import "../../shared/styles/pages/homepage/Homepage.css";
-import UserList from "../../shared/components/UserList";
 
 export default function Homepage() {
   const token = SessionController.getToken();
+
   const navigate = useNavigate();
   const userInformation = SessionController.getUserInfo();
+
+  const [statusFilter, setStatusFilter] = useState<status | "">("");
   const [pageTitle, setPageTitle] = useState("Chamados");
   const [searchPlaceholder, setSearchPlaceholder] = useState(
     "Buscar por título do chamado"
   );
-  const [filterOptions, setFilterOptions] = useState([
-    {
-      value: "allTickets",
-      label: "Todos os chamados",
-      selected: true,
-    },
-  ]);
+  const [filterOptions, setFilterOptions] = useState(
+    userInformation?.role === "support"
+      ? [
+          {
+            selected: true,
+            value: "underAnalysis",
+            label: "Meus atendimentos",
+          },
+          {
+            value: "awaiting",
+            label: "Abertos",
+          },
+          {
+            value: "done",
+            label: "Fechados",
+          },
+        ]
+      : [
+          {
+            selected: true,
+            value: "",
+            label: "Meus chamados",
+          },
+        ]
+  );
 
   useEffect(() => {
-    if (!token) {
+    if (!token || !userInformation) {
       navigate("/");
     }
 
@@ -48,13 +70,17 @@ export default function Homepage() {
     }
   }, []);
 
+  function handleFilterTickets(event: React.FormEvent) {
+    event.preventDefault();
+  }
+
   return (
     <div id="homepage">
       <Header hiddenDropdown={false} />
       <div className="homepage-container">
         <h1>{pageTitle}</h1>
         <section className="search-or-filter">
-          <form className="searchTicket">
+          <form className="searchTicket" onSubmit={handleFilterTickets}>
             <TextField
               placeholder={searchPlaceholder}
               name="search"
@@ -72,6 +98,7 @@ export default function Homepage() {
               items={filterOptions}
               width="100%"
               backgroundColor="#FAFAFA"
+              onChange={(event) => setStatusFilter(event.target.value)}
             />
           </div>
         </section>
@@ -86,12 +113,14 @@ export default function Homepage() {
           </>
         ) : (
           <>
-            <TicketList />
-            <div className="btn-open-ticket">
-              <Link to="/ticket_register">
-                <Button width="20%">Abrir chamado</Button>
-              </Link>
-            </div>
+            <TicketList status={statusFilter} />
+            {userInformation?.role === "client" ? (
+              <div className="btn-open-ticket">
+                <Link to="/ticket_register">
+                  <Button width="20%">Abrir chamado</Button>
+                </Link>
+              </div>
+            ) : null}
           </>
         )}
       </div>

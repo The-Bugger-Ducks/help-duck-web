@@ -1,4 +1,4 @@
-import {User} from "./user.interface"
+import { User } from "./user.interface"
 import Comment from "./comment.interface"
 
 export default interface Ticket {
@@ -6,8 +6,8 @@ export default interface Ticket {
   title: string;
   description: string;
   tags: Array<string>;
-  priorityLevel?: "high" | "medium" | "low";
-  status?: "underAnalysis" | "waiting" | "notSolved" | "done",
+  priorityLevel: "high" | "medium" | "low";
+  status: "underAnalysis" | "awaiting" | "done",
   reserved: boolean,
   createdAt: Date,
   updatedAt?: Date,
