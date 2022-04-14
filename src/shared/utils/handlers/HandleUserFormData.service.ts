@@ -1,27 +1,24 @@
-import User from '../../interfaces/user.interface';
+import {User, UserLogin, UserRegister} from '../../interfaces/user.interface';
 import { UserRequests } from '../requests/User.requests';
 
 export default class HandleUserFormData {
-  public handleLogin(user: User) {
+  public handleLogin(user: UserLogin) {
     let body = {
       email: user.email,
       password: user.password,
-      firstName: user.firstName ? user.firstName : null,
-      lastName: user.lastName ? user.lastName : null,
-      role: user.profileType ? user.profileType : null,
     };
 
     let userRequests = new UserRequests();
     return userRequests.loginRequest(body);
   }
 
-  public handleRegister(user: User) {
+  public handleRegister(user: UserRegister) {
     let body = {
       email: user.email,
       password: user.password,
-      firstName: user.firstName ? user.firstName : null,
-      lastName: user.lastName ? user.lastName : null,
-      role: user.profileType ? user.profileType : null,
+      firstName: user.firstName,
+      lastName: user.lastName ,
+      role: user.role,
     };
 
     let userRequests = new UserRequests();
@@ -31,10 +28,9 @@ export default class HandleUserFormData {
   public handleUpdate(user: User) {
     let body = {
       email: user.email,
-      password: user.password,
-      name: user.firstName ? user.firstName : null,
-      lastName: user.lastName ? user.lastName : null,
-      role: user.profileType ? user.profileType : null,
+      name: user.firstName,
+      lastName: user.lastName,
+      role: user.role,
     };
 
     let userRequests = new UserRequests();

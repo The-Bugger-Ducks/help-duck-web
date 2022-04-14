@@ -1,8 +1,9 @@
 import Comment from "../../interfaces/comment.interface";
 import { apiTickets } from "../../services/Api.service";
 import validateStatus from "../handlers/HandlerResponseStatusCodeFound";
-import { TICKET_ENDPOINTS } from "../endpoints";
 import SessionController from "../handlers/SessionController";
+
+import { User } from "../../interfaces/user.interface";
 
 export class TicketRequests {
   public async showRequest(ticketId: string) {
@@ -16,7 +17,33 @@ export class TicketRequests {
     }
   }
 
-  public async ticketListRequest() {
+  public async createTicket(ticket: {
+    title: string;
+    description: string;
+    priorityLevel: string;
+    user: User;
+  }) {
+    try {
+      const response = await apiTickets.post("/tickets/create", ticket);
+      return response;
+    } catch (error) {
+      console.log(error);
+      alert("Não foi possível cadastrar seu chamado");
+    }
+  }
+
+  public async ticketListAll() {
+    try {
+      const response = await apiTickets.get(`/tickets/`, {
+        validateStatus,
+      });
+      return response.data;
+    } catch (error) {
+      alert("Não foi possível carregar os chamados. Tente novamente!");
+    }
+  }
+
+  public async ticketListById() {
     const userInformation = SessionController.getUserInfo();
     try {
       const response = await apiTickets.get(

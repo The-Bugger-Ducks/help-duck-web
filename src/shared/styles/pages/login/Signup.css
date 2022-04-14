@@ -32,6 +32,11 @@
   color: var(--color-white-main);
 }
 
+#signup .signup-welcome h2 svg:hover {
+  color: var(--color-gray-light) !important;
+  cursor: pointer;
+}
+
 #signup .signup-content {
   display: flex;
   flex-direction: column;
@@ -134,7 +139,6 @@
     margin-top: 3rem;
     padding: 0%;
   }
-
   #signup .signup-form {
     width: 90%;
     background-color: rgba(0, 0, 0, 0);
