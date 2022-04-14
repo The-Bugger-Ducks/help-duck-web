@@ -10,11 +10,11 @@ Este repositório se refere ao projeto "Help Duck",que consiste em um sistema co
 
 > Aplicação desenvolvida por alunos do 3º semestre do tecnólogo em Desenvolvimento de Software Multiplataforma, na FATEC Profº Jessen Vidal - São José dos Campos, SP :rocket:
 
-## :hammer_and_wrench: Tecnologias
+### :hammer_and_wrench: Tecnologias
 
 As seguintes tecnologias e ferramentas foram utilizadas neste projeto: `Figma, React, TypeScript, HTML, CSS, Axios, Netlify`
 
-## :gear: Como utilizar
+### :gear: Como utilizar
 
 É possível acessar a aplicação pelo link de seu deploy (clicando [aqui](https://help-duck.netlify.app/)) mas também é possível rodar localmente seguindo o passo a passo abaixo:
 
