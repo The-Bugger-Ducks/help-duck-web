@@ -40,6 +40,7 @@ export class TicketRequests {
       return response.data;
     } catch (error) {
       alert("Não foi possível carregar os chamados. Tente novamente!");
+      return [];
     }
   }
 
@@ -53,15 +54,18 @@ export class TicketRequests {
         }
       );
       return response.data;
+
     } catch (error) {
       alert("Não foi possível carregar os chamados. Tente novamente!");
+      return [];
     }
   }
 
-  public async ticketListRequestOpened() {
+  public async ticketListBySupport() {
+    const userInformation = SessionController.getUserInfo();
     try {
       const response = await apiTickets.get(
-        `/tickets/`,
+        `/tickets/support/${userInformation?.id}`,
         {
           validateStatus,
         }
@@ -69,6 +73,22 @@ export class TicketRequests {
       return response.data;
     } catch (error) {
       alert("Não foi possível carregar os chamados. Tente novamente!");
+      return [];
+    }
+  }
+
+  public async ticketListPerStatus(status: "underAnalysis" | "awaiting" | "done") {
+    try {
+      const response = await apiTickets.get(
+        `/tickets/status/${status}`,
+        {
+          validateStatus,
+        }
+      );
+      return response.data;
+    } catch (error) {
+      alert("Não foi possível carregar os chamados. Tente novamente!");
+      return [];
     }
   }
 

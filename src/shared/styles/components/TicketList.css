@@ -1,7 +1,6 @@
 .ticket-list-container {
   width: 100%;
   height: 50vh;
-  overflow-y: scroll;
   border-bottom: 1px solid var(--color-white-dark);
 }
 
@@ -11,6 +10,11 @@
   text-overflow: ellipsis;
   white-space: nowrap;
   padding-right: 1%;
+}
+
+.ticket-list-container .grid-tickets {
+  max-height: 80%;
+  overflow-y: auto;
 }
 
 .ticket-list-container table {
@@ -37,4 +41,44 @@
   text-align: center;
   padding-top: 3%;
   cursor: default;
+}
+
+
+/* tabs */
+
+.nav {
+  display: flex;
+  flex-wrap: wrap;
+  padding-left: 0;
+  margin-bottom: 1rem;
+  list-style: none;
+}
+
+.nav-tabs {
+  border-bottom: 1px solid #dee2e6;
+}
+
+.nav-tabs .nav-link {
+  margin-bottom: -1px;
+  background: 0 0;
+  border: 1px solid transparent;
+  border-top-left-radius: .25rem;
+  border-top-right-radius: .25rem;
+}
+
+.nav-link {
+  display: block;
+  padding: .5rem 1rem;
+  color: var(--color-black-light);
+  text-decoration: none;
+  transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out;
+
+  cursor: pointer;
+}
+
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+  color: var(--color-primary-light);
+  border-color: #dee2e6 #dee2e6 #fff;
+
+  cursor: auto;
 }

@@ -88,12 +88,14 @@ export default function Homepage() {
           </>
         ) : (
           <>
-            <TicketList role={userInformation?.role} />
-            <div className="btn-open-ticket">
-              <Link to="/ticket_register">
-                <Button width="20%">Abrir chamado</Button>
-              </Link>
-            </div>
+            <TicketList />
+            {userInformation?.role === "client" ? (
+              <div className="btn-open-ticket">
+                <Link to="/ticket_register">
+                  <Button width="20%">Abrir chamado</Button>
+                </Link>
+              </div>
+            ) : null}
           </>
         )}
       </div>
