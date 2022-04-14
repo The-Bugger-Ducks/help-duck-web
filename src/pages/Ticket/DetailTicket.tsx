@@ -3,6 +3,11 @@ import React, { useEffect, useState, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { FiClock, FiArrowLeft } from "react-icons/fi";
 
+import SessionController from "../../shared/utils/handlers/SessionController";
+
+import { status } from "../../shared/types/status";
+import { TicketRequests } from "../../shared/utils/requests/Ticket.requests";
+
 import Button from "../../shared/components/Button";
 import Comment from "../../shared/interfaces/comment.interface";
 import Container from "../../shared/components/Container";
@@ -14,10 +19,7 @@ import Ticket from "../../shared/interfaces/ticket.interface";
 import TicketComment from "../../shared/components/TicketComment";
 import TicketAddComment from "../../shared/components/TicketAddComment";
 
-import { TicketRequests } from "../../shared/utils/requests/Ticket.requests";
-
 import "../../shared/styles/pages/ticket/DetailTicket.css";
-import SessionController from "../../shared/utils/handlers/SessionController";
 
 export default function DetailTicket() {
   const navigate = useNavigate();
@@ -31,6 +33,9 @@ export default function DetailTicket() {
   });
 
   const [ticket, setTicket] = useState<Ticket>();
+  const [status, setStatus] = useState<status>();
+  const [priorityLevel, setPriorityLevel] =
+    useState<Ticket["priorityLevel"]>("low");
   const [comments, setComments] = useState<Ticket["comments"]>([]);
   const [createdAt, setCreatedAt] = useState<Date>();
   const [hasSupport, setHasSupport] = useState<boolean>(false);
@@ -50,6 +55,8 @@ export default function DetailTicket() {
 
     setTicket(response);
     setComments(response.comments);
+    setStatus(response.status);
+    setPriorityLevel(response.priorityLevel);
 
     if (response.support) setHasSupport(true);
 
@@ -58,7 +65,7 @@ export default function DetailTicket() {
   };
 
   const handleSubmitComment = async () => {
-    const { newComment } = formCommentRef.current.submit();
+    let { newComment } = formCommentRef.current.submit();
 
     if (!user || !id) return alert("Não foi possível inserir comentário");
 
@@ -71,7 +78,6 @@ export default function DetailTicket() {
       const response = await ticketRequest.insertComment(id, comment);
 
       if (response?.status === 200) {
-        alert("Comentário adicionado");
         setComments((prevState) => {
           return [...prevState, comment];
         });
@@ -89,19 +95,30 @@ export default function DetailTicket() {
 
     if (response?.status === 200) {
       alert("Chamado reservado");
+      setTicket((prevState) => {
+        if (!prevState) return;
+        return {
+          ...prevState,
+          support: user,
+        };
+      });
+      setStatus("underAnalysis");
       setHasSupport(true);
     }
   }
 
-  async function handlehandleCloseTicket() {
+  async function handleCloseTicket() {
     if (user?.role !== "support") {
       return alert("Usuário sem permissão para relalizar essa ação.");
     }
 
-    // const response = await ticketRequest.reserveTicket(id ?? "", user);
-    alert("Chamado fechado com sucesso!");
+    const response = await ticketRequest.closeTicket(id ?? "");
 
-    navigate("/homepage");
+    if (response?.status === 200) {
+      alert("Chamado fechado com sucesso!");
+      setStatus("done");
+      navigate("/homepage");
+    }
   }
 
   return (
@@ -132,8 +149,8 @@ export default function DetailTicket() {
             <div className="button-container">
               {!hasSupport ? (
                 <Button
-                  backgroundColor="transparent"
                   color="var(--color-black-dark)"
+                  backgroundColor="transparent"
                   width="12rem"
                   height="2rem"
                   fontSize="0.8rem"
@@ -145,7 +162,9 @@ export default function DetailTicket() {
                 </Button>
               ) : (
                 <>
-                  {comments.length > 0 && user.id === ticket?.support.id ? (
+                  {status === "underAnalysis" &&
+                  comments.length > 0 &&
+                  user.id === ticket?.support?.id ? (
                     <Button
                       backgroundColor="var(--color-green)"
                       color="var(--color-white-light)"
@@ -154,7 +173,7 @@ export default function DetailTicket() {
                       fontSize="0.8rem"
                       fontWeight="600"
                       border="1px solid var(--color-black-main)"
-                      onClick={handlehandleCloseTicket}
+                      onClick={handleCloseTicket}
                     >
                       Fechar chamado
                     </Button>
@@ -167,7 +186,7 @@ export default function DetailTicket() {
 
         <section className="ticket-priority">
           <h3>Grau de prioridade:</h3>
-          <PriorityLevelBadge priority={ticket?.priorityLevel} />
+          <PriorityLevelBadge priority={priorityLevel} />
         </section>
 
         <section>
@@ -189,7 +208,8 @@ export default function DetailTicket() {
           </section>
         ) : null}
 
-        {user?.role == "support" && !hasSupport ? null : (
+        {status === "done" ||
+        (user?.role == "support" && !hasSupport) ? null : (
           <section id="add-comment-container">
             <TicketAddComment ref={formCommentRef} />
             <div className="button-container">

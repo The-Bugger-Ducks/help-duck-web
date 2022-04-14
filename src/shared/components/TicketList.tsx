@@ -1,17 +1,15 @@
 import React, { useEffect, useState } from "react";
 
-import TicketTable from "./TicketTable";
+import SessionController from "../utils/handlers/SessionController";
+import { TicketRequests } from "../utils/requests/Ticket.requests";
 
+import { status } from "../types/status";
 import Ticket from "../../shared/interfaces/ticket.interface";
 
-import { TicketRequests } from "../utils/requests/Ticket.requests";
-import SessionController from "../utils/handlers/SessionController";
-
+import TicketTable from "./TicketTable";
 import "../styles/components/TicketList.css";
 
-type status = "underAnalysis" | "awaiting" | "done";
-
-const TicketList: React.FC = () => {
+const TicketList: React.FC<{ status: status | "" }> = ({ status }) => {
   const [tickets, setTickets] = useState<Ticket[]>([]);
 
   const ticketRequest = new TicketRequests();
@@ -21,25 +19,9 @@ const TicketList: React.FC = () => {
     if (userInformation?.role === "client") {
       getTicketListClient();
     } else if (userInformation?.role === "support") {
-      getTicketListSupport();
+      getTicketPerStatus(status);
     }
-  }, []);
-
-  const handleTabSelected = (
-    event: React.MouseEvent<HTMLButtonElement>,
-    status: status
-  ) => {
-    if (event.currentTarget.classList.contains("active")) return;
-
-    const navLinksEl = document.querySelectorAll(".nav-link");
-
-    navLinksEl.forEach((navItem) => {
-      navItem.classList.remove("active");
-    });
-
-    event.currentTarget.classList.add("active");
-    getTicketPerStatus(status);
-  };
+  }, [status]);
 
   const getTicketListClient = async () => {
     const response: { content: Ticket[] } =
@@ -51,11 +33,16 @@ const TicketList: React.FC = () => {
     const response: { content: Ticket[] } =
       await ticketRequest.ticketListBySupport();
 
-    setTickets(response.content ?? []);
+    const tickets = response.content.filter(
+      (ticket) => ticket.status === "underAnalysis"
+    );
+
+    setTickets(tickets ?? []);
   };
 
-  const getTicketPerStatus = async (status: status) => {
-    if (status === "underAnalysis") return getTicketListSupport();
+  const getTicketPerStatus = async (status: status | "") => {
+    if (status === "underAnalysis" || status === "")
+      return getTicketListSupport();
 
     const response: { content: Ticket[] } =
       await ticketRequest.ticketListPerStatus(status);
@@ -65,35 +52,6 @@ const TicketList: React.FC = () => {
 
   return (
     <section className="ticket-list-container">
-      <ul className="nav nav-tabs">
-        <li className="nav-item">
-          <button
-            className="nav-link active"
-            onClick={(event) => handleTabSelected(event, "underAnalysis")}
-            type="button"
-          >
-            Em análise
-          </button>
-        </li>
-        <li className="nav-item">
-          <button
-            className="nav-link"
-            onClick={(event) => handleTabSelected(event, "awaiting")}
-            type="button"
-          >
-            Abertos
-          </button>
-        </li>
-        <li className="nav-item">
-          <button
-            className="nav-link"
-            onClick={(event) => handleTabSelected(event, "done")}
-            type="button"
-          >
-            Fechados
-          </button>
-        </li>
-      </ul>
       <div className="grid-tickets">
         <TicketTable tickets={tickets} />
       </div>

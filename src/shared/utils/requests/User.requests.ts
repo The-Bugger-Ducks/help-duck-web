@@ -1,6 +1,6 @@
 import { apiAuth, apiUsers } from "../../services/Api.service";
 import { USER_ENDPOINTS } from "../../utils/endpoints";
-import validateStatus from "../handlers/HandlerResponseStatusCodeFound";
+import { validateStatus } from "../handlers/HandlerResponseStatusCodeFound";
 
 export class UserRequests {
   public async loginRequest(body: object) {
