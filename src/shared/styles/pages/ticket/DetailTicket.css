@@ -16,6 +16,18 @@ h4 {
   color: var(--color-black-light);
 }
 
+#detail-ticket .ticket-about {
+  display: flex;
+
+  gap: 1rem;
+
+  justify-content: space-between;
+}
+
+#detail-ticket .ticket-about .button-container {
+  align-self: flex-end;
+}
+
 #detail-ticket .ticket-about p {
   display: flex;
   gap: 2rem;

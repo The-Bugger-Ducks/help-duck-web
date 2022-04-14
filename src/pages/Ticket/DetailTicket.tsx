@@ -3,6 +3,11 @@ import React, { useEffect, useState, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { FiClock, FiArrowLeft } from "react-icons/fi";
 
+import SessionController from "../../shared/utils/handlers/SessionController";
+
+import { status } from "../../shared/types/status";
+import { TicketRequests } from "../../shared/utils/requests/Ticket.requests";
+
 import Button from "../../shared/components/Button";
 import Comment from "../../shared/interfaces/comment.interface";
 import Container from "../../shared/components/Container";
@@ -14,14 +19,12 @@ import Ticket from "../../shared/interfaces/ticket.interface";
 import TicketComment from "../../shared/components/TicketComment";
 import TicketAddComment from "../../shared/components/TicketAddComment";
 
-import { TicketRequests } from "../../shared/utils/requests/Ticket.requests";
-
 import "../../shared/styles/pages/ticket/DetailTicket.css";
-import SessionController from "../../shared/utils/handlers/SessionController";
 
 export default function DetailTicket() {
   const navigate = useNavigate();
   const { id } = useParams();
+  const user = SessionController.getUserInfo();
 
   const formCommentRef = useRef({
     submit: () => {
@@ -30,8 +33,12 @@ export default function DetailTicket() {
   });
 
   const [ticket, setTicket] = useState<Ticket>();
+  const [status, setStatus] = useState<status>();
+  const [priorityLevel, setPriorityLevel] =
+    useState<Ticket["priorityLevel"]>("low");
   const [comments, setComments] = useState<Ticket["comments"]>([]);
   const [createdAt, setCreatedAt] = useState<Date>();
+  const [hasSupport, setHasSupport] = useState<boolean>(false);
 
   const ticketRequest = new TicketRequests();
 
@@ -48,17 +55,19 @@ export default function DetailTicket() {
 
     setTicket(response);
     setComments(response.comments);
+    setStatus(response.status);
+    setPriorityLevel(response.priorityLevel);
+
+    if (response.support) setHasSupport(true);
 
     const date = new Date(response.createdAt);
     setCreatedAt(date);
   };
 
   const handleSubmitComment = async () => {
-    const { newComment } = formCommentRef.current.submit();
+    let { newComment } = formCommentRef.current.submit();
 
-    const user = SessionController.getUserInfo();
-
-    if (!user) return alert("Não foi possível inserir comentário");
+    if (!user || !id) return alert("Não foi possível inserir comentário");
 
     const comment: Comment = {
       comment: newComment,
@@ -66,10 +75,9 @@ export default function DetailTicket() {
     };
 
     try {
-      const response = await ticketRequest.insertComment(id ?? "", comment);
+      const response = await ticketRequest.insertComment(id, comment);
 
       if (response?.status === 200) {
-        alert("Comentário adicionado");
         setComments((prevState) => {
           return [...prevState, comment];
         });
@@ -78,33 +86,107 @@ export default function DetailTicket() {
     } catch (error) {}
   };
 
+  async function handleReservedTicket() {
+    if (user?.role !== "support") {
+      return alert("Usuário sem permissão para relalizar essa ação.");
+    }
+
+    const response = await ticketRequest.reserveTicket(id ?? "", user);
+
+    if (response?.status === 200) {
+      alert("Chamado reservado");
+      setTicket((prevState) => {
+        if (!prevState) return;
+        return {
+          ...prevState,
+          support: user,
+        };
+      });
+      setStatus("underAnalysis");
+      setHasSupport(true);
+    }
+  }
+
+  async function handleCloseTicket() {
+    if (user?.role !== "support") {
+      return alert("Usuário sem permissão para relalizar essa ação.");
+    }
+
+    const response = await ticketRequest.closeTicket(id ?? "");
+
+    if (response?.status === 200) {
+      alert("Chamado fechado com sucesso!");
+      setStatus("done");
+      navigate("/homepage");
+    }
+  }
+
   return (
     <Container>
       <Header hiddenDropdown={false} />
       <main id="detail-ticket">
         <section className="ticket-about">
-          <FiArrowLeft
-            className="navigation-button"
-            color="var(--color-gray-dark)"
-            onClick={() => {
-              navigate("/homepage");
-            }}
-          />
-          <h1 className="ticket-name">{ticket?.title ?? "Carregando..."}</h1>
+          <div>
+            <FiArrowLeft
+              className="navigation-button"
+              color="var(--color-gray-dark)"
+              onClick={() => {
+                navigate("/homepage");
+              }}
+            />
+            <h1 className="ticket-name">{ticket?.title ?? "Carregando..."}</h1>
 
-          <p>Protocólo: #{ticket?.id ?? "..."}</p>
-          <p>
-            <span className="detail-date-created">
-              <FiClock color="var(--color-gray-dark)" size="0.8rem" />{" "}
-              {createdAt?.toLocaleString("pt-br") ?? "..."}
-            </span>
-            <StatusTicket status={ticket?.status} />
-          </p>
+            <p>Protocólo: #{ticket?.id ?? "..."}</p>
+            <p>
+              <span className="detail-date-created">
+                <FiClock color="var(--color-gray-dark)" size="0.8rem" />{" "}
+                {createdAt?.toLocaleString("pt-br") ?? "..."}
+              </span>
+              <StatusTicket status={ticket?.status} />
+            </p>
+          </div>
+          {user?.role == "support" ? (
+            <div className="button-container">
+              {!hasSupport ? (
+                <Button
+                  color="var(--color-black-dark)"
+                  backgroundColor="transparent"
+                  width="12rem"
+                  height="2rem"
+                  fontSize="0.8rem"
+                  fontWeight="600"
+                  border="1px solid var(--color-black-main)"
+                  onClick={handleReservedTicket}
+                >
+                  Reservar chamado
+                </Button>
+              ) : (
+                <>
+                  {status === "underAnalysis" &&
+                  comments.length > 0 &&
+                  user.id === ticket?.support?.id ? (
+                    <Button
+                      backgroundColor="var(--color-green)"
+                      color="var(--color-white-light)"
+                      width="12rem"
+                      height="2rem"
+                      fontSize="0.8rem"
+                      fontWeight="600"
+                      border="1px solid var(--color-black-main)"
+                      onClick={handleCloseTicket}
+                    >
+                      Fechar chamado
+                    </Button>
+                  ) : null}
+                </>
+              )}
+            </div>
+          ) : null}
         </section>
 
         <section className="ticket-priority">
           <h3>Grau de prioridade:</h3>
-          <PriorityLevelBadge priority={ticket?.priorityLevel} />
+          <PriorityLevelBadge priority={priorityLevel} />
         </section>
 
         <section>
@@ -126,23 +208,26 @@ export default function DetailTicket() {
           </section>
         ) : null}
 
-        <section id="add-comment-container">
-          <TicketAddComment ref={formCommentRef} />
-          <div className="button-container">
-            <Button
-              backgroundColor="transparent"
-              color="var(--color-black-dark)"
-              width="4rem"
-              height="2rem"
-              fontSize="0.8rem"
-              fontWeight="600"
-              border="1px solid var(--color-black-main)"
-              onClick={handleSubmitComment}
-            >
-              Enviar
-            </Button>
-          </div>
-        </section>
+        {status === "done" ||
+        (user?.role == "support" && !hasSupport) ? null : (
+          <section id="add-comment-container">
+            <TicketAddComment ref={formCommentRef} />
+            <div className="button-container">
+              <Button
+                backgroundColor="transparent"
+                color="var(--color-black-dark)"
+                width="4rem"
+                height="2rem"
+                fontSize="0.8rem"
+                fontWeight="600"
+                border="1px solid var(--color-black-main)"
+                onClick={handleSubmitComment}
+              >
+                Enviar
+              </Button>
+            </div>
+          </section>
+        )}
 
         {/* Removido temporáriamente por falta de definição */}
         {/* <section className="ticket-resolve-content">

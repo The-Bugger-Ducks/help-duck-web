@@ -1,77 +1,62 @@
-import "../styles/components/TicketList.css";
-import StatusTicket from "./StatusTicket";
-import TicketComponent from "./Ticket";
-import PriorityLevelBadge from "../components/PriorityLevelBadge";
-import { TicketRequests } from "../utils/requests/Ticket.requests";
-import Ticket from "../../shared/interfaces/ticket.interface";
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import SessionController from "../utils/handlers/SessionController";
+import React, { useEffect, useState } from "react";
 
-export default function TicketList() {
+import SessionController from "../utils/handlers/SessionController";
+import { TicketRequests } from "../utils/requests/Ticket.requests";
+
+import { status } from "../types/status";
+import Ticket from "../../shared/interfaces/ticket.interface";
+
+import TicketTable from "./TicketTable";
+import "../styles/components/TicketList.css";
+
+const TicketList: React.FC<{ status: status | "" }> = ({ status }) => {
+  const [tickets, setTickets] = useState<Ticket[]>([]);
+
   const ticketRequest = new TicketRequests();
-  const [tickets, setTickets] = useState<Ticket[]>();
-  const navigate = useNavigate();
   const userInformation = SessionController.getUserInfo();
 
   useEffect(() => {
     if (userInformation?.role === "client") {
       getTicketListClient();
     } else if (userInformation?.role === "support") {
-      getTicketListSupport();
+      getTicketPerStatus(status);
     }
-  }, []);
+  }, [status]);
 
   const getTicketListClient = async () => {
-    const response: { content: [] } = await ticketRequest.ticketListById();
-    const tickets: Ticket[] = response.content;
-    setTickets(tickets);
+    const response: { content: Ticket[] } =
+      await ticketRequest.ticketListById();
+    setTickets(response.content ?? []);
   };
 
   const getTicketListSupport = async () => {
-    const response: { content: [] } = await ticketRequest.ticketListAll();
-    const tickets: Ticket[] = response.content;
-    setTickets(tickets);
+    const response: { content: Ticket[] } =
+      await ticketRequest.ticketListBySupport();
+
+    const tickets = response.content.filter(
+      (ticket) => ticket.status === "underAnalysis"
+    );
+
+    setTickets(tickets ?? []);
+  };
+
+  const getTicketPerStatus = async (status: status | "") => {
+    if (status === "underAnalysis" || status === "")
+      return getTicketListSupport();
+
+    const response: { content: Ticket[] } =
+      await ticketRequest.ticketListPerStatus(status);
+
+    setTickets(response.content ?? []);
   };
 
   return (
     <section className="ticket-list-container">
       <div className="grid-tickets">
-        <table>
-          <tbody>
-            <tr>
-              <th>Prioridade</th>
-              <th>Título</th>
-              <th>Data de criação</th>
-              <th>Status</th>
-            </tr>
-            {tickets && tickets.length > 0 ? (
-              tickets.map((ticket, index) => {
-                return (
-                  <TicketComponent
-                    key={index}
-                    priority={
-                      <PriorityLevelBadge priority={ticket?.priorityLevel} />
-                    }
-                    title={ticket.title}
-                    creationDate={new Date(
-                      ticket.createdAt
-                    ).toLocaleDateString()}
-                    status={<StatusTicket status={ticket?.status} />}
-                    onClick={() => navigate(`/ticket/${ticket.id}`)}
-                  />
-                );
-              })
-            ) : (
-              <tr>
-                <td colSpan={4} className="no-results">
-                  Não foi encontrado nenhum chamado
-                </td>
-              </tr>
-            )}
-          </tbody>
-        </table>
+        <TicketTable tickets={tickets} />
       </div>
     </section>
   );
-}
+};
+
+export default TicketList;
