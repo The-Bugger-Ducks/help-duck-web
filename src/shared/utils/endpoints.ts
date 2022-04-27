@@ -1,6 +1,6 @@
 export enum USER_ENDPOINTS {
   USER_REGISTER = "/users/create",
-  USER_UPDATE = "/",
+  USER_UPDATE = "/users/update",
   USER_LOGIN = "/auth/authentication",
 }
 
