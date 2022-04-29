@@ -76,14 +76,14 @@
   column-gap: 3rem;
 }
 
+#userEdit .userEdit-form .userEdit-role {
+  display: flex;
+  flex-direction: column;
+}
+
 #userEdit .userEdit-form input {
   margin-top: 0.5rem;
   margin-bottom: 2rem;
-}
-
-#userEdit .userEdit-form select {
-  margin-top: 0.5rem;
-  margin-bottom: 1rem;
 }
 
 #userEdit .userEdit-form .userEdit-submit {

@@ -9,6 +9,7 @@ interface Props {
   width?: string;
   required?: boolean;
   padding?: string;
+  disabled?: boolean;
   onChange?: (event: any) => void;
 }
 
@@ -22,6 +23,7 @@ const TextInput: React.FC<Props> = ({
   width = "100%",
   required = true,
   padding = "0.5rem",
+  disabled = false,
   onChange,
 }) => {
   return (
@@ -39,6 +41,7 @@ const TextInput: React.FC<Props> = ({
       name={name}
       required={required}
       placeholder={placeholder}
+      disabled={disabled}
     />
   );
 };

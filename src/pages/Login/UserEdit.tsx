@@ -8,7 +8,6 @@ import Button from "../../shared/components/Button";
 import Footer from "../../shared/components/Footer";
 import Header from "../../shared/components/Header";
 import TextField from "../../shared/components/TextField";
-import ChoiceField from "../../shared/components/ChoiceField";
 
 import SessionController from "../../shared/utils/handlers/SessionController";
 import "../../shared/styles/pages/login/UserEdit.css";
@@ -24,11 +23,6 @@ export default function UserEdit() {
 
   const navigate = useNavigate();
 
-  const userProfiles = [
-    { value: "client", label: "Cliente", selected: false },
-    { value: "support", label: "Suporte", selected: false },
-    { value: "admin", label: "Administrador", selected: false },
-  ];
 
   const token = SessionController.getToken();
   const user = SessionController.getUserInfo();
@@ -85,14 +79,14 @@ export default function UserEdit() {
                 <label htmlFor="name">Nome</label>
                 <TextField
                   type="text"
-                  placeholder="John"
+                  placeholder={user?.firstName}
                   onChange={(event) => setName(event.target.value)}
                   name="name"
                 />
                 <label htmlFor="lastname">Sobrenome</label>
                 <TextField
                   type="text"
-                  placeholder="Snow"
+                  placeholder={user?.lastName}
                   onChange={(event) => setLastname(event.target.value)}
                   name="lastname"
                 />
@@ -100,7 +94,7 @@ export default function UserEdit() {
               <section className="userEdit-data">
                 <label htmlFor="email">E-mail</label>
                 <TextField
-                  placeholder="john.snow@email.com"
+                  placeholder={user?.email}
                   onChange={(event) => setEmail(event.target.value)}
                   name="email"
                 />
@@ -115,11 +109,11 @@ export default function UserEdit() {
             </section>
             <section className="userEdit-role">
               <label htmlFor="role">Cargo</label>
-              <ChoiceField
+              <TextField
                 onChange={(event) => setRole(event.target.value)}
                 name="profile_type"
                 width="20rem"
-                items={userProfiles}
+                placeholder={user?.role}
                 disabled={true}
               />
             </section>
