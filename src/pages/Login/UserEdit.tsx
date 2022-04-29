@@ -1,5 +1,5 @@
 import { FormEvent, useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import { UserRequests } from "../../shared/utils/requests/User.requests";
 import { FiArrowLeft } from "react-icons/fi";
@@ -11,9 +11,9 @@ import TextField from "../../shared/components/TextField";
 import ChoiceField from "../../shared/components/ChoiceField";
 
 import SessionController from "../../shared/utils/handlers/SessionController";
-import "../../shared/styles/pages/login/AlterUser.css";
+import "../../shared/styles/pages/login/UserEdit.css";
 
-export default function AlterUser() {
+export default function UserEdit() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
@@ -39,7 +39,7 @@ export default function AlterUser() {
     }
   }, []);
 
-  async function submitAlterUser(event: FormEvent) {
+  async function submitUserEdit(event: FormEvent) {
     event.preventDefault();
     if (email === "" || password === "" || name === "" || lastname === "") {
       return alert("Preencha todos os campos");
@@ -64,11 +64,11 @@ export default function AlterUser() {
   }
 
   return (
-    <div id="alterUser">
-      <div className="alterUser-container">
+    <div id="userEdit">
+      <div className="userEdit-container">
         <Header hiddenDropdown={true} />
-        <div className="alterUser-content">
-          <section className="alterUser-welcome">
+        <div className="userEdit-content">
+          <section className="userEdit-welcome">
             <h2>
               <FiArrowLeft
                 color="var(--color-withe-main)"
@@ -79,9 +79,9 @@ export default function AlterUser() {
             </h2>
             <h1>Editar perfil</h1>
           </section>
-          <form className="alterUser-form" onSubmit={submitAlterUser}>
+          <form className="userEdit-form" onSubmit={submitUserEdit}>
             <section className="form-sections">
-              <section className="alterUser-data">
+              <section className="userEdit-data">
                 <label htmlFor="name">Nome</label>
                 <TextField
                   type="text"
@@ -97,7 +97,7 @@ export default function AlterUser() {
                   name="lastname"
                 />
               </section>
-              <section className="alterUser-data">
+              <section className="userEdit-data">
                 <label htmlFor="email">E-mail</label>
                 <TextField
                   placeholder="john.snow@email.com"
@@ -113,16 +113,17 @@ export default function AlterUser() {
                 />
               </section>
             </section>
-            <section className="alterUser-role">
+            <section className="userEdit-role">
               <label htmlFor="role">Cargo</label>
               <ChoiceField
                 onChange={(event) => setRole(event.target.value)}
                 name="profile_type"
                 width="20rem"
                 items={userProfiles}
+                disabled={true}
               />
             </section>
-            <section className="alterUser-submit">
+            <section className="userEdit-submit">
               <Button width="15rem" type="submit">
                 Confirmar alteração
               </Button>

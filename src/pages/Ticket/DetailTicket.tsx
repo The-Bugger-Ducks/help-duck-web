@@ -88,7 +88,7 @@ export default function DetailTicket() {
 
   async function handleReservedTicket() {
     if (user?.role !== "support") {
-      return alert("Usuário sem permissão para relalizar essa ação.");
+      return alert("Usuário sem permissão para realizar essa ação.");
     }
 
     const response = await ticketRequest.reserveTicket(id ?? "", user);

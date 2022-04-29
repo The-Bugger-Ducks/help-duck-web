@@ -16,6 +16,10 @@ const Dropdown: React.FC<PropsDropdown> = ({
   const [isHidden, setIsHidden] = useState(true);
   const navigate = useNavigate();
 
+  function editUser() {
+    navigate("/user_edit");
+  }
+
   function logout() {
     SessionController.clearRecords();
     navigate("/");
@@ -29,7 +33,7 @@ const Dropdown: React.FC<PropsDropdown> = ({
       </span>
       <div className="dropdown-list-container" hidden={isHidden}>
         <ul>
-          <li>Editar perfil</li>
+          <li onClick={editUser.bind(this)}>Editar perfil</li>
           <li onClick={logout.bind(this)}>Logout</li>
         </ul>
       </div>
