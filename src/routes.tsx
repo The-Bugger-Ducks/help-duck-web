@@ -1,9 +1,9 @@
 import { Routes, Route } from "react-router-dom";
 
 import Homepage from "./pages/Homepage/Homepage";
-import Login from "./pages/Login/Login";
-import Signup from "./pages/Login/Signup";
-import UserEdit from "./pages/Login/UserEdit";
+import Login from "./pages/User/Login";
+import Signup from "./pages/User/Signup";
+import UserEdit from "./pages/User/UserEdit";
 import DetailTicket from "./pages/Ticket/DetailTicket";
 import TicketRegister from "./pages/Ticket/TicketRegister";
 
