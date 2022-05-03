@@ -10,7 +10,7 @@
 }
 
 #homepage .search-or-filter form,
-#homepage .filter {
+.filter {
   width: 50%;
   display: inline-block;
 }
