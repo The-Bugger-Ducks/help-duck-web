@@ -5,7 +5,7 @@
   height: 100vh;
 }
 
-#ticket-register Header{
+#ticket-register Header {
   padding-left: 5%;
   width: 100vw;
   height: 80px;
@@ -19,7 +19,7 @@
 #ticket-register .ticket-register-title h1 {
   font-size: 2rem;
   font-weight: 400;
-  color: var(--color-black-light)
+  color: var(--color-black-light);
 }
 
 /* ESTILIZAÇÃO DO FORMULÁRIO */
@@ -83,13 +83,13 @@
   left: 0;
 }
 
-@media only screen and (max-width: 800px) {
-  #ticket-register Header{
-    padding: 10%;
-  }
-
+@media only screen and (min-width: 583px) and (max-width: 1227px) {
   #ticket-register .ticket-register-content {
     margin-left: 5%;
+  }
+
+  #ticket-register .ticket-register-content .ticket-register-title {
+    padding: 0 10% 0 5%;
   }
 
   #ticket-register .ticket-register-title h1 {
@@ -100,7 +100,7 @@
     margin-top: 3rem;
     padding: 0%;
   }
-  
+
   #ticket-register .ticket-register-form {
     width: 90%;
   }
@@ -125,5 +125,58 @@
 
   #ticket-register form label {
     color: var(--color-black-light);
+  }
+
+  #ticket-register Footer {
+    position: relative;
+  }
+}
+
+@media only screen and (max-width: 583px) {
+  #ticket-register .ticket-register-content {
+    margin-left: 5%;
+  }
+
+  #ticket-register .ticket-register-content .ticket-register-title {
+    padding: 0 10% 0 5%;
+  }
+
+  #ticket-register .ticket-register-title h1 {
+    font-size: 1.5rem;
+  }
+
+  #ticket-register .ticket-register-content {
+    margin-top: 3rem;
+    padding: 0%;
+  }
+
+  #ticket-register .ticket-register-form {
+    width: 90%;
+  }
+
+  #ticket-register button {
+    width: 100px;
+  }
+
+  #ticket-register .ticket-register-form .ticket-register-data {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  #ticket-register .ticket-register-form .ticket-register-data,
+  #ticket-register .ticket-register-form .form-sections,
+  #ticket-register .ticket-register-form .ticket-register-data-line {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+  }
+
+  #ticket-register form label {
+    color: var(--color-black-light);
+  }
+
+  #ticket-register Footer {
+    position: fixed;
   }
 }
