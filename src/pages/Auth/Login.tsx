@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-import "../../shared/styles/pages/user/Login.css";
+import "../../shared/styles/pages/auth/Login.css";
 
 import Button from "../../shared/components/Button";
 import Footer from "../../shared/components/Footer";

@@ -1,5 +1,5 @@
 import { FormEvent, useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 import { UserRequests } from "../../shared/utils/requests/User.requests";
 import { FiArrowLeft } from "react-icons/fi";
@@ -8,7 +8,7 @@ import Button from "../../shared/components/Button";
 import Footer from "../../shared/components/Footer";
 import Header from "../../shared/components/Header";
 import TextField from "../../shared/components/TextField";
-
+import { User } from "../../shared/interfaces/user.interface";
 import SessionController from "../../shared/utils/handlers/SessionController";
 import "../../shared/styles/pages/user/UserEdit.css";
 
@@ -19,13 +19,32 @@ export default function UserEdit() {
   const [lastname, setLastname] = useState("");
   const [role, setRole] = useState<"admin" | "support" | "client">("client");
 
+  const navigate = useNavigate();
+  const token = SessionController.getToken();
+  const { id } = useParams();
+  const user = SessionController.getUserInfo();
+  
   const userRequest = new UserRequests();
 
-  const navigate = useNavigate();
+  useEffect(() => {
+    const subscribe = getUser();
+
+    return () => {
+      subscribe.finally();
+    };
+  }, []);
+
+  const getUser = async () => {
+    const response: User = await userRequest.showRequest(id ?? "");
+
+    setEmail(response.email);
+    setName(response.firstName);
+    setLastname(response.lastName);
+    setRole(response.role);
+
+  };
 
 
-  const token = SessionController.getToken();
-  const user = SessionController.getUserInfo();
 
   useEffect(() => {
     if (!token || user?.role !== "admin") {

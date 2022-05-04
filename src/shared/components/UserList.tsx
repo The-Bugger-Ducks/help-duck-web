@@ -37,6 +37,7 @@ export default function TicketList() {
                     name={`${user.firstName} ${user.lastName}`}
                     email={user.email}
                     role={user.role}
+                    onClick={() => navigate(`../user/edit/${user.id}`)}
                   />
                 );
               })
