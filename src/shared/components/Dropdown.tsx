@@ -16,8 +16,10 @@ const Dropdown: React.FC<PropsDropdown> = ({
   const [isHidden, setIsHidden] = useState(true);
   const navigate = useNavigate();
 
+  const user = SessionController.getUserInfo();
+
   function editUser() {
-    navigate("/user_edit");
+    navigate(`../user/edit/${user?.id}/`);
   }
 
   function logout() {

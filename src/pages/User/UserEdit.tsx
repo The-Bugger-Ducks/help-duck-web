@@ -19,6 +19,13 @@ export default function UserEdit() {
   const [lastname, setLastname] = useState("");
   const [role, setRole] = useState<"admin" | "support" | "client">("client");
 
+  const [emailPlaceholder, setEmailPlaceholder] = useState("");
+  const [namePlaceholder, setNamePlaceholder] = useState("");
+  const [lastnamePlaceholder, setLastNamePlaceholder] = useState("");
+  const [rolePlaceholder, setRolePlaceholder] = useState<"admin" | "support" | "client">("client");
+  
+  // const [isDisable, setIsDisable] = useState(false);
+  
   const navigate = useNavigate();
   const token = SessionController.getToken();
   const { id } = useParams();
@@ -37,20 +44,26 @@ export default function UserEdit() {
   const getUser = async () => {
     const response: User = await userRequest.showRequest(id ?? "");
 
-    setEmail(response.email);
-    setName(response.firstName);
-    setLastname(response.lastName);
-    setRole(response.role);
+    setEmailPlaceholder(response.email);
+    setNamePlaceholder(response.firstName);
+    setLastNamePlaceholder(response.lastName);
+    setRolePlaceholder(response.role);
 
   };
-
-
 
   useEffect(() => {
     if (!token || user?.role !== "admin") {
       navigate("/");
     }
-  }, []);
+  }, []
+  );
+    
+  // if (user?.role === id) {
+  //   console.log(user?.id);
+  //   console.log(id);
+  // } else {
+  //   setIsDisable(true);
+  // }
 
   async function submitUserEdit(event: FormEvent) {
     event.preventDefault();
@@ -59,6 +72,7 @@ export default function UserEdit() {
     }
 
     const payload = {
+      id: id,
       email: email,
       password: password,
       firstName: name,
@@ -68,9 +82,10 @@ export default function UserEdit() {
     console.log(payload);
 
     const response = await userRequest.updateRequest(payload);
+    console.log(response)
 
-    if (response?.status === 201) {
-      alert("Usuário cadastrado com sucesso!");
+    if (response?.status === 200) {
+      alert("Usuário atualizado com sucesso!");
 
       navigate("/homepage");
     }
@@ -84,7 +99,6 @@ export default function UserEdit() {
           <section className="userEdit-welcome">
             <h2>
               <FiArrowLeft
-                color="var(--color-withe-main)"
                 onClick={() => {
                   navigate("/homepage");
                 }}
@@ -98,14 +112,14 @@ export default function UserEdit() {
                 <label htmlFor="name">Nome</label>
                 <TextField
                   type="text"
-                  placeholder={user?.firstName}
+                  placeholder={namePlaceholder}
                   onChange={(event) => setName(event.target.value)}
                   name="name"
                 />
                 <label htmlFor="lastname">Sobrenome</label>
                 <TextField
                   type="text"
-                  placeholder={user?.lastName}
+                  placeholder={lastnamePlaceholder}
                   onChange={(event) => setLastname(event.target.value)}
                   name="lastname"
                 />
@@ -113,7 +127,7 @@ export default function UserEdit() {
               <section className="userEdit-data">
                 <label htmlFor="email">E-mail</label>
                 <TextField
-                  placeholder={user?.email}
+                  placeholder={emailPlaceholder}
                   onChange={(event) => setEmail(event.target.value)}
                   name="email"
                 />
@@ -132,8 +146,10 @@ export default function UserEdit() {
                 onChange={(event) => setRole(event.target.value)}
                 name="profile_type"
                 width="20rem"
-                placeholder={user?.role}
+                placeholder={rolePlaceholder}
                 disabled={true}
+                backgroundColor = "#e2e2e2"
+
               />
             </section>
             <section className="userEdit-submit">

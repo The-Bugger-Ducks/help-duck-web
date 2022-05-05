@@ -3,6 +3,17 @@ import { USER_ENDPOINTS } from "../../utils/endpoints";
 import { validateStatus } from "../handlers/HandlerResponseStatusCodeFound";
 
 export class UserRequests {
+  public async showRequest(userId: string) {
+    try {
+      const response = await apiUsers.get(`/users/${userId}`, {
+        validateStatus,
+      });
+      return response.data;
+    } catch (error) {
+      alert("Não foi possível encontrar o usuario. Tente novamente!");
+    }
+  }
+
   public async loginRequest(body: object) {
     try {
       const response = await apiAuth.post(USER_ENDPOINTS.USER_LOGIN, body);
@@ -31,8 +42,8 @@ export class UserRequests {
 
   public async updateRequest(body: object) {
     try {
-      const response = await apiUsers.post(USER_ENDPOINTS.USER_UPDATE, body);
-      return response.data;
+      const response = await apiUsers.put(USER_ENDPOINTS.USER_UPDATE, body);
+      return response;
     } catch (error) {
       console.log(error);
       alert("Não foi possível atualizar dados do usuário");
