@@ -11,28 +11,69 @@ import TextField from "../../shared/components/TextField";
 import { User } from "../../shared/interfaces/user.interface";
 import SessionController from "../../shared/utils/handlers/SessionController";
 import "../../shared/styles/pages/user/UserEdit.css";
+import SelectInput from "../../shared/components/ChoiceField";
+
+type Role = {
+  value: string;
+  label: string;
+  selected: boolean;
+};
 
 export default function UserEdit() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [lastname, setLastname] = useState("");
-  const [role, setRole] = useState<"admin" | "support" | "client">("client");
+  const [role, setRole] = useState<"admin" | "support" | "client">();
 
   const [emailPlaceholder, setEmailPlaceholder] = useState("");
   const [namePlaceholder, setNamePlaceholder] = useState("");
   const [lastnamePlaceholder, setLastNamePlaceholder] = useState("");
-  const [rolePlaceholder, setRolePlaceholder] = useState<"admin" | "support" | "client">("client");
-  
+  const [, setRolePlaceholder] = useState<"admin" | "support" | "client">(
+    "client"
+  );
+  const [userProfiles, setUserProfiles] = useState<Role[]>([
+    { value: "client", label: "Cliente", selected: false },
+    { value: "support", label: "Suporte", selected: false },
+    { value: "admin", label: "Administrador", selected: false },
+  ]);
+
   const [isUser, setIsUser] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
-  
+
   const navigate = useNavigate();
   const token = SessionController.getToken();
   const { id } = useParams();
   const user = SessionController.getUserInfo();
-  
+
   const userRequest = new UserRequests();
+
+  const getUser = async () => {
+    const response: User = await userRequest.showRequest(id ?? "");
+
+    setEmailPlaceholder(response.email);
+    setNamePlaceholder(response.firstName);
+    setLastNamePlaceholder(response.lastName);
+    setRolePlaceholder(response.role);
+    setRole(response.role);
+    setUserProfiles([
+      {
+        value: "client",
+        label: "Cliente",
+        selected: response.role === "client",
+      },
+      {
+        value: "support",
+        label: "Suporte",
+        selected: response.role === "support",
+      },
+      {
+        value: "admin",
+        label: "Administrador",
+        selected: response.role === "admin",
+      },
+    ]);
+  };
 
   useEffect(() => {
     const subscribe = getUser();
@@ -42,16 +83,6 @@ export default function UserEdit() {
     };
   }, []);
 
-  const getUser = async () => {
-    const response: User = await userRequest.showRequest(id ?? "");
-
-    setEmailPlaceholder(response.email);
-    setNamePlaceholder(response.firstName);
-    setLastNamePlaceholder(response.lastName);
-    setRolePlaceholder(response.role);
-
-  };
-
   useEffect(() => {
     if (!token) {
       navigate("/");
@@ -60,7 +91,7 @@ export default function UserEdit() {
       navigate("/");
     }
   }, []);
-  
+
   useEffect(() => {
     if (user?.id === id) {
       setIsAdmin(true);
@@ -77,32 +108,32 @@ export default function UserEdit() {
       if (password === "" || name === "" || lastname === "") {
         return alert("Preencha todos os campos habilitados");
       }
-    }
-    else {
+    } else {
       if (email === "") {
         return alert("Preencha o email");
       }
     }
-    if (!id) {return}
+    if (!id) {
+      return;
+    }
     const payload = {
       id: id,
       email: email,
       password: password,
       firstName: name,
       lastName: lastname,
-      role: role,
+      role: role!,
     };
     console.log(payload);
 
     const response = await userRequest.updateRequest(payload);
-    console.log(response)
+    console.log(response);
 
     if (response?.status === 200) {
       alert("Usuário atualizado com sucesso!");
       if (user?.id === id) {
         //@ts-expect-error
         delete payload.password;
-        payload.role = user.role;
         SessionController.setUserInfo(payload);
       }
       navigate("/homepage");
@@ -164,12 +195,12 @@ export default function UserEdit() {
             </section>
             <section className="userEdit-role">
               <label htmlFor="role">Cargo</label>
-              <TextField
+              <SelectInput
                 onChange={(event) => setRole(event.target.value)}
                 name="profile_type"
                 width="20rem"
-                placeholder={rolePlaceholder}
-                disabled={true}
+                items={userProfiles}
+                disabled={isAdmin}
               />
             </section>
             <section className="userEdit-submit">
