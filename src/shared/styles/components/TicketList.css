@@ -18,6 +18,7 @@
 
 .ticket-list-container table {
   width: 100%;
+  min-width: 550px;
   height: auto;
 }
 
@@ -29,8 +30,7 @@
 }
 
 .ticket-list-container table td {
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
+  padding: 0.5rem;
 }
 
 .ticket-list-container table tr {
