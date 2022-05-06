@@ -45,4 +45,10 @@
     width: 1.3rem !important;
     height: 1.3rem !important;
   }
+
+  .dropdown-container ul {
+    width: 9rem;
+    position: absolute;
+    right: 0.5rem;
+  }
 }
