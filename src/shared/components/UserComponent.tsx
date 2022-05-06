@@ -15,7 +15,7 @@ const UserComponent: React.FC<UserInformationProps> = ({
 }) => {
   return (
     <tr onClick={onClick}>
-      <td>{name}</td>
+      <td id="name">{name}</td>
       <td>{email}</td>
       <td>{role}</td>
     </tr>
