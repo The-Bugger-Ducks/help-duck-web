@@ -24,7 +24,8 @@ export default function UserEdit() {
   const [lastnamePlaceholder, setLastNamePlaceholder] = useState("");
   const [rolePlaceholder, setRolePlaceholder] = useState<"admin" | "support" | "client">("client");
   
-  // const [isDisable, setIsDisable] = useState(false);
+  const [isUser, setIsUser] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
   
   const navigate = useNavigate();
   const token = SessionController.getToken();
@@ -52,25 +53,37 @@ export default function UserEdit() {
   };
 
   useEffect(() => {
-    if (!token || user?.role !== "admin") {
+    if (!token) {
       navigate("/");
     }
-  }, []
-  );
-    
-  // if (user?.role === id) {
-  //   console.log(user?.id);
-  //   console.log(id);
-  // } else {
-  //   setIsDisable(true);
-  // }
+    if (user?.role !== "admin" && user?.id !== id) {
+      navigate("/");
+    }
+  }, []);
+  
+  useEffect(() => {
+    if (user?.id === id) {
+      setIsAdmin(true);
+      setIsUser(false);
+    } else {
+      setIsAdmin(false);
+      setIsUser(true);
+    }
+  }, []);
 
   async function submitUserEdit(event: FormEvent) {
     event.preventDefault();
-    if (email === "" || password === "" || name === "" || lastname === "") {
-      return alert("Preencha todos os campos");
+    if (user?.id === id) {
+      if (password === "" || name === "" || lastname === "") {
+        return alert("Preencha todos os campos habilitados");
+      }
     }
-
+    else {
+      if (email === "") {
+        return alert("Preencha o email");
+      }
+    }
+    if (!id) {return}
     const payload = {
       id: id,
       email: email,
@@ -86,7 +99,12 @@ export default function UserEdit() {
 
     if (response?.status === 200) {
       alert("Usuário atualizado com sucesso!");
-
+      if (user?.id === id) {
+        //@ts-expect-error
+        delete payload.password;
+        payload.role = user.role;
+        SessionController.setUserInfo(payload);
+      }
       navigate("/homepage");
     }
   }
@@ -115,6 +133,7 @@ export default function UserEdit() {
                   placeholder={namePlaceholder}
                   onChange={(event) => setName(event.target.value)}
                   name="name"
+                  disabled={isUser}
                 />
                 <label htmlFor="lastname">Sobrenome</label>
                 <TextField
@@ -122,6 +141,7 @@ export default function UserEdit() {
                   placeholder={lastnamePlaceholder}
                   onChange={(event) => setLastname(event.target.value)}
                   name="lastname"
+                  disabled={isUser}
                 />
               </section>
               <section className="userEdit-data">
@@ -130,6 +150,7 @@ export default function UserEdit() {
                   placeholder={emailPlaceholder}
                   onChange={(event) => setEmail(event.target.value)}
                   name="email"
+                  disabled={isAdmin}
                 />
                 <label htmlFor="password">Senha</label>
                 <TextField
@@ -137,6 +158,7 @@ export default function UserEdit() {
                   onChange={(event) => setPassword(event.target.value)}
                   name="password"
                   type="password"
+                  disabled={isUser}
                 />
               </section>
             </section>
@@ -148,8 +170,6 @@ export default function UserEdit() {
                 width="20rem"
                 placeholder={rolePlaceholder}
                 disabled={true}
-                backgroundColor = "#e2e2e2"
-
               />
             </section>
             <section className="userEdit-submit">

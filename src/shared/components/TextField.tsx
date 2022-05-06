@@ -14,8 +14,9 @@ interface Props {
 }
 
 const TextInput: React.FC<Props> = ({
-  backgroundColor = "#f2f2f3",
+  disabled = false,
   border = "1px solid #CED4DA",
+  backgroundColor = !disabled ? "#f2f2f3" : "#e2e2e2",
   type = "email",
   name = "",
   placeholder = "",
@@ -23,7 +24,6 @@ const TextInput: React.FC<Props> = ({
   width = "100%",
   required = true,
   padding = "0.5rem",
-  disabled = false,
   onChange,
 }) => {
   return (
