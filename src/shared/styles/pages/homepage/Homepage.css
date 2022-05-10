@@ -32,7 +32,103 @@
 }
 
 #homepage .btn-open-ticket,
-.btn-create-user {
+#homepage .btn-create-user {
   margin-top: 2%;
   text-align: end;
+}
+
+@media only screen and (max-width: 500px) {
+  #homepage .search-or-filter {
+    margin-top: 0.8rem;
+  }
+
+  #homepage .search-or-filter form,
+  .filter {
+    width: 100%;
+    display: inline;
+  }
+
+  #homepage .search-or-filter form button {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  #homepage form button.button-primary {
+    width: 100% !important;
+    height: 2.5rem !important;
+    margin-bottom: 0.5rem;
+  }
+
+  #homepage .btn-open-ticket button.button-primary,
+  #homepage .btn-create-user button.button-primary {
+    width: 50% !important;
+    height: 2.5rem !important;
+    margin-bottom: 1%;
+  }
+
+  #homepage input.input-primary {
+    width: 100% !important;
+    margin-bottom: 0.5rem;
+  }
+
+  #homepage ticket-list-container {
+    height: 35vh;
+  }
+
+  #homepage .footer {
+    position: absolute;
+  }
+
+  #homepage .btn-open-ticket,
+  #homepage .btn-create-user {
+    margin-top: 2rem;
+  }
+}
+
+@media only screen and (min-width: 501px) and (max-width: 1024px) {
+  #homepage .search-or-filter {
+    margin-top: 0.8rem;
+  }
+
+  #homepage .search-or-filter form,
+  .filter {
+    width: 100%;
+    display: inline;
+  }
+
+  #homepage .search-or-filter form button {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  #homepage form button.button-primary {
+    width: 100% !important;
+    height: 2.5rem !important;
+    margin-bottom: 0.5rem;
+  }
+
+  #homepage .btn-open-ticket button.button-primary,
+  #homepage .btn-create-user button.button-primary {
+    width: 40% !important;
+    height: 2.5rem !important;
+    margin-bottom: 1rem;
+  }
+
+  #homepage input.input-primary {
+    width: 100% !important;
+    margin-bottom: 0.5rem;
+  }
+
+  #homepage ticket-list-container {
+    height: 35vh;
+  }
+
+  #homepage .footer {
+    position: relative;
+  }
+
+  #homepage .btn-open-ticket,
+  #homepage .btn-create-user {
+    margin-top: 2rem;
+  }
 }
