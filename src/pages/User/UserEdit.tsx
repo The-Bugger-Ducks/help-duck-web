@@ -102,6 +102,23 @@ export default function UserEdit() {
     }
   }, []);
 
+  function deleteButton() {
+    if (user?.id !== id && user?.role === "admin") {
+      return (
+        <section className="userEdit-delete">
+      <Button 
+        width="15rem"
+        type="submit"
+        border = "20px"
+        backgroundColor="var(--color-red)"
+        color="var(--color-white-light)">
+        Deletar usuário
+      </Button>
+    </section>
+    )
+   }
+  }
+
   async function submitUserEdit(event: FormEvent) {
     event.preventDefault();
     if (user?.id === id) {
@@ -203,10 +220,13 @@ export default function UserEdit() {
                 disabled={isAdmin}
               />
             </section>
-            <section className="userEdit-submit">
-              <Button width="15rem" type="submit">
-                Confirmar alteração
-              </Button>
+            <section className="userEdit-submits">
+              <section className="userEdit-submit">
+                <Button width="15rem" type="submit" color="var(--color-white-light)">
+                  Confirmar alteração
+                </Button>
+              </section>
+              {deleteButton()}
             </section>
           </form>
         </div>
