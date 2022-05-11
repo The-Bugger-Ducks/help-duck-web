@@ -25,6 +25,10 @@ export default function EquipmentRegister() {
   const [type, setType] = useState("");
   const [department, setDepartment] = useState("");
 
+  function back() {
+    navigate("/homepage");
+  }
+
   async function submitForm(event: FormEvent) {
     event.preventDefault();
     if (
@@ -64,7 +68,13 @@ export default function EquipmentRegister() {
         <div className="equipment-register-content">
           <section className="equipment-register-title">
             <h1>
-              <FiArrowLeft className="Icon" color="var(--color-gray-dark)" />
+              <div>
+                <FiArrowLeft
+                  className="Icon"
+                  color="var(--color-gray-dark)"
+                  onClick={back}
+                />
+              </div>
               Cadastro de equipamentos
             </h1>
           </section>
@@ -78,6 +88,7 @@ export default function EquipmentRegister() {
                     placeholder="Nome do equipamento"
                     onChange={(event) => setName(event.target.value)}
                     name="name"
+                    backgroundColor="#FAFAFA"
                   />
                 </div>
                 <div>
@@ -87,6 +98,7 @@ export default function EquipmentRegister() {
                     name="brand"
                     type="text"
                     placeholder="Marca do equipamento"
+                    backgroundColor="#FAFAFA"
                   />
                 </div>
               </section>
@@ -99,6 +111,7 @@ export default function EquipmentRegister() {
                     placeholder="Modelo do equipamento"
                     onChange={(event) => setModel(event.target.value)}
                     name="model"
+                    backgroundColor="#FAFAFA"
                   />
                 </div>
                 <div>
@@ -108,17 +121,19 @@ export default function EquipmentRegister() {
                     placeholder="Tipo do equipamento"
                     onChange={(event) => setType(event.target.value)}
                     name="type"
+                    backgroundColor="#FAFAFA"
                   />
                 </div>
               </section>
               <section className="equipment-register-data">
                 <div>
-                  <label htmlFor="type">Department:</label>
+                  <label htmlFor="type">Departamento:</label>
                   <TextField
                     type="text"
                     placeholder="Departamento do equipamento"
                     onChange={(event) => setDepartment(event.target.value)}
                     name="department"
+                    backgroundColor="#FAFAFA"
                   />
                 </div>
               </section>

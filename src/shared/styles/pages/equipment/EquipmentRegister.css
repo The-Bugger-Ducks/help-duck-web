@@ -88,6 +88,15 @@
   left: 0;
 }
 
+#equipment-register .equipment-register-title h1 {
+  display: flex;
+  align-items: center;
+}
+
+#equipment-register .equipment-register-title h1 div {
+  cursor: pointer;
+}
+
 @media only screen and (min-width: 768px) and (max-width: 1227px) {
   #equipment-register .equipment-register-content {
     margin-left: 5%;
@@ -128,10 +137,6 @@
 
   #equipment-register form label {
     color: var(--color-black-light);
-  }
-
-  #equipment-register Footer {
-    position: relative;
   }
 }
 
