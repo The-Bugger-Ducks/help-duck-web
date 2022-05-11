@@ -167,8 +167,14 @@
     width: 90%;
   }
 
-  #equipment-register button {
-    width: 100px;
+  #equipment-register button.button-primary {
+    width: 100% !important;
+    height: 3rem !important;
+  }
+
+  #equipment-register .equipment-register-submit {
+    margin-top: 1rem;
+    margin-bottom: 3rem;
   }
 
   #equipment-register .equipment-register-form .equipment-register-data {

@@ -5,7 +5,7 @@ import { validateStatus } from "../handlers/HandlerResponseStatusCodeFound";
 export class EquipmentRequests {
   public async createEquipment(equipment: Equipment) {
     try {
-      const response = await apiEquipment.post("/equipments/create", equipment);
+      const response = await apiEquipment.post("/equipment/create", equipment);
       return response;
     } catch (error) {
       console.log(error);
@@ -15,7 +15,7 @@ export class EquipmentRequests {
 
   public async listEquipmentRequest() {
     try {
-      const response = await apiEquipment.get(`/equipments/`, {
+      const response = await apiEquipment.get(`/equipment/`, {
         validateStatus,
       });
       return response.data;
