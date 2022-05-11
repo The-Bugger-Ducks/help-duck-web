@@ -9,9 +9,9 @@ import Header from "../../shared/components/Header";
 import TextField from "../../shared/components/TextField";
 
 import HandleUserFormData from "../../shared/utils/handlers/HandleUserFormData.service";
-import {UserLogin} from "../../shared/interfaces/user.interface";
+import { UserLogin } from "../../shared/interfaces/user.interface";
 import SessionController from "../../shared/utils/handlers/SessionController";
-import { apiAuth } from "../../shared/services/Api.service";
+import { apiUsers } from "../../shared/services/Api.service";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -55,7 +55,7 @@ export default function Login() {
     const user = SessionController.getUserInfo();
 
     if (!token || !user) return setIsAuthenticated(false);
-    const response = await apiAuth.post(
+    const response = await apiUsers.post(
       "/auth/authorization",
       { id: user.id },
       {
