@@ -29,6 +29,24 @@ export default function EquipmentRegister() {
     navigate("/homepage");
   }
 
+  async function handleDepartment(departmentValue: string) {
+    if (departmentValue == "marketingAndSales") {
+      setDepartment("Marketing e vendas");
+    } else if (departmentValue == "financial") {
+      setDepartment("Financeiro");
+    } else if (departmentValue == "operations") {
+      setDepartment("Operações");
+    } else if (departmentValue == "rh") {
+      setDepartment("RH");
+    } else if (departmentValue == "eps") {
+      setDepartment("EPS");
+    } else if (departmentValue == "ti") {
+      setDepartment("TI");
+    } else if (departmentValue == "epdi") {
+      setDepartment("EPDI");
+    }
+  }
+
   async function submitForm(event: FormEvent) {
     event.preventDefault();
     if (
@@ -36,7 +54,7 @@ export default function EquipmentRegister() {
       model === "" ||
       brand === "" ||
       type === "" ||
-      department === ""
+      department === "defaultValue"
     ) {
       return alert("Preencha todos os campos");
     }
@@ -127,13 +145,48 @@ export default function EquipmentRegister() {
               </section>
               <section className="equipment-register-data">
                 <div>
-                  <label htmlFor="type">Departamento:</label>
-                  <TextField
-                    type="text"
-                    placeholder="Departamento do equipamento"
-                    onChange={(event) => setDepartment(event.target.value)}
+                  <label htmlFor="department">Departamento:</label>
+                  <ChoiceField
                     name="department"
+                    items={[
+                      {
+                        selected: false,
+                        value: "marketingAndSales",
+                        label: "Marketing e vendas",
+                      },
+                      {
+                        selected: false,
+                        value: "financial",
+                        label: "Financeiro",
+                      },
+                      {
+                        selected: false,
+                        value: "operations",
+                        label: "Operações",
+                      },
+                      {
+                        selected: false,
+                        value: "rh",
+                        label: "RH",
+                      },
+                      {
+                        selected: false,
+                        value: "eps",
+                        label: "EPS",
+                      },
+                      {
+                        selected: false,
+                        value: "ti",
+                        label: "TI",
+                      },
+                      {
+                        selected: false,
+                        value: "epdi",
+                        label: "EPDI",
+                      },
+                    ]}
                     backgroundColor="#FAFAFA"
+                    onChange={(event) => handleDepartment(event.target.value)}
                   />
                 </div>
               </section>

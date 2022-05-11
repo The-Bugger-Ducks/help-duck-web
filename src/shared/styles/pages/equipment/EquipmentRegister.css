@@ -70,11 +70,6 @@
   padding-top: 1%;
 }
 
-#equipment-register .equipment-register-form select {
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-}
-
 #equipment-register form label {
   font-size: 1.5rem;
   color: var(--color-black-light);
@@ -95,6 +90,10 @@
 
 #equipment-register .equipment-register-title h1 div {
   cursor: pointer;
+}
+
+#equipment-register select.input-primary {
+  width: 223% !important;
 }
 
 @media only screen and (min-width: 768px) and (max-width: 1227px) {
@@ -147,6 +146,10 @@
 }
 
 @media only screen and (max-width: 768px) {
+  #equipment-register select.input-primary {
+    width: 100% !important;
+  }
+
   #equipment-register .equipment-register-form div {
     width: 100%;
   }
