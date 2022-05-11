@@ -140,13 +140,8 @@ export default function Homepage() {
                   items={[
                     {
                       selected: true,
-                      value: "underAnalysis",
-                      label: "Meus atendimentos",
-                    },
-                    {
-                      selected: true,
-                      value: "underAnalysis",
-                      label: "Meus atendimentos",
+                      value: "allEquipments",
+                      label: "Todos os equipamentos",
                     },
                   ]}
                   width="100%"

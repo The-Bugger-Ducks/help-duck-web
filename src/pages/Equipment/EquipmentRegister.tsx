@@ -29,7 +29,7 @@ export default function EquipmentRegister() {
     navigate("/homepage");
   }
 
-  async function handleDepartment(departmentValue: string) {
+  function handleDepartment(departmentValue: string) {
     if (departmentValue == "marketingAndSales") {
       setDepartment("Marketing e vendas");
     } else if (departmentValue == "financial") {
