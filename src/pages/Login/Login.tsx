@@ -52,24 +52,8 @@ export default function Login() {
 
   const checkUserAuthentication = async () => {
     const token = SessionController.getToken();
-    const user = SessionController.getUserInfo();
 
-    if (!token || !user) return setIsAuthenticated(false);
-    const response = await apiUsers.post(
-      "/auth/authorization",
-      { id: user.id },
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-
-    if (response.status === 200) {
-      return setIsAuthenticated(true);
-    } else {
-      return setIsAuthenticated(false);
-    }
+    return !token ? setIsAuthenticated(false) : setIsAuthenticated(true);
   };
 
   return (
