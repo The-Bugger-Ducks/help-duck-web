@@ -82,7 +82,6 @@ export default function DetailTicket() {
           return [...prevState, comment];
         });
       }
-      console.log(response);
     } catch (error) {}
   };
 

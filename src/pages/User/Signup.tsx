@@ -52,7 +52,6 @@ export default function Signup() {
       lastName: lastname,
       role: role,
     };
-    console.log(payload);
 
     const response = await userRequest.registerRequest(payload);
 

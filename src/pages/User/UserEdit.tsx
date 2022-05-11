@@ -108,10 +108,11 @@ export default function UserEdit() {
         <section className="userEdit-delete">
       <Button 
         width="15rem"
-        type="submit"
+        type="button"
         border = "20px"
         backgroundColor="var(--color-red)"
-        color="var(--color-white-light)">
+        color="var(--color-white-light)"
+        onClick={() => submitUserDelete(id)}>
         Deletar usuário
       </Button>
     </section>
@@ -141,10 +142,8 @@ export default function UserEdit() {
       lastName: lastname,
       role: role!,
     };
-    console.log(payload);
 
     const response = await userRequest.updateRequest(payload);
-    console.log(response);
 
     if (response?.status === 200) {
       alert("Usuário atualizado com sucesso!");
@@ -153,6 +152,19 @@ export default function UserEdit() {
         delete payload.password;
         SessionController.setUserInfo(payload);
       }
+      navigate("/homepage");
+    }
+  }
+
+  async function submitUserDelete(id: string | undefined) {
+    if (!id) {
+      return;
+    }
+
+    const response = await userRequest.deleteRequest(id);
+
+    if (response?.status === 200) {
+      alert("Usuário excluido com sucesso!");
       navigate("/homepage");
     }
   }

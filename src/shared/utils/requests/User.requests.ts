@@ -50,6 +50,15 @@ export class UserRequests {
     }
   }
 
+  public async deleteRequest(userId: string) {
+    try {
+      const response = await apiUsers.delete(`/users/delete/${userId}`);
+      return response;
+    } catch (error) {
+      alert("Não foi possível deletar o usuario. Tente novamente!");
+    }
+  }
+
   public async listUserRequest() {
     try {
       const response = await apiUsers.get(`/users/`, {
