@@ -14,6 +14,7 @@ import UserList from "../../shared/components/UserList";
 import { status } from "../../shared/types/status";
 
 import "../../shared/styles/pages/homepage/Homepage.css";
+import EquipmentList from "../../shared/components/EquipmentList";
 
 export default function Homepage() {
   const token = SessionController.getToken();
@@ -155,10 +156,10 @@ export default function Homepage() {
               </div>
             </section>
 
-            <UserList />
+            <EquipmentList />
 
             <div className="btn-create-equipment">
-              <Link to="#">
+              <Link to="/equipment_register">
                 <Button width="20%">Cadastrar Equipamento</Button>
               </Link>
             </div>

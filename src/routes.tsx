@@ -1,4 +1,5 @@
 import { Routes, Route } from "react-router-dom";
+import EquipmentRegister from "./pages/Equipment/EquipmentRegister";
 
 import Homepage from "./pages/Homepage/Homepage";
 import Login from "./pages/Login/Login";
@@ -15,6 +16,7 @@ function MyRoutes() {
       <Route path="/signup" element={<Signup />} />
       <Route path="/ticket/:id" element={<DetailTicket />} />
       <Route path="/ticket_register" element={<TicketRegister />} />
+      <Route path="/equipment_register" element={<EquipmentRegister />} />
     </Routes>
   );
 }

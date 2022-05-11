@@ -1,0 +1,213 @@
+/* ESTILIZAÇÃO GERAL*/
+
+#equipment-register {
+  width: 100vw;
+  height: 100vh;
+}
+
+#equipment-register Header {
+  padding-left: 5%;
+  width: 100vw;
+  height: 80px;
+}
+
+/* ESTILIZAÇÃO DO TITULO E SUBTITULO DA PÁGINA */
+#equipment-register .equipment-register-content .equipment-register-title {
+  padding: 5% 10% 0 5%;
+}
+
+#equipment-register .equipment-register-title h1 {
+  font-size: 2rem;
+  font-weight: 400;
+  color: var(--color-black-light);
+}
+
+/* ESTILIZAÇÃO DO FORMULÁRIO */
+
+#equipment-register .equipment-register-form {
+  padding: 2% 5%;
+  height: 50%;
+  width: 100%;
+  border-bottom: 100px;
+}
+
+#equipment-register .equipment-register-form .form-sections {
+  display: flex;
+  flex-direction: column;
+  column-gap: 2rem;
+}
+
+#equipment-register .equipment-register-form input {
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+#equipment-register .equipment-register-form .equipment-register-data {
+  display: flex;
+  flex-direction: column;
+  flex-direction: row;
+  gap: 3rem;
+}
+
+#equipment-register .equipment-register-form div {
+  width: 45%;
+}
+
+#equipment-register .equipment-register-form textarea {
+  width: 100%;
+  background-color: #f2f2f3;
+  border: 1px solid #d3d3d3;
+  border-radius: 20px;
+  outline: none;
+  min-height: 120px;
+  resize: vertical;
+  padding: 16px;
+  line-height: 28px;
+}
+
+#equipment-register .equipment-register-form .equipment-register-submit {
+  text-align: end;
+  padding-top: 1%;
+}
+
+#equipment-register .equipment-register-form select {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+#equipment-register form label {
+  font-size: 1.5rem;
+  color: var(--color-black-light);
+}
+
+#equipment-register Footer {
+  padding: 1.5;
+
+  position: fixed;
+  bottom: 0;
+  left: 0;
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1227px) {
+  #equipment-register .equipment-register-content {
+    margin-left: 5%;
+  }
+
+  #equipment-register .equipment-register-content .equipment-register-title {
+    padding: 0 10% 0 5%;
+  }
+
+  #equipment-register .equipment-register-title h1 {
+    font-size: 1.5rem;
+  }
+
+  #equipment-register .equipment-register-content {
+    margin-top: 3rem;
+    padding: 0%;
+  }
+
+  #equipment-register .equipment-register-form {
+    width: 90%;
+  }
+
+  #equipment-register button {
+    width: 100px;
+  }
+
+  #equipment-register .equipment-register-form .equipment-register-data {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+  }
+
+  #equipment-register .equipment-register-form .form-sections {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+  }
+
+  #equipment-register form label {
+    color: var(--color-black-light);
+  }
+
+  #equipment-register Footer {
+    position: relative;
+  }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1227px) {
+  #equipment-register Footer {
+    position: fixed;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  #equipment-register .equipment-register-form div {
+    width: 100%;
+  }
+
+  #equipment-register .equipment-register-content {
+    margin-left: 5%;
+  }
+
+  #equipment-register .equipment-register-content .equipment-register-title {
+    padding: 0 10% 0 5%;
+  }
+
+  #equipment-register .equipment-register-title h1 {
+    font-size: 1.5rem;
+  }
+
+  #equipment-register .equipment-register-content {
+    margin-top: 3rem;
+    padding: 0%;
+  }
+
+  #equipment-register .equipment-register-form {
+    width: 90%;
+  }
+
+  #equipment-register button {
+    width: 100px;
+  }
+
+  #equipment-register .equipment-register-form .equipment-register-data {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+  }
+
+  #equipment-register .equipment-register-form .form-sections {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+  }
+
+  #equipment-register form label {
+    color: var(--color-black-light);
+  }
+
+  #equipment-register Footer {
+    position: relative;
+  }
+
+  #equipment-register .equipment-register-form .equipment-register-data {
+    gap: 0;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  #equipment-register Footer {
+    position: fixed;
+  }
+}
+
+@media only screen and (max-width: 465px) {
+  #equipment-register .equipment-register-title h1 {
+    font-size: 1.5rem !important;
+  }
+
+  #equipment-register .equipment-register-title h1 svg {
+    margin-right: 0.5rem;
+  }
+}
