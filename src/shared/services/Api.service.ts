@@ -5,11 +5,7 @@ const apiUsers = axios.create({
 });
 
 const apiTickets = axios.create({
-  baseURL: "https://help-duck-tickets.herokuapp.com",
-});
-
-const apiReports = axios.create({
-  baseURL: "http://localhost:8082",
+  baseURL: "https://help-duck-ticket.herokuapp.com",
 });
 
 apiUsers.interceptors.request.use(async (config: any) => {
@@ -20,4 +16,12 @@ apiUsers.interceptors.request.use(async (config: any) => {
   return config;
 });
 
-export { apiUsers, apiTickets, apiReports };
+apiTickets.interceptors.request.use(async (config: any) => {
+  const token = sessionStorage.getItem("authentication_token");
+  if (token) {
+    config.headers.Authorization = `Bearer ${token.replace(/"/g, "")}`;
+  }
+  return config;
+});
+
+export { apiUsers, apiTickets };
