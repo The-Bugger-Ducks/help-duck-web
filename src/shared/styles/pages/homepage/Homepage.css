@@ -4,9 +4,8 @@
 }
 
 #homepage .footer {
-  position: absolute;
-  bottom: 0;
-  left: 0;
+  position: sticky !important;
+  margin-top: 1.5rem;
 }
 
 #homepage .search-or-filter form,
@@ -32,7 +31,8 @@
 }
 
 #homepage .btn-open-ticket,
-#homepage .btn-create-user {
+#homepage .btn-create-user,
+#homepage .btn-create-equipment {
   margin-top: 2%;
   text-align: end;
 }
@@ -66,6 +66,12 @@
     margin-bottom: 1%;
   }
 
+  #homepage .btn-create-equipment button.button-primary {
+    width: 60% !important;
+    height: 2.5rem !important;
+    margin-bottom: 1%;
+  }
+
   #homepage input.input-primary {
     width: 100% !important;
     margin-bottom: 0.5rem;
@@ -75,19 +81,24 @@
     height: 35vh;
   }
 
-  #homepage .footer {
-    position: absolute;
+  #homepage .btn-open-ticket,
+  #homepage .btn-create-user,
+  #homepage .btn-create-equipment {
+    margin-top: 2rem;
   }
 
-  #homepage .btn-open-ticket,
-  #homepage .btn-create-user {
-    margin-top: 2rem;
+  #homepage .footer {
+    margin-top: 3rem;
   }
 }
 
 @media only screen and (min-width: 501px) and (max-width: 1024px) {
   #homepage .search-or-filter {
     margin-top: 0.8rem;
+  }
+
+  #homepage .footer {
+    margin-top: 3rem;
   }
 
   #homepage .search-or-filter form,
@@ -114,6 +125,12 @@
     margin-bottom: 1rem;
   }
 
+  #homepage .btn-create-equipment button.button-primary {
+    width: 50% !important;
+    height: 2.5rem !important;
+    margin-bottom: 1rem;
+  }
+
   #homepage input.input-primary {
     width: 100% !important;
     margin-bottom: 0.5rem;
@@ -123,12 +140,9 @@
     height: 35vh;
   }
 
-  #homepage .footer {
-    position: relative;
-  }
-
   #homepage .btn-open-ticket,
-  #homepage .btn-create-user {
+  #homepage .btn-create-user,
+  #homepage .btn-create-equipment {
     margin-top: 2rem;
   }
 }
