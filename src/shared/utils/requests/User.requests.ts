@@ -31,7 +31,7 @@ export class UserRequests {
 
   public async updateRequest(body: object) {
     try {
-      const response = await apiUsers.post(USER_ENDPOINTS.USER_UPDATE, body);
+      const response = await apiUsers.post("", body);
       return response.data;
     } catch (error) {
       console.log(error);
@@ -41,7 +41,7 @@ export class UserRequests {
 
   public async listUserRequest() {
     try {
-      const response = await apiUsers.get(`/users/`, {
+      const response = await apiUsers.get(USER_ENDPOINTS.USER_LIST, {
         validateStatus,
       });
       return response.data;

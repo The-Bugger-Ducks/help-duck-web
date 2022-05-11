@@ -7,13 +7,17 @@ import {
 import SessionController from "../handlers/SessionController";
 
 import { User } from "../../interfaces/user.interface";
+import { TICKET_ENDPOINTS } from "../endpoints";
 
 export class TicketRequests {
   public async showRequest(ticketId: string) {
     try {
-      const response = await apiTickets.get(`/tickets/${ticketId}`, {
-        validateStatus,
-      });
+      const response = await apiTickets.get(
+        `${TICKET_ENDPOINTS.TICKET_LIST}${ticketId}`,
+        {
+          validateStatus,
+        }
+      );
       return response.data;
     } catch (error) {
       alert("Não foi possível encontrar o chamado. Tente novamente!");
@@ -27,7 +31,10 @@ export class TicketRequests {
     user: User;
   }) {
     try {
-      const response = await apiTickets.post("/tickets/create", ticket);
+      const response = await apiTickets.post(
+        TICKET_ENDPOINTS.TICKET_REGISTER,
+        ticket
+      );
       return response;
     } catch (error) {
       console.log(error);
@@ -36,7 +43,7 @@ export class TicketRequests {
   }
 
   public async ticketListAll() {
-    const response = await apiTickets.get(`/tickets/`, {
+    const response = await apiTickets.get(TICKET_ENDPOINTS.TICKET_LIST, {
       validateStatus,
     });
     return handleResponseStatus(response);
@@ -46,7 +53,7 @@ export class TicketRequests {
     const userInformation = SessionController.getUserInfo();
 
     const response = await apiTickets.get(
-      `/tickets/user/${userInformation?.id}`,
+      `${TICKET_ENDPOINTS.TICKET_LIST_BY_ID}${userInformation?.id}`,
       {
         validateStatus,
       }
@@ -57,7 +64,7 @@ export class TicketRequests {
   public async ticketListBySupport() {
     const userInformation = SessionController.getUserInfo();
     const response = await apiTickets.get(
-      `/tickets/support/${userInformation?.id}`,
+      `${TICKET_ENDPOINTS.TICKET_LIST_SUPPORT}${userInformation?.id}`,
       {
         validateStatus,
       }
@@ -68,16 +75,19 @@ export class TicketRequests {
   public async ticketListPerStatus(
     status: "underAnalysis" | "awaiting" | "done"
   ) {
-    const response = await apiTickets.get(`/tickets/status/${status}`, {
-      validateStatus,
-    });
+    const response = await apiTickets.get(
+      `${TICKET_ENDPOINTS.TICKET_LIST_STATUS}${status}`,
+      {
+        validateStatus,
+      }
+    );
     return handleResponseStatus(response);
   }
 
   public async reserveTicket(ticketId: string, payload: User) {
     try {
       return await apiTickets.put(
-        `helpUser/reserveTicket/${ticketId}`,
+        `${TICKET_ENDPOINTS.TICKET_RESERVE}${ticketId}`,
         payload
       );
     } catch (error) {
@@ -88,7 +98,7 @@ export class TicketRequests {
   public async insertComment(ticketId: string, payload: Comment) {
     try {
       return await apiTickets.put(
-        `helpUser/updateComment/${ticketId}`,
+        `${TICKET_ENDPOINTS.TICKET_INSERT_COMMENT}${ticketId}`,
         payload
       );
     } catch (error) {
@@ -98,7 +108,9 @@ export class TicketRequests {
 
   public async closeTicket(ticketId: string) {
     try {
-      return await apiTickets.put(`helpUser/closeTicket/${ticketId}`);
+      return await apiTickets.put(
+        `${TICKET_ENDPOINTS.TICKET_CLOSE}${ticketId}`
+      );
     } catch (error) {
       alert("Não foi possível fechar o chamado, tente novamente!");
     }
