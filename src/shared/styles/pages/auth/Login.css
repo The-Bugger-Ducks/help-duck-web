@@ -109,3 +109,31 @@
   bottom: 0;
   left: 0;
 }
+
+/* RESPONSIVIDADE */
+
+@media (max-width: 768px) {
+  #login .login-form {
+    background-color: var(--color-primary-main);
+    padding: 0;
+    height: 100%;
+    width: 100%;
+  }
+
+  #login form label {
+    color: var(--color-white-main);
+  }
+
+  #login #recover-password {
+    color: var(--color-white-main);
+  }
+
+  #login .login-content .login-welcome {
+    width: 100%;
+    margin-top: 4rem;
+  }
+
+  #login button.button-primary {
+    width: 100% !important;
+  }
+}

@@ -30,7 +30,7 @@ const Dropdown: React.FC<PropsDropdown> = ({
   return (
     <div className="dropdown-container" hidden={hiddenDropdown}>
       <span onClick={() => setIsHidden(!isHidden)}>
-        Olá, {name}{" "}
+        <p id="name-span">Olá, {name} </p>
         <BsChevronDown color="var(--color-white-main)" size="0.8rem" />{" "}
       </span>
       <div className="dropdown-list-container" hidden={isHidden}>

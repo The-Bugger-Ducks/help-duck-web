@@ -5,8 +5,18 @@
   border-bottom: 1px solid var(--color-white-dark);
 }
 
+.ticket-list-container #name {
+  max-width: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding-right: 1%;
+}
+
 .user-list-container table {
   width: 100%;
+  min-width: 550px;
+  height: auto;
 }
 
 .user-list-container table th {
@@ -17,8 +27,7 @@
 }
 
 .user-list-container table td {
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
+  padding: 0.5rem;
 }
 
 .user-list-container table tr {
