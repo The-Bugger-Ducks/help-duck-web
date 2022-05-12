@@ -1,35 +1,56 @@
-import { useState, FormEvent } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState, FormEvent, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 
 import { FiArrowLeft } from "react-icons/fi";
 
 import { EquipmentRequests } from "../../shared/utils/requests/Equipment.requests";
-import { Equipment } from "../../shared/interfaces/equipment.interface";
+import { EquipmentUpdate } from "../../shared/interfaces/equipment.interface";
 
 import Button from "../../shared/components/Button";
 import Footer from "../../shared/components/Footer";
 import Header from "../../shared/components/Header";
 import TextField from "../../shared/components/TextField";
 import ChoiceField from "../../shared/components/ChoiceField";
-
-import SessionController from "../../shared/utils/handlers/SessionController";
 import "../../shared/styles/pages/equipment/EquipmentUpdate.css";
 
-export default function EquipmentRegister() {
+export default function EquipmentUpdatePage() {
   const equipmentRequests = new EquipmentRequests();
   const navigate = useNavigate();
+  const { id } = useParams();
 
   const [name, setName] = useState("");
   const [model, setModel] = useState("");
   const [brand, setBrand] = useState("");
   const [type, setType] = useState("");
   const [department, setDepartment] = useState("");
+  const [selectedDepartment, setSelectedDepartment] = useState("");
+
+  useEffect(() => {
+    const subscribe = getEquipment();
+
+    return () => {
+      subscribe.finally();
+    };
+  }, []);
+
+  async function getEquipment() {
+    const response: EquipmentUpdate = await equipmentRequests.listEquipmentByID(
+      id ?? ""
+    );
+
+    setName(response.name);
+    setModel(response.model);
+    setBrand(response.brand);
+    setType(response.type);
+    setDepartment(response.department);
+    handleDepartmentLabel(response.department);
+  }
 
   function back() {
     navigate("/homepage");
   }
 
-  function handleDepartment(departmentValue: string) {
+  function handleDepartmentValue(departmentValue: string) {
     if (departmentValue == "marketingAndSales") {
       setDepartment("Marketing e vendas");
     } else if (departmentValue == "financial") {
@@ -47,22 +68,33 @@ export default function EquipmentRegister() {
     }
   }
 
+  function handleDepartmentLabel(departmentLabel: string) {
+    if (departmentLabel == "Marketing e vendas") {
+      setSelectedDepartment("marketingAndSales");
+    } else if (departmentLabel == "Financeiro") {
+      setSelectedDepartment("financial");
+    } else if (departmentLabel == "Operações") {
+      setSelectedDepartment("operations");
+    } else if (departmentLabel == "RH") {
+      setSelectedDepartment("rh");
+    } else if (departmentLabel == "EPS") {
+      setSelectedDepartment("eps");
+    } else if (departmentLabel == "TI") {
+      setSelectedDepartment("ti");
+    } else if (departmentLabel == "EPDI") {
+      setSelectedDepartment("epdi");
+    }
+  }
+
+  function isSelected(value: string) {
+    return value === selectedDepartment ? true : false;
+  }
+
   async function submitForm(event: FormEvent) {
     event.preventDefault();
-    if (
-      name === "" ||
-      model === "" ||
-      brand === "" ||
-      type === "" ||
-      department === "defaultValue"
-    ) {
-      return alert("Preencha todos os campos");
-    }
 
-    const user = SessionController.getUserInfo();
-    if (!user) return alert("Não foi possivel cadastrar seu chamado");
-
-    const payload: Equipment = {
+    const payload: EquipmentUpdate = {
+      id: id ?? "",
       name: name,
       model: model,
       brand: brand,
@@ -70,13 +102,10 @@ export default function EquipmentRegister() {
       department: department,
     };
 
-    const response = await equipmentRequests.createEquipment(payload);
+    const response = await equipmentRequests.updateEquipment(payload);
 
-    if (response?.status === 201) {
-      alert("Equipamento cadastrado com sucesso!");
-
-      navigate("/homepage");
-    }
+    alert("Equipamento editado com sucesso!");
+    navigate("/homepage");
   }
 
   return (
@@ -103,7 +132,7 @@ export default function EquipmentRegister() {
                   <label htmlFor="name">Nome:</label>
                   <TextField
                     type="text"
-                    placeholder="Nome do equipamento"
+                    placeholder={name}
                     onChange={(event) => setName(event.target.value)}
                     name="name"
                     backgroundColor="#FAFAFA"
@@ -112,11 +141,11 @@ export default function EquipmentRegister() {
                 <div>
                   <label htmlFor="brand">Marca:</label>
                   <TextField
-                    onChange={(event) => setBrand(event.target.value)}
                     name="brand"
                     type="text"
-                    placeholder="Marca do equipamento"
-                    backgroundColor="#FAFAFA"
+                    placeholder={brand}
+                    backgroundColor="#EDEDEE"
+                    disabled={true}
                   />
                 </div>
               </section>
@@ -126,20 +155,20 @@ export default function EquipmentRegister() {
                   <label htmlFor="model">Modelo:</label>
                   <TextField
                     type="text"
-                    placeholder="Modelo do equipamento"
-                    onChange={(event) => setModel(event.target.value)}
+                    placeholder={model}
                     name="model"
-                    backgroundColor="#FAFAFA"
+                    backgroundColor="#EDEDEE"
+                    disabled={true}
                   />
                 </div>
                 <div>
                   <label htmlFor="type">Tipo:</label>
                   <TextField
                     type="text"
-                    placeholder="Tipo do equipamento"
-                    onChange={(event) => setType(event.target.value)}
+                    placeholder={type}
                     name="type"
-                    backgroundColor="#FAFAFA"
+                    backgroundColor="#EDEDEE"
+                    disabled={true}
                   />
                 </div>
               </section>
@@ -150,50 +179,52 @@ export default function EquipmentRegister() {
                     name="department"
                     items={[
                       {
-                        selected: false,
+                        selected: isSelected("marketingAndSales"),
                         value: "marketingAndSales",
                         label: "Marketing e vendas",
                       },
                       {
-                        selected: false,
+                        selected: isSelected("financial"),
                         value: "financial",
                         label: "Financeiro",
                       },
                       {
-                        selected: false,
+                        selected: isSelected("operations"),
                         value: "operations",
                         label: "Operações",
                       },
                       {
-                        selected: false,
+                        selected: isSelected("rh"),
                         value: "rh",
                         label: "RH",
                       },
                       {
-                        selected: false,
+                        selected: isSelected("eps"),
                         value: "eps",
                         label: "EPS",
                       },
                       {
-                        selected: false,
+                        selected: isSelected("ti"),
                         value: "ti",
                         label: "TI",
                       },
                       {
-                        selected: false,
+                        selected: isSelected("epdi"),
                         value: "epdi",
                         label: "EPDI",
                       },
                     ]}
                     backgroundColor="#FAFAFA"
-                    onChange={(event) => handleDepartment(event.target.value)}
+                    onChange={(event) =>
+                      handleDepartmentValue(event.target.value)
+                    }
                   />
                 </div>
               </section>
             </section>
             <section className="equipment-update-submit">
               <Button type="submit" width="15rem">
-                Cadastrar equipamento
+                Editar equipamento
               </Button>
             </section>
           </form>
