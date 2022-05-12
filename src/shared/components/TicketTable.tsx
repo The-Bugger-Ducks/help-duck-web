@@ -5,20 +5,27 @@ import StatusTicket from "./StatusTicket";
 import PriorityLevelBadge from "../components/PriorityLevelBadge";
 
 import Ticket from "../interfaces/ticket.interface";
+import { SortTableTypes } from "../constants/sortTableEnum";
 
 import "../styles/components/TicketList.css";
 
-const TicketTable: React.FC<{ tickets: Array<Ticket> }> = ({ tickets }) => {
+const TicketTable: React.FC<{ tickets: Array<Ticket>, handleTableSorting: (type: SortTableTypes) => void }> = ({ tickets, handleTableSorting }) => {
   const navigate = useNavigate();
+
+  const tableHeaderOptions = [
+    {text: "Prioridade", type: SortTableTypes.priority},
+    {text: "Título", type: SortTableTypes.title},
+    {text: "Data de criação", type: SortTableTypes.createdAt},
+    {text: "Status", type: SortTableTypes.status}
+  ]
 
   return (
     <table>
       <tbody>
         <tr>
-          <th>Prioridade</th>
-          <th>Título</th>
-          <th>Data de criação</th>
-          <th>Status</th>
+          {tableHeaderOptions.map((option, index) => (
+            <th key={index} onClick={() => handleTableSorting(option.type)}>{option.text}</th>
+          ))}          
         </tr>
         {tickets.length > 0 ? (
           tickets.map((ticket, index) => {

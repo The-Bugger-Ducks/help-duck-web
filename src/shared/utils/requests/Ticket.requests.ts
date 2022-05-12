@@ -42,35 +42,43 @@ export class TicketRequests {
     return handleResponseStatus(response);
   }
 
-  public async ticketListById() {
+  public async ticketListById(sorting?: string) {
     const userInformation = SessionController.getUserInfo();
 
-    const response = await apiTickets.get(
-      `/tickets/user/${userInformation?.id}`,
-      {
-        validateStatus,
-      }
-    );
+    let url = `/tickets/user/${userInformation?.id}`
+
+    if (sorting) {
+      url = `/tickets/user/${userInformation?.id}?${sorting}`
+    }
+
+    const response = await apiTickets.get(url, { validateStatus });
     return handleResponseStatus(response);
   }
 
-  public async ticketListBySupport() {
+  public async ticketListBySupport(sorting?: string) {
     const userInformation = SessionController.getUserInfo();
-    const response = await apiTickets.get(
-      `/tickets/support/${userInformation?.id}`,
-      {
-        validateStatus,
-      }
-    );
+
+    let url = `/tickets/support/${userInformation?.id}`
+
+    if (sorting) {
+      url = `/tickets/support/${userInformation?.id}?${sorting}`
+    }
+
+    const response = await apiTickets.get(url, { validateStatus });
     return handleResponseStatus(response);
   }
 
   public async ticketListPerStatus(
-    status: "underAnalysis" | "awaiting" | "done"
+    status: "underAnalysis" | "awaiting" | "done",
+    sorting?: string
   ) {
-    const response = await apiTickets.get(`/tickets/status/${status}`, {
-      validateStatus,
-    });
+    let url = `/tickets/status/${status}`
+
+    if (sorting) {
+      url = `/tickets/status/${status}?${sorting}`
+    }
+
+    const response = await apiTickets.get(url, { validateStatus });
     return handleResponseStatus(response);
   }
 
