@@ -61,7 +61,13 @@ export default function TicketRegister() {
         <div className="ticket-register-content">
           <section className="ticket-register-title">
             <h1>
-              <FiArrowLeft className="Icon" color="var(--color-gray-dark)" />
+              <FiArrowLeft
+                className="navigation-button"
+                color="var(--color-gray-dark)"
+                onClick={() => {
+                  navigate("/homepage");
+                }}
+              />
               Cadastro de chamado
             </h1>
           </section>

@@ -75,6 +75,14 @@
   color: var(--color-black-light);
 }
 
+#ticket-register .navigation-button {
+  cursor: pointer;
+}
+
+#ticket-register .navigation-button:hover {
+  filter: brightness(40%);
+}
+
 #ticket-register Footer {
   padding: 1.5;
 

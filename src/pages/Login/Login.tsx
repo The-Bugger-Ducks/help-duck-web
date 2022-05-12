@@ -50,6 +50,10 @@ export default function Login() {
     }
   };
 
+  async function alertForgotPassword() {
+    return alert("Contate um administrador para atualização de senha!");
+  }
+
   const checkUserAuthentication = async () => {
     const token = SessionController.getToken();
     const user = SessionController.getUserInfo();
@@ -97,7 +101,7 @@ export default function Login() {
                 type="password"
               />
             </section>
-            <Link to={"#"} id="recover-password">
+            <Link to={"#"} id="recover-password" onClick={() => alertForgotPassword()}>
               Esqueceu a senha?
             </Link>
             <Button type="submit" width="80%">
