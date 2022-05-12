@@ -1,0 +1,7 @@
+button:hover.button-secondary {
+  border: 2px solid var(--color-red) !important;
+  color: var(--color-red) !important;
+  background-color: var(--color-white-main) !important;
+  transition: 200ms all;
+  cursor: pointer;
+}

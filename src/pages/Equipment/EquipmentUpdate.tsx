@@ -12,6 +12,7 @@ import Header from "../../shared/components/Header";
 import TextField from "../../shared/components/TextField";
 import ChoiceField from "../../shared/components/ChoiceField";
 import "../../shared/styles/pages/equipment/EquipmentUpdate.css";
+import ButtonDelete from "../../shared/components/ButtonDelete";
 
 export default function EquipmentUpdatePage() {
   const equipmentRequests = new EquipmentRequests();
@@ -102,7 +103,7 @@ export default function EquipmentUpdatePage() {
       department: department,
     };
 
-    const response = await equipmentRequests.updateEquipment(payload);
+    await equipmentRequests.updateEquipment(payload);
 
     alert("Equipamento editado com sucesso!");
     navigate("/homepage");
@@ -223,7 +224,11 @@ export default function EquipmentUpdatePage() {
               </section>
             </section>
             <section className="equipment-update-submit">
-              <Button type="submit" width="15rem">
+              <ButtonDelete type="button" width="15rem">
+                Excluir equipamento
+              </ButtonDelete>
+
+              <Button type="submit" width="15rem" color="#FAFAFA">
                 Editar equipamento
               </Button>
             </section>

@@ -96,6 +96,10 @@
   width: 223% !important;
 }
 
+#equipment-update button.button-secondary {
+  margin-right: 1rem;
+}
+
 @media only screen and (min-width: 768px) and (max-width: 1227px) {
   #equipment-update .equipment-update-content {
     margin-left: 5%;
@@ -145,6 +149,23 @@
   }
 }
 
+@media only screen and (max-width: 1227px) {
+  #equipment-update button.button-secondary {
+    margin-bottom: 1rem;
+  }
+
+  #equipment-update button.button-primary,
+  #equipment-update button.button-secondary {
+    width: 100% !important;
+    height: 3rem !important;
+  }
+
+  #equipment-update .equipment-update-submit {
+    margin-top: 1rem;
+    margin-bottom: 3rem;
+  }
+}
+
 @media only screen and (max-width: 768px) {
   #equipment-update select.input-primary {
     width: 100% !important;
@@ -173,16 +194,6 @@
 
   #equipment-update .equipment-update-form {
     width: 90%;
-  }
-
-  #equipment-update button.button-primary {
-    width: 100% !important;
-    height: 3rem !important;
-  }
-
-  #equipment-update .equipment-update-submit {
-    margin-top: 1rem;
-    margin-bottom: 3rem;
   }
 
   #equipment-update .equipment-update-form .equipment-update-data {
