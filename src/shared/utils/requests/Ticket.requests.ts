@@ -1,6 +1,9 @@
 import Comment from "../../interfaces/comment.interface";
 import { apiTickets } from "../../services/Api.service";
-import { handleResponseStatus, validateStatus } from "../handlers/HandlerResponseStatusCodeFound";
+import {
+  handleResponseStatus,
+  validateStatus,
+} from "../handlers/HandlerResponseStatusCodeFound";
 import SessionController from "../handlers/SessionController";
 
 import { User } from "../../interfaces/user.interface";
@@ -36,7 +39,7 @@ export class TicketRequests {
     const response = await apiTickets.get(`/tickets/`, {
       validateStatus,
     });
-    return handleResponseStatus(response)
+    return handleResponseStatus(response);
   }
 
   public async ticketListById() {
@@ -48,7 +51,7 @@ export class TicketRequests {
         validateStatus,
       }
     );
-    return handleResponseStatus(response)
+    return handleResponseStatus(response);
   }
 
   public async ticketListBySupport() {
@@ -62,14 +65,13 @@ export class TicketRequests {
     return handleResponseStatus(response);
   }
 
-  public async ticketListPerStatus(status: "underAnalysis" | "awaiting" | "done") {
-    const response = await apiTickets.get(
-      `/tickets/status/${status}`,
-      {
-        validateStatus,
-      }
-    );
-    return handleResponseStatus(response)
+  public async ticketListPerStatus(
+    status: "underAnalysis" | "awaiting" | "done"
+  ) {
+    const response = await apiTickets.get(`/tickets/status/${status}`, {
+      validateStatus,
+    });
+    return handleResponseStatus(response);
   }
 
   public async reserveTicket(ticketId: string, payload: User) {
@@ -96,9 +98,7 @@ export class TicketRequests {
 
   public async closeTicket(ticketId: string) {
     try {
-      return await apiTickets.put(
-        `helpUser/closeTicket/${ticketId}`
-      );
+      return await apiTickets.put(`helpUser/closeTicket/${ticketId}`);
     } catch (error) {
       alert("Não foi possível fechar o chamado, tente novamente!");
     }
