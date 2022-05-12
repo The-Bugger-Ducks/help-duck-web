@@ -4,6 +4,19 @@ import { validateStatus } from "../handlers/HandlerResponseStatusCodeFound";
 import { EQUIPMENT_ENDPOINTS } from "../endpoints";
 
 export class EquipmentRequests {
+  public async updateEquipment(newEquipment: Equipment) {
+    try {
+      const response = await apiEquipment.put(
+        EQUIPMENT_ENDPOINTS.EQUIPMENT_UPDATE,
+        newEquipment
+      );
+      return response.data;
+    } catch (error) {
+      console.log(error);
+      alert("Não foi possível atualizar dados do equipamento");
+    }
+  }
+
   public async createEquipment(equipment: Equipment) {
     try {
       const response = await apiEquipment.post(

@@ -18,4 +18,5 @@ export enum TICKET_ENDPOINTS {
 export enum EQUIPMENT_ENDPOINTS {
   EQUIPMENT_LIST = `/equipment/`,
   EQUIPMENT_REGISTER = `/equipment/create`,
+  EQUIPMENT_UPDATE = `/equipment/update`,
 }
