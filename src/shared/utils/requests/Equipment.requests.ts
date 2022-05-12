@@ -7,6 +7,18 @@ import { useNavigate } from "react-router-dom";
 export class EquipmentRequests {
   navigate = useNavigate();
 
+  public async deleteEquipment(id: string) {
+    try {
+      const response = await apiEquipment.delete(
+        `${EQUIPMENT_ENDPOINTS.EQUIPMENT_DELETE}${id}`
+      );
+      return response;
+    } catch (error) {
+      console.log(error);
+      alert("Não foi possível deletar o equipamento");
+    }
+  }
+
   public async updateEquipment(newEquipment: Equipment) {
     try {
       const response = await apiEquipment.put(

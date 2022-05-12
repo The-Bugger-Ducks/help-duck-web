@@ -20,4 +20,5 @@ export enum EQUIPMENT_ENDPOINTS {
   EQUIPMENT_LIST_BY_ID = `/equipment/`,
   EQUIPMENT_REGISTER = `/equipment/create`,
   EQUIPMENT_UPDATE = `/equipment/update`,
+  EQUIPMENT_DELETE = `/equipment/delete/`,
 }

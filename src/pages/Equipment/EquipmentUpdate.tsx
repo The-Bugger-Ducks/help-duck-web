@@ -91,6 +91,13 @@ export default function EquipmentUpdatePage() {
     return value === selectedDepartment ? true : false;
   }
 
+  async function deleteEquipment() {
+    await equipmentRequests.deleteEquipment(id ?? "");
+
+    alert("Equipamento deletado com sucesso!");
+    navigate("/homepage");
+  }
+
   async function submitForm(event: FormEvent) {
     event.preventDefault();
 
@@ -224,7 +231,11 @@ export default function EquipmentUpdatePage() {
               </section>
             </section>
             <section className="equipment-update-submit">
-              <ButtonDelete type="button" width="15rem">
+              <ButtonDelete
+                type="button"
+                width="15rem"
+                onClick={deleteEquipment}
+              >
                 Excluir equipamento
               </ButtonDelete>
 
