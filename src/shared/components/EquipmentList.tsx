@@ -1,13 +1,13 @@
 import "../styles/components/EquipmentList.css";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Equipment } from "../interfaces/equipment.interface";
+import { EquipmentUpdate } from "../interfaces/equipment.interface";
 import { EquipmentRequests } from "../utils/requests/Equipment.requests";
 import EquipmentComponent from "./EquipmentComponent";
 
 export default function EquipmentList() {
   const equipmentRequest = new EquipmentRequests();
-  const [equipments, setEquipments] = useState<Equipment[]>();
+  const [equipments, setEquipments] = useState<EquipmentUpdate[]>();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -17,7 +17,7 @@ export default function EquipmentList() {
   const getEquipmentsList = async () => {
     const response: { content: [] } =
       await equipmentRequest.listEquipmentRequest();
-    const equipments: Equipment[] = response.content;
+    const equipments: EquipmentUpdate[] = response.content;
     setEquipments(equipments);
   };
 
@@ -42,6 +42,9 @@ export default function EquipmentList() {
                     brand={equipment.brand}
                     type={equipment.type}
                     department={equipment.department}
+                    onClick={() =>
+                      navigate(`/equipment_update/${equipment.id}`)
+                    }
                   />
                 );
               })
