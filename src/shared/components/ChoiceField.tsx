@@ -9,6 +9,7 @@ interface Props {
   padding?: string;
   onChange?: (event: any) => void;
   items: Array<{ value: string; label: string; selected?: boolean }>;
+  disabled?: boolean;
 }
 
 const SelectInput: React.FC<Props> = ({
@@ -21,6 +22,7 @@ const SelectInput: React.FC<Props> = ({
   padding = "0.5rem",
   onChange,
   items,
+  disabled = false,
 }) => {
   return (
     <div>
@@ -36,6 +38,7 @@ const SelectInput: React.FC<Props> = ({
         className="input-primary"
         name={name}
         required={required}
+        disabled={disabled}
       >
         <option value="" selected>
           Selecione uma opção
