@@ -106,3 +106,10 @@
 
   cursor: auto;
 }
+
+@media only screen and (min-width: 500px) and (max-width: 1023px) {
+  .ticket-list-container .grid-tickets {
+    height: 30vh;
+    overflow-y: auto;
+  }
+}
