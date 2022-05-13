@@ -62,6 +62,7 @@ export default function DetailTicket() {
 
     const date = new Date(response.createdAt);
     setCreatedAt(date);
+    console.log(ticket);
   };
 
   const handleSubmitComment = async () => {
@@ -143,6 +144,10 @@ export default function DetailTicket() {
                 {createdAt?.toLocaleString("pt-br") ?? "..."}
               </span>
               <StatusTicket status={ticket?.status} />
+            </p>
+            <p>
+              Responsável: {ticket?.support.firstName}{" "}
+              {ticket?.support.lastName} ({ticket?.support.email})
             </p>
           </div>
           {user?.role == "support" ? (
