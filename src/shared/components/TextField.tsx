@@ -1,6 +1,8 @@
-import React from "react";
+import React from 'react';
 interface Props {
   backgroundColor?: string;
+  color?: string;
+  height?: string;
   border?: string;
   type?: any;
   name?: string;
@@ -14,15 +16,17 @@ interface Props {
 }
 
 const TextInput: React.FC<Props> = ({
-  backgroundColor = "#f2f2f3",
-  border = "1px solid #CED4DA",
-  type = "email",
-  name = "",
-  placeholder = "",
-  radius = "0.3rem",
-  width = "100%",
+  backgroundColor = '#F2F2F3',
+  color = '#495057',
+  height = '50px',
+  border = '1px solid #CED4DA',
+  type = 'email',
+  name = '',
+  placeholder = '',
+  radius = '0.3rem',
+  width = '100%',
   required = true,
-  padding = "0.5rem",
+  padding = '0.5rem',
   onChange,
   disabled = false,
 }) => {
@@ -35,6 +39,9 @@ const TextInput: React.FC<Props> = ({
         borderRadius: radius,
         width,
         padding,
+        height,
+        fontSize: '16px',
+        color,
       }}
       className="input-primary"
       type={type}

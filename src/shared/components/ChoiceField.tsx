@@ -1,10 +1,12 @@
-import React from "react";
+import React from 'react';
 interface Props {
   backgroundColor?: string;
+  color?: string;
   border?: string;
   name?: string;
   radius?: string;
   width?: string;
+  height?: string;
   required?: boolean;
   padding?: string;
   onChange?: (event: any) => void;
@@ -13,13 +15,15 @@ interface Props {
 }
 
 const SelectInput: React.FC<Props> = ({
-  backgroundColor = "#f2f2f3",
-  border = "1px solid #CED4DA",
-  name = "",
-  radius = "0.3rem",
-  width = "100%",
+  backgroundColor = '#F2F2F3',
+  color = '#495057',
+  border = '1px solid #CED4DA',
+  name = '',
+  radius = '0.3rem',
+  width = '100%',
+  height = '50px',
   required = true,
-  padding = "0.5rem",
+  padding = '0.5rem',
   onChange,
   items,
   disabled = false,
@@ -33,7 +37,10 @@ const SelectInput: React.FC<Props> = ({
           border,
           borderRadius: radius,
           width,
-          padding,
+          padding: `${padding} 0.5rem`,
+          height,
+          fontSize: '16px',
+          color,
         }}
         className="input-primary"
         name={name}
