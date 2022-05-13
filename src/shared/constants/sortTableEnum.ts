@@ -4,3 +4,9 @@ export enum SortTableTypes {
   createdAt = "createdAt",
   status = "status",
 }
+
+export enum OrderByTypes {
+  asc = "asc",
+  desc = "desc",
+  none = ""
+}

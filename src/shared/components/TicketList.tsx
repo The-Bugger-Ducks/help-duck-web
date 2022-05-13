@@ -8,7 +8,7 @@ import Ticket from "../../shared/interfaces/ticket.interface";
 
 import TicketTable from "./TicketTable";
 import "../styles/components/TicketList.css";
-import { SortTableTypes } from "../constants/sortTableEnum";
+import { SortTableTypes, OrderByTypes } from "../constants/sortTableEnum";
 
 const TicketList: React.FC<{ status: status | "" }> = ({ status }) => {
   const [tickets, setTickets] = useState<Ticket[]>([]);
@@ -54,9 +54,16 @@ const TicketList: React.FC<{ status: status | "" }> = ({ status }) => {
   };
 
 
-  function handleTableSorting(type: SortTableTypes) {
-    // / 
-    const sort = `?page=0&size=10&sort=${type},desc`
+  function handleTableSorting(type: SortTableTypes, orderBy: OrderByTypes) {
+    
+    const containsOrderBy = orderBy !== OrderByTypes.none;
+ 
+    let sort = "";
+    if (containsOrderBy) {
+      sort = `page=0&size=10&sort=${type},${orderBy}`
+    } else {
+      sort = `page=0&size=10&sort=${type}`
+    }
 
     if (typeTicketList == "client") {
       getTicketListClient(sort)
