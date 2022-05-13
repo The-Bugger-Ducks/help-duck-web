@@ -14,7 +14,9 @@ import "../styles/components/TicketList.css";
 const TicketList: React.FC<{ status: status | "" }> = ({ status }) => {
   const [tickets, setTickets] = useState<Ticket[]>([]);
 
-  const [typeTicketList, setTypeTicketList] = useState<"client" | "support" | "status">();
+  const [typeTicketList, setTypeTicketList] = useState<
+    "client" | "support" | "status"
+  >();
 
   const ticketRequest = new TicketRequests();
   const userInformation = SessionController.getUserInfo();
@@ -28,57 +30,68 @@ const TicketList: React.FC<{ status: status | "" }> = ({ status }) => {
   }, [status]);
 
   async function getTicketListClient(sorting?: string) {
-    const response: { content: Ticket[] } = await ticketRequest.ticketListById(sorting);
-    
+    const response: { content: Ticket[] } = await ticketRequest.ticketListById(
+      sorting
+    );
+
     setTickets(response.content ?? []);
     setTypeTicketList("client");
-  };
+  }
 
   async function getTicketListSupport(sorting?: string) {
-    const response: { content: Ticket[] } = await ticketRequest.ticketListBySupport(sorting);
+    const response: { content: Ticket[] } =
+      await ticketRequest.ticketListBySupport(sorting);
 
-    const tickets = response.content.filter((ticket) => ticket.status === "underAnalysis");
+    const tickets = response.content.filter(
+      (ticket) => ticket.status === "underAnalysis"
+    );
 
     setTickets(tickets ?? []);
     setTypeTicketList("support");
-  };
+  }
 
   async function getTicketPerStatus(status: status | "", sorting?: string) {
     if (status === "underAnalysis" || status === "") {
       return getTicketListSupport();
     }
 
-    const response: { content: Ticket[] } = await ticketRequest.ticketListPerStatus(status, sorting);
+    const response: { content: Ticket[] } =
+      await ticketRequest.ticketListPerStatus(status, sorting);
 
     setTickets(response.content ?? []);
     setTypeTicketList("status");
-  };
+  }
 
-
-  function handleTableSorting(type: SortTicketTableTypes, orderBy: OrderByTypes) {
-    
+  function handleTableSorting(
+    type: SortTicketTableTypes,
+    orderBy: OrderByTypes
+  ) {
     const containsOrderBy = orderBy !== OrderByTypes.none;
- 
+
     let sort = "";
     if (containsOrderBy) {
-      sort = `page=0&size=10&sort=${type},${orderBy}`
+      sort = `page=0&size=50&sort=${type},${orderBy}`;
     } else {
-      sort = `page=0&size=10&sort=${type}`
+      sort = `page=0&size=50&sort=${type}`;
     }
 
     if (typeTicketList == "client") {
-      getTicketListClient(sort)
+      getTicketListClient(sort);
     } else if (typeTicketList == "support") {
-      getTicketListSupport(sort)
+      getTicketListSupport(sort);
     } else {
-      getTicketPerStatus(status, sort)
-    }    
+      getTicketPerStatus(status, sort);
+    }
   }
 
   return (
     <section className="ticket-list-container">
       <div className="grid-tickets">
-        <TicketTable tickets={tickets} handleTableSorting={handleTableSorting} status={status}/>
+        <TicketTable
+          tickets={tickets}
+          handleTableSorting={handleTableSorting}
+          status={status}
+        />
       </div>
     </section>
   );
