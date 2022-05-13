@@ -62,7 +62,6 @@ export default function DetailTicket() {
 
     const date = new Date(response.createdAt);
     setCreatedAt(date);
-    console.log(ticket);
   };
 
   const handleSubmitComment = async () => {
