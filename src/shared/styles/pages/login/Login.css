@@ -50,7 +50,7 @@
 
 #login .login-form {
   background-color: var(--color-white-main);
-  padding: 5%;
+  padding: 3rem 2rem 2rem;
   height: 50%;
   width: 50%;
   border-radius: 2%;

@@ -95,6 +95,7 @@ export default function Homepage() {
               width="75%"
               backgroundColor="#FAFAFA"
               type="text"
+              height="42px"
             />
             <Button width="20%" type="submit" fontSize="0.8rem">
               Buscar
@@ -106,7 +107,8 @@ export default function Homepage() {
               items={filterOptions}
               width="100%"
               backgroundColor="#FAFAFA"
-              onChange={(event) => setStatusFilter(event.target.value)}
+              onChange={event => setStatusFilter(event.target.value)}
+              height="42px"
             />
           </div>
         </section>
@@ -146,7 +148,9 @@ export default function Homepage() {
                   ]}
                   width="100%"
                   backgroundColor="#FAFAFA"
-                  onChange={(event) => setStatusFilter(event.target.value)}
+                  onChange={event => setStatusFilter(event.target.value)}
+                  height="42px"
+                  color="#495057"
                 />
               </div>
             </section>
