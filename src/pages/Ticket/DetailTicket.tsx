@@ -146,8 +146,12 @@ export default function DetailTicket() {
               <StatusTicket status={ticket?.status} />
             </p>
             <p>
-              Responsável: {ticket?.support.firstName}{" "}
-              {ticket?.support.lastName} ({ticket?.support.email})
+              Responsável:{" "}
+              {ticket?.support
+                ? ticket?.support.firstName
+                : "Sem responsável no momento"}{" "}
+              {ticket?.support ? ticket?.support.lastName : ""}{" "}
+              {ticket?.support ? `(${ticket?.support.email})` : ""}
             </p>
           </div>
           {user?.role == "support" ? (
