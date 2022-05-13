@@ -130,7 +130,7 @@ export default function EquipmentUpdatePage() {
                   onClick={back}
                 />
               </div>
-              Cadastro de equipamentos
+              Edição de equipamentos
             </h1>
           </section>
           <form className="equipment-update-form" onSubmit={submitForm}>

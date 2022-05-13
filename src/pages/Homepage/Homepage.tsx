@@ -172,7 +172,7 @@ export default function Homepage() {
           </>
         )}
       </div>
-      <Footer />
+      <Footer id={userInformation?.role === "admin" ? "footer-admin" : ""} />
     </div>
   );
 }

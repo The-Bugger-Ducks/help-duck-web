@@ -13,70 +13,74 @@ export default function TicketList() {
   const userRequest = new UserRequests();
 
   const [users, setUsers] = useState<User[]>();
-  const [headerSortTarget, setHeaderSortTarget] = useState<Element>() 
+  const [headerSortTarget, setHeaderSortTarget] = useState<Element>();
 
   const tableHeaderOptions = [
-    {text: "Nome", type: SortUserTableTypes.name},
-    {text: "Email", type: SortUserTableTypes.email},
-    {text: "Tipo de usuário", type: SortUserTableTypes.role},
-  ]
+    { text: "Nome", type: SortUserTableTypes.name },
+    { text: "Email", type: SortUserTableTypes.email },
+    { text: "Tipo de usuário", type: SortUserTableTypes.role },
+  ];
 
   useEffect(() => {
     getUserList();
   }, []);
 
   const getUserList = async (sorting?: string) => {
-    const response: { content: [] } = await userRequest.listUserRequest(sorting);
+    const response: { content: [] } = await userRequest.listUserRequest(
+      sorting
+    );
     const users: User[] = response.content;
     setUsers(users);
   };
 
-  function handleClickOptionSort(event: MouseEvent, sorting: SortUserTableTypes) {
+  function handleClickOptionSort(
+    event: MouseEvent,
+    sorting: SortUserTableTypes
+  ) {
     const currentTarget = event.currentTarget;
-    
-    const optionAlreadySorted = currentTarget.id === headerSortTarget?.id
+
+    const optionAlreadySorted = currentTarget.id === headerSortTarget?.id;
 
     const visibleStyle = currentTarget.classList.contains("visible");
-    const orderByStyle = currentTarget.classList.contains("order-by"); 
+    const orderByStyle = currentTarget.classList.contains("order-by");
 
     if (headerSortTarget && !optionAlreadySorted) {
-      headerSortTarget.classList.remove('visible')
-      headerSortTarget.classList.remove('order-by')
+      headerSortTarget.classList.remove("visible");
+      headerSortTarget.classList.remove("order-by");
     }
 
     if (!optionAlreadySorted) {
       setHeaderSortTarget(currentTarget);
-      currentTarget.classList.add('visible')
+      currentTarget.classList.add("visible");
     }
-    
+
     let orderBy = OrderByTypes.none;
-    if (visibleStyle && orderByStyle){
+    if (visibleStyle && orderByStyle) {
       orderBy = OrderByTypes.none;
-      currentTarget.classList.remove('visible')
-      currentTarget.classList.remove('order-by')
+      currentTarget.classList.remove("visible");
+      currentTarget.classList.remove("order-by");
     } else if (visibleStyle && !orderByStyle) {
       orderBy = OrderByTypes.asc;
-      currentTarget.classList.add('order-by')
+      currentTarget.classList.add("order-by");
     } else {
       orderBy = OrderByTypes.desc;
-      currentTarget.classList.add('visible')
+      currentTarget.classList.add("visible");
     }
-    
-    handleTableSorting(sorting, orderBy)
+
+    handleTableSorting(sorting, orderBy);
   }
 
   function handleTableSorting(type: SortUserTableTypes, orderBy: OrderByTypes) {
-    
     const containsOrderBy = orderBy !== OrderByTypes.none;
- 
+
     let sort = "";
     if (containsOrderBy) {
-      sort = `page=0&size=10&sort=${type},${orderBy}`
+      sort = `page=0&size=50&sort=${type},${orderBy}`;
     } else {
-      sort = `page=0&size=10&sort=${type}`
+      sort = `page=0&size=50&sort=${type}`;
     }
 
-    getUserList(sort)
+    getUserList(sort);
   }
 
   return (
@@ -86,11 +90,15 @@ export default function TicketList() {
           <tbody>
             <tr>
               {tableHeaderOptions.map((option, index) => (
-                <th id={`${index}`} key={index} onClick={(event) => handleClickOptionSort(event, option.type)}>
+                <th
+                  id={`${index}`}
+                  key={index}
+                  onClick={(event) => handleClickOptionSort(event, option.type)}
+                >
                   {option.text}
                   <FaArrowUp className="th-arrow" />
                 </th>
-              ))}    
+              ))}
             </tr>
             {users && users.length > 0 ? (
               users.map((user, index) => {

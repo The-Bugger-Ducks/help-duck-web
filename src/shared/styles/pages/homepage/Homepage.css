@@ -4,8 +4,13 @@
 }
 
 #homepage .footer {
+  position: fixed !important;
+  margin-top: 1rem !important;
+  bottom: 0 !important;
+}
+
+#homepage #footer-admin {
   position: sticky !important;
-  margin-top: 1.5rem;
 }
 
 #homepage .search-or-filter form,
@@ -97,8 +102,12 @@
     margin-top: 0.8rem;
   }
 
+  #homepage #footer-admin {
+    position: relative !important;
+  }
+
   #homepage .footer {
-    margin-top: 3rem;
+    position: fixed !important;
   }
 
   #homepage .search-or-filter form,

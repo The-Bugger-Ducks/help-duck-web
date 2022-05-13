@@ -1,9 +1,14 @@
 import "../styles/components/Footer.css";
 
-export default function Footer() {
+interface Props {
+  id?: string;
+}
+
+const Footer: React.FC<Props> = ({ id = "" }) => {
   return (
-    <footer className="footer">
+    <footer className="footer" id={id}>
       <span>Todos os direitos reservados | © The Bugger Ducks</span>
     </footer>
   );
-}
+};
+export default Footer;
