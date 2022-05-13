@@ -1,20 +1,22 @@
-import { MouseEvent, useState } from "react";
+import { MouseEvent, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaArrowUp } from "react-icons/fa";
  
 import TicketComponent from "./Ticket";
 import StatusTicket from "./StatusTicket";
-import PriorityLevelBadge from "../components/PriorityLevelBadge";
+import PriorityLevelBadge from "./PriorityLevelBadge";
 
-import Ticket from "../interfaces/ticket.interface";
 import { SortTableTypes, OrderByTypes } from "../constants/sortTableEnum";
+import Ticket from "../interfaces/ticket.interface";
+import { status } from "../types/status";
 
 import "../styles/components/TicketList.css";
 
 const TicketTable: React.FC<{
   tickets: Array<Ticket>,
-  handleTableSorting: (type: SortTableTypes, orderBy: OrderByTypes) => void
-}> = ({ tickets, handleTableSorting }) => {
+  handleTableSorting: (type: SortTableTypes, orderBy: OrderByTypes) => void,
+  status: status | ""
+}> = ({ tickets, handleTableSorting, status }) => {
   
   const navigate = useNavigate();
 
@@ -26,6 +28,13 @@ const TicketTable: React.FC<{
     {text: "Data de criação", type: SortTableTypes.createdAt},
     {text: "Status", type: SortTableTypes.status}
   ]
+
+  useEffect(() => {
+    if (headerSortTarget) {
+      headerSortTarget.classList.remove("visible")
+      headerSortTarget.classList.remove("order-by")
+    }
+  }, [status])
 
   function handleClickOptionSort(event: MouseEvent, sorting: SortTableTypes) {
     const currentTarget = event.currentTarget;

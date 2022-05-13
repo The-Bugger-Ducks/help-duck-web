@@ -77,7 +77,7 @@ const TicketList: React.FC<{ status: status | "" }> = ({ status }) => {
   return (
     <section className="ticket-list-container">
       <div className="grid-tickets">
-        <TicketTable tickets={tickets} handleTableSorting={handleTableSorting} />
+        <TicketTable tickets={tickets} handleTableSorting={handleTableSorting} status={status}/>
       </div>
     </section>
   );
