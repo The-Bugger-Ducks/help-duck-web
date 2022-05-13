@@ -6,7 +6,7 @@ import TicketComponent from "./Ticket";
 import StatusTicket from "./StatusTicket";
 import PriorityLevelBadge from "./PriorityLevelBadge";
 
-import { SortTableTypes, OrderByTypes } from "../constants/sortTableEnum";
+import { SortTicketTableTypes, OrderByTypes } from "../constants/sortTableEnum";
 import Ticket from "../interfaces/ticket.interface";
 import { status } from "../types/status";
 
@@ -14,7 +14,7 @@ import "../styles/components/TicketList.css";
 
 const TicketTable: React.FC<{
   tickets: Array<Ticket>,
-  handleTableSorting: (type: SortTableTypes, orderBy: OrderByTypes) => void,
+  handleTableSorting: (type: SortTicketTableTypes, orderBy: OrderByTypes) => void,
   status: status | ""
 }> = ({ tickets, handleTableSorting, status }) => {
   
@@ -23,10 +23,10 @@ const TicketTable: React.FC<{
   const [headerSortTarget, setHeaderSortTarget] = useState<Element>() 
   
   const tableHeaderOptions = [
-    {text: "Prioridade", type: SortTableTypes.priority},
-    {text: "Título", type: SortTableTypes.title},
-    {text: "Data de criação", type: SortTableTypes.createdAt},
-    {text: "Status", type: SortTableTypes.status}
+    {text: "Prioridade", type: SortTicketTableTypes.priority},
+    {text: "Título", type: SortTicketTableTypes.title},
+    {text: "Data de criação", type: SortTicketTableTypes.createdAt},
+    {text: "Status", type: SortTicketTableTypes.status}
   ]
 
   useEffect(() => {
@@ -36,7 +36,7 @@ const TicketTable: React.FC<{
     }
   }, [status])
 
-  function handleClickOptionSort(event: MouseEvent, sorting: SortTableTypes) {
+  function handleClickOptionSort(event: MouseEvent, sorting: SortTicketTableTypes) {
     const currentTarget = event.currentTarget;
     
     const optionAlreadySorted = currentTarget.id === headerSortTarget?.id

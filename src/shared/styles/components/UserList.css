@@ -26,6 +26,29 @@
   border-bottom: 1px solid var(--color-gray-dark);
 }
 
+.user-list-container table th .th-arrow {
+  margin-left: 1rem;
+  font-size: 0.7rem;
+
+  color: var(--color-gray-main);
+  visibility: hidden;
+
+  transition: 200ms ease;
+}
+
+.user-list-container table th:hover .th-arrow {
+  visibility: visible;
+}
+
+.user-list-container table th.visible .th-arrow {
+  visibility: visible;
+  color: var(--color-black-dark);
+}
+
+.user-list-container table th.visible.order-by .th-arrow {
+  transform: rotate(180deg);
+}
+
 .user-list-container table td {
   padding: 0.5rem;
 }

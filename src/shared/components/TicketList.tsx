@@ -3,12 +3,13 @@ import React, { useEffect, useState } from "react";
 import SessionController from "../utils/handlers/SessionController";
 import { TicketRequests } from "../utils/requests/Ticket.requests";
 
-import { status } from "../types/status";
 import Ticket from "../../shared/interfaces/ticket.interface";
+import { status } from "../types/status";
+import { SortTicketTableTypes, OrderByTypes } from "../constants/sortTableEnum";
 
 import TicketTable from "./TicketTable";
+
 import "../styles/components/TicketList.css";
-import { SortTableTypes, OrderByTypes } from "../constants/sortTableEnum";
 
 const TicketList: React.FC<{ status: status | "" }> = ({ status }) => {
   const [tickets, setTickets] = useState<Ticket[]>([]);
@@ -54,7 +55,7 @@ const TicketList: React.FC<{ status: status | "" }> = ({ status }) => {
   };
 
 
-  function handleTableSorting(type: SortTableTypes, orderBy: OrderByTypes) {
+  function handleTableSorting(type: SortTicketTableTypes, orderBy: OrderByTypes) {
     
     const containsOrderBy = orderBy !== OrderByTypes.none;
  

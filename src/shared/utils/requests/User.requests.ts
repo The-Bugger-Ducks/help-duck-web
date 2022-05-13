@@ -39,9 +39,15 @@ export class UserRequests {
     }
   }
 
-  public async listUserRequest() {
+  public async listUserRequest(sorting?: string) {
+    let url = `/users/`
+
+    if (sorting) {
+      url = `/users/?${sorting}`
+    }
+
     try {
-      const response = await apiUsers.get(`/users/`, {
+      const response = await apiUsers.get(url, {
         validateStatus,
       });
       return response.data;
