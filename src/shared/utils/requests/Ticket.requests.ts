@@ -1,19 +1,22 @@
-import Comment from "../../interfaces/comment.interface";
 import { apiTickets } from "../../services/Api.service";
-import {
-  handleResponseStatus,
-  validateStatus,
-} from "../handlers/HandlerResponseStatusCodeFound";
+
+import { handleResponseStatus, validateStatus } from "../handlers/HandlerResponseStatusCodeFound";
 import SessionController from "../handlers/SessionController";
 
+import Comment from "../../interfaces/comment.interface";
 import { User } from "../../interfaces/user.interface";
+
+import { TICKET_ENDPOINTS } from "../endpoints";
 
 export class TicketRequests {
   public async showRequest(ticketId: string) {
     try {
-      const response = await apiTickets.get(`/tickets/${ticketId}`, {
-        validateStatus,
-      });
+      const response = await apiTickets.get(
+        `${TICKET_ENDPOINTS.TICKET_LIST}${ticketId}`,
+        {
+          validateStatus,
+        }
+      );
       return response.data;
     } catch (error) {
       alert("Não foi possível encontrar o chamado. Tente novamente!");
@@ -27,7 +30,10 @@ export class TicketRequests {
     user: User;
   }) {
     try {
-      const response = await apiTickets.post("/tickets/create", ticket);
+      const response = await apiTickets.post(
+        TICKET_ENDPOINTS.TICKET_REGISTER,
+        ticket
+      );
       return response;
     } catch (error) {
       console.log(error);
@@ -36,7 +42,7 @@ export class TicketRequests {
   }
 
   public async ticketListAll() {
-    const response = await apiTickets.get(`/tickets/`, {
+    const response = await apiTickets.get(TICKET_ENDPOINTS.TICKET_LIST, {
       validateStatus,
     });
     return handleResponseStatus(response);
@@ -45,10 +51,10 @@ export class TicketRequests {
   public async ticketListById(sorting?: string) {
     const userInformation = SessionController.getUserInfo();
 
-    let url = `/tickets/user/${userInformation?.id}`
+    let url = `${TICKET_ENDPOINTS.TICKET_LIST_BY_ID}${userInformation?.id}`
 
     if (sorting) {
-      url = `/tickets/user/${userInformation?.id}?${sorting}`
+      url = `${TICKET_ENDPOINTS.TICKET_LIST_BY_ID}${userInformation?.id}?${sorting}`
     }
 
     const response = await apiTickets.get(url, { validateStatus });
@@ -58,10 +64,10 @@ export class TicketRequests {
   public async ticketListBySupport(sorting?: string) {
     const userInformation = SessionController.getUserInfo();
 
-    let url = `/tickets/support/${userInformation?.id}`
+    let url = `${TICKET_ENDPOINTS.TICKET_LIST_SUPPORT}${userInformation?.id}`
 
     if (sorting) {
-      url = `/tickets/support/${userInformation?.id}?${sorting}`
+      url = `${TICKET_ENDPOINTS.TICKET_LIST_SUPPORT}${userInformation?.id}?${sorting}`
     }
 
     const response = await apiTickets.get(url, { validateStatus });
@@ -72,10 +78,10 @@ export class TicketRequests {
     status: "underAnalysis" | "awaiting" | "done",
     sorting?: string
   ) {
-    let url = `/tickets/status/${status}`
+    let url = `${TICKET_ENDPOINTS.TICKET_LIST_STATUS}${status}`
 
     if (sorting) {
-      url = `/tickets/status/${status}?${sorting}`
+      url = `${TICKET_ENDPOINTS.TICKET_LIST_STATUS}${status}?${sorting}`
     }
 
     const response = await apiTickets.get(url, { validateStatus });
@@ -85,7 +91,7 @@ export class TicketRequests {
   public async reserveTicket(ticketId: string, payload: User) {
     try {
       return await apiTickets.put(
-        `helpUser/reserveTicket/${ticketId}`,
+        `${TICKET_ENDPOINTS.TICKET_RESERVE}${ticketId}`,
         payload
       );
     } catch (error) {
@@ -96,7 +102,7 @@ export class TicketRequests {
   public async insertComment(ticketId: string, payload: Comment) {
     try {
       return await apiTickets.put(
-        `helpUser/updateComment/${ticketId}`,
+        `${TICKET_ENDPOINTS.TICKET_INSERT_COMMENT}${ticketId}`,
         payload
       );
     } catch (error) {
@@ -106,7 +112,9 @@ export class TicketRequests {
 
   public async closeTicket(ticketId: string) {
     try {
-      return await apiTickets.put(`helpUser/closeTicket/${ticketId}`);
+      return await apiTickets.put(
+        `${TICKET_ENDPOINTS.TICKET_CLOSE}${ticketId}`
+      );
     } catch (error) {
       alert("Não foi possível fechar o chamado, tente novamente!");
     }

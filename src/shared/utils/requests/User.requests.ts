@@ -31,7 +31,7 @@ export class UserRequests {
 
   public async updateRequest(body: object) {
     try {
-      const response = await apiUsers.post(USER_ENDPOINTS.USER_UPDATE, body);
+      const response = await apiUsers.post("", body);
       return response.data;
     } catch (error) {
       console.log(error);
@@ -40,10 +40,10 @@ export class UserRequests {
   }
 
   public async listUserRequest(sorting?: string) {
-    let url = `/users/`
+    let url = `${USER_ENDPOINTS.USER_LIST}`
 
     if (sorting) {
-      url = `/users/?${sorting}`
+      url = `${USER_ENDPOINTS.USER_LIST}?${sorting}`
     }
 
     try {
@@ -53,7 +53,7 @@ export class UserRequests {
       return response.data;
     } catch (error) {
       console.log(error);
-      alert("Email ou senha incorretos.");
+      alert("Não foi possível buscar todos usuários.");
     }
   }
 }
