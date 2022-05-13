@@ -39,15 +39,21 @@ export class UserRequests {
     }
   }
 
-  public async listUserRequest() {
+  public async listUserRequest(sorting?: string) {
+    let url = `${USER_ENDPOINTS.USER_LIST}`
+
+    if (sorting) {
+      url = `${USER_ENDPOINTS.USER_LIST}?${sorting}`
+    }
+
     try {
-      const response = await apiUsers.get(USER_ENDPOINTS.USER_LIST, {
+      const response = await apiUsers.get(url, {
         validateStatus,
       });
       return response.data;
     } catch (error) {
       console.log(error);
-      alert("Email ou senha incorretos.");
+      alert("Não foi possível buscar todos usuários.");
     }
   }
 }

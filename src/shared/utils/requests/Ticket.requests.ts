@@ -1,12 +1,11 @@
-import Comment from "../../interfaces/comment.interface";
 import { apiTickets } from "../../services/Api.service";
-import {
-  handleResponseStatus,
-  validateStatus,
-} from "../handlers/HandlerResponseStatusCodeFound";
+
+import { handleResponseStatus, validateStatus } from "../handlers/HandlerResponseStatusCodeFound";
 import SessionController from "../handlers/SessionController";
 
+import Comment from "../../interfaces/comment.interface";
 import { User } from "../../interfaces/user.interface";
+
 import { TICKET_ENDPOINTS } from "../endpoints";
 
 export class TicketRequests {
@@ -49,38 +48,43 @@ export class TicketRequests {
     return handleResponseStatus(response);
   }
 
-  public async ticketListById() {
+  public async ticketListById(sorting?: string) {
     const userInformation = SessionController.getUserInfo();
 
-    const response = await apiTickets.get(
-      `${TICKET_ENDPOINTS.TICKET_LIST_BY_ID}${userInformation?.id}`,
-      {
-        validateStatus,
-      }
-    );
+    let url = `${TICKET_ENDPOINTS.TICKET_LIST_BY_ID}${userInformation?.id}`
+
+    if (sorting) {
+      url = `${TICKET_ENDPOINTS.TICKET_LIST_BY_ID}${userInformation?.id}?${sorting}`
+    }
+
+    const response = await apiTickets.get(url, { validateStatus });
     return handleResponseStatus(response);
   }
 
-  public async ticketListBySupport() {
+  public async ticketListBySupport(sorting?: string) {
     const userInformation = SessionController.getUserInfo();
-    const response = await apiTickets.get(
-      `${TICKET_ENDPOINTS.TICKET_LIST_SUPPORT}${userInformation?.id}`,
-      {
-        validateStatus,
-      }
-    );
+
+    let url = `${TICKET_ENDPOINTS.TICKET_LIST_SUPPORT}${userInformation?.id}`
+
+    if (sorting) {
+      url = `${TICKET_ENDPOINTS.TICKET_LIST_SUPPORT}${userInformation?.id}?${sorting}`
+    }
+
+    const response = await apiTickets.get(url, { validateStatus });
     return handleResponseStatus(response);
   }
 
   public async ticketListPerStatus(
-    status: "underAnalysis" | "awaiting" | "done"
+    status: "underAnalysis" | "awaiting" | "done",
+    sorting?: string
   ) {
-    const response = await apiTickets.get(
-      `${TICKET_ENDPOINTS.TICKET_LIST_STATUS}${status}`,
-      {
-        validateStatus,
-      }
-    );
+    let url = `${TICKET_ENDPOINTS.TICKET_LIST_STATUS}${status}`
+
+    if (sorting) {
+      url = `${TICKET_ENDPOINTS.TICKET_LIST_STATUS}${status}?${sorting}`
+    }
+
+    const response = await apiTickets.get(url, { validateStatus });
     return handleResponseStatus(response);
   }
 
