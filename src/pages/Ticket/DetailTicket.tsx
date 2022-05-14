@@ -20,6 +20,7 @@ import TicketComment from "../../shared/components/TicketComment";
 import TicketAddComment from "../../shared/components/TicketAddComment";
 
 import "../../shared/styles/pages/ticket/DetailTicket.css";
+import TextField from "../../shared/components/TextField";
 
 export default function DetailTicket() {
   const navigate = useNavigate();
@@ -35,9 +36,9 @@ export default function DetailTicket() {
   const [ticket, setTicket] = useState<Ticket>();
   const [status, setStatus] = useState<status>();
   const [priorityLevel, setPriorityLevel] =
-    useState<Ticket['priorityLevel']>('low');
-  const [problemType, setProblemType] = useState<Ticket['tags']>(['']);
-  const [comments, setComments] = useState<Ticket['comments']>([]);
+    useState<Ticket["priorityLevel"]>("low");
+  const [problemType, setProblemType] = useState<Ticket["tags"]>([""]);
+  const [comments, setComments] = useState<Ticket["comments"]>([]);
   const [createdAt, setCreatedAt] = useState<Date>();
   const [hasSupport, setHasSupport] = useState<boolean>(false);
 
@@ -155,7 +156,7 @@ export default function DetailTicket() {
               {ticket?.support ? `(${ticket?.support.email})` : ""}
             </p>
           </div>
-          {user?.role === 'support' ? (
+          {user?.role === "support" ? (
             <div className="button-container">
               {!hasSupport ? (
                 <Button
@@ -205,7 +206,7 @@ export default function DetailTicket() {
             <TextField
               type="text"
               placeholder={
-                problemType[0] === '' ? 'Sem tipo definido' : problemType[0]
+                problemType[0] === "" ? "Sem tipo definido" : problemType[0]
               }
               disabled={true}
               name="tipo"
@@ -234,8 +235,8 @@ export default function DetailTicket() {
           </section>
         ) : null}
 
-        {status === 'done' ||
-        (user?.role === 'support' && !hasSupport) ? null : (
+        {status === "done" ||
+        (user?.role === "support" && !hasSupport) ? null : (
           <section id="add-comment-container">
             <TicketAddComment ref={formCommentRef} />
             <div className="button-container">
