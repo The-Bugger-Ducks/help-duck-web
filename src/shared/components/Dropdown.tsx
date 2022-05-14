@@ -35,8 +35,8 @@ const Dropdown: React.FC<PropsDropdown> = ({
       </span>
       <div className="dropdown-list-container" hidden={isHidden}>
         <ul>
-          <li onClick={editUser.bind(this)}>Editar perfil</li>
-          <li onClick={logout.bind(this)}>Logout</li>
+          <li onClick={() => editUser()}>Editar perfil</li>
+          <li onClick={() => logout()}>Logout</li>
         </ul>
       </div>
     </div>

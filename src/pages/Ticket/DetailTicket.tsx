@@ -1,25 +1,26 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef } from 'react';
 
-import { useParams, useNavigate } from "react-router-dom";
-import { FiClock, FiArrowLeft } from "react-icons/fi";
+import { useParams, useNavigate } from 'react-router-dom';
+import { FiClock, FiArrowLeft } from 'react-icons/fi';
 
-import SessionController from "../../shared/utils/handlers/SessionController";
+import SessionController from '../../shared/utils/handlers/SessionController';
 
-import { status } from "../../shared/types/status";
-import { TicketRequests } from "../../shared/utils/requests/Ticket.requests";
+import { status } from '../../shared/types/status';
+import { TicketRequests } from '../../shared/utils/requests/Ticket.requests';
 
-import Button from "../../shared/components/Button";
-import Comment from "../../shared/interfaces/comment.interface";
-import Container from "../../shared/components/Container";
-import Footer from "../../shared/components/Footer";
-import Header from "../../shared/components/Header";
-import PriorityLevelBadge from "../../shared/components/PriorityLevelBadge";
-import StatusTicket from "../../shared/components/StatusTicket";
-import Ticket from "../../shared/interfaces/ticket.interface";
-import TicketComment from "../../shared/components/TicketComment";
-import TicketAddComment from "../../shared/components/TicketAddComment";
+import Button from '../../shared/components/Button';
+import Comment from '../../shared/interfaces/comment.interface';
+import Container from '../../shared/components/Container';
+import Footer from '../../shared/components/Footer';
+import Header from '../../shared/components/Header';
+import PriorityLevelBadge from '../../shared/components/PriorityLevelBadge';
+import StatusTicket from '../../shared/components/StatusTicket';
+import Ticket from '../../shared/interfaces/ticket.interface';
+import TicketComment from '../../shared/components/TicketComment';
+import TicketAddComment from '../../shared/components/TicketAddComment';
 
-import "../../shared/styles/pages/ticket/DetailTicket.css";
+import '../../shared/styles/pages/ticket/DetailTicket.css';
+import TextField from '../../shared/components/TextField';
 
 export default function DetailTicket() {
   const navigate = useNavigate();
@@ -28,15 +29,16 @@ export default function DetailTicket() {
 
   const formCommentRef = useRef({
     submit: () => {
-      return { newComment: "" };
+      return { newComment: '' };
     },
   });
 
   const [ticket, setTicket] = useState<Ticket>();
   const [status, setStatus] = useState<status>();
   const [priorityLevel, setPriorityLevel] =
-    useState<Ticket["priorityLevel"]>("low");
-  const [comments, setComments] = useState<Ticket["comments"]>([]);
+    useState<Ticket['priorityLevel']>('low');
+  const [problemType, setProblemType] = useState<Ticket['tags']>(['']);
+  const [comments, setComments] = useState<Ticket['comments']>([]);
   const [createdAt, setCreatedAt] = useState<Date>();
   const [hasSupport, setHasSupport] = useState<boolean>(false);
 
@@ -51,12 +53,13 @@ export default function DetailTicket() {
   }, []);
 
   const getTicket = async () => {
-    const response: Ticket = await ticketRequest.showRequest(id ?? "");
+    const response: Ticket = await ticketRequest.showRequest(id ?? '');
 
     setTicket(response);
     setComments(response.comments);
     setStatus(response.status);
     setPriorityLevel(response.priorityLevel);
+    setProblemType(response.tags);
 
     if (response.support) setHasSupport(true);
 
@@ -67,7 +70,7 @@ export default function DetailTicket() {
   const handleSubmitComment = async () => {
     let { newComment } = formCommentRef.current.submit();
 
-    if (!user || !id) return alert("Não foi possível inserir comentário");
+    if (!user || !id) return alert('Não foi possível inserir comentário');
 
     const comment: Comment = {
       comment: newComment,
@@ -78,7 +81,7 @@ export default function DetailTicket() {
       const response = await ticketRequest.insertComment(id, comment);
 
       if (response?.status === 200) {
-        setComments((prevState) => {
+        setComments(prevState => {
           return [...prevState, comment];
         });
       }
@@ -90,33 +93,33 @@ export default function DetailTicket() {
       return alert("Usuário sem permissão para realizar essa ação.");
     }
 
-    const response = await ticketRequest.reserveTicket(id ?? "", user);
+    const response = await ticketRequest.reserveTicket(id ?? '', user);
 
     if (response?.status === 200) {
-      alert("Chamado reservado");
-      setTicket((prevState) => {
+      alert('Chamado reservado');
+      setTicket(prevState => {
         if (!prevState) return;
         return {
           ...prevState,
           support: user,
         };
       });
-      setStatus("underAnalysis");
+      setStatus('underAnalysis');
       setHasSupport(true);
     }
   }
 
   async function handleCloseTicket() {
-    if (user?.role !== "support") {
-      return alert("Usuário sem permissão para relalizar essa ação.");
+    if (user?.role !== 'support') {
+      return alert('Usuário sem permissão para relalizar essa ação.');
     }
 
-    const response = await ticketRequest.closeTicket(id ?? "");
+    const response = await ticketRequest.closeTicket(id ?? '');
 
     if (response?.status === 200) {
-      alert("Chamado fechado com sucesso!");
-      setStatus("done");
-      navigate("/homepage");
+      alert('Chamado fechado com sucesso!');
+      setStatus('done');
+      navigate('/homepage');
     }
   }
 
@@ -130,29 +133,29 @@ export default function DetailTicket() {
               className="navigation-button"
               color="var(--color-gray-dark)"
               onClick={() => {
-                navigate("/homepage");
+                navigate('/homepage');
               }}
             />
-            <h1 className="ticket-name">{ticket?.title ?? "Carregando..."}</h1>
+            <h1 className="ticket-name">{ticket?.title ?? 'Carregando...'}</h1>
 
-            <p>Protocólo: #{ticket?.id ?? "..."}</p>
+            <p>Protocólo: #{ticket?.id ?? '...'}</p>
             <p>
               <span className="detail-date-created">
-                <FiClock color="var(--color-gray-dark)" size="0.8rem" />{" "}
-                {createdAt?.toLocaleString("pt-br") ?? "..."}
+                <FiClock color="var(--color-gray-dark)" size="0.8rem" />{' '}
+                {createdAt?.toLocaleString('pt-br') ?? '...'}
               </span>
               <StatusTicket status={ticket?.status} />
             </p>
             <p>
-              Responsável:{" "}
+              Responsável:{' '}
               {ticket?.support
                 ? ticket?.support.firstName
-                : "Sem responsável no momento"}{" "}
-              {ticket?.support ? ticket?.support.lastName : ""}{" "}
-              {ticket?.support ? `(${ticket?.support.email})` : ""}
+                : 'Sem responsável no momento'}{' '}
+              {ticket?.support ? ticket?.support.lastName : ''}{' '}
+              {ticket?.support ? `(${ticket?.support.email})` : ''}
             </p>
           </div>
-          {user?.role == "support" ? (
+          {user?.role === 'support' ? (
             <div className="button-container">
               {!hasSupport ? (
                 <Button
@@ -169,7 +172,7 @@ export default function DetailTicket() {
                 </Button>
               ) : (
                 <>
-                  {status === "underAnalysis" &&
+                  {status === 'underAnalysis' &&
                   comments.length > 0 &&
                   user.id === ticket?.support?.id ? (
                     <Button
@@ -191,15 +194,33 @@ export default function DetailTicket() {
           ) : null}
         </section>
 
-        <section className="ticket-priority">
-          <h3>Grau de prioridade:</h3>
-          <PriorityLevelBadge priority={priorityLevel} />
+        <section className="ticket-dual-info">
+          <div className="ticket-priority">
+            <h3>Grau de prioridade:</h3>
+            <PriorityLevelBadge priority={priorityLevel} />
+          </div>
+
+          <div className="ticket-type">
+            <h3>Tipo de problema:</h3>
+            <TextField
+              type="text"
+              placeholder={
+                problemType != null && problemType[0] != ''
+                  ? problemType[0]
+                  : 'Sem tipo definido'
+              }
+              disabled={true}
+              name="tipo"
+              backgroundColor="#FAFAFA"
+              height="32px"
+            />
+          </div>
         </section>
 
         <section>
           <h3>Descrição do problema:</h3>
           <div className="description-problem">
-            <p>{ticket?.description ?? "..."}</p>
+            <p>{ticket?.description ?? '...'}</p>
             <p className="owner-comment">{ticket?.user.email}</p>
           </div>
         </section>
@@ -215,8 +236,8 @@ export default function DetailTicket() {
           </section>
         ) : null}
 
-        {status === "done" ||
-        (user?.role == "support" && !hasSupport) ? null : (
+        {status === 'done' ||
+        (user?.role === 'support' && !hasSupport) ? null : (
           <section id="add-comment-container">
             <TicketAddComment ref={formCommentRef} />
             <div className="button-container">

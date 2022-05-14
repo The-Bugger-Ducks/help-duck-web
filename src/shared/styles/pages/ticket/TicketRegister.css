@@ -42,22 +42,57 @@
   margin-bottom: 1rem;
 }
 
+#ticket-register
+  .ticket-register-form
+  .ticket-register-data
+  .ticket-register-ticket-title {
+  width: 45%;
+}
+
 #ticket-register .ticket-register-form .ticket-register-data {
   display: flex;
   flex-direction: column;
+  width: 100%;
+}
+
+#ticket-register
+  .ticket-register-form
+  .ticket-register-data
+  .ticket-register-dual-select {
+  display: flex;
+  justify-content: space-between;
+}
+
+#ticket-register
+  .ticket-register-form
+  .ticket-register-data
+  .ticket-register-dual-select
+  .first {
+  margin-right: 5rem;
+  width: 30%;
+}
+
+#ticket-register
+  .ticket-register-form
+  .ticket-register-data
+  .ticket-register-select {
+  display: block;
   width: 50%;
 }
 
 #ticket-register .ticket-register-form .ticket-register-description textarea {
   width: 100%;
   background-color: #f2f2f3;
-  border: 1px solid #d3d3d3;
-  border-radius: 20px;
+  color: #495057;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
   outline: none;
   min-height: 120px;
   resize: vertical;
   padding: 16px;
   line-height: 28px;
+  margin-top: 16px;
 }
 
 #ticket-register .ticket-register-form .ticket-register-submit {
@@ -75,9 +110,16 @@
   color: var(--color-black-light);
 }
 
+#ticket-register .navigation-button {
+  cursor: pointer;
+}
+
+#ticket-register .navigation-button:hover {
+  filter: brightness(40%);
+}
+
 #ticket-register Footer {
   padding: 1.5;
-
   position: fixed;
   bottom: 0;
   left: 0;
@@ -109,7 +151,20 @@
     width: 100px;
   }
 
-  #ticket-register .ticket-register-form .ticket-register-data {
+  #ticket-register .ticket-register-form .ticket-register-data,
+  #ticket-register
+    .ticket-register-form
+    .ticket-register-data
+    .ticket-register-ticket-title,
+  #ticket-register
+    .ticket-register-form
+    .ticket-register-data
+    .ticket-register-dual-select,
+  #ticket-register
+    .ticket-register-form
+    .ticket-register-data
+    .ticket-register-dual-select
+    .ticket-register-select {
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -121,6 +176,7 @@
     display: flex;
     flex-direction: column;
     margin: 0;
+    width: 100%;
   }
 
   #ticket-register form label {
@@ -165,11 +221,29 @@
   }
 
   #ticket-register .ticket-register-form .ticket-register-data,
-  #ticket-register .ticket-register-form .form-sections,
-  #ticket-register .ticket-register-form .ticket-register-data-line {
+  #ticket-register
+    .ticket-register-form
+    .ticket-register-data
+    .ticket-register-ticket-title,
+  #ticket-register
+    .ticket-register-form
+    .ticket-register-data
+    .ticket-register-dual-select,
+  #ticket-register
+    .ticket-register-form
+    .ticket-register-data
+    .ticket-register-dual-select
+    .ticket-register-select,
+  #ticket-register
+    .ticket-register-form
+    .ticket-register-data
+    .ticket-register-dual-select
+    .ticket-register-select
+    .first {
     display: flex;
     flex-direction: column;
     margin: 0;
+    width: 100%;
   }
 
   #ticket-register form label {

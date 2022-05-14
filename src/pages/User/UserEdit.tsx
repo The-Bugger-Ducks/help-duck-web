@@ -51,9 +51,12 @@ export default function UserEdit() {
   const getUser = async () => {
     const response: User = await userRequest.showRequest(id ?? "");
 
-    setEmailPlaceholder(response.email);
+    setEmailPlaceholder(response.email)
+    setEmail(response.email)
     setNamePlaceholder(response.firstName);
+    setName(response.firstName);
     setLastNamePlaceholder(response.lastName);
+    setLastname(response.lastName);
     setRolePlaceholder(response.role);
     setRole(response.role);
     setUserProfiles([

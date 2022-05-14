@@ -1,4 +1,4 @@
-import React, { forwardRef, useImperativeHandle, useRef } from "react";
+import React, { forwardRef, useImperativeHandle, useRef } from 'react';
 
 const TicketAddComment = forwardRef((props, ref) => {
   const inputCommentRef = useRef<HTMLTextAreaElement>(null);
@@ -29,6 +29,20 @@ const TicketAddComment = forwardRef((props, ref) => {
           placeholder="Escreva seu comentário aqui..."
           ref={inputCommentRef}
           required
+          style={{
+            width: '100%',
+            backgroundColor: '#f2f2f3',
+            color: '#495057',
+            fontSize: '16px',
+            border: 'none',
+            borderRadius: '5px',
+            outline: 'none',
+            minHeight: '120px',
+            resize: 'vertical',
+            padding: '16px',
+            lineHeight: '28px',
+            marginTop: '16px',
+          }}
         />
       </div>
     </form>
