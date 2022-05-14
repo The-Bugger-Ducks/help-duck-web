@@ -7,28 +7,30 @@ interface Props {
   type?: any;
   name?: string;
   placeholder?: string;
+  defaultValue?: string;
   radius?: string;
   width?: string;
   required?: boolean;
   padding?: string;
-  onChange?: (event: any) => void;
   disabled?: boolean;
+  onChange?: (event: any) => void;
 }
 
 const TextInput: React.FC<Props> = ({
-  backgroundColor = '#F2F2F3',
+  disabled = false,
+  border = "1px solid #CED4DA",
+  backgroundColor = !disabled ? "#f2f2f3" : "#e2e2e2",
+  type = "text",
+  name = "",
+  placeholder = "",
+  defaultValue,
+  radius = "0.3rem",
+  width = "100%",
   color = '#495057',
   height = '50px',
-  border = '1px solid #CED4DA',
-  type = 'email',
-  name = '',
-  placeholder = '',
-  radius = '0.3rem',
-  width = '100%',
   required = true,
   padding = '0.5rem',
   onChange,
-  disabled = false,
 }) => {
   return (
     <input
@@ -48,6 +50,7 @@ const TextInput: React.FC<Props> = ({
       name={name}
       required={required}
       placeholder={placeholder}
+      defaultValue={defaultValue}
       disabled={disabled}
     />
   );

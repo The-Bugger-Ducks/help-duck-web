@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
-import '../../shared/styles/pages/login/Login.css';
+import "../../shared/styles/pages/auth/Login.css";
 
 import Button from '../../shared/components/Button';
 import Footer from '../../shared/components/Footer';
@@ -11,7 +11,6 @@ import TextField from '../../shared/components/TextField';
 import HandleUserFormData from '../../shared/utils/handlers/HandleUserFormData.service';
 import { UserLogin } from '../../shared/interfaces/user.interface';
 import SessionController from '../../shared/utils/handlers/SessionController';
-import { apiUsers } from '../../shared/services/Api.service';
 
 export default function Login() {
   const [email, setEmail] = useState('');
