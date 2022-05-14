@@ -8,6 +8,7 @@ import { User } from "../interfaces/user.interface";
 import { OrderByTypes, SortUserTableTypes } from "../constants/sortTableEnum";
 
 import "../styles/components/UserList.css";
+import { useNavigate } from "react-router-dom";
 
 export default function TicketList() {
   const userRequest = new UserRequests();
@@ -70,8 +71,11 @@ export default function TicketList() {
     handleTableSorting(sorting, orderBy);
   }
 
+  const navigate = useNavigate()
+
   function handleTableSorting(type: SortUserTableTypes, orderBy: OrderByTypes) {
     const containsOrderBy = orderBy !== OrderByTypes.none;
+
 
     let sort = "";
     if (containsOrderBy) {
@@ -81,6 +85,16 @@ export default function TicketList() {
     }
 
     getUserList(sort);
+  }
+
+  function handleRoleName(role: string) {
+    if ( role === "support") {
+      return "suporte"
+    } else if ( role === "admin") {
+      return "administrador"
+    } else {
+      return "cliente"
+    }
   }
 
   return (
@@ -106,8 +120,8 @@ export default function TicketList() {
                   <UserComponent
                     name={`${user.firstName} ${user.lastName}`}
                     email={user.email}
-                    role={user.role}
-                    onClick={() => navigate(`../user/edit/${user.id}`)}
+                    role={handleRoleName(user.role)}
+                    onClick={() => navigate(`/user/edit/${user.id}`)}
                   />
                 );
               })

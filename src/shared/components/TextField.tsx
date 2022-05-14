@@ -5,13 +5,13 @@ interface Props {
   type?: any;
   name?: string;
   placeholder?: string;
+  defaultValue?: string;
   radius?: string;
   width?: string;
   required?: boolean;
   padding?: string;
   disabled?: boolean;
   onChange?: (event: any) => void;
-  disabled?: boolean;
 }
 
 const TextInput: React.FC<Props> = ({
@@ -21,12 +21,12 @@ const TextInput: React.FC<Props> = ({
   type = "text",
   name = "",
   placeholder = "",
+  defaultValue,
   radius = "0.3rem",
   width = "100%",
   required = true,
   padding = "0.5rem",
   onChange,
-  disabled = false,
 }) => {
   return (
     <input
@@ -43,6 +43,7 @@ const TextInput: React.FC<Props> = ({
       name={name}
       required={required}
       placeholder={placeholder}
+      defaultValue={defaultValue}
       disabled={disabled}
     />
   );

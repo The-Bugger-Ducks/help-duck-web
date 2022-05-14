@@ -59,9 +59,15 @@ export class UserRequests {
     }
   }
 
-  public async listUserRequest() {
+  public async listUserRequest(sorting?: string) {
+    let url = `${USER_ENDPOINTS.USER_DETAILS}`
+
+    if (sorting) {
+      url = `${USER_ENDPOINTS.USER_DETAILS}?${sorting}`
+    }
+
     try {
-      const response = await apiUsers.get(USER_ENDPOINTS.USER_DETAILS, {
+      const response = await apiUsers.get(url, {
         validateStatus,
       });
       return response.data;

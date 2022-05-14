@@ -191,6 +191,7 @@ export default function UserEdit() {
                 <TextField
                   type="text"
                   placeholder={namePlaceholder}
+                  defaultValue={namePlaceholder}
                   onChange={(event) => setName(event.target.value)}
                   name="name"
                   disabled={isUser}
@@ -199,6 +200,7 @@ export default function UserEdit() {
                 <TextField
                   type="text"
                   placeholder={lastnamePlaceholder}
+                  defaultValue={lastnamePlaceholder}
                   onChange={(event) => setLastname(event.target.value)}
                   name="lastname"
                   disabled={isUser}
@@ -208,6 +210,7 @@ export default function UserEdit() {
                 <label htmlFor="email">E-mail</label>
                 <TextField
                   placeholder={emailPlaceholder}
+                  defaultValue={emailPlaceholder}
                   onChange={(event) => setEmail(event.target.value)}
                   name="email"
                   disabled={isAdmin}

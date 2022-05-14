@@ -1,5 +1,6 @@
 import React from "react";
 interface Props {
+  disabled?: boolean;
   backgroundColor?: string;
   border?: string;
   name?: string;
@@ -9,7 +10,6 @@ interface Props {
   padding?: string;
   onChange?: (event: any) => void;
   items: Array<{ value: string; label: string; selected?: boolean }>;
-  disabled?: boolean;
 }
 
 const SelectInput: React.FC<Props> = ({
@@ -23,7 +23,6 @@ const SelectInput: React.FC<Props> = ({
   padding = "0.5rem",
   onChange,
   items,
-  disabled = false,
 }) => {
   return (
     <div>
