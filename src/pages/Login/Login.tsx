@@ -84,7 +84,7 @@ export default function Login() {
             <Link to={"#"} id="recover-password">
               Esqueceu a senha?
             </Link>
-            <Button type="submit" width="80%">
+            <Button type="submit" width="100%">
               Entrar
             </Button>
           </form>

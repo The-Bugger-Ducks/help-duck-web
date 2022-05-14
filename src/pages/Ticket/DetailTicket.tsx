@@ -35,8 +35,9 @@ export default function DetailTicket() {
   const [ticket, setTicket] = useState<Ticket>();
   const [status, setStatus] = useState<status>();
   const [priorityLevel, setPriorityLevel] =
-    useState<Ticket["priorityLevel"]>("low");
-  const [comments, setComments] = useState<Ticket["comments"]>([]);
+    useState<Ticket['priorityLevel']>('low');
+  const [problemType, setProblemType] = useState<Ticket['tags']>(['']);
+  const [comments, setComments] = useState<Ticket['comments']>([]);
   const [createdAt, setCreatedAt] = useState<Date>();
   const [hasSupport, setHasSupport] = useState<boolean>(false);
 
@@ -57,6 +58,7 @@ export default function DetailTicket() {
     setComments(response.comments);
     setStatus(response.status);
     setPriorityLevel(response.priorityLevel);
+    setProblemType(response.tags);
 
     if (response.support) setHasSupport(true);
 
@@ -153,7 +155,7 @@ export default function DetailTicket() {
               {ticket?.support ? `(${ticket?.support.email})` : ""}
             </p>
           </div>
-          {user?.role == "support" ? (
+          {user?.role === 'support' ? (
             <div className="button-container">
               {!hasSupport ? (
                 <Button
@@ -192,9 +194,25 @@ export default function DetailTicket() {
           ) : null}
         </section>
 
-        <section className="ticket-priority">
-          <h3>Grau de prioridade:</h3>
-          <PriorityLevelBadge priority={priorityLevel} />
+        <section className="ticket-dual-info">
+          <div className="ticket-priority">
+            <h3>Grau de prioridade:</h3>
+            <PriorityLevelBadge priority={priorityLevel} />
+          </div>
+
+          <div className="ticket-type">
+            <h3>Tipo de problema:</h3>
+            <TextField
+              type="text"
+              placeholder={
+                problemType[0] === '' ? 'Sem tipo definido' : problemType[0]
+              }
+              disabled={true}
+              name="tipo"
+              backgroundColor="#FAFAFA"
+              height="32px"
+            />
+          </div>
         </section>
 
         <section>
@@ -216,8 +234,8 @@ export default function DetailTicket() {
           </section>
         ) : null}
 
-        {status === "done" ||
-        (user?.role == "support" && !hasSupport) ? null : (
+        {status === 'done' ||
+        (user?.role === 'support' && !hasSupport) ? null : (
           <section id="add-comment-container">
             <TicketAddComment ref={formCommentRef} />
             <div className="button-container">

@@ -55,7 +55,12 @@ export default function TicketRegister() {
 
   async function submitForm(event: FormEvent) {
     event.preventDefault();
-    if (title === '' || description === '' || priorityLevel === '') {
+    if (
+      title === '' ||
+      description === '' ||
+      priorityLevel === '' ||
+      problemType === ''
+    ) {
       return alert('Preencha todos os campos');
     }
 
@@ -63,10 +68,11 @@ export default function TicketRegister() {
     if (!user) return alert('Não foi possivel cadastrar seu chamado');
 
     const payload = {
-      title: title,
-      description: description,
+      title,
+      description,
       user,
-      priorityLevel: priorityLevel,
+      priorityLevel,
+      tags: [problemType],
     };
 
     const response = await ticketRequest.createTicket(payload);

@@ -131,6 +131,7 @@ export default function Homepage() {
                   width="75%"
                   backgroundColor="#FAFAFA"
                   type="text"
+                  height="42px"
                 />
                 <Button width="20%" type="submit" fontSize="0.8rem">
                   Buscar
