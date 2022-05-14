@@ -1,5 +1,6 @@
 import React from 'react';
 interface Props {
+  disabled?: boolean;
   backgroundColor?: string;
   color?: string;
   border?: string;
@@ -11,22 +12,21 @@ interface Props {
   padding?: string;
   onChange?: (event: any) => void;
   items: Array<{ value: string; label: string; selected?: boolean }>;
-  disabled?: boolean;
 }
 
 const SelectInput: React.FC<Props> = ({
-  backgroundColor = '#F2F2F3',
+  disabled = false,
+  backgroundColor = !disabled ? "#f2f2f3" : "#e2e2e2",
+  border = "1px solid #CED4DA",
+  name = "",
+  radius = "0.3rem",
+  width = "100%",
   color = '#495057',
-  border = '1px solid #CED4DA',
-  name = '',
-  radius = '0.3rem',
-  width = '100%',
   height = '50px',
   required = true,
   padding = '0.5rem',
   onChange,
   items,
-  disabled = false,
 }) => {
   return (
     <div>

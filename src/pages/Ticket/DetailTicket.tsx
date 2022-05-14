@@ -85,13 +85,12 @@ export default function DetailTicket() {
           return [...prevState, comment];
         });
       }
-      console.log(response);
     } catch (error) {}
   };
 
   async function handleReservedTicket() {
-    if (user?.role !== 'support') {
-      return alert('Usuário sem permissão para relalizar essa ação.');
+    if (user?.role !== "support") {
+      return alert("Usuário sem permissão para realizar essa ação.");
     }
 
     const response = await ticketRequest.reserveTicket(id ?? '', user);
