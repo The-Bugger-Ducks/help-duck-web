@@ -15,8 +15,12 @@
 
 #homepage .search-or-filter form,
 .filter {
-  width: 50%;
-  display: inline-block;
+  width: 100%;
+}
+
+#homepage .search-or-filter form {
+  display: flex;
+  align-items: center;
 }
 
 #homepage .search-or-filter form button {
@@ -33,6 +37,9 @@
 
 #homepage .search-or-filter {
   margin-bottom: 3%;
+  width: 100%;
+  display: flex;
+  align-items: center;
 }
 
 #homepage .btn-open-ticket,
@@ -45,6 +52,7 @@
 @media only screen and (max-width: 500px) {
   #homepage .search-or-filter {
     margin-top: 0.8rem;
+    display: block;
   }
 
   #homepage .search-or-filter form,
@@ -58,7 +66,9 @@
     margin-right: 0;
   }
 
-  #homepage form button.button-primary {
+  #homepage form button.button-primary,
+  #homepage form input.input-primary,
+  #homepage select.input-primary {
     width: 100% !important;
     height: 2.5rem !important;
     margin-bottom: 0.5rem;
@@ -100,6 +110,7 @@
 @media only screen and (min-width: 501px) and (max-width: 1024px) {
   #homepage .search-or-filter {
     margin-top: 0.8rem;
+    display: block;
   }
 
   #homepage #footer-admin {
