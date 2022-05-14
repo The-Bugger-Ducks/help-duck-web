@@ -1,0 +1,238 @@
+/* ESTILIZAÇÃO GERAL*/
+
+#equipment-update {
+  width: 100vw;
+  height: 100vh;
+}
+
+#equipment-update Header {
+  padding-left: 5%;
+  width: 100vw;
+  height: 80px;
+}
+
+/* ESTILIZAÇÃO DO TITULO E SUBTITULO DA PÁGINA */
+#equipment-update .equipment-update-content .equipment-update-title {
+  padding: 5% 10% 0 5%;
+}
+
+#equipment-update .equipment-update-title h1 {
+  font-size: 2rem;
+  font-weight: 400;
+  color: var(--color-black-light);
+}
+
+/* ESTILIZAÇÃO DO FORMULÁRIO */
+
+#equipment-update .equipment-update-form {
+  padding: 2% 5%;
+  height: 50%;
+  width: 100%;
+  border-bottom: 100px;
+}
+
+#equipment-update .equipment-update-form .form-sections {
+  display: flex;
+  flex-direction: column;
+  column-gap: 2rem;
+}
+
+#equipment-update .equipment-update-form input {
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+#equipment-update .equipment-update-form .equipment-update-data {
+  display: flex;
+  flex-direction: column;
+  flex-direction: row;
+  gap: 3rem;
+}
+
+#equipment-update .equipment-update-form div {
+  width: 45%;
+}
+
+#equipment-update .equipment-update-form textarea {
+  width: 100%;
+  background-color: #f2f2f3;
+  border: 1px solid #d3d3d3;
+  border-radius: 20px;
+  outline: none;
+  min-height: 120px;
+  resize: vertical;
+  padding: 16px;
+  line-height: 28px;
+}
+
+#equipment-update .equipment-update-form .equipment-update-submit {
+  text-align: end;
+  padding-top: 1%;
+}
+
+#equipment-update form label {
+  font-size: 1.5rem;
+  color: var(--color-black-light);
+}
+
+#equipment-update Footer {
+  padding: 1.5;
+
+  position: fixed;
+  bottom: 0;
+  left: 0;
+}
+
+#equipment-update .equipment-update-title h1 {
+  display: flex;
+  align-items: center;
+}
+
+#equipment-update .equipment-update-title h1 div {
+  cursor: pointer;
+}
+
+#equipment-update select.input-primary {
+  width: 223% !important;
+}
+
+#equipment-update button.button-secondary {
+  margin-right: 1rem;
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1227px) {
+  #equipment-update .equipment-update-content {
+    margin-left: 5%;
+  }
+
+  #equipment-update .equipment-update-content .equipment-update-title {
+    padding: 0 10% 0 5%;
+  }
+
+  #equipment-update .equipment-update-title h1 {
+    font-size: 1.5rem;
+  }
+
+  #equipment-update .equipment-update-content {
+    margin-top: 3rem;
+    padding: 0%;
+  }
+
+  #equipment-update .equipment-update-form {
+    width: 90%;
+  }
+
+  #equipment-update button {
+    width: 100px;
+  }
+
+  #equipment-update .equipment-update-form .equipment-update-data {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+  }
+
+  #equipment-update .equipment-update-form .form-sections {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+  }
+
+  #equipment-update form label {
+    color: var(--color-black-light);
+  }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1227px) {
+  #equipment-update Footer {
+    position: fixed;
+  }
+}
+
+@media only screen and (max-width: 1227px) {
+  #equipment-update button.button-secondary {
+    margin-bottom: 1rem;
+  }
+
+  #equipment-update button.button-primary,
+  #equipment-update button.button-secondary {
+    width: 100% !important;
+    height: 3rem !important;
+  }
+
+  #equipment-update .equipment-update-submit {
+    margin-top: 1rem;
+    margin-bottom: 3rem;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  #equipment-update select.input-primary {
+    width: 100% !important;
+  }
+
+  #equipment-update .equipment-update-form div {
+    width: 100%;
+  }
+
+  #equipment-update .equipment-update-content {
+    margin-left: 5%;
+  }
+
+  #equipment-update .equipment-update-content .equipment-update-title {
+    padding: 0 10% 0 5%;
+  }
+
+  #equipment-update .equipment-update-title h1 {
+    font-size: 1.5rem;
+  }
+
+  #equipment-update .equipment-update-content {
+    margin-top: 3rem;
+    padding: 0%;
+  }
+
+  #equipment-update .equipment-update-form {
+    width: 90%;
+  }
+
+  #equipment-update .equipment-update-form .equipment-update-data {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+  }
+
+  #equipment-update .equipment-update-form .form-sections {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+  }
+
+  #equipment-update form label {
+    color: var(--color-black-light);
+  }
+
+  #equipment-update Footer {
+    position: relative;
+  }
+
+  #equipment-update .equipment-update-form .equipment-update-data {
+    gap: 0;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  #equipment-update Footer {
+    position: fixed;
+  }
+}
+
+@media only screen and (max-width: 465px) {
+  #equipment-update .equipment-update-title h1 {
+    font-size: 1.5rem !important;
+  }
+
+  #equipment-update .equipment-update-title h1 svg {
+    margin-right: 0.5rem;
+  }
+}

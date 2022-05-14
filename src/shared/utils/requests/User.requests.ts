@@ -1,11 +1,11 @@
-import { apiAuth, apiUsers } from "../../services/Api.service";
+import { apiUsers } from "../../services/Api.service";
 import { USER_ENDPOINTS } from "../../utils/endpoints";
 import { validateStatus } from "../handlers/HandlerResponseStatusCodeFound";
 
 export class UserRequests {
   public async loginRequest(body: object) {
     try {
-      const response = await apiAuth.post(USER_ENDPOINTS.USER_LOGIN, body);
+      const response = await apiUsers.post(USER_ENDPOINTS.USER_LOGIN, body);
       return response.data;
     } catch (error) {
       console.log(error);
@@ -31,7 +31,7 @@ export class UserRequests {
 
   public async updateRequest(body: object) {
     try {
-      const response = await apiUsers.post(USER_ENDPOINTS.USER_UPDATE, body);
+      const response = await apiUsers.post("", body);
       return response.data;
     } catch (error) {
       console.log(error);
@@ -39,15 +39,21 @@ export class UserRequests {
     }
   }
 
-  public async listUserRequest() {
+  public async listUserRequest(sorting?: string) {
+    let url = `${USER_ENDPOINTS.USER_LIST}`
+
+    if (sorting) {
+      url = `${USER_ENDPOINTS.USER_LIST}?${sorting}`
+    }
+
     try {
-      const response = await apiUsers.get(`/users/`, {
+      const response = await apiUsers.get(url, {
         validateStatus,
       });
       return response.data;
     } catch (error) {
       console.log(error);
-      alert("Email ou senha incorretos.");
+      alert("Não foi possível buscar todos usuários.");
     }
   }
 }

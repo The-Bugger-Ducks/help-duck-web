@@ -1,9 +1,9 @@
-.ticket-list-container {
+.equipments-list-container {
   width: 100%;
   border-bottom: 1px solid var(--color-white-dark);
 }
 
-.ticket-list-container .ticket-title {
+.equipments-list-container .title {
   max-width: 150px;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -11,56 +11,33 @@
   padding-right: 1%;
 }
 
-.ticket-list-container .grid-tickets {
-  height: 50vh;
+.equipments-list-container .grid-equipments {
+  height: 30vh;
   overflow-y: auto;
 }
 
-.ticket-list-container table {
+.equipments-list-container table {
   width: 100%;
   min-width: 550px;
   height: auto;
 }
 
-.ticket-list-container table th {
+.equipments-list-container table th {
   text-align: left;
   font-weight: normal;
   padding-bottom: 0.5rem;
   border-bottom: 1px solid var(--color-gray-dark);
 }
 
-.ticket-list-container table th .th-arrow {
-  margin-left: 1rem;
-  font-size: 0.7rem;
-
-  color: var(--color-gray-main);
-  visibility: hidden;
-
-  transition: 200ms ease;
-}
-
-.ticket-list-container table th:hover .th-arrow {
-  visibility: visible;
-}
-
-.ticket-list-container table th.visible .th-arrow {
-  visibility: visible;
-  color: var(--color-black-dark);
-}
-
-.ticket-list-container table th.visible.order-by .th-arrow {
-  transform: rotate(180deg);
-}
-
-.ticket-list-container table td {
+.equipments-list-container table td {
   padding: 0.5rem;
 }
 
-.ticket-list-container table tr {
+.equipments-list-container table tr {
   cursor: pointer;
 }
 
-.ticket-list-container table .no-results {
+.equipments-list-container table .no-results {
   text-align: center;
   padding-top: 3%;
   cursor: default;
@@ -105,11 +82,4 @@
   border-color: #dee2e6 #dee2e6 #fff;
 
   cursor: auto;
-}
-
-@media only screen and (min-width: 500px) and (max-width: 1023px) {
-  .ticket-list-container .grid-tickets {
-    height: 30vh;
-    overflow-y: auto;
-  }
 }
