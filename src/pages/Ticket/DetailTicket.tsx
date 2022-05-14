@@ -205,7 +205,9 @@ export default function DetailTicket() {
             <TextField
               type="text"
               placeholder={
-                problemType[0] === '' ? 'Sem tipo definido' : problemType[0]
+                problemType != null && problemType[0] != ''
+                  ? problemType[0]
+                  : 'Sem tipo definido'
               }
               disabled={true}
               name="tipo"
