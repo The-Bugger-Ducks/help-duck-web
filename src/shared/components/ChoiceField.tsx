@@ -23,6 +23,7 @@ const SelectInput: React.FC<Props> = ({
   padding = "0.5rem",
   onChange,
   items,
+  disabled = false,
 }) => {
   return (
     <div>

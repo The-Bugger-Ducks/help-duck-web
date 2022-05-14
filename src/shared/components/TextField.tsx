@@ -11,6 +11,7 @@ interface Props {
   padding?: string;
   disabled?: boolean;
   onChange?: (event: any) => void;
+  disabled?: boolean;
 }
 
 const TextInput: React.FC<Props> = ({
@@ -25,6 +26,7 @@ const TextInput: React.FC<Props> = ({
   required = true,
   padding = "0.5rem",
   onChange,
+  disabled = false,
 }) => {
   return (
     <input
