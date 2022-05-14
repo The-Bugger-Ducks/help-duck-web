@@ -70,6 +70,10 @@
   color: var(--color-black-light);
 }
 
+#login span {
+  cursor: pointer;
+ }
+
 /* ESTILIZAÇÃO DO TITULO E SUBTITULO DA PÁGINA */
 
 #login .login-content .login-welcome {
