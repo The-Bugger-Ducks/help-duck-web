@@ -68,6 +68,7 @@
 #equipment-update .equipment-update-form .equipment-update-submit {
   text-align: end;
   padding-top: 1%;
+  margin-right: 5rem;
 }
 
 #equipment-update form label {
@@ -163,6 +164,7 @@
   #equipment-update .equipment-update-submit {
     margin-top: 1rem;
     margin-bottom: 3rem;
+    margin-right: 0 !important;
   }
 }
 
@@ -206,6 +208,7 @@
     display: flex;
     flex-direction: column;
     margin: 0;
+    align-content: space-around;
   }
 
   #equipment-update form label {
