@@ -1,6 +1,6 @@
 import Comment from "./comment.interface";
 
-export default interface Solution {
+export interface Solution {
   id: string;
   idTicket: string;
 
@@ -14,3 +14,14 @@ export default interface Solution {
 
   createdAt: Date;
 }
+
+export interface CreateSolution {
+  ticketId: string;
+
+  titleProblem: string;
+  problemTags: Array<string>;
+
+  solutionComment: Comment;
+
+}
+
