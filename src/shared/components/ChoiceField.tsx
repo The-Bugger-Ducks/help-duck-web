@@ -16,7 +16,7 @@ interface Props {
 
 const SelectInput: React.FC<Props> = ({
   disabled = false,
-  backgroundColor = !disabled ? "#f2f2f3" : "#e2e2e2",
+  backgroundColor = !disabled ? "#FAFAFA" : "#EDEDEE",
   border = "1px solid #CED4DA",
   name = "",
   radius = "0.3rem",

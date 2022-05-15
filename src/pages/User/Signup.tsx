@@ -116,7 +116,7 @@ export default function Signup() {
               <section className="signup-data">
                 <ChoiceField
                   onChange={(event) => setRole(event.target.value)}
-                  name="profile_type"
+                  name="role"
                   items={userProfiles}
                 />
               </section>
