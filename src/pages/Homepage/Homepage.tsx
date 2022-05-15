@@ -50,8 +50,12 @@ export default function Homepage() {
       : [
           {
             selected: true,
-            value: "",
-            label: "Meus chamados",
+            value: '',
+            label: 'Meus chamados',
+          },
+          {
+            value: 'done',
+            label: 'Todos os chamados concluídos',
           },
         ]
   );
