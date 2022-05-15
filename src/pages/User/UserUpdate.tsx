@@ -254,7 +254,7 @@ export default function UserUpdate() {
             </section>
 
             <section className="user-update-submit">
-              {DeleteButton()}
+              <DeleteButton />
 
               <Button width="15rem" type="submit" color="var(--color-white-light)">
                 Confirmar alteração
