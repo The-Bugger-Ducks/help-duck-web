@@ -18,8 +18,8 @@ interface Props {
 
 const TextInput: React.FC<Props> = ({
   disabled = false,
+  backgroundColor = !disabled ? "#FAFAFA" : "#EDEDEE",
   border = "1px solid #CED4DA",
-  backgroundColor = !disabled ? "#f2f2f3" : "#e2e2e2",
   type = "text",
   name = "",
   placeholder = "",
