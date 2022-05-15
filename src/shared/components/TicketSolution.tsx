@@ -63,7 +63,7 @@ const TicketSolution: React.FC<Props> = ({ solution }) => {
         <p>{solutionComment.comment}</p>
         
         <div className="footer-solution">
-          <SolutionVoteContainer />  
+          {/* <SolutionVoteContainer />   */}
           <small>
             {solutionComment.ownerComment.firstName}
             ({solutionComment.ownerComment.email})
