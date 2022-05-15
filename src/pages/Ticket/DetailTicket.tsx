@@ -21,6 +21,7 @@ import TicketAddComment from '../../shared/components/TicketAddComment';
 
 import '../../shared/styles/pages/ticket/DetailTicket.css';
 import TextField from '../../shared/components/TextField';
+import TicketSolution from '../../shared/components/TicketSolution';
 
 export default function DetailTicket() {
   const navigate = useNavigate();
@@ -35,12 +36,12 @@ export default function DetailTicket() {
 
   const [ticket, setTicket] = useState<Ticket>();
   const [status, setStatus] = useState<status>();
-  const [priorityLevel, setPriorityLevel] =
-    useState<Ticket['priorityLevel']>('low');
+  const [priorityLevel, setPriorityLevel] = useState<Ticket['priorityLevel']>('low');
   const [problemType, setProblemType] = useState<Ticket['tags']>(['']);
   const [comments, setComments] = useState<Ticket['comments']>([]);
   const [createdAt, setCreatedAt] = useState<Date>();
   const [hasSupport, setHasSupport] = useState<boolean>(false);
+  const [solution, setSolution] = useState<Ticket["solution"]>();
 
   const ticketRequest = new TicketRequests();
 
@@ -52,7 +53,7 @@ export default function DetailTicket() {
     };
   }, []);
 
-  const getTicket = async () => {
+  async function getTicket() {
     const response: Ticket = await ticketRequest.showRequest(id ?? '');
 
     setTicket(response);
@@ -60,6 +61,7 @@ export default function DetailTicket() {
     setStatus(response.status);
     setPriorityLevel(response.priorityLevel);
     setProblemType(response.tags);
+    setSolution(response.solution)
 
     if (response.support) setHasSupport(true);
 
@@ -67,7 +69,7 @@ export default function DetailTicket() {
     setCreatedAt(date);
   };
 
-  const handleSubmitComment = async () => {
+  async function handleSubmitComment() {
     let { newComment } = formCommentRef.current.submit();
 
     if (!user || !id) return alert('Não foi possível inserir comentário');
@@ -224,6 +226,10 @@ export default function DetailTicket() {
             <p className="owner-comment">{ticket?.user.email}</p>
           </div>
         </section>
+
+        {solution ? (
+          <TicketSolution solution={solution} />
+        ) : null}
 
         {comments.length !== 0 ? (
           <section>

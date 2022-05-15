@@ -113,14 +113,6 @@ h4 {
   list-style: none;
 }
 
-.owner-comment {
-  width: 100%;
-  text-align: end;
-
-  font-weight: 400;
-  font-size: 0.8rem;
-}
-
 @media only screen and (min-width: 501px) and (max-width: 1024px) {
   #detail-ticket .ticket-dual-info {
     display: flex;
