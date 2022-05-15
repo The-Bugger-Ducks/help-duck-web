@@ -12,6 +12,10 @@ const apiTickets = axios.create({
   baseURL: "https://help-duck-ticket.herokuapp.com",
 });
 
+const apiSolution = axios.create({
+  baseURL: "https://help-duck-solution-center.herokuapp.com",
+});
+
 apiUsers.interceptors.request.use(async (config: any) => {
   const token = sessionStorage.getItem("authentication_token");
   if (token) {
@@ -36,4 +40,12 @@ apiTickets.interceptors.request.use(async (config: any) => {
   return config;
 });
 
-export { apiUsers, apiTickets, apiEquipment };
+apiSolution.interceptors.request.use(async (config: any) => {
+  const token = sessionStorage.getItem("authentication_token");
+  if (token) {
+    config.headers.Authorization = `Bearer ${token.replace(/"/g, "")}`;
+  }
+  return config;
+});
+
+export { apiUsers, apiTickets, apiEquipment, apiSolution };

@@ -1,4 +1,24 @@
- .comment-item {
+.comment-item-container {
+  display: flex;
+
+  gap: 1rem;
+} 
+
+.check-solution {
+  align-self: center;
+  cursor: pointer
+}
+
+.check-solution-icon {
+  color: var(--color-gray-light)
+}
+
+.check-solution-icon:hover {
+  color: var(--color-green)
+}
+
+.comment-item {
+  flex: 1;
   color: #5c8599;
 
   border-bottom: 1px solid #d3e2e5;
