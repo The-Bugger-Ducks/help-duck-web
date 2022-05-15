@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { FormEvent, useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import "../../shared/styles/pages/auth/Login.css";
@@ -12,11 +12,17 @@ import HandleUserFormData from '../../shared/utils/handlers/HandleUserFormData.s
 import { UserLogin } from '../../shared/interfaces/user.interface';
 import SessionController from '../../shared/utils/handlers/SessionController';
 
+import lottie from "lottie-web";
+import loading_lottie from "../../shared/assets/animation/settings-loading.json";
+
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const navigate = useNavigate();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [loading, setLoading] = useState(false);
+  
+  const navigate = useNavigate();
+  const container = useRef<HTMLDivElement>(null);
 
   const user: UserLogin = {
     email,
@@ -24,6 +30,18 @@ export default function Login() {
   };
 
   let handleUserFormData = new HandleUserFormData();
+
+  useEffect(() => {
+    if (loading && container.current) {
+      lottie.loadAnimation({
+        container: container.current,
+        renderer: "svg",
+        loop: true,
+        autoplay: true,
+        animationData: loading_lottie,
+      });
+    }
+  }, [loading]);
 
   useEffect(() => {
     checkUserAuthentication();
@@ -35,16 +53,21 @@ export default function Login() {
     }
   }, [isAuthenticated, navigate]);
 
-  const authenticate = (event: any) => {
+  async function authenticate(event: FormEvent) {
     event.preventDefault();
+
     try {
-      handleUserFormData.handleLogin(user).then(data => {
-        SessionController.setToken(data.token);
-        SessionController.setUserInfo(data.user);
-        setIsAuthenticated(true);
-      });
+      setLoading(true);
+      const data = await handleUserFormData.handleLogin(user)
+
+      SessionController.setToken(data.token);
+      SessionController.setUserInfo(data.user);
+      
+      setIsAuthenticated(true);
+      setLoading(false);
     } catch (err) {
       console.log(err);
+      setLoading(false);
       setIsAuthenticated(false);
     }
   };
@@ -60,40 +83,47 @@ export default function Login() {
   };
 
   return (
-    <div id="login">
-      <div className="login-container">
-        <Header hiddenDropdown={true} />
-        <div className="login-content">
-          <section className="login-welcome">
-            <h2>Bem vindo(a)!</h2>
-            <h1>Entre na sua conta</h1>
-          </section>
-          <form className="login-form" onSubmit={authenticate}>
-            <section className="login-data">
-              <label htmlFor="email">E-mail</label>
-              <TextField
-                placeholder="john.snow@email.com"
-                onChange={event => setEmail(event.target.value)}
-                name="email"
-              />
-              <label htmlFor="password">Senha</label>
-              <TextField
-                placeholder="Senha"
-                onChange={event => setPassword(event.target.value)}
-                name="password"
-                type="password"
-              />
-            </section>
-            <span id="recover-password" onClick={() => alertForgotPassword()}>
-              Esqueceu a senha?
-            </span>
-            <Button type="submit" width="100%">
-              Entrar
-            </Button>
-          </form>
+    <>
+      {loading ? (
+        <div className="loading_container">
+          <div ref={container} className="loading_lottie"/>
         </div>
-        <Footer />
+      ): null}
+      <div id="login">      
+        <div className="login-container">
+          <Header hiddenDropdown={true} />
+          <div className="login-content">
+            <section className="login-welcome">
+              <h2>Bem vindo(a)!</h2>
+              <h1>Entre na sua conta</h1>
+            </section>
+            <form className="login-form" onSubmit={authenticate}>
+              <section className="login-data">
+                <label htmlFor="email">E-mail</label>
+                <TextField
+                  placeholder="john.snow@email.com"
+                  onChange={event => setEmail(event.target.value)}
+                  name="email"
+                />
+                <label htmlFor="password">Senha</label>
+                <TextField
+                  placeholder="Senha"
+                  onChange={event => setPassword(event.target.value)}
+                  name="password"
+                  type="password"
+                />
+              </section>
+              <span id="recover-password" onClick={() => alertForgotPassword()}>
+                Esqueceu a senha?
+              </span>
+              <Button type="submit" width="100%">
+                Entrar
+              </Button>
+            </form>
+          </div>
+          <Footer />
+        </div>
       </div>
-    </div>
+    </>    
   );
 }
