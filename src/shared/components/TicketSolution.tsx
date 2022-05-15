@@ -4,7 +4,7 @@ import {AiOutlineLike, AiOutlineDislike} from "react-icons/ai"
 
 import Button from "./Button";
 
-import Solution from "../interfaces/solution.interface";
+import { Solution } from "../interfaces/solution.interface";
 
 import "../styles/components/TicketSolution.css";
 

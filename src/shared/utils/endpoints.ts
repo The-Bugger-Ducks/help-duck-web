@@ -25,3 +25,7 @@ export enum EQUIPMENT_ENDPOINTS {
   EQUIPMENT_UPDATE = `/equipment/update`,
   EQUIPMENT_DELETE = `/equipment/delete/`,
 }
+
+export enum SOLUTION_ENDPOINTS {
+  SOLUTION_CREATE = `/solutions/create`,
+}
