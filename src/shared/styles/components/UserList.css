@@ -1,12 +1,22 @@
 .user-list-container {
   width: 100%;
-  height: 50vh;
+  height: 30vh;
   overflow-y: scroll;
   border-bottom: 1px solid var(--color-white-dark);
 }
 
+.ticket-list-container #name {
+  max-width: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding-right: 1%;
+}
+
 .user-list-container table {
   width: 100%;
+  min-width: 550px;
+  height: auto;
 }
 
 .user-list-container table th {
@@ -16,9 +26,31 @@
   border-bottom: 1px solid var(--color-gray-dark);
 }
 
+.user-list-container table th .th-arrow {
+  margin-left: 1rem;
+  font-size: 0.7rem;
+
+  color: var(--color-gray-main);
+  visibility: hidden;
+
+  transition: 200ms ease;
+}
+
+.user-list-container table th:hover .th-arrow {
+  visibility: visible;
+}
+
+.user-list-container table th.visible .th-arrow {
+  visibility: visible;
+  color: var(--color-black-dark);
+}
+
+.user-list-container table th.visible.order-by .th-arrow {
+  transform: rotate(180deg);
+}
+
 .user-list-container table td {
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
+  padding: 0.5rem;
 }
 
 .user-list-container table tr {

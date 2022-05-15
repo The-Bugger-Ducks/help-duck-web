@@ -11,7 +11,7 @@ import TextField from "../../shared/components/TextField";
 import ChoiceField from "../../shared/components/ChoiceField";
 
 import SessionController from "../../shared/utils/handlers/SessionController";
-import "../../shared/styles/pages/login/Signup.css";
+import "../../shared/styles/pages/user/Signup.css";
 
 export default function Signup() {
   const [email, setEmail] = useState("");
@@ -52,7 +52,6 @@ export default function Signup() {
       lastName: lastname,
       role: role,
     };
-    console.log(payload);
 
     const response = await userRequest.registerRequest(payload);
 
@@ -117,7 +116,7 @@ export default function Signup() {
               <section className="signup-data">
                 <ChoiceField
                   onChange={(event) => setRole(event.target.value)}
-                  name="profile_type"
+                  name="role"
                   items={userProfiles}
                 />
               </section>

@@ -1,0 +1,57 @@
+#solution-ticket-container .solution-title {
+  margin-left: 16px;
+  width: 8rem;
+
+  background-color: var(--color-green);
+  
+  text-align: center;
+  color: var(--color-white-light);
+  
+  border-radius: 8px 8px 0px 0px;
+}
+
+#solution-ticket-container .solution-wrap {
+  border: 1px solid var(--color-green);
+  border-radius: 5px;
+
+  color: #5c8599;
+  outline: none;
+  min-height: 120px;
+  line-height: 28px;
+  padding: 16px;
+
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+}
+
+#solution-ticket-container .footer-solution {
+  width: 100%;
+  
+  font-weight: 400;
+  font-size: 0.8rem;
+  
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 0.3rem
+}
+
+#solution-ticket-container .solution-vote-button {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.5rem;
+
+  flex-wrap: wrap;
+}
+
+#solution-ticket-container .solution-vote-button-text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 0.5rem;
+
+}

@@ -1,27 +1,35 @@
-import React from "react";
+import React from 'react';
 interface Props {
   backgroundColor?: string;
+  color?: string;
+  height?: string;
   border?: string;
   type?: any;
   name?: string;
   placeholder?: string;
+  defaultValue?: string;
   radius?: string;
   width?: string;
   required?: boolean;
   padding?: string;
+  disabled?: boolean;
   onChange?: (event: any) => void;
 }
 
 const TextInput: React.FC<Props> = ({
-  backgroundColor = "#f2f2f3",
+  disabled = false,
+  backgroundColor = !disabled ? "#FAFAFA" : "#EDEDEE",
   border = "1px solid #CED4DA",
-  type = "email",
+  type = "text",
   name = "",
   placeholder = "",
+  defaultValue,
   radius = "0.3rem",
   width = "100%",
+  color = '#495057',
+  height = '50px',
   required = true,
-  padding = "0.5rem",
+  padding = '0.5rem',
   onChange,
 }) => {
   return (
@@ -33,12 +41,17 @@ const TextInput: React.FC<Props> = ({
         borderRadius: radius,
         width,
         padding,
+        height,
+        fontSize: '16px',
+        color,
       }}
       className="input-primary"
       type={type}
       name={name}
       required={required}
       placeholder={placeholder}
+      defaultValue={defaultValue}
+      disabled={disabled}
     />
   );
 };

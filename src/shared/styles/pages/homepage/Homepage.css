@@ -4,15 +4,23 @@
 }
 
 #homepage .footer {
-  position: absolute;
-  bottom: 0;
-  left: 0;
+  position: fixed !important;
+  margin-top: 1rem !important;
+  bottom: 0 !important;
+}
+
+#homepage #footer-admin {
+  position: sticky !important;
 }
 
 #homepage .search-or-filter form,
 .filter {
-  width: 50%;
-  display: inline-block;
+  width: 100%;
+}
+
+#homepage .search-or-filter form {
+  display: flex;
+  align-items: center;
 }
 
 #homepage .search-or-filter form button {
@@ -29,10 +37,132 @@
 
 #homepage .search-or-filter {
   margin-bottom: 3%;
+  width: 100%;
+  display: flex;
+  align-items: center;
 }
 
 #homepage .btn-open-ticket,
-.btn-create-user {
+#homepage .btn-create-user,
+#homepage .btn-create-equipment {
   margin-top: 2%;
   text-align: end;
+}
+
+@media only screen and (max-width: 500px) {
+  #homepage .search-or-filter {
+    margin-top: 0.8rem;
+    display: block;
+  }
+
+  #homepage .search-or-filter form,
+  .filter {
+    width: 100%;
+    display: inline;
+  }
+
+  #homepage .search-or-filter form button {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  #homepage form button.button-primary,
+  #homepage form input.input-primary,
+  #homepage select.input-primary {
+    width: 100% !important;
+    height: 2.5rem !important;
+    margin-bottom: 0.5rem;
+  }
+
+  #homepage .btn-open-ticket button.button-primary,
+  #homepage .btn-create-user button.button-primary {
+    width: 50% !important;
+    height: 2.5rem !important;
+    margin-bottom: 1%;
+  }
+
+  #homepage .btn-create-equipment button.button-primary {
+    width: 60% !important;
+    height: 2.5rem !important;
+    margin-bottom: 1%;
+  }
+
+  #homepage input.input-primary {
+    width: 100% !important;
+    margin-bottom: 0.5rem;
+  }
+
+  #homepage ticket-list-container {
+    height: 35vh;
+  }
+
+  #homepage .btn-open-ticket,
+  #homepage .btn-create-user,
+  #homepage .btn-create-equipment {
+    margin-top: 2rem;
+  }
+
+  #homepage .footer {
+    margin-top: 3rem;
+  }
+}
+
+@media only screen and (min-width: 501px) and (max-width: 1024px) {
+  #homepage .search-or-filter {
+    margin-top: 0.8rem;
+    display: block;
+  }
+
+  #homepage #footer-admin {
+    position: relative !important;
+  }
+
+  #homepage .footer {
+    position: fixed !important;
+  }
+
+  #homepage .search-or-filter form,
+  .filter {
+    width: 100%;
+    display: inline;
+  }
+
+  #homepage .search-or-filter form button {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  #homepage form button.button-primary {
+    width: 100% !important;
+    height: 2.5rem !important;
+    margin-bottom: 0.5rem;
+  }
+
+  #homepage .btn-open-ticket button.button-primary,
+  #homepage .btn-create-user button.button-primary {
+    width: 40% !important;
+    height: 2.5rem !important;
+    margin-bottom: 1rem;
+  }
+
+  #homepage .btn-create-equipment button.button-primary {
+    width: 50% !important;
+    height: 2.5rem !important;
+    margin-bottom: 1rem;
+  }
+
+  #homepage input.input-primary {
+    width: 100% !important;
+    margin-bottom: 0.5rem;
+  }
+
+  #homepage ticket-list-container {
+    height: 35vh;
+  }
+
+  #homepage .btn-open-ticket,
+  #homepage .btn-create-user,
+  #homepage .btn-create-equipment {
+    margin-top: 2rem;
+  }
 }

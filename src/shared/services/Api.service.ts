@@ -1,19 +1,39 @@
 import axios from "axios";
 
 const apiUsers = axios.create({
-  baseURL: "https://help-duck-users.herokuapp.com",
+  baseURL: "https://help-duck-register.herokuapp.com",
+});
+
+const apiEquipment = axios.create({
+  baseURL: "https://help-duck-register.herokuapp.com",
 });
 
 const apiTickets = axios.create({
-  baseURL: "https://help-duck-tickets.herokuapp.com",
+  baseURL: "https://help-duck-ticket.herokuapp.com",
 });
 
-const apiAuth = axios.create({
-  baseURL: "https://help-duck-auth.herokuapp.com",
+apiUsers.interceptors.request.use(async (config: any) => {
+  const token = sessionStorage.getItem("authentication_token");
+  if (token) {
+    config.headers.Authorization = `Bearer ${token.replace(/"/g, "")}`;
+  }
+  return config;
 });
 
-const apiReports = axios.create({
-  baseURL: "http://localhost:8082",
+apiEquipment.interceptors.request.use(async (config: any) => {
+  const token = sessionStorage.getItem("authentication_token");
+  if (token) {
+    config.headers.Authorization = `Bearer ${token.replace(/"/g, "")}`;
+  }
+  return config;
 });
 
-export { apiUsers, apiTickets, apiAuth, apiReports };
+apiTickets.interceptors.request.use(async (config: any) => {
+  const token = sessionStorage.getItem("authentication_token");
+  if (token) {
+    config.headers.Authorization = `Bearer ${token.replace(/"/g, "")}`;
+  }
+  return config;
+});
+
+export { apiUsers, apiTickets, apiEquipment };

@@ -50,7 +50,7 @@
 
 #login .login-form {
   background-color: var(--color-white-main);
-  padding: 5%;
+  padding: 3rem 3rem 2rem;
   height: 50%;
   width: 50%;
   border-radius: 2%;
@@ -69,6 +69,10 @@
 #login form label {
   color: var(--color-black-light);
 }
+
+#login span {
+  cursor: pointer;
+ }
 
 /* ESTILIZAÇÃO DO TITULO E SUBTITULO DA PÁGINA */
 
@@ -108,4 +112,32 @@
   position: absolute;
   bottom: 0;
   left: 0;
+}
+
+/* RESPONSIVIDADE */
+
+@media (max-width: 768px) {
+  #login .login-form {
+    background-color: var(--color-primary-main);
+    padding: 0;
+    height: 100%;
+    width: 100%;
+  }
+
+  #login form label {
+    color: var(--color-white-main);
+  }
+
+  #login #recover-password {
+    color: var(--color-white-main);
+  }
+
+  #login .login-content .login-welcome {
+    width: 100%;
+    margin-top: 4rem;
+  }
+
+  #login button.button-primary {
+    width: 100% !important;
+  }
 }

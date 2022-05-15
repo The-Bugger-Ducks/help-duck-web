@@ -14,6 +14,7 @@ import UserList from "../../shared/components/UserList";
 import { status } from "../../shared/types/status";
 
 import "../../shared/styles/pages/homepage/Homepage.css";
+import EquipmentList from "../../shared/components/EquipmentList";
 
 export default function Homepage() {
   const token = SessionController.getToken();
@@ -22,6 +23,9 @@ export default function Homepage() {
   const userInformation = SessionController.getUserInfo();
 
   const [statusFilter, setStatusFilter] = useState<status | "">("");
+  const [equipmentStatusFilter, setEquipmentStatusFilter] = useState<
+    status | ""
+  >("");
   const [pageTitle, setPageTitle] = useState("Chamados");
   const [searchPlaceholder, setSearchPlaceholder] = useState(
     "Buscar por título do chamado"
@@ -46,8 +50,12 @@ export default function Homepage() {
       : [
           {
             selected: true,
-            value: "",
-            label: "Meus chamados",
+            value: '',
+            label: 'Meus chamados',
+          },
+          {
+            value: 'done',
+            label: 'Todos os chamados concluídos',
           },
         ]
   );
@@ -74,6 +82,10 @@ export default function Homepage() {
     event.preventDefault();
   }
 
+  function handleFilterEquipment(event: React.FormEvent) {
+    event.preventDefault();
+  }
+
   return (
     <div id="homepage">
       <Header hiddenDropdown={false} />
@@ -87,6 +99,7 @@ export default function Homepage() {
               width="75%"
               backgroundColor="#FAFAFA"
               type="text"
+              height="42px"
             />
             <Button width="20%" type="submit" fontSize="0.8rem">
               Buscar
@@ -98,7 +111,8 @@ export default function Homepage() {
               items={filterOptions}
               width="100%"
               backgroundColor="#FAFAFA"
-              onChange={(event) => setStatusFilter(event.target.value)}
+              onChange={event => setStatusFilter(event.target.value)}
+              height="42px"
             />
           </div>
         </section>
@@ -108,6 +122,49 @@ export default function Homepage() {
             <div className="btn-create-user">
               <Link to="/signup">
                 <Button width="20%">Cadastrar usuário</Button>
+              </Link>
+            </div>
+
+            <h1>Equipamentos</h1>
+
+            <section className="search-or-filter">
+              <form className="searchTicket" onSubmit={handleFilterEquipment}>
+                <TextField
+                  placeholder={"Busque por um equipamento"}
+                  name="search"
+                  width="75%"
+                  backgroundColor="#FAFAFA"
+                  type="text"
+                  height="42px"
+                />
+                <Button width="20%" type="submit" fontSize="0.8rem">
+                  Buscar
+                </Button>
+              </form>
+              <div className="filter">
+                <ChoiceField
+                  name="filter"
+                  items={[
+                    {
+                      selected: true,
+                      value: "allEquipments",
+                      label: "Todos os equipamentos",
+                    },
+                  ]}
+                  width="100%"
+                  backgroundColor="#FAFAFA"
+                  onChange={event => setStatusFilter(event.target.value)}
+                  height="42px"
+                  color="#495057"
+                />
+              </div>
+            </section>
+
+            <EquipmentList />
+
+            <div className="btn-create-equipment">
+              <Link to="/equipment_register">
+                <Button width="20%">Cadastrar Equipamento</Button>
               </Link>
             </div>
           </>
@@ -124,7 +181,7 @@ export default function Homepage() {
           </>
         )}
       </div>
-      <Footer />
+      <Footer id={userInformation?.role === "admin" ? "footer-admin" : ""} />
     </div>
   );
 }

@@ -1,21 +1,20 @@
-import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-import "../../shared/styles/pages/login/Login.css";
+import "../../shared/styles/pages/auth/Login.css";
 
-import Button from "../../shared/components/Button";
-import Footer from "../../shared/components/Footer";
-import Header from "../../shared/components/Header";
-import TextField from "../../shared/components/TextField";
+import Button from '../../shared/components/Button';
+import Footer from '../../shared/components/Footer';
+import Header from '../../shared/components/Header';
+import TextField from '../../shared/components/TextField';
 
-import HandleUserFormData from "../../shared/utils/handlers/HandleUserFormData.service";
-import {UserLogin} from "../../shared/interfaces/user.interface";
-import SessionController from "../../shared/utils/handlers/SessionController";
-import { apiAuth } from "../../shared/services/Api.service";
+import HandleUserFormData from '../../shared/utils/handlers/HandleUserFormData.service';
+import { UserLogin } from '../../shared/interfaces/user.interface';
+import SessionController from '../../shared/utils/handlers/SessionController';
 
 export default function Login() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const navigate = useNavigate();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
@@ -32,14 +31,14 @@ export default function Login() {
 
   useEffect(() => {
     if (isAuthenticated) {
-      navigate("/homepage");
+      navigate('/homepage');
     }
   }, [isAuthenticated, navigate]);
 
   const authenticate = (event: any) => {
     event.preventDefault();
     try {
-      handleUserFormData.handleLogin(user).then((data) => {
+      handleUserFormData.handleLogin(user).then(data => {
         SessionController.setToken(data.token);
         SessionController.setUserInfo(data.user);
         setIsAuthenticated(true);
@@ -50,26 +49,14 @@ export default function Login() {
     }
   };
 
+  function alertForgotPassword() {
+    return alert('Contate um administrador para atualização de senha!');
+  }
+
   const checkUserAuthentication = async () => {
     const token = SessionController.getToken();
-    const user = SessionController.getUserInfo();
 
-    if (!token || !user) return setIsAuthenticated(false);
-    const response = await apiAuth.post(
-      "/auth/authorization",
-      { id: user.id },
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-
-    if (response.status === 200) {
-      return setIsAuthenticated(true);
-    } else {
-      return setIsAuthenticated(false);
-    }
+    return !token ? setIsAuthenticated(false) : setIsAuthenticated(true);
   };
 
   return (
@@ -86,21 +73,21 @@ export default function Login() {
               <label htmlFor="email">E-mail</label>
               <TextField
                 placeholder="john.snow@email.com"
-                onChange={(event) => setEmail(event.target.value)}
+                onChange={event => setEmail(event.target.value)}
                 name="email"
               />
               <label htmlFor="password">Senha</label>
               <TextField
                 placeholder="Senha"
-                onChange={(event) => setPassword(event.target.value)}
+                onChange={event => setPassword(event.target.value)}
                 name="password"
                 type="password"
               />
             </section>
-            <Link to={"#"} id="recover-password">
+            <span id="recover-password" onClick={() => alertForgotPassword()}>
               Esqueceu a senha?
-            </Link>
-            <Button type="submit" width="80%">
+            </span>
+            <Button type="submit" width="100%">
               Entrar
             </Button>
           </form>

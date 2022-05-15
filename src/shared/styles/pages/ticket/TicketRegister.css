@@ -5,7 +5,7 @@
   height: 100vh;
 }
 
-#ticket-register Header{
+#ticket-register Header {
   padding-left: 5%;
   width: 100vw;
   height: 80px;
@@ -19,7 +19,7 @@
 #ticket-register .ticket-register-title h1 {
   font-size: 2rem;
   font-weight: 400;
-  color: var(--color-black-light)
+  color: var(--color-black-light);
 }
 
 /* ESTILIZAÇÃO DO FORMULÁRIO */
@@ -42,22 +42,57 @@
   margin-bottom: 1rem;
 }
 
+#ticket-register
+  .ticket-register-form
+  .ticket-register-data
+  .ticket-register-ticket-title {
+  width: 45%;
+}
+
 #ticket-register .ticket-register-form .ticket-register-data {
   display: flex;
   flex-direction: column;
+  width: 100%;
+}
+
+#ticket-register
+  .ticket-register-form
+  .ticket-register-data
+  .ticket-register-dual-select {
+  display: flex;
+  justify-content: space-between;
+}
+
+#ticket-register
+  .ticket-register-form
+  .ticket-register-data
+  .ticket-register-dual-select
+  .first {
+  margin-right: 5rem;
+  width: 30%;
+}
+
+#ticket-register
+  .ticket-register-form
+  .ticket-register-data
+  .ticket-register-select {
+  display: block;
   width: 50%;
 }
 
 #ticket-register .ticket-register-form .ticket-register-description textarea {
   width: 100%;
   background-color: #f2f2f3;
-  border: 1px solid #d3d3d3;
-  border-radius: 20px;
+  color: #495057;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
   outline: none;
   min-height: 120px;
   resize: vertical;
   padding: 16px;
   line-height: 28px;
+  margin-top: 16px;
 }
 
 #ticket-register .ticket-register-form .ticket-register-submit {
@@ -75,21 +110,28 @@
   color: var(--color-black-light);
 }
 
+#ticket-register .navigation-button {
+  cursor: pointer;
+}
+
+#ticket-register .navigation-button:hover {
+  filter: brightness(40%);
+}
+
 #ticket-register Footer {
   padding: 1.5;
-
   position: fixed;
   bottom: 0;
   left: 0;
 }
 
-@media only screen and (max-width: 800px) {
-  #ticket-register Header{
-    padding: 10%;
-  }
-
+@media only screen and (min-width: 583px) and (max-width: 1227px) {
   #ticket-register .ticket-register-content {
     margin-left: 5%;
+  }
+
+  #ticket-register .ticket-register-content .ticket-register-title {
+    padding: 0 10% 0 5%;
   }
 
   #ticket-register .ticket-register-title h1 {
@@ -100,7 +142,70 @@
     margin-top: 3rem;
     padding: 0%;
   }
-  
+
+  #ticket-register .ticket-register-form {
+    width: 90%;
+  }
+
+  #ticket-register button {
+    width: 100px;
+  }
+
+  #ticket-register .ticket-register-form .ticket-register-data,
+  #ticket-register
+    .ticket-register-form
+    .ticket-register-data
+    .ticket-register-ticket-title,
+  #ticket-register
+    .ticket-register-form
+    .ticket-register-data
+    .ticket-register-dual-select,
+  #ticket-register
+    .ticket-register-form
+    .ticket-register-data
+    .ticket-register-dual-select
+    .ticket-register-select {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  #ticket-register .ticket-register-form .ticket-register-data,
+  #ticket-register .ticket-register-form .form-sections,
+  #ticket-register .ticket-register-form .ticket-register-data-line {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    width: 100%;
+  }
+
+  #ticket-register form label {
+    color: var(--color-black-light);
+  }
+
+  #ticket-register Footer {
+    position: relative;
+  }
+}
+
+@media only screen and (max-width: 583px) {
+  #ticket-register .ticket-register-content {
+    margin-left: 5%;
+  }
+
+  #ticket-register .ticket-register-content .ticket-register-title {
+    padding: 0 10% 0 5%;
+  }
+
+  #ticket-register .ticket-register-title h1 {
+    font-size: 1.5rem;
+  }
+
+  #ticket-register .ticket-register-content {
+    margin-top: 3rem;
+    padding: 0%;
+  }
+
   #ticket-register .ticket-register-form {
     width: 90%;
   }
@@ -116,14 +221,36 @@
   }
 
   #ticket-register .ticket-register-form .ticket-register-data,
-  #ticket-register .ticket-register-form .form-sections,
-  #ticket-register .ticket-register-form .ticket-register-data-line {
+  #ticket-register
+    .ticket-register-form
+    .ticket-register-data
+    .ticket-register-ticket-title,
+  #ticket-register
+    .ticket-register-form
+    .ticket-register-data
+    .ticket-register-dual-select,
+  #ticket-register
+    .ticket-register-form
+    .ticket-register-data
+    .ticket-register-dual-select
+    .ticket-register-select,
+  #ticket-register
+    .ticket-register-form
+    .ticket-register-data
+    .ticket-register-dual-select
+    .ticket-register-select
+    .first {
     display: flex;
     flex-direction: column;
     margin: 0;
+    width: 100%;
   }
 
   #ticket-register form label {
     color: var(--color-black-light);
+  }
+
+  #ticket-register Footer {
+    position: fixed;
   }
 }

@@ -1,0 +1,241 @@
+/* ESTILIZAÇÃO GERAL*/
+
+#user-update {
+  width: 100vw;
+  height: 100vh;
+}
+
+#user-update Header {
+  padding-left: 5%;
+  width: 100vw;
+  height: 80px;
+}
+
+/* ESTILIZAÇÃO DO TITULO E SUBTITULO DA PÁGINA */
+#user-update .user-update-content .user-update-title {
+  padding: 5% 10% 0 5%;
+}
+
+#user-update .user-update-title h1 {
+  font-size: 2rem;
+  font-weight: 400;
+  color: var(--color-black-light);
+}
+
+/* ESTILIZAÇÃO DO FORMULÁRIO */
+
+#user-update .user-update-form {
+  padding: 2% 5%;
+  height: 50%;
+  width: 100%;
+  border-bottom: 100px;
+}
+
+#user-update .user-update-form .form-sections {
+  display: flex;
+  flex-direction: column;
+  column-gap: 2rem;
+}
+
+#user-update .user-update-form input {
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+#user-update .user-update-form .user-update-data {
+  display: flex;
+  flex-direction: column;
+  flex-direction: row;
+  gap: 3rem;
+}
+
+#user-update .user-update-form div {
+  width: 45%;
+}
+
+#user-update .user-update-form textarea {
+  width: 100%;
+  background-color: #f2f2f3;
+  border: 1px solid #d3d3d3;
+  border-radius: 20px;
+  outline: none;
+  min-height: 120px;
+  resize: vertical;
+  padding: 16px;
+  line-height: 28px;
+}
+
+#user-update .user-update-form .user-update-submit {
+  text-align: end;
+  padding-top: 1%;
+  margin-right: 5rem;
+}
+
+#user-update form label {
+  font-size: 1.5rem;
+  color: var(--color-black-light);
+}
+
+#user-update Footer {
+  padding: 1.5;
+
+  position: fixed;
+  bottom: 0;
+  left: 0;
+}
+
+#user-update .user-update-title h1 {
+  display: flex;
+  align-items: center;
+}
+
+#user-update .user-update-title h1 div {
+  cursor: pointer;
+}
+
+#user-update select.input-primary {
+  width: 223% !important;
+}
+
+#user-update button.button-secondary {
+  margin-right: 1rem;
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1227px) {
+  #user-update .user-update-content {
+    margin-left: 5%;
+  }
+
+  #user-update .user-update-content .user-update-title {
+    padding: 0 10% 0 5%;
+  }
+
+  #user-update .user-update-title h1 {
+    font-size: 1.5rem;
+  }
+
+  #user-update .user-update-content {
+    margin-top: 3rem;
+    padding: 0%;
+  }
+
+  #user-update .user-update-form {
+    width: 90%;
+  }
+
+  #user-update button {
+    width: 100px;
+  }
+
+  #user-update .user-update-form .user-update-data {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+  }
+
+  #user-update .user-update-form .form-sections {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+  }
+
+  #user-update form label {
+    color: var(--color-black-light);
+  }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1227px) {
+  #user-update Footer {
+    position: fixed;
+  }
+}
+
+@media only screen and (max-width: 1227px) {
+  #user-update button.button-secondary {
+    margin-bottom: 1rem;
+  }
+
+  #user-update button.button-primary,
+  #user-update button.button-secondary {
+    width: 100% !important;
+    height: 3rem !important;
+  }
+
+  #user-update .user-update-submit {
+    margin-top: 1rem;
+    margin-bottom: 3rem;
+    margin-right: 0 !important;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  #user-update select.input-primary {
+    width: 100% !important;
+  }
+
+  #user-update .user-update-form div {
+    width: 100%;
+  }
+
+  #user-update .user-update-content {
+    margin-left: 5%;
+  }
+
+  #user-update .user-update-content .user-update-title {
+    padding: 0 10% 0 5%;
+  }
+
+  #user-update .user-update-title h1 {
+    font-size: 1.5rem;
+  }
+
+  #user-update .user-update-content {
+    margin-top: 3rem;
+    padding: 0%;
+  }
+
+  #user-update .user-update-form {
+    width: 90%;
+  }
+
+  #user-update .user-update-form .user-update-data {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+  }
+
+  #user-update .user-update-form .form-sections {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    align-content: space-around;
+  }
+
+  #user-update form label {
+    color: var(--color-black-light);
+  }
+
+  #user-update Footer {
+    position: relative;
+  }
+
+  #user-update .user-update-form .user-update-data {
+    gap: 0;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  #user-update Footer {
+    position: fixed;
+  }
+}
+
+@media only screen and (max-width: 465px) {
+  #user-update .user-update-title h1 {
+    font-size: 1.5rem !important;
+  }
+
+  #user-update .user-update-title h1 svg {
+    margin-right: 0.5rem;
+  }
+}
