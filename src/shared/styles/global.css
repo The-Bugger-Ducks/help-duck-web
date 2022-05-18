@@ -11,25 +11,6 @@ body {
   position: relative;
 }
 
-.loading_container {
-  position: absolute;
-
-  background-color: #e9e9e963;
-  backdrop-filter: blur(1px);
-
-  width: 100vw;
-  height: 100vh;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.loading_lottie {
-  max-width: 10rem;
-  max-height: 10rem;
-}
-
 @media only screen and (max-width: 500px) {
   h1 {
     font-size: 24px !important;

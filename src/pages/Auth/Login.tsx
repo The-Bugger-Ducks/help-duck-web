@@ -7,13 +7,11 @@ import Button from '../../shared/components/Button';
 import Footer from '../../shared/components/Footer';
 import Header from '../../shared/components/Header';
 import TextField from '../../shared/components/TextField';
+import LoadingContainer from '../../shared/components/Loading/LoadingContainer';
 
 import HandleUserFormData from '../../shared/utils/handlers/HandleUserFormData.service';
 import { UserLogin } from '../../shared/interfaces/user.interface';
 import SessionController from '../../shared/utils/handlers/SessionController';
-
-import lottie from "lottie-web";
-import loading_lottie from "../../shared/assets/animation/settings-loading.json";
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -30,18 +28,6 @@ export default function Login() {
   };
 
   let handleUserFormData = new HandleUserFormData();
-
-  useEffect(() => {
-    if (loading && container.current) {
-      lottie.loadAnimation({
-        container: container.current,
-        renderer: "svg",
-        loop: true,
-        autoplay: true,
-        animationData: loading_lottie,
-      });
-    }
-  }, [loading]);
 
   useEffect(() => {
     checkUserAuthentication();
@@ -84,11 +70,7 @@ export default function Login() {
 
   return (
     <>
-      {loading ? (
-        <div className="loading_container">
-          <div ref={container} className="loading_lottie"/>
-        </div>
-      ): null}
+      <LoadingContainer loading={loading} />
       <div id="login">      
         <div className="login-container">
           <Header hiddenDropdown={true} />

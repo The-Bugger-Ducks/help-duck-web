@@ -9,11 +9,13 @@ import Footer from "../../shared/components/Footer";
 import Header from "../../shared/components/Header";
 import TextField from "../../shared/components/TextField";
 import ChoiceField from "../../shared/components/ChoiceField";
+import LoadingContainer from "../../shared/components/Loading/LoadingContainer";
 
 import SessionController from "../../shared/utils/handlers/SessionController";
 import "../../shared/styles/pages/user/Signup.css";
 
 export default function Signup() {
+  const [loading, setLoading] = useState(false);  
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
@@ -53,8 +55,10 @@ export default function Signup() {
       role: role,
     };
 
+    setLoading(true);
     const response = await userRequest.registerRequest(payload);
 
+    setLoading(false)
     if (response?.status === 201) {
       alert("Usuário cadastrado com sucesso!");
 
@@ -63,73 +67,76 @@ export default function Signup() {
   }
 
   return (
-    <div id="signup">
-      <div className="signup-container">
-        <Header hiddenDropdown={true} />
-        <div className="signup-content">
-          <section className="signup-welcome">
-            <h2>
-              <FiArrowLeft
-                color="var(--color-withe-main)"
-                onClick={() => {
-                  navigate("/homepage");
-                }}
-              />
-            </h2>
-            <h1>Cadastre a conta</h1>
-          </section>
-          <form className="signup-form" onSubmit={submitSignup}>
-            <section className="form-sections">
-              <section className="signup-data">
-                <label htmlFor="name">Nome</label>
-                <TextField
-                  type="text"
-                  placeholder="John"
-                  onChange={(event) => setName(event.target.value)}
-                  name="name"
+    <>
+      <LoadingContainer loading={loading} />
+      <div id="signup">
+        <div className="signup-container">
+          <Header hiddenDropdown={true} />
+          <div className="signup-content">
+            <section className="signup-welcome">
+              <h2>
+                <FiArrowLeft
+                  color="var(--color-withe-main)"
+                  onClick={() => {
+                    navigate("/homepage");
+                  }}
                 />
-                <label htmlFor="lastname">Sobrenome</label>
-                <TextField
-                  type="text"
-                  placeholder="Snow"
-                  onChange={(event) => setLastname(event.target.value)}
-                  name="lastname"
-                />
-              </section>
-              <section className="signup-data">
-                <label htmlFor="email">E-mail</label>
-                <TextField
-                  placeholder="john.snow@email.com"
-                  onChange={(event) => setEmail(event.target.value)}
-                  name="email"
-                />
-                <label htmlFor="password">Senha</label>
-                <TextField
-                  placeholder="Senha"
-                  onChange={(event) => setPassword(event.target.value)}
-                  name="password"
-                  type="password"
-                />
-              </section>
+              </h2>
+              <h1>Cadastre a conta</h1>
             </section>
-            <section className="signup-data-line">
-              <section className="signup-data">
-                <ChoiceField
-                  onChange={(event) => setRole(event.target.value)}
-                  name="profile_type"
-                  items={userProfiles}
-                />
+            <form className="signup-form" onSubmit={submitSignup}>
+              <section className="form-sections">
+                <section className="signup-data">
+                  <label htmlFor="name">Nome</label>
+                  <TextField
+                    type="text"
+                    placeholder="John"
+                    onChange={(event) => setName(event.target.value)}
+                    name="name"
+                  />
+                  <label htmlFor="lastname">Sobrenome</label>
+                  <TextField
+                    type="text"
+                    placeholder="Snow"
+                    onChange={(event) => setLastname(event.target.value)}
+                    name="lastname"
+                  />
+                </section>
+                <section className="signup-data">
+                  <label htmlFor="email">E-mail</label>
+                  <TextField
+                    placeholder="john.snow@email.com"
+                    onChange={(event) => setEmail(event.target.value)}
+                    name="email"
+                  />
+                  <label htmlFor="password">Senha</label>
+                  <TextField
+                    placeholder="Senha"
+                    onChange={(event) => setPassword(event.target.value)}
+                    name="password"
+                    type="password"
+                  />
+                </section>
               </section>
-              <section className="signup-data">
-                <Button width="100%" type="submit">
-                  Cadastrar
-                </Button>
+              <section className="signup-data-line">
+                <section className="signup-data">
+                  <ChoiceField
+                    onChange={(event) => setRole(event.target.value)}
+                    name="profile_type"
+                    items={userProfiles}
+                  />
+                </section>
+                <section className="signup-data">
+                  <Button width="100%" type="submit">
+                    Cadastrar
+                  </Button>
+                </section>
               </section>
-            </section>
-          </form>
+            </form>
+          </div>
+          <Footer />
         </div>
-        <Footer />
       </div>
-    </div>
+    </>
   );
 }

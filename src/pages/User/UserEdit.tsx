@@ -8,10 +8,14 @@ import Button from "../../shared/components/Button";
 import Footer from "../../shared/components/Footer";
 import Header from "../../shared/components/Header";
 import TextField from "../../shared/components/TextField";
-import { User } from "../../shared/interfaces/user.interface";
-import SessionController from "../../shared/utils/handlers/SessionController";
-import "../../shared/styles/pages/user/UserEdit.css";
 import SelectInput from "../../shared/components/ChoiceField";
+import LoadingContainer from "../../shared/components/Loading/LoadingContainer";
+
+import { User } from "../../shared/interfaces/user.interface";
+
+import SessionController from "../../shared/utils/handlers/SessionController";
+
+import "../../shared/styles/pages/user/UserEdit.css";
 
 type Role = {
   value: string;
@@ -20,6 +24,7 @@ type Role = {
 };
 
 export default function UserEdit() {
+  const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
@@ -49,6 +54,8 @@ export default function UserEdit() {
   const userRequest = new UserRequests();
 
   const getUser = async () => {
+    setLoading(true);
+
     const response: User = await userRequest.showRequest(id ?? "");
 
     setEmailPlaceholder(response.email)
@@ -76,6 +83,7 @@ export default function UserEdit() {
         selected: response.role === "admin",
       },
     ]);
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -146,7 +154,10 @@ export default function UserEdit() {
       role: role!,
     };
 
+    setLoading(true);
     const response = await userRequest.updateRequest(payload);
+
+    setLoading(false);
 
     if (response?.status === 200) {
       alert("Usuário atualizado com sucesso!");
@@ -164,7 +175,10 @@ export default function UserEdit() {
       return;
     }
 
+    setLoading(true);
     const response = await userRequest.deleteRequest(id);
+    
+    setLoading(false);
 
     if (response?.status === 200) {
       alert("Usuário excluido com sucesso!");
@@ -173,83 +187,86 @@ export default function UserEdit() {
   }
 
   return (
-    <div id="userEdit">
-      <div className="userEdit-container">
-        <Header hiddenDropdown={true} />
-        <div className="userEdit-content">
-          <section className="userEdit-welcome">
-            <h2>
-              <FiArrowLeft
-                onClick={() => {
-                  navigate("/homepage");
-                }}
-              />
-            </h2>
-            <h1>Editar perfil</h1>
-          </section>
-          <form className="userEdit-form" onSubmit={submitUserEdit}>
-            <section className="form-sections">
-              <section className="userEdit-data">
-                <label htmlFor="name">Nome</label>
-                <TextField
-                  type="text"
-                  placeholder={namePlaceholder}
-                  defaultValue={namePlaceholder}
-                  onChange={(event) => setName(event.target.value)}
-                  name="name"
-                  disabled={isUser}
+    <>
+      <LoadingContainer loading={loading} />
+      <div id="userEdit">
+        <div className="userEdit-container">
+          <Header hiddenDropdown={true} />
+          <div className="userEdit-content">
+            <section className="userEdit-welcome">
+              <h2>
+                <FiArrowLeft
+                  onClick={() => {
+                    navigate("/homepage");
+                  }}
                 />
-                <label htmlFor="lastname">Sobrenome</label>
-                <TextField
-                  type="text"
-                  placeholder={lastnamePlaceholder}
-                  defaultValue={lastnamePlaceholder}
-                  onChange={(event) => setLastname(event.target.value)}
-                  name="lastname"
-                  disabled={isUser}
-                />
+              </h2>
+              <h1>Editar perfil</h1>
+            </section>
+            <form className="userEdit-form" onSubmit={submitUserEdit}>
+              <section className="form-sections">
+                <section className="userEdit-data">
+                  <label htmlFor="name">Nome</label>
+                  <TextField
+                    type="text"
+                    placeholder={namePlaceholder}
+                    defaultValue={namePlaceholder}
+                    onChange={(event) => setName(event.target.value)}
+                    name="name"
+                    disabled={isUser}
+                  />
+                  <label htmlFor="lastname">Sobrenome</label>
+                  <TextField
+                    type="text"
+                    placeholder={lastnamePlaceholder}
+                    defaultValue={lastnamePlaceholder}
+                    onChange={(event) => setLastname(event.target.value)}
+                    name="lastname"
+                    disabled={isUser}
+                  />
+                </section>
+                <section className="userEdit-data">
+                  <label htmlFor="email">E-mail</label>
+                  <TextField
+                    placeholder={emailPlaceholder}
+                    defaultValue={emailPlaceholder}
+                    onChange={(event) => setEmail(event.target.value)}
+                    name="email"
+                    disabled={isAdmin}
+                  />
+                  <label htmlFor="password">Senha</label>
+                  <TextField
+                    placeholder="Senha"
+                    onChange={(event) => setPassword(event.target.value)}
+                    name="password"
+                    type="password"
+                    disabled={isUser}
+                  />
+                </section>
               </section>
-              <section className="userEdit-data">
-                <label htmlFor="email">E-mail</label>
-                <TextField
-                  placeholder={emailPlaceholder}
-                  defaultValue={emailPlaceholder}
-                  onChange={(event) => setEmail(event.target.value)}
-                  name="email"
+              <section className="userEdit-role">
+                <label htmlFor="role">Cargo</label>
+                <SelectInput
+                  onChange={(event) => setRole(event.target.value)}
+                  name="profile_type"
+                  width="20rem"
+                  items={userProfiles}
                   disabled={isAdmin}
                 />
-                <label htmlFor="password">Senha</label>
-                <TextField
-                  placeholder="Senha"
-                  onChange={(event) => setPassword(event.target.value)}
-                  name="password"
-                  type="password"
-                  disabled={isUser}
-                />
               </section>
-            </section>
-            <section className="userEdit-role">
-              <label htmlFor="role">Cargo</label>
-              <SelectInput
-                onChange={(event) => setRole(event.target.value)}
-                name="profile_type"
-                width="20rem"
-                items={userProfiles}
-                disabled={isAdmin}
-              />
-            </section>
-            <section className="userEdit-submits">
-              <section className="userEdit-submit">
-                <Button width="15rem" type="submit" color="var(--color-white-light)">
-                  Confirmar alteração
-                </Button>
+              <section className="userEdit-submits">
+                <section className="userEdit-submit">
+                  <Button width="15rem" type="submit" color="var(--color-white-light)">
+                    Confirmar alteração
+                  </Button>
+                </section>
+                {deleteButton()}
               </section>
-              {deleteButton()}
-            </section>
-          </form>
+            </form>
+          </div>
+          <Footer />
         </div>
-        <Footer />
       </div>
-    </div>
+    </>
   );
 }
