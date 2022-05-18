@@ -83,3 +83,28 @@
 
   cursor: auto;
 }
+
+/* arrow */
+
+.equipments-list-container table th .th-arrow {
+  margin-left: 1rem;
+  font-size: 0.7rem;
+
+  color: var(--color-gray-main);
+  visibility: hidden;
+
+  transition: 200ms ease;
+}
+
+.equipments-list-container table th:hover .th-arrow {
+  visibility: visible;
+}
+
+.equipments-list-container table th.visible .th-arrow {
+  visibility: visible;
+  color: var(--color-black-dark);
+}
+
+.equipments-list-container table th.visible.order-by .th-arrow {
+  transform: rotate(180deg);
+}

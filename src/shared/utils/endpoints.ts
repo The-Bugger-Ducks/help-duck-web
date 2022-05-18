@@ -3,9 +3,8 @@ export enum USER_ENDPOINTS {
   USER_REGISTER = "/users/create",
   USER_UPDATE = "/users/update",
   USER_DELETE = `/users/delete/`,
-  USER_DETAILS = "/users/"
+  USER_DETAILS = "/users/",
 }
-
 
 export enum TICKET_ENDPOINTS {
   TICKET_LIST = `/tickets/`,
