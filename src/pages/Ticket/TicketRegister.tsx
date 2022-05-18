@@ -33,8 +33,8 @@ export default function TicketRegister() {
   const ticketProblemTypes = [
     { value: 'Acesso na rede', label: 'Acesso na rede', selected: false },
     {
-      value: 'Malfuncionamento de software',
-      label: 'Malfuncionamento de software',
+      value: 'Mau funcionamento de software',
+      label: 'Mau funcionamento de software',
       selected: false,
     },
     { value: 'Acesso ao email', label: 'Acesso ao email', selected: false },
