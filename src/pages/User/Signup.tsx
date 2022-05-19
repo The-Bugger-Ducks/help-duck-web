@@ -126,17 +126,18 @@ export default function Signup() {
 
               <section className="signup-data">
                 <div>
+                  <label htmlFor="role">Cargo</label>
                   <ChoiceField
-                    onChange={(event) => setRole(event.target.value)}
                     name="role"
                     items={userProfiles}
+                    onChange={(event) => setRole(event.target.value)}
                     />
                 </div>
               </section>
             </section>
 
             <section className="signup-submit">
-              <Button width="15rem" type="submit" color="var(--color-white-light)">
+              <Button type="submit" width="15rem">
                 Cadastrar
               </Button>
             </section>

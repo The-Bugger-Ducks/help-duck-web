@@ -122,7 +122,7 @@ export default function UserUpdate() {
             width="15rem"
             onClick={() => submitUserDelete(id)}
             >
-            Deletar usuário
+            Excluir usuário
           </ButtonDelete>
         ) : null } 
       </>     
