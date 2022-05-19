@@ -1,5 +1,5 @@
-import { User } from "./user.interface"
-import Comment from "./comment.interface"
+import { User } from "./user.interface";
+import Comment from "./comment.interface";
 import { Solution } from "./solution.interface";
 
 export default interface Ticket {
@@ -12,10 +12,12 @@ export default interface Ticket {
   reserved: boolean;
   createdAt: Date;
   updatedAt?: Date;
+  department?: string;
+  equipment?: string;
 
   user: User;
   support: User;
   comments: Array<Comment>;
 
-  solution: Solution
+  solution: Solution;
 }

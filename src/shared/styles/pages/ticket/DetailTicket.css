@@ -113,6 +113,16 @@ h4 {
   list-style: none;
 }
 
+#detail-ticket .department-and-equipment {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+#detail-ticket .department-and-equipment article {
+  display: contents;
+}
+
 @media only screen and (min-width: 501px) and (max-width: 1024px) {
   #detail-ticket .ticket-dual-info {
     display: flex;
@@ -128,6 +138,12 @@ h4 {
 
   #detail-ticket .ticket-dual-info .ticket-type input.input-primary {
     height: 20px !important;
+  }
+}
+
+@media only screen and (max-width: 1024px) {
+  .department-and-equipment {
+    flex-direction: column;
   }
 }
 
