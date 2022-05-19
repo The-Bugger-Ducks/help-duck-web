@@ -233,14 +233,19 @@ export default function DetailTicket() {
         </section>
 
         <section className="ticket-dual-info">
-          <div className="ticket-priority">
+          <article id="priority-dual-info">
             <h3>Grau de prioridade:</h3>
             <PriorityLevelBadge priority={priorityLevel} />
-          </div>
+          </article>
 
-          <div className="ticket-type">
+          <article id="type-dual-info">
             <h3>Tipo de problema:</h3>
             <TextField
+              title={
+                problemType != null && problemType[0] != ""
+                  ? problemType[0]
+                  : "Sem tipo definido"
+              }
               type="text"
               placeholder={
                 problemType != null && problemType[0] != ""
@@ -252,7 +257,7 @@ export default function DetailTicket() {
               backgroundColor="#FAFAFA"
               height="32px"
             />
-          </div>
+          </article>
         </section>
 
         <section className="department-and-equipment">
