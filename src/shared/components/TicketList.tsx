@@ -12,6 +12,7 @@ import TicketTable from "./TicketTable";
 import "../styles/components/TicketList.css";
 
 const TicketList: React.FC<{ status: status | "" }> = ({ status }) => {
+  const [loading, setLoading] = useState(false);
   const [tickets, setTickets] = useState<Ticket[]>([]);
 
   const [typeTicketList, setTypeTicketList] = useState<
@@ -30,24 +31,28 @@ const TicketList: React.FC<{ status: status | "" }> = ({ status }) => {
   }, [status]);
 
   async function getTicketListClient(sorting?: string) {
+    setLoading(true);
     const response: { content: Ticket[] } = await ticketRequest.ticketListById(
       sorting
     );
 
     setTickets(response.content ?? []);
     setTypeTicketList("client");
+    setLoading(false);
   }
 
   async function getTicketListSupport(sorting?: string) {
+    setLoading(true);
     const response: { content: Ticket[] } =
       await ticketRequest.ticketListBySupport(sorting);
-
+          
     const tickets = response.content.filter(
       (ticket) => ticket.status === "underAnalysis"
     );
 
     setTickets(tickets ?? []);
     setTypeTicketList("support");
+    setLoading(false);
   }
 
   async function getTicketPerStatus(status: status | "", sorting?: string) {
@@ -55,11 +60,13 @@ const TicketList: React.FC<{ status: status | "" }> = ({ status }) => {
       return getTicketListSupport();
     }
 
+    setLoading(true);
     const response: { content: Ticket[] } =
       await ticketRequest.ticketListPerStatus(status, sorting);
 
     setTickets(response.content ?? []);
     setTypeTicketList("status");
+    setLoading(false);
   }
 
   function handleTableSorting(
@@ -91,6 +98,7 @@ const TicketList: React.FC<{ status: status | "" }> = ({ status }) => {
           tickets={tickets}
           handleTableSorting={handleTableSorting}
           status={status}
+          loading={loading}
         />
       </div>
     </section>

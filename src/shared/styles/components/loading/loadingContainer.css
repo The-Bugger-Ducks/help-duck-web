@@ -13,7 +13,17 @@
   justify-content: center;
 }
 
-#loading_container .loading_lottie {
+div.loading_lottie {
   max-width: 10rem;
   max-height: 10rem;
+}
+
+.table-row .loading_container {
+  height: 100px;
+  width: 100%;
+}
+
+.table-row span.loading_lottie {
+  width: 60px;
+  height: 60px;
 }

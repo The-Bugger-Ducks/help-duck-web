@@ -3,20 +3,28 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { EquipmentUpdate } from "../interfaces/equipment.interface";
 import { EquipmentRequests } from "../utils/requests/Equipment.requests";
+
 import EquipmentComponent from "./EquipmentComponent";
+import CustomTableRow from "./Loading/CustomTableRow";
 
 export default function EquipmentList() {
   const equipmentRequest = new EquipmentRequests();
-  const [equipments, setEquipments] = useState<EquipmentUpdate[]>();
   const navigate = useNavigate();
+
+  const [loading, setLoading] = useState(false);
+  const [equipments, setEquipments] = useState<EquipmentUpdate[]>();
 
   useEffect(() => {
     getEquipmentsList();
   }, []);
 
   const getEquipmentsList = async () => {
+    setLoading(true)
     const response: { content: [] } =
       await equipmentRequest.listEquipmentRequest();
+
+    setLoading(false)
+    
     const equipments: EquipmentUpdate[] = response.content;
     setEquipments(equipments);
   };
@@ -48,13 +56,8 @@ export default function EquipmentList() {
                   />
                 );
               })
-            ) : (
-              <tr>
-                <td colSpan={5} className="no-results">
-                  Não foi encontrado nenhum equipamento
-                </td>
-              </tr>
-            )}
+            ) : <CustomTableRow loading={loading} colSpan={5} typeTableRowText="equipamento" />}
+
           </tbody>
         </table>
       </div>

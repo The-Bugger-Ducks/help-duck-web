@@ -1,18 +1,21 @@
 import { useEffect, useState, MouseEvent } from "react";
+import { useNavigate } from "react-router-dom";
+import { UserRequests } from "../utils/requests/User.requests";
+
 import { FaArrowUp } from "react-icons/fa";
 
 import UserComponent from "./UserComponent";
-import { UserRequests } from "../utils/requests/User.requests";
+import CustomTableRow from "./Loading/CustomTableRow";
 
 import { User } from "../interfaces/user.interface";
 import { OrderByTypes, SortUserTableTypes } from "../constants/sortTableEnum";
 
 import "../styles/components/UserList.css";
-import { useNavigate } from "react-router-dom";
 
 export default function TicketList() {
   const userRequest = new UserRequests();
 
+  const [loading, setLoading] = useState(false);
   const [users, setUsers] = useState<User[]>();
   const [headerSortTarget, setHeaderSortTarget] = useState<Element>();
 
@@ -27,9 +30,13 @@ export default function TicketList() {
   }, []);
 
   const getUserList = async (sorting?: string) => {
+    setLoading(true);
     const response: { content: [] } = await userRequest.listUserRequest(
       sorting
     );
+    
+    setLoading(false);
+
     const users: User[] = response.content;
     setUsers(users);
   };
@@ -125,13 +132,7 @@ export default function TicketList() {
                   />
                 );
               })
-            ) : (
-              <tr>
-                <td colSpan={3} className="no-results">
-                  Não foi encontrado nenhum usuário
-                </td>
-              </tr>
-            )}
+            ) : <CustomTableRow loading={loading} colSpan={3} typeTableRowText="usuário" />}
           </tbody>
         </table>
       </div>
