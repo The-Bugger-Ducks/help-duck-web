@@ -240,7 +240,7 @@ export default function EquipmentUpdatePage() {
               </ButtonDelete>
 
               <Button type="submit" width="15rem" color="#FAFAFA">
-                Cadastrar
+                Editar
               </Button>
             </section>
           </form>

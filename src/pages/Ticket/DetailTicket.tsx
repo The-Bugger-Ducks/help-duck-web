@@ -159,17 +159,22 @@ export default function DetailTicket() {
     <Container>
       <Header hiddenDropdown={false} />
       <main id="detail-ticket">
+        <section className="detail-ticket-title">
+          <h1 className="ticket-name">
+            <div>
+              <FiArrowLeft
+                className="Icon"
+                color="var(--color-gray-dark)"
+                onClick={() => {
+                  navigate("/homepage");
+                }}
+              />
+            </div>
+            {ticket?.title ?? 'Carregando...'}
+          </h1>
+        </section>
         <section className="ticket-about">
           <div>
-            <FiArrowLeft
-              className="navigation-button"
-              color="var(--color-gray-dark)"
-              onClick={() => {
-                navigate('/homepage');
-              }}
-            />
-            <h1 className="ticket-name">{ticket?.title ?? 'Carregando...'}</h1>
-
             <p>Protocólo: #{ticket?.id ?? '...'}</p>
             <p>
               <span className="detail-date-created">
@@ -228,12 +233,12 @@ export default function DetailTicket() {
 
         <section className="ticket-dual-info">
           <div className="ticket-priority">
-            <h3>Grau de prioridade:</h3>
+            <h3>Grau de prioridade</h3>
             <PriorityLevelBadge priority={priorityLevel} />
           </div>
 
           <div className="ticket-type">
-            <h3>Tipo de problema:</h3>
+            <h3>Tipo de problema</h3>
             <TextField
               type="text"
               placeholder={
@@ -250,7 +255,7 @@ export default function DetailTicket() {
         </section>
 
         <section>
-          <h3>Descrição do problema:</h3>
+          <h3>Descrição do problema</h3>
           <div className="description-problem">
             <p>{ticket?.description ?? '...'}</p>
             <p className="owner-comment">{ticket?.user.email}</p>

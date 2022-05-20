@@ -105,7 +105,7 @@ export default function TicketRegister() {
             <section className="form-sections">
               <section className="ticket-register-data">
                 <div className="ticket-register-ticket-title">
-                  <label htmlFor="titulo">Título:</label>
+                  <label htmlFor="titulo">Título</label>
                   <TextField
                     type="text"
                     placeholder="Título do chamado"
@@ -117,7 +117,7 @@ export default function TicketRegister() {
                 </div>
                 <div className="ticket-register-dual-select">
                   <div className="ticket-register-select first">
-                    <label htmlFor="prioridade">Grau de prioridade:</label>
+                    <label htmlFor="prioridade">Grau de prioridade</label>
                     <ChoiceField
                       onChange={event => setPriorityLevel(event.target.value)}
                       name="prioridade"
@@ -128,7 +128,7 @@ export default function TicketRegister() {
                     />
                   </div>
                   <div className="ticket-register-select">
-                    <label htmlFor="tipo">Tipo de problema:</label>
+                    <label htmlFor="tipo">Tipo de problema</label>
                     <ChoiceField
                       onChange={event => setProblemType(event.target.value)}
                       name="tipo"
@@ -141,7 +141,7 @@ export default function TicketRegister() {
                 </div>
               </section>
               <section className="ticket-register-description">
-                <label htmlFor="titulo">Descrição do problema:</label>
+                <label htmlFor="titulo">Descrição do problema</label>
                 <textarea
                   placeholder="Descreva seu problema aqui"
                   onChange={event => setDescription(event.target.value)}

@@ -26,6 +26,19 @@ h4 {
   align-self: flex-end;
 }
 
+#detail-ticket .detail-ticket-title h1 {
+  display: flex;
+  align-items: center;
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: var(--color-black-light);
+  gap: 0.5rem;
+}
+
+#detail-ticket .detail-ticket-title svg {
+  padding-top: 0.3vw;
+  }
+
 #detail-ticket .ticket-about p {
   display: flex;
   gap: 2rem;
@@ -34,11 +47,6 @@ h4 {
 }
 
 #detail-ticket .ticket-about p .detail-date-created {
-  color: var(--color-gray-dark);
-}
-
-#detail-ticket .ticket-about .ticket-name {
-  font-size: 1.5rem;
   color: var(--color-gray-dark);
 }
 
@@ -114,6 +122,14 @@ h4 {
 }
 
 @media only screen and (min-width: 501px) and (max-width: 1024px) {
+  #detail-ticket .detail-ticket-title h1 {
+    gap: 0.4rem;
+  }
+
+  #detail-ticket .detail-ticket-title svg {
+    padding-top: 0.4vw;
+  }
+  
   #detail-ticket .ticket-dual-info {
     display: flex;
     flex-direction: column;
@@ -132,6 +148,16 @@ h4 {
 }
 
 @media only screen and (max-width: 500px) {
+  #detail-ticket .detail-ticket-title h1 {
+    font-size: 1rem;
+    gap: 0.3rem;
+  }
+
+  #detail-ticket .detail-ticket-title svg {
+    padding-top: 0.3vw;
+  }
+  
+
   #detail-ticket .ticket-dual-info {
     display: flex;
     flex-direction: column;
