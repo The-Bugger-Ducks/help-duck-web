@@ -229,7 +229,7 @@ export default function TicketRegister() {
                   </div>
                 </div>
                 <div className="ticket-register-dual-select">
-                  <div className="ticket-register-select first">
+                  <div>
                     <label htmlFor="prioridade">Grau de prioridade:</label>
                     <ChoiceField
                       onChange={(event) => setPriorityLevel(event.target.value)}
