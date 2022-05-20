@@ -18,14 +18,14 @@ const Pagination: React.FC<Props> = ({
   const [pageSize, setPageSize] = useState("20");
 
   function nextPage() {
-    if (!pageable) return;
+    if (!pageable || pageable?.last) return;
 
     const pageNumber = pageable.number + 1
     onChangePage(pageNumber, Number(pageSize))
   }
 
   function prevPage() {
-    if (!pageable) return;
+    if (!pageable || pageable?.first) return;
 
     const pageNumber = pageable.number - 1
     onChangePage(pageNumber, Number(pageSize))
@@ -36,7 +36,7 @@ const Pagination: React.FC<Props> = ({
 
     setPageSize(event.currentTarget.value);
 
-    onChangePage(pageable.number, Number(event.currentTarget.value))
+    onChangePage(0, Number(event.currentTarget.value))
   }
 
   return (

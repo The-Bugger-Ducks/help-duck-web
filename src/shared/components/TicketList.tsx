@@ -94,21 +94,24 @@ const TicketList: React.FC<{ status: status | "" }> = ({ status }) => {
       sortAux = `page=${pageNumber}&size=${pageSize}&sort=${type},${orderBy}`;
     } else {
       sortAux = `page=${pageNumber}&size=${pageSize}&sort=${type}`;
-    }
+    }    
 
     setSort(type);
     setOrderBy(orderBy);
 
     if (typeTicketList == "client") {
-      getTicketListClient(sort);
+      getTicketListClient(sortAux);
     } else if (typeTicketList == "support") {
-      getTicketListSupport(sort);
+      getTicketListSupport(sortAux);
     } else {
-      getTicketPerStatus(status, sort);
+      getTicketPerStatus(status, sortAux);
     }
   }
 
   async function handlePageable(pageNumber: number, pageSize: number) {
+    setPageNumber(pageNumber)
+    setPageSize(pageSize)
+
     let sortAux = "";
     if (orderBy) {
       sortAux = `page=${pageNumber}&size=${pageSize}&sort=${sort},${orderBy}`;
