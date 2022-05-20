@@ -172,7 +172,7 @@ export default function TicketRegister() {
       priorityLevel,
       tags: [problemType],
       equipment: equipmentSelected,
-      // department: department,
+      requestingDepartment: department,
     };
 
     const response = await ticketRequest.createTicket(payload);
