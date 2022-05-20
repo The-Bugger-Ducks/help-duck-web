@@ -1,4 +1,4 @@
-import { useState, FormEvent } from "react";
+import { useState, FormEvent, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { FiArrowLeft } from "react-icons/fi";
@@ -13,12 +13,18 @@ import ChoiceField from "../../shared/components/ChoiceField";
 
 import SessionController from "../../shared/utils/handlers/SessionController";
 import "../../shared/styles/pages/ticket/TicketRegister.css";
+import { EquipmentUpdate } from "../../shared/interfaces/equipment.interface";
+import { EquipmentRequests } from "../../shared/utils/requests/Equipment.requests";
 
 export default function TicketRegister() {
+  const equipmentRequest = new EquipmentRequests();
   const [title, setTitle] = useState("");
   const [priorityLevel, setPriorityLevel] = useState("");
   const [problemType, setProblemType] = useState("");
   const [description, setDescription] = useState("");
+  const [department, setDepartment] = useState("");
+  const [equipments, setEquipments] = useState<EquipmentUpdate[]>();
+  const [equipmentSelected, setEquipmentSelected] = useState("");
 
   const ticketRequest = new TicketRequests();
 
@@ -53,13 +59,105 @@ export default function TicketRegister() {
     { value: "Outros", label: "Outros", selected: false },
   ];
 
+  useEffect(() => {
+    getEquipmentsList();
+  }, []);
+
+  const equipmentList: {
+    value: string;
+    label: string;
+    selected?: boolean | undefined;
+  }[] = [];
+  equipments &&
+    equipments.map((equipment, index) => {
+      const listValue = {
+        label: equipment.name,
+        value: equipment.id,
+        selected: false,
+      };
+      equipmentList.push(listValue);
+    });
+
+  const departmentList = [
+    {
+      selected: false,
+      value: "marketingAndSales",
+      label: "Marketing e vendas",
+    },
+    {
+      selected: false,
+      value: "financial",
+      label: "Financeiro",
+    },
+    {
+      selected: false,
+      value: "operations",
+      label: "Operações",
+    },
+    {
+      selected: false,
+      value: "rh",
+      label: "RH",
+    },
+    {
+      selected: false,
+      value: "eps",
+      label: "EPS",
+    },
+    {
+      selected: false,
+      value: "ti",
+      label: "TI",
+    },
+    {
+      selected: false,
+      value: "epdi",
+      label: "EPDI",
+    },
+  ];
+
+  function handleDepartment(departmentValue: string) {
+    if (departmentValue == "marketingAndSales") {
+      setDepartment("Marketing e vendas");
+    } else if (departmentValue == "financial") {
+      setDepartment("Financeiro");
+    } else if (departmentValue == "operations") {
+      setDepartment("Operações");
+    } else if (departmentValue == "rh") {
+      setDepartment("RH");
+    } else if (departmentValue == "eps") {
+      setDepartment("EPS");
+    } else if (departmentValue == "ti") {
+      setDepartment("TI");
+    } else if (departmentValue == "epdi") {
+      setDepartment("EPDI");
+    }
+  }
+
+  async function handleEquipment(equipmentValue: string) {
+    const searchedEquipment = await equipmentRequest.listEquipmentByID(
+      equipmentValue
+    );
+    setEquipmentSelected(searchedEquipment);
+  }
+
+  const getEquipmentsList = async (sorting?: string) => {
+    const response: { content: [] } =
+      await equipmentRequest.listEquipmentRequest(sorting);
+    const equipments: EquipmentUpdate[] = response.content;
+    setEquipments(equipments);
+  };
+
   async function submitForm(event: FormEvent) {
     event.preventDefault();
+
     if (
       title === "" ||
       description === "" ||
       priorityLevel === "" ||
-      problemType === ""
+      problemType === "" ||
+      department === "" ||
+      equipmentSelected === ""
     ) {
       return alert("Preencha todos os campos");
     }
@@ -73,6 +171,8 @@ export default function TicketRegister() {
       user,
       priorityLevel,
       tags: [problemType],
+      equipment: equipmentSelected,
+      // department: department,
     };
 
     const response = await ticketRequest.createTicket(payload);
@@ -140,35 +240,25 @@ export default function TicketRegister() {
                       backgroundColor={"#FAFAFA"}
                     />
                   </div>
-                  <div>
+                  <div id="inputs">
                     <label htmlFor="department">
                       Departamento solicitante:
                     </label>
                     <ChoiceField
+                      onChange={(event) => handleDepartment(event.target.value)}
                       name="department"
-                      items={[
-                        {
-                          value: "Departamento solicitante",
-                          label: "Departamento solicitante",
-                          selected: false,
-                        },
-                      ]}
+                      items={departmentList}
                       padding={"0.2rem"}
                       height={"32px"}
                       backgroundColor={"#FAFAFA"}
                     />
                   </div>
-                  <div>
+                  <div id="inputs">
                     <label htmlFor="equipment">Equipamento relacionado:</label>
                     <ChoiceField
+                      onChange={(event) => handleEquipment(event.target.value)}
                       name="equipment"
-                      items={[
-                        {
-                          value: "Equipamento relacionado",
-                          label: "Equipamento relacionado",
-                          selected: false,
-                        },
-                      ]}
+                      items={equipmentList}
                       padding={"0.2rem"}
                       height={"32px"}
                       backgroundColor={"#FAFAFA"}

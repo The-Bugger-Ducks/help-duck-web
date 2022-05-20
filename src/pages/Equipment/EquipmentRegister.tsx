@@ -29,6 +29,44 @@ export default function EquipmentRegister() {
     navigate("/homepage");
   }
 
+  const departmentList = [
+    {
+      selected: false,
+      value: "marketingAndSales",
+      label: "Marketing e vendas",
+    },
+    {
+      selected: false,
+      value: "financial",
+      label: "Financeiro",
+    },
+    {
+      selected: false,
+      value: "operations",
+      label: "Operações",
+    },
+    {
+      selected: false,
+      value: "rh",
+      label: "RH",
+    },
+    {
+      selected: false,
+      value: "eps",
+      label: "EPS",
+    },
+    {
+      selected: false,
+      value: "ti",
+      label: "TI",
+    },
+    {
+      selected: false,
+      value: "epdi",
+      label: "EPDI",
+    },
+  ];
+
   function handleDepartment(departmentValue: string) {
     if (departmentValue == "marketingAndSales") {
       setDepartment("Marketing e vendas");
@@ -148,43 +186,7 @@ export default function EquipmentRegister() {
                   <label htmlFor="department">Departamento:</label>
                   <ChoiceField
                     name="department"
-                    items={[
-                      {
-                        selected: false,
-                        value: "marketingAndSales",
-                        label: "Marketing e vendas",
-                      },
-                      {
-                        selected: false,
-                        value: "financial",
-                        label: "Financeiro",
-                      },
-                      {
-                        selected: false,
-                        value: "operations",
-                        label: "Operações",
-                      },
-                      {
-                        selected: false,
-                        value: "rh",
-                        label: "RH",
-                      },
-                      {
-                        selected: false,
-                        value: "eps",
-                        label: "EPS",
-                      },
-                      {
-                        selected: false,
-                        value: "ti",
-                        label: "TI",
-                      },
-                      {
-                        selected: false,
-                        value: "epdi",
-                        label: "EPDI",
-                      },
-                    ]}
+                    items={departmentList}
                     backgroundColor="#FAFAFA"
                     onChange={(event) => handleDepartment(event.target.value)}
                   />

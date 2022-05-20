@@ -43,8 +43,7 @@ export default function DetailTicket() {
   const [problemType, setProblemType] = useState<Ticket["tags"]>([""]);
   const [ticketDepartment, setTicketDepartment] =
     useState<Ticket["department"]>("");
-  const [ticketEquipment, setTicketEquipment] =
-    useState<Ticket["equipment"]>("");
+  const [ticketEquipment, setTicketEquipment] = useState<Ticket["equipment"]>();
   const [comments, setComments] = useState<Ticket["comments"]>([]);
   const [createdAt, setCreatedAt] = useState<Date>();
   const [concludedAt, setConcludedAt] = useState<Date>();
@@ -299,14 +298,14 @@ export default function DetailTicket() {
             <h3>Equipamento:</h3>
             <TextField
               title={
-                ticketEquipment != null && ticketEquipment != ""
-                  ? ticketEquipment
+                ticketEquipment
+                  ? ticketEquipment.name
                   : "Sem equipamento definido"
               }
               type="text"
               placeholder={
-                ticketEquipment != null && ticketEquipment != ""
-                  ? ticketEquipment
+                ticketEquipment
+                  ? ticketEquipment.name
                   : "Sem equipamento definido"
               }
               disabled={true}
