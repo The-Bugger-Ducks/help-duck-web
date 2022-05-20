@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 
 import { useParams, useNavigate } from "react-router-dom";
-import { FiClock, FiArrowLeft } from "react-icons/fi";
+import { FiClock, FiArrowLeft, FiCheck } from "react-icons/fi";
 
 import SessionController from "../../shared/utils/handlers/SessionController";
 
@@ -47,6 +47,7 @@ export default function DetailTicket() {
     useState<Ticket["equipment"]>("");
   const [comments, setComments] = useState<Ticket["comments"]>([]);
   const [createdAt, setCreatedAt] = useState<Date>();
+  const [concludedAt, setConcludedAt] = useState<Date>();
   const [hasSupport, setHasSupport] = useState<boolean>(false);
   const [solution, setSolution] = useState<Ticket["solution"]>();
   const [canSetSolution, setCanSetSolution] = useState<boolean>(false);
@@ -64,6 +65,7 @@ export default function DetailTicket() {
 
   async function getTicket() {
     const response: Ticket = await ticketRequest.showRequest(id ?? "");
+    console.log(response);
 
     setTicket(response);
     setComments(response.comments);
@@ -80,8 +82,13 @@ export default function DetailTicket() {
 
     if (response.support) setHasSupport(true);
 
-    const date = new Date(response.createdAt);
-    setCreatedAt(date);
+    const dateCreatedAt = new Date(response.createdAt);
+    setCreatedAt(dateCreatedAt);
+
+    if (response.concludedAt) {
+      const dateConcludedAt = new Date(response.concludedAt);
+      setConcludedAt(dateConcludedAt);
+    }
   }
 
   async function handleSubmitComment() {
@@ -183,6 +190,12 @@ export default function DetailTicket() {
                 {createdAt?.toLocaleString("pt-br") ?? "..."}
               </span>
               <StatusTicket status={ticket?.status} />
+              <span id="concludedAt">
+                <FiCheck color="var(--color-gray-dark)" size="0.8rem" />
+                {concludedAt
+                  ? concludedAt.toLocaleString("pt-br")
+                  : "Sem data de conclusão"}
+              </span>
             </p>
             <p>
               Responsável:{" "}

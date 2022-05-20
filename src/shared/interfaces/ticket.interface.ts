@@ -12,6 +12,7 @@ export default interface Ticket {
   reserved: boolean;
   createdAt: Date;
   updatedAt?: Date;
+  concludedAt?: Date;
   department?: string;
   equipment?: string;
 
