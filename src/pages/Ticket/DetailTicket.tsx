@@ -5,6 +5,8 @@ import { FiClock, FiArrowLeft } from 'react-icons/fi';
 
 import SessionController from '../../shared/utils/handlers/SessionController';
 
+import { CreateSolution } from '../../shared/interfaces/solution.interface';
+import { SolutionRequests } from '../../shared/utils/requests/Solution.requests';
 import { status } from '../../shared/types/status';
 import { TicketRequests } from '../../shared/utils/requests/Ticket.requests';
 
@@ -44,8 +46,10 @@ export default function DetailTicket() {
   const [createdAt, setCreatedAt] = useState<Date>();
   const [hasSupport, setHasSupport] = useState<boolean>(false);
   const [solution, setSolution] = useState<Ticket["solution"]>();
+  const [canSetSolution, setCanSetSolution] = useState<boolean>(false);
 
   const ticketRequest = new TicketRequests();
+  const solutionRequest = new SolutionRequests();
 
   useEffect(() => {
     const subscribe = getTicket();
@@ -65,6 +69,10 @@ export default function DetailTicket() {
     setPriorityLevel(response.priorityLevel);
     setProblemType(response.tags);
     setSolution(response.solution)
+        
+    if (response.support && (!response.solution && user?.role === "support" )) {
+      setCanSetSolution(true)
+    } 
 
     if (response.support) setHasSupport(true);
 
@@ -118,6 +126,7 @@ export default function DetailTicket() {
       });
       setStatus('underAnalysis');
       setHasSupport(true);
+      setCanSetSolution(true);
     }
     setLoading(false);    
   }
@@ -136,6 +145,27 @@ export default function DetailTicket() {
       navigate('/homepage');
     }
     setLoading(false);    
+  }
+
+  async function handleSetSolution(comment: Comment) {
+    if (!ticket) return;
+
+    const payload: CreateSolution = {
+      ticketId: ticket.id,
+      titleProblem: ticket.title,
+      problemTags: ticket.tags,
+      solutionComment: comment,
+    }
+    
+    try {
+      const response = await solutionRequest.setSolutionTicket(payload);
+      
+      setSolution(response);
+      setCanSetSolution(false);
+    } catch (error) {
+      setCanSetSolution(true);
+    }
+
   }
 
   return (
@@ -251,7 +281,7 @@ export default function DetailTicket() {
               <h3>Discussão</h3>
               <ul className="comments-block">
                 {comments.map((comment, index) => (
-                  <TicketComment commentData={comment} key={index} />
+                  <TicketComment key={index} commentData={comment} canSetSolution={canSetSolution} handleSetSolution={handleSetSolution} />
                 ))}
               </ul>
             </section>
@@ -303,6 +333,6 @@ export default function DetailTicket() {
         </main>
         <Footer />
       </Container>
-    </>    
+    </>
   );
 }

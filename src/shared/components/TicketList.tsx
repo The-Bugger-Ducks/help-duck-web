@@ -34,9 +34,9 @@ const TicketList: React.FC<{ status: status | "" }> = ({ status }) => {
   const userInformation = SessionController.getUserInfo();
 
   useEffect(() => {
-    if (userInformation?.role === "client") {
-      getTicketListClient();
-    } else if (userInformation?.role === "support") {
+    if (userInformation?.role === 'client') {
+      status === 'done' ? getTicketPerStatus(status) : getTicketListClient();
+    } else if (userInformation?.role === 'support') {
       getTicketPerStatus(status);
     }
   }, [status]);

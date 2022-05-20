@@ -116,7 +116,7 @@ export default function TicketList() {
     }
   }
 
-  async function handlePageable(pageNumber: number, pageSize: number) {
+  function handlePageable(pageNumber: number, pageSize: number) {
     setPageNumber(pageNumber)
     setPageSize(pageSize)
 

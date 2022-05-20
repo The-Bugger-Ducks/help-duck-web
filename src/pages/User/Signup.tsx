@@ -67,76 +67,74 @@ export default function Signup() {
   }
 
   return (
-    <>
+    <div id="signup">
       <LoadingContainer loading={loading} />
-      <div id="signup">
-        <div className="signup-container">
-          <Header hiddenDropdown={true} />
-          <div className="signup-content">
-            <section className="signup-welcome">
-              <h2>
-                <FiArrowLeft
-                  color="var(--color-withe-main)"
-                  onClick={() => {
-                    navigate("/homepage");
-                  }}
+      <div className="signup-container">
+        <Header hiddenDropdown={true} />
+        <div className="signup-content">
+          <section className="signup-welcome">
+            <h2>
+              <FiArrowLeft
+                color="var(--color-withe-main)"
+                onClick={() => {
+                  navigate("/homepage");
+                }}
+              />
+            </h2>
+            <h1>Cadastre a conta</h1>
+          </section>
+          <form className="signup-form" onSubmit={submitSignup}>
+            <section className="form-sections">
+              <section className="signup-data">
+                <label htmlFor="name">Nome</label>
+                <TextField
+                  type="text"
+                  placeholder="John"
+                  onChange={(event) => setName(event.target.value)}
+                  name="name"
                 />
-              </h2>
-              <h1>Cadastre a conta</h1>
+                <label htmlFor="lastname">Sobrenome</label>
+                <TextField
+                  type="text"
+                  placeholder="Snow"
+                  onChange={(event) => setLastname(event.target.value)}
+                  name="lastname"
+                />
+              </section>
+              <section className="signup-data">
+                <label htmlFor="email">E-mail</label>
+                <TextField
+                  placeholder="john.snow@email.com"
+                  onChange={(event) => setEmail(event.target.value)}
+                  name="email"
+                />
+                <label htmlFor="password">Senha</label>
+                <TextField
+                  placeholder="Senha"
+                  onChange={(event) => setPassword(event.target.value)}
+                  name="password"
+                  type="password"
+                />
+              </section>
             </section>
-            <form className="signup-form" onSubmit={submitSignup}>
-              <section className="form-sections">
-                <section className="signup-data">
-                  <label htmlFor="name">Nome</label>
-                  <TextField
-                    type="text"
-                    placeholder="John"
-                    onChange={(event) => setName(event.target.value)}
-                    name="name"
-                  />
-                  <label htmlFor="lastname">Sobrenome</label>
-                  <TextField
-                    type="text"
-                    placeholder="Snow"
-                    onChange={(event) => setLastname(event.target.value)}
-                    name="lastname"
-                  />
-                </section>
-                <section className="signup-data">
-                  <label htmlFor="email">E-mail</label>
-                  <TextField
-                    placeholder="john.snow@email.com"
-                    onChange={(event) => setEmail(event.target.value)}
-                    name="email"
-                  />
-                  <label htmlFor="password">Senha</label>
-                  <TextField
-                    placeholder="Senha"
-                    onChange={(event) => setPassword(event.target.value)}
-                    name="password"
-                    type="password"
-                  />
-                </section>
+            <section className="signup-data-line">
+              <section className="signup-data">
+                <ChoiceField
+                  onChange={(event) => setRole(event.target.value)}
+                  name="role"
+                  items={userProfiles}
+                />
               </section>
-              <section className="signup-data-line">
-                <section className="signup-data">
-                  <ChoiceField
-                    onChange={(event) => setRole(event.target.value)}
-                    name="profile_type"
-                    items={userProfiles}
-                  />
-                </section>
-                <section className="signup-data">
-                  <Button width="100%" type="submit">
-                    Cadastrar
-                  </Button>
-                </section>
+              <section className="signup-data">
+                <Button width="100%" type="submit">
+                  Cadastrar
+                </Button>
               </section>
-            </form>
-          </div>
-          <Footer />
+            </section>
+          </form>
         </div>
+        <Footer />
       </div>
-    </>
+    </div>
   );
 }
