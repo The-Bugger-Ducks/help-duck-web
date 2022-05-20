@@ -6,12 +6,13 @@ import { FaArrowUp } from "react-icons/fa";
 
 import UserComponent from "./UserComponent";
 import CustomTableRow from "./Loading/CustomTableRow";
+import Pagination from "./Pagination/Pagination";
 
 import { User } from "../interfaces/user.interface";
 import { OrderByTypes, SortUserTableTypes } from "../constants/sortTableEnum";
+import { Pageable } from "../interfaces/pagable.interface";
 
 import "../styles/components/UserList.css";
-import Pagination from "./Pagination/Pagination";
 
 export default function TicketList() {
   const userRequest = new UserRequests();
@@ -19,6 +20,14 @@ export default function TicketList() {
   const [loading, setLoading] = useState(false);
   const [users, setUsers] = useState<User[]>();
   const [headerSortTarget, setHeaderSortTarget] = useState<Element>();
+
+  const [pageable, setPageable] = useState<Pageable>();
+
+  const [orderBy, setOrderBy] = useState<OrderByTypes>();
+  const [sort, setSort] = useState<SortUserTableTypes>();
+
+  const [pageSize, setPageSize] = useState(20);
+  const [pageNumber, setPageNumber] = useState(0);
 
   const tableHeaderOptions = [
     { text: "Nome", type: SortUserTableTypes.name },
@@ -32,14 +41,14 @@ export default function TicketList() {
 
   const getUserList = async (sorting?: string) => {
     setLoading(true);
-    const response: { content: [] } = await userRequest.listUserRequest(
+    const response = await userRequest.listUserRequest(
       sorting
     );
     
     setLoading(false);
-
-    const users: User[] = response.content;
-    setUsers(users);
+    
+    setUsers(response.content ?? []);
+    setPageable(response);
   };
 
   function handleClickOptionSort(
@@ -84,15 +93,17 @@ export default function TicketList() {
   function handleTableSorting(type: SortUserTableTypes, orderBy: OrderByTypes) {
     const containsOrderBy = orderBy !== OrderByTypes.none;
 
-
-    let sort = "";
+    let sortAux = "";
     if (containsOrderBy) {
-      sort = `page=0&size=50&sort=${type},${orderBy}`;
+      sortAux = `page=${pageNumber}&size=${pageSize}&sort=${type},${orderBy}`;
     } else {
-      sort = `page=0&size=50&sort=${type}`;
+      sortAux = `page=${pageNumber}&size=${pageSize}&sort=${type}`;
     }
 
-    getUserList(sort);
+    setSort(type);
+    setOrderBy(orderBy);
+
+    getUserList(sortAux);
   }
 
   function handleRoleName(role: string) {
@@ -103,6 +114,20 @@ export default function TicketList() {
     } else {
       return "cliente"
     }
+  }
+
+  async function handlePageable(pageNumber: number, pageSize: number) {
+    setPageNumber(pageNumber)
+    setPageSize(pageSize)
+
+    let sortAux = "";
+    if (orderBy) {
+      sortAux = `page=${pageNumber}&size=${pageSize}&sort=${sort},${orderBy}`;
+    } else {
+      sortAux = `page=${pageNumber}&size=${pageSize}&sort=${sort}`;
+    }
+    
+    getUserList(sortAux);
   }
 
   return (
@@ -139,7 +164,7 @@ export default function TicketList() {
           </table>
         </div>
       </section>
-      {/* <Pagination /> */}
+      <Pagination pageable={pageable} onChangePage={handlePageable} />
     </>
   );
 }

@@ -7,7 +7,7 @@ import "../../styles/components/pagination.css"
 
 interface Props {
   pageable?: Pageable,
-  onChangePage: (pageNumber: number, pageSize: number) => Promise<void>,
+  onChangePage: (pageNumber: number, pageSize: number) => void,
 }
 
 const Pagination: React.FC<Props> = ({

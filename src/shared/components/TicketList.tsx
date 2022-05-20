@@ -108,7 +108,7 @@ const TicketList: React.FC<{ status: status | "" }> = ({ status }) => {
     }
   }
 
-  async function handlePageable(pageNumber: number, pageSize: number) {
+  function handlePageable(pageNumber: number, pageSize: number) {
     setPageNumber(pageNumber)
     setPageSize(pageSize)
 
