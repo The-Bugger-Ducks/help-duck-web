@@ -27,6 +27,7 @@
   font-weight: normal;
   padding-bottom: 0.5rem;
   border-bottom: 1px solid var(--color-gray-dark);
+  min-width: 10rem;
 }
 
 .equipments-list-container table td {
@@ -82,4 +83,29 @@
   border-color: #dee2e6 #dee2e6 #fff;
 
   cursor: auto;
+}
+
+/* arrow */
+
+.equipments-list-container table th .th-arrow {
+  margin-left: 1rem;
+  font-size: 0.7rem;
+
+  color: var(--color-gray-main);
+  visibility: hidden;
+
+  transition: 200ms ease;
+}
+
+.equipments-list-container table th:hover .th-arrow {
+  visibility: visible;
+}
+
+.equipments-list-container table th.visible .th-arrow {
+  visibility: visible;
+  color: var(--color-black-dark);
+}
+
+.equipments-list-container table th.visible.order-by .th-arrow {
+  transform: rotate(180deg);
 }
