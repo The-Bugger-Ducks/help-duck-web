@@ -11,6 +11,7 @@ import { User } from "../interfaces/user.interface";
 import { OrderByTypes, SortUserTableTypes } from "../constants/sortTableEnum";
 
 import "../styles/components/UserList.css";
+import Pagination from "./Pagination/Pagination";
 
 export default function TicketList() {
   const userRequest = new UserRequests();
@@ -105,37 +106,40 @@ export default function TicketList() {
   }
 
   return (
-    <section className="user-list-container">
-      <div className="grid-users">
-        <table>
-          <tbody>
-            <tr>
-              {tableHeaderOptions.map((option, index) => (
-                <th
-                  id={`${index}`}
-                  key={index}
-                  onClick={(event) => handleClickOptionSort(event, option.type)}
-                >
-                  {option.text}
-                  <FaArrowUp className="th-arrow" />
-                </th>
-              ))}
-            </tr>
-            {users && users.length > 0 ? (
-              users.map((user, index) => {
-                return (
-                  <UserComponent
-                    name={`${user.firstName} ${user.lastName}`}
-                    email={user.email}
-                    role={handleRoleName(user.role)}
-                    onClick={() => navigate(`/user/edit/${user.id}`)}
-                  />
-                );
-              })
-            ) : <CustomTableRow loading={loading} colSpan={3} typeTableRowText="usuário" />}
-          </tbody>
-        </table>
-      </div>
-    </section>
+    <>
+      <section className="user-list-container">
+        <div className="grid-users">
+          <table>
+            <tbody>
+              <tr>
+                {tableHeaderOptions.map((option, index) => (
+                  <th
+                    id={`${index}`}
+                    key={index}
+                    onClick={(event) => handleClickOptionSort(event, option.type)}
+                  >
+                    {option.text}
+                    <FaArrowUp className="th-arrow" />
+                  </th>
+                ))}
+              </tr>
+              {users && users.length > 0 ? (
+                users.map((user, index) => {
+                  return (
+                    <UserComponent
+                      name={`${user.firstName} ${user.lastName}`}
+                      email={user.email}
+                      role={handleRoleName(user.role)}
+                      onClick={() => navigate(`/user/edit/${user.id}`)}
+                    />
+                  );
+                })
+              ) : <CustomTableRow loading={loading} colSpan={3} typeTableRowText="usuário" />}
+            </tbody>
+          </table>
+        </div>
+      </section>
+      {/* <Pagination /> */}
+    </>
   );
 }

@@ -9,9 +9,9 @@ import PriorityLevelBadge from "./PriorityLevelBadge";
 import { SortTicketTableTypes, OrderByTypes } from "../constants/sortTableEnum";
 import Ticket from "../interfaces/ticket.interface";
 import { status } from "../types/status";
+import CustomTableRow from "./Loading/CustomTableRow";
 
 import "../styles/components/TicketList.css";
-import CustomTableRow from "./Loading/CustomTableRow";
 
 const TicketTable: React.FC<{
   tickets: Array<Ticket>,

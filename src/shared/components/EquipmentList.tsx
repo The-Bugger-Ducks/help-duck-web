@@ -6,6 +6,7 @@ import { EquipmentRequests } from "../utils/requests/Equipment.requests";
 
 import EquipmentComponent from "./EquipmentComponent";
 import CustomTableRow from "./Loading/CustomTableRow";
+import Pagination from "./Pagination/Pagination";
 
 export default function EquipmentList() {
   const equipmentRequest = new EquipmentRequests();
@@ -30,37 +31,40 @@ export default function EquipmentList() {
   };
 
   return (
-    <section className="equipments-list-container">
-      <div className="grid-equipments">
-        <table>
-          <tbody>
-            <tr>
-              <th>Nome</th>
-              <th>Modelo</th>
-              <th>Marca</th>
-              <th>Tipo</th>
-              <th>Departamento</th>
-            </tr>
-            {equipments && equipments.length > 0 ? (
-              equipments.map((equipment, index) => {
-                return (
-                  <EquipmentComponent
-                    name={equipment.name}
-                    model={equipment.model}
-                    brand={equipment.brand}
-                    type={equipment.type}
-                    department={equipment.department}
-                    onClick={() =>
-                      navigate(`/equipment_update/${equipment.id}`)
-                    }
-                  />
-                );
-              })
-            ) : <CustomTableRow loading={loading} colSpan={5} typeTableRowText="equipamento" />}
+    <>
+      <section className="equipments-list-container">
+        <div className="grid-equipments">
+          <table>
+            <tbody>
+              <tr>
+                <th>Nome</th>
+                <th>Modelo</th>
+                <th>Marca</th>
+                <th>Tipo</th>
+                <th>Departamento</th>
+              </tr>
+              {equipments && equipments.length > 0 ? (
+                equipments.map((equipment, index) => {
+                  return (
+                    <EquipmentComponent
+                      name={equipment.name}
+                      model={equipment.model}
+                      brand={equipment.brand}
+                      type={equipment.type}
+                      department={equipment.department}
+                      onClick={() =>
+                        navigate(`/equipment_update/${equipment.id}`)
+                      }
+                    />
+                  );
+                })
+              ) : <CustomTableRow loading={loading} colSpan={5} typeTableRowText="equipamento" />}
 
-          </tbody>
-        </table>
-      </div>
-    </section>
+            </tbody>
+          </table>
+        </div>
+      </section>
+      {/* <Pagination /> */}
+    </>
   );
 }
