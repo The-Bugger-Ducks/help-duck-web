@@ -2,17 +2,17 @@ import { apiUsers } from "../../services/Api.service";
 import { USER_ENDPOINTS } from "../../utils/endpoints";
 import { validateStatus } from "../handlers/HandlerResponseStatusCodeFound";
 
-export class UserRequests {  
+export class UserRequests {
   public async showRequest(userId: string) {
-  try {
-    const response = await apiUsers.get(USER_ENDPOINTS.USER_DETAILS + userId, {
-      validateStatus,
-    });
-    return response.data;
-  } catch (error) {
-    alert("Não foi possível encontrar o usuario. Tente novamente!");
+    try {
+      const response = await apiUsers.get(USER_ENDPOINTS.USER_DETAILS + userId, {
+        validateStatus,
+      });
+      return response.data;
+    } catch (error) {
+      alert("Não foi possível encontrar o usuario. Tente novamente!");
+    }
   }
-}
 
   public async loginRequest(body: object) {
     try {

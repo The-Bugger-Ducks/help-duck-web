@@ -1,20 +1,33 @@
 import { useEffect, useState, MouseEvent } from "react";
+import { useNavigate } from "react-router-dom";
+import { UserRequests } from "../utils/requests/User.requests";
+
 import { FaArrowUp } from "react-icons/fa";
 
 import UserComponent from "./UserComponent";
-import { UserRequests } from "../utils/requests/User.requests";
+import CustomTableRow from "./Loading/CustomTableRow";
+import Pagination from "./Pagination/Pagination";
 
 import { User } from "../interfaces/user.interface";
 import { OrderByTypes, SortUserTableTypes } from "../constants/sortTableEnum";
+import { Pageable } from "../interfaces/pagable.interface";
 
 import "../styles/components/UserList.css";
-import { useNavigate } from "react-router-dom";
 
 export default function TicketList() {
   const userRequest = new UserRequests();
 
+  const [loading, setLoading] = useState(false);
   const [users, setUsers] = useState<User[]>();
   const [headerSortTarget, setHeaderSortTarget] = useState<Element>();
+
+  const [pageable, setPageable] = useState<Pageable>();
+
+  const [orderBy, setOrderBy] = useState<OrderByTypes>();
+  const [sort, setSort] = useState<SortUserTableTypes>();
+
+  const [pageSize, setPageSize] = useState(20);
+  const [pageNumber, setPageNumber] = useState(0);
 
   const tableHeaderOptions = [
     { text: "Nome", type: SortUserTableTypes.name },
@@ -27,11 +40,15 @@ export default function TicketList() {
   }, []);
 
   const getUserList = async (sorting?: string) => {
-    const response: { content: [] } = await userRequest.listUserRequest(
+    setLoading(true);
+    const response = await userRequest.listUserRequest(
       sorting
     );
-    const users: User[] = response.content;
-    setUsers(users);
+    
+    setLoading(false);
+    
+    setUsers(response.content ?? []);
+    setPageable(response);
   };
 
   function handleClickOptionSort(
@@ -76,15 +93,17 @@ export default function TicketList() {
   function handleTableSorting(type: SortUserTableTypes, orderBy: OrderByTypes) {
     const containsOrderBy = orderBy !== OrderByTypes.none;
 
-
-    let sort = "";
+    let sortAux = "";
     if (containsOrderBy) {
-      sort = `page=0&size=50&sort=${type},${orderBy}`;
+      sortAux = `page=${pageNumber}&size=${pageSize}&sort=${type},${orderBy}`;
     } else {
-      sort = `page=0&size=50&sort=${type}`;
+      sortAux = `page=${pageNumber}&size=${pageSize}&sort=${type}`;
     }
 
-    getUserList(sort);
+    setSort(type);
+    setOrderBy(orderBy);
+
+    getUserList(sortAux);
   }
 
   function handleRoleName(role: string) {
@@ -97,44 +116,55 @@ export default function TicketList() {
     }
   }
 
+  function handlePageable(pageNumber: number, pageSize: number) {
+    setPageNumber(pageNumber)
+    setPageSize(pageSize)
+
+    let sortAux = "";
+    if (orderBy) {
+      sortAux = `page=${pageNumber}&size=${pageSize}&sort=${sort},${orderBy}`;
+    } else {
+      sortAux = `page=${pageNumber}&size=${pageSize}&sort=${sort}`;
+    }
+    
+    getUserList(sortAux);
+  }
+
   return (
-    <section className="user-list-container">
-      <div className="grid-users">
-        <table>
-          <tbody>
-            <tr>
-              {tableHeaderOptions.map((option, index) => (
-                <th
-                  id={`${index}`}
-                  key={index}
-                  onClick={(event) => handleClickOptionSort(event, option.type)}
-                >
-                  {option.text}
-                  <FaArrowUp className="th-arrow" />
-                </th>
-              ))}
-            </tr>
-            {users && users.length > 0 ? (
-              users.map((user, index) => {
-                return (
-                  <UserComponent
-                    name={`${user.firstName} ${user.lastName}`}
-                    email={user.email}
-                    role={handleRoleName(user.role)}
-                    onClick={() => navigate(`/user/edit/${user.id}`)}
-                  />
-                );
-              })
-            ) : (
+    <>
+      <section className="user-list-container">
+        <div className="grid-users">
+          <table>
+            <tbody>
               <tr>
-                <td colSpan={3} className="no-results">
-                  Não foi encontrado nenhum usuário
-                </td>
+                {tableHeaderOptions.map((option, index) => (
+                  <th
+                    id={`${index}`}
+                    key={index}
+                    onClick={(event) => handleClickOptionSort(event, option.type)}
+                  >
+                    {option.text}
+                    <FaArrowUp className="th-arrow" />
+                  </th>
+                ))}
               </tr>
-            )}
-          </tbody>
-        </table>
-      </div>
-    </section>
+              {users && users.length > 0 ? (
+                users.map((user, index) => {
+                  return (
+                    <UserComponent
+                      name={`${user.firstName} ${user.lastName}`}
+                      email={user.email}
+                      role={handleRoleName(user.role)}
+                      onClick={() => navigate(`/user/edit/${user.id}`)}
+                    />
+                  );
+                })
+              ) : <CustomTableRow loading={loading} colSpan={3} typeTableRowText="usuário" />}
+            </tbody>
+          </table>
+        </div>
+      </section>
+      <Pagination pageable={pageable} onChangePage={handlePageable} />
+    </>
   );
 }

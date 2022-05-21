@@ -1,21 +1,38 @@
-import "../styles/components/EquipmentList.css";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+
+import { FaArrowUp } from "react-icons/fa";
+
+import EquipmentComponent from "./EquipmentComponent";
+import CustomTableRow from "./Loading/CustomTableRow";
+
 import { EquipmentUpdate } from "../interfaces/equipment.interface";
 import { EquipmentRequests } from "../utils/requests/Equipment.requests";
-import EquipmentComponent from "./EquipmentComponent";
-import { FaArrowUp } from "react-icons/fa";
 
 import {
   OrderByTypes,
   SortEquipmentTableTypes,
 } from "../constants/sortTableEnum";
 
+import "../styles/components/EquipmentList.css";
+import Pagination from "./Pagination/Pagination";
+import { Pageable } from "../interfaces/pagable.interface";
+
 export default function EquipmentList() {
   const equipmentRequest = new EquipmentRequests();
+  const navigate = useNavigate();
+
+  const [loading, setLoading] = useState(false);
   const [equipments, setEquipments] = useState<EquipmentUpdate[]>();
   const [headerSortTarget, setHeaderSortTarget] = useState<Element>();
-  const navigate = useNavigate();
+
+  const [pageable, setPageable] = useState<Pageable>();
+
+  const [orderBy, setOrderBy] = useState<OrderByTypes>();
+  const [sort, setSort] = useState<SortEquipmentTableTypes>();
+
+  const [pageSize, setPageSize] = useState(20);
+  const [pageNumber, setPageNumber] = useState(0);
 
   const tableHeaderOptions = [
     { text: "Nome", type: SortEquipmentTableTypes.name },
@@ -30,10 +47,13 @@ export default function EquipmentList() {
   }, []);
 
   const getEquipmentsList = async (sorting?: string) => {
-    const response: { content: [] } =
-      await equipmentRequest.listEquipmentRequest(sorting);
-    const equipments: EquipmentUpdate[] = response.content;
-    setEquipments(equipments);
+    setLoading(true);
+    const response = await equipmentRequest.listEquipmentRequest(sorting);
+
+    setLoading(false)
+    
+    setEquipments(response.content);
+    setPageable(response)
   };
 
   function handleClickOptionSort(event: any, sorting: SortEquipmentTableTypes) {
@@ -76,58 +96,69 @@ export default function EquipmentList() {
   ) {
     const containsOrderBy = orderBy !== OrderByTypes.none;
 
-    let sort = "";
+    let sortAux = "";
     if (containsOrderBy) {
-      sort = `page=0&size=50&sort=${type},${orderBy}`;
+      sortAux = `page=${pageNumber}&size=${pageSize}&sort=${type},${orderBy}`;
     } else {
-      sort = `page=0&size=50&sort=${type}`;
+      sortAux = `page=${pageNumber}&size=${pageSize}&sort=${type}`;
     }
 
-    getEquipmentsList(sort);
+    getEquipmentsList(sortAux);
+  }
+
+  function handlePageable(pageNumber: number, pageSize: number) {
+    setPageNumber(pageNumber)
+    setPageSize(pageSize)
+
+    let sortAux = "";
+    if (orderBy) {
+      sortAux = `page=${pageNumber}&size=${pageSize}&sort=${sort},${orderBy}`;
+    } else {
+      sortAux = `page=${pageNumber}&size=${pageSize}&sort=${sort}`;
+    }
+    
+    getEquipmentsList(sortAux);
   }
 
   return (
-    <section className="equipments-list-container">
-      <div className="grid-equipments">
-        <table>
-          <tbody>
-            <tr>
-              {tableHeaderOptions.map((option, index) => (
-                <th
-                  id={`${index}`}
-                  key={index}
-                  onClick={(event) => handleClickOptionSort(event, option.type)}
-                >
-                  {option.text}
-                  <FaArrowUp className="th-arrow" />
-                </th>
-              ))}
-            </tr>
-            {equipments && equipments.length > 0 ? (
-              equipments.map((equipment, index) => {
-                return (
-                  <EquipmentComponent
-                    name={equipment.name}
-                    model={equipment.model}
-                    brand={equipment.brand}
-                    type={equipment.type}
-                    department={equipment.department}
-                    onClick={() =>
-                      navigate(`/equipment_update/${equipment.id}`)
-                    }
-                  />
-                );
-              })
-            ) : (
+    <>
+      <section className="equipments-list-container">
+        <div className="grid-equipments">
+          <table>
+            <tbody>
               <tr>
-                <td colSpan={5} className="no-results">
-                  Não foi encontrado nenhum equipamento
-                </td>
+                {tableHeaderOptions.map((option, index) => (
+                  <th
+                    id={`${index}`}
+                    key={index}
+                    onClick={(event) => handleClickOptionSort(event, option.type)}
+                  >
+                    {option.text}
+                    <FaArrowUp className="th-arrow" />
+                  </th>
+                ))}
               </tr>
-            )}
-          </tbody>
-        </table>
-      </div>
-    </section>
+              {equipments && equipments.length > 0 ? (
+                equipments.map((equipment, index) => {
+                  return (
+                    <EquipmentComponent
+                      name={equipment.name}
+                      model={equipment.model}
+                      brand={equipment.brand}
+                      type={equipment.type}
+                      department={equipment.department}
+                      onClick={() =>
+                        navigate(`/equipment_update/${equipment.id}`)
+                      }
+                    />
+                  );
+                })
+              ) : <CustomTableRow colSpan={5} loading={loading} typeTableRowText={"equipamento"} />}
+            </tbody>
+          </table>
+        </div>
+      </section>
+      <Pagination pageable={pageable} onChangePage={handlePageable} />
+    </>
   );
 }

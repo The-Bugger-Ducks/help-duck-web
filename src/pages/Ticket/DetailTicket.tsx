@@ -22,6 +22,7 @@ import TicketComment from '../../shared/components/TicketComment';
 import TicketAddComment from '../../shared/components/TicketAddComment';
 import TextField from '../../shared/components/TextField';
 import TicketSolution from '../../shared/components/TicketSolution';
+import LoadingContainer from '../../shared/components/Loading/LoadingContainer';
 
 import '../../shared/styles/pages/ticket/DetailTicket.css';
 
@@ -35,7 +36,8 @@ export default function DetailTicket() {
       return { newComment: '' };
     },
   });
-
+  
+  const [loading, setLoading] = useState(false);
   const [ticket, setTicket] = useState<Ticket>();
   const [status, setStatus] = useState<status>();
   const [priorityLevel, setPriorityLevel] = useState<Ticket['priorityLevel']>('low');
@@ -58,6 +60,7 @@ export default function DetailTicket() {
   }, []);
 
   async function getTicket() {
+    setLoading(true);    
     const response: Ticket = await ticketRequest.showRequest(id ?? '');
 
     setTicket(response);
@@ -75,6 +78,7 @@ export default function DetailTicket() {
 
     const date = new Date(response.createdAt);
     setCreatedAt(date);
+    setLoading(false);    
   };
 
   async function handleSubmitComment() {
@@ -88,6 +92,7 @@ export default function DetailTicket() {
     };
 
     try {
+      setLoading(true);    
       const response = await ticketRequest.insertComment(id, comment);
 
       if (response?.status === 200) {
@@ -95,7 +100,11 @@ export default function DetailTicket() {
           return [...prevState, comment];
         });
       }
-    } catch (error) {}
+    } catch (error) {
+      // tratar erros
+    } finally {
+      setLoading(false);    
+    }
   };
 
   async function handleReservedTicket() {
@@ -103,6 +112,7 @@ export default function DetailTicket() {
       return alert("Usuário sem permissão para realizar essa ação.");
     }
 
+    setLoading(true);    
     const response = await ticketRequest.reserveTicket(id ?? '', user);
 
     if (response?.status === 200) {
@@ -118,6 +128,7 @@ export default function DetailTicket() {
       setHasSupport(true);
       setCanSetSolution(true);
     }
+    setLoading(false);    
   }
 
   async function handleCloseTicket() {
@@ -125,6 +136,7 @@ export default function DetailTicket() {
       return alert('Usuário sem permissão para relalizar essa ação.');
     }
 
+    setLoading(true);    
     const response = await ticketRequest.closeTicket(id ?? '');
 
     if (response?.status === 200) {
@@ -132,6 +144,7 @@ export default function DetailTicket() {
       setStatus('done');
       navigate('/homepage');
     }
+    setLoading(false);    
   }
 
   async function handleSetSolution(comment: Comment) {
@@ -156,167 +169,170 @@ export default function DetailTicket() {
   }
 
   return (
-    <Container>
-      <Header hiddenDropdown={false} />
-      <main id="detail-ticket">
-        <section className="ticket-about">
-          <div>
-            <FiArrowLeft
-              className="navigation-button"
-              color="var(--color-gray-dark)"
-              onClick={() => {
-                navigate('/homepage');
-              }}
-            />
-            <h1 className="ticket-name">{ticket?.title ?? 'Carregando...'}</h1>
+    <>
+      <LoadingContainer loading={loading} />
+      <Container>
+        <Header hiddenDropdown={false} />
+        <main id="detail-ticket">
+          <section className="ticket-about">
+            <div>
+              <FiArrowLeft
+                className="navigation-button"
+                color="var(--color-gray-dark)"
+                onClick={() => {
+                  navigate('/homepage');
+                }}
+              />
+              <h1 className="ticket-name">{ticket?.title ?? 'Carregando...'}</h1>
 
-            <p>Protocólo: #{ticket?.id ?? '...'}</p>
-            <p>
-              <span className="detail-date-created">
-                <FiClock color="var(--color-gray-dark)" size="0.8rem" />{' '}
-                {createdAt?.toLocaleString('pt-br') ?? '...'}
-              </span>
-              <StatusTicket status={ticket?.status} />
-            </p>
-            <p>
-              Responsável:{' '}
-              {ticket?.support
-                ? ticket?.support.firstName
-                : 'Sem responsável no momento'}{' '}
-              {ticket?.support ? ticket?.support.lastName : ''}{' '}
-              {ticket?.support ? `(${ticket?.support.email})` : ''}
-            </p>
-          </div>
-          {user?.role === 'support' ? (
-            <div className="button-container">
-              {!hasSupport ? (
+              <p>Protocólo: #{ticket?.id ?? '...'}</p>
+              <p>
+                <span className="detail-date-created">
+                  <FiClock color="var(--color-gray-dark)" size="0.8rem" />{' '}
+                  {createdAt?.toLocaleString('pt-br') ?? '...'}
+                </span>
+                <StatusTicket status={ticket?.status} />
+              </p>
+              <p>
+                Responsável:{' '}
+                {ticket?.support
+                  ? ticket?.support.firstName
+                  : 'Sem responsável no momento'}{' '}
+                {ticket?.support ? ticket?.support.lastName : ''}{' '}
+                {ticket?.support ? `(${ticket?.support.email})` : ''}
+              </p>
+            </div>
+            {user?.role === 'support' ? (
+              <div className="button-container">
+                {!hasSupport ? (
+                  <Button
+                    color="var(--color-black-dark)"
+                    backgroundColor="transparent"
+                    width="12rem"
+                    height="2rem"
+                    fontSize="0.8rem"
+                    fontWeight="600"
+                    border="1px solid var(--color-black-main)"
+                    onClick={handleReservedTicket}
+                  >
+                    Reservar chamado
+                  </Button>
+                ) : (
+                  <>
+                    {status === 'underAnalysis' &&
+                    comments.length > 0 &&
+                    user.id === ticket?.support?.id ? (
+                      <Button
+                        backgroundColor="var(--color-green)"
+                        color="var(--color-white-light)"
+                        width="12rem"
+                        height="2rem"
+                        fontSize="0.8rem"
+                        fontWeight="600"
+                        border="1px solid var(--color-black-main)"
+                        onClick={handleCloseTicket}
+                      >
+                        Fechar chamado
+                      </Button>
+                    ) : null}
+                  </>
+                )}
+              </div>
+            ) : null}
+          </section>
+
+          <section className="ticket-dual-info">
+            <div className="ticket-priority">
+              <h3>Grau de prioridade:</h3>
+              <PriorityLevelBadge priority={priorityLevel} />
+            </div>
+
+            <div className="ticket-type">
+              <h3>Tipo de problema:</h3>
+              <TextField
+                type="text"
+                placeholder={
+                  problemType != null && problemType[0] != ''
+                    ? problemType[0]
+                    : 'Sem tipo definido'
+                }
+                disabled={true}
+                name="tipo"
+                backgroundColor="#FAFAFA"
+                height="32px"
+              />
+            </div>
+          </section>
+
+          <section>
+            <h3>Descrição do problema:</h3>
+            <div className="description-problem">
+              <p>{ticket?.description ?? '...'}</p>
+              <p className="owner-comment">{ticket?.user.email}</p>
+            </div>
+          </section>
+
+          {solution ? (
+            <TicketSolution solution={solution} />
+          ) : null}
+
+          {comments.length !== 0 ? (
+            <section>
+              <h3>Discussão</h3>
+              <ul className="comments-block">
+                {comments.map((comment, index) => (
+                  <TicketComment key={index} commentData={comment} canSetSolution={canSetSolution} handleSetSolution={handleSetSolution} />
+                ))}
+              </ul>
+            </section>
+          ) : null}
+
+          {status === 'done' ||
+          (user?.role === 'support' && !hasSupport) ? null : (
+            <section id="add-comment-container">
+              <TicketAddComment ref={formCommentRef} />
+              <div className="button-container">
                 <Button
-                  color="var(--color-black-dark)"
                   backgroundColor="transparent"
-                  width="12rem"
+                  color="var(--color-black-dark)"
+                  width="4rem"
                   height="2rem"
                   fontSize="0.8rem"
                   fontWeight="600"
                   border="1px solid var(--color-black-main)"
-                  onClick={handleReservedTicket}
+                  onClick={handleSubmitComment}
                 >
-                  Reservar chamado
+                  Enviar
                 </Button>
-              ) : (
-                <>
-                  {status === 'underAnalysis' &&
-                  comments.length > 0 &&
-                  user.id === ticket?.support?.id ? (
-                    <Button
-                      backgroundColor="var(--color-green)"
-                      color="var(--color-white-light)"
-                      width="12rem"
-                      height="2rem"
-                      fontSize="0.8rem"
-                      fontWeight="600"
-                      border="1px solid var(--color-black-main)"
-                      onClick={handleCloseTicket}
-                    >
-                      Fechar chamado
-                    </Button>
-                  ) : null}
-                </>
-              )}
-            </div>
-          ) : null}
-        </section>
+              </div>
+            </section>
+          )}
 
-        <section className="ticket-dual-info">
-          <div className="ticket-priority">
-            <h3>Grau de prioridade:</h3>
-            <PriorityLevelBadge priority={priorityLevel} />
-          </div>
-
-          <div className="ticket-type">
-            <h3>Tipo de problema:</h3>
-            <TextField
-              type="text"
-              placeholder={
-                problemType != null && problemType[0] != ''
-                  ? problemType[0]
-                  : 'Sem tipo definido'
-              }
-              disabled={true}
-              name="tipo"
-              backgroundColor="#FAFAFA"
-              height="32px"
-            />
-          </div>
-        </section>
-
-        <section>
-          <h3>Descrição do problema:</h3>
-          <div className="description-problem">
-            <p>{ticket?.description ?? '...'}</p>
-            <p className="owner-comment">{ticket?.user.email}</p>
-          </div>
-        </section>
-
-        {solution ? (
-          <TicketSolution solution={solution} />
-        ) : null}
-
-        {comments.length !== 0 ? (
-          <section>
-            <h3>Discussão</h3>
-            <ul className="comments-block">
-              {comments.map((comment, index) => (
-                <TicketComment key={index} commentData={comment} canSetSolution={canSetSolution} handleSetSolution={handleSetSolution} />
-              ))}
-            </ul>
-          </section>
-        ) : null}
-
-        {status === 'done' ||
-        (user?.role === 'support' && !hasSupport) ? null : (
-          <section id="add-comment-container">
-            <TicketAddComment ref={formCommentRef} />
-            <div className="button-container">
+          {/* Removido temporáriamente por falta de definição */}
+          {/* <section className="ticket-resolve-content">
+            <h3>A resolução adicionada pelo suporte foi útil?</h3>
+            <div>
               <Button
-                backgroundColor="transparent"
-                color="var(--color-black-dark)"
-                width="4rem"
+                backgroundColor="var(--color-green)"
+                color="#FFFFFF"
+                width="7rem"
                 height="2rem"
-                fontSize="0.8rem"
-                fontWeight="600"
-                border="1px solid var(--color-black-main)"
-                onClick={handleSubmitComment}
               >
-                Enviar
+                Sim
+              </Button>
+              <Button
+                backgroundColor="var(--color-red)"
+                color="#FFFFFF"
+                width="7rem"
+                height="2rem"
+              >
+                Não
               </Button>
             </div>
-          </section>
-        )}
-
-        {/* Removido temporáriamente por falta de definição */}
-        {/* <section className="ticket-resolve-content">
-          <h3>A resolução adicionada pelo suporte foi útil?</h3>
-          <div>
-            <Button
-              backgroundColor="var(--color-green)"
-              color="#FFFFFF"
-              width="7rem"
-              height="2rem"
-            >
-              Sim
-            </Button>
-            <Button
-              backgroundColor="var(--color-red)"
-              color="#FFFFFF"
-              width="7rem"
-              height="2rem"
-            >
-              Não
-            </Button>
-          </div>
-        </section> */}
-      </main>
-      <Footer />
-    </Container>
+          </section> */}
+        </main>
+        <Footer />
+      </Container>
+    </>
   );
 }

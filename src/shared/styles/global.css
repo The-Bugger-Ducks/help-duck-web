@@ -8,8 +8,8 @@
 
 body {
   background-color: var(--color-white);
+  position: relative;
 }
-
 
 @media only screen and (max-width: 500px) {
   h1 {

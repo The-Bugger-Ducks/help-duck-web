@@ -11,14 +11,17 @@ import Footer from "../../shared/components/Footer";
 import Header from "../../shared/components/Header";
 import TextField from "../../shared/components/TextField";
 import ChoiceField from "../../shared/components/ChoiceField";
-import "../../shared/styles/pages/equipment/EquipmentUpdate.css";
 import ButtonDelete from "../../shared/components/ButtonDelete";
+import LoadingContainer from "../../shared/components/Loading/LoadingContainer";
+
+import "../../shared/styles/pages/equipment/EquipmentUpdate.css";
 
 export default function EquipmentUpdatePage() {
   const equipmentRequests = new EquipmentRequests();
   const navigate = useNavigate();
   const { id } = useParams();
 
+  const [loading, setLoading] = useState(false);
   const [name, setName] = useState("");
   const [model, setModel] = useState("");
   const [brand, setBrand] = useState("");
@@ -35,6 +38,7 @@ export default function EquipmentUpdatePage() {
   }, []);
 
   async function getEquipment() {
+    setLoading(true);
     const response: EquipmentUpdate = await equipmentRequests.listEquipmentByID(
       id ?? ""
     );
@@ -45,6 +49,7 @@ export default function EquipmentUpdatePage() {
     setType(response.type);
     setDepartment(response.department);
     handleDepartmentLabel(response.department);
+    setLoading(false)
   }
 
   function back() {
@@ -92,8 +97,10 @@ export default function EquipmentUpdatePage() {
   }
 
   async function deleteEquipment() {
+    setLoading(true);
     await equipmentRequests.deleteEquipment(id ?? "");
 
+    setLoading(false);
     alert("Equipamento deletado com sucesso!");
     navigate("/homepage");
   }
@@ -110,143 +117,148 @@ export default function EquipmentUpdatePage() {
       department: department,
     };
 
+    setLoading(true);
     await equipmentRequests.updateEquipment(payload);
 
+    setLoading(false);
     alert("Equipamento editado com sucesso!");
     navigate("/homepage");
   }
 
   return (
-    <div id="equipment-update">
-      <div className="equipment-update-container">
-        <Header hiddenDropdown={false} />
-        <div className="equipment-update-content">
-          <section className="equipment-update-title">
-            <h1>
-              <div>
-                <FiArrowLeft
-                  className="Icon"
-                  color="var(--color-gray-dark)"
-                  onClick={back}
-                />
-              </div>
-              Edição de equipamentos
-            </h1>
-          </section>
-          <form className="equipment-update-form" onSubmit={submitForm}>
-            <section className="form-sections">
-              <section className="equipment-update-data">
+    <>
+      <LoadingContainer loading={loading} />
+      <div id="equipment-update">
+        <div className="equipment-update-container">
+          <Header hiddenDropdown={false} />
+          <div className="equipment-update-content">
+            <section className="equipment-update-title">
+              <h1>
                 <div>
-                  <label htmlFor="name">Nome:</label>
-                  <TextField
-                    type="text"
-                    placeholder={name}
-                    onChange={(event) => setName(event.target.value)}
-                    name="name"
-                    backgroundColor="#FAFAFA"
+                  <FiArrowLeft
+                    className="Icon"
+                    color="var(--color-gray-dark)"
+                    onClick={back}
                   />
                 </div>
-                <div>
-                  <label htmlFor="brand">Marca:</label>
-                  <TextField
-                    name="brand"
-                    type="text"
-                    placeholder={brand}
-                    backgroundColor="#EDEDEE"
-                    disabled={true}
-                  />
-                </div>
-              </section>
-
-              <section className="equipment-update-data">
-                <div>
-                  <label htmlFor="model">Modelo:</label>
-                  <TextField
-                    type="text"
-                    placeholder={model}
-                    name="model"
-                    backgroundColor="#EDEDEE"
-                    disabled={true}
-                  />
-                </div>
-                <div>
-                  <label htmlFor="type">Tipo:</label>
-                  <TextField
-                    type="text"
-                    placeholder={type}
-                    name="type"
-                    backgroundColor="#EDEDEE"
-                    disabled={true}
-                  />
-                </div>
-              </section>
-              <section className="equipment-update-data">
-                <div>
-                  <label htmlFor="department">Departamento:</label>
-                  <ChoiceField
-                    name="department"
-                    items={[
-                      {
-                        selected: isSelected("marketingAndSales"),
-                        value: "marketingAndSales",
-                        label: "Marketing e vendas",
-                      },
-                      {
-                        selected: isSelected("financial"),
-                        value: "financial",
-                        label: "Financeiro",
-                      },
-                      {
-                        selected: isSelected("operations"),
-                        value: "operations",
-                        label: "Operações",
-                      },
-                      {
-                        selected: isSelected("rh"),
-                        value: "rh",
-                        label: "RH",
-                      },
-                      {
-                        selected: isSelected("eps"),
-                        value: "eps",
-                        label: "EPS",
-                      },
-                      {
-                        selected: isSelected("ti"),
-                        value: "ti",
-                        label: "TI",
-                      },
-                      {
-                        selected: isSelected("epdi"),
-                        value: "epdi",
-                        label: "EPDI",
-                      },
-                    ]}
-                    backgroundColor="#FAFAFA"
-                    onChange={(event) =>
-                      handleDepartmentValue(event.target.value)
-                    }
-                  />
-                </div>
-              </section>
+                Edição de equipamentos
+              </h1>
             </section>
-            <section className="equipment-update-submit">
-              <ButtonDelete
-                type="button"
-                width="15rem"
-                onClick={deleteEquipment}
-              >
-                Excluir equipamento
-              </ButtonDelete>
+            <form className="equipment-update-form" onSubmit={submitForm}>
+              <section className="form-sections">
+                <section className="equipment-update-data">
+                  <div>
+                    <label htmlFor="name">Nome:</label>
+                    <TextField
+                      type="text"
+                      placeholder={name}
+                      onChange={(event) => setName(event.target.value)}
+                      name="name"
+                      backgroundColor="#FAFAFA"
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="brand">Marca:</label>
+                    <TextField
+                      name="brand"
+                      type="text"
+                      placeholder={brand}
+                      backgroundColor="#EDEDEE"
+                      disabled={true}
+                    />
+                  </div>
+                </section>
 
-              <Button type="submit" width="15rem" color="#FAFAFA">
-                Editar equipamento
-              </Button>
-            </section>
-          </form>
+                <section className="equipment-update-data">
+                  <div>
+                    <label htmlFor="model">Modelo:</label>
+                    <TextField
+                      type="text"
+                      placeholder={model}
+                      name="model"
+                      backgroundColor="#EDEDEE"
+                      disabled={true}
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="type">Tipo:</label>
+                    <TextField
+                      type="text"
+                      placeholder={type}
+                      name="type"
+                      backgroundColor="#EDEDEE"
+                      disabled={true}
+                    />
+                  </div>
+                </section>
+                <section className="equipment-update-data">
+                  <div>
+                    <label htmlFor="department">Departamento:</label>
+                    <ChoiceField
+                      name="department"
+                      items={[
+                        {
+                          selected: isSelected("marketingAndSales"),
+                          value: "marketingAndSales",
+                          label: "Marketing e vendas",
+                        },
+                        {
+                          selected: isSelected("financial"),
+                          value: "financial",
+                          label: "Financeiro",
+                        },
+                        {
+                          selected: isSelected("operations"),
+                          value: "operations",
+                          label: "Operações",
+                        },
+                        {
+                          selected: isSelected("rh"),
+                          value: "rh",
+                          label: "RH",
+                        },
+                        {
+                          selected: isSelected("eps"),
+                          value: "eps",
+                          label: "EPS",
+                        },
+                        {
+                          selected: isSelected("ti"),
+                          value: "ti",
+                          label: "TI",
+                        },
+                        {
+                          selected: isSelected("epdi"),
+                          value: "epdi",
+                          label: "EPDI",
+                        },
+                      ]}
+                      backgroundColor="#FAFAFA"
+                      onChange={(event) =>
+                        handleDepartmentValue(event.target.value)
+                      }
+                    />
+                  </div>
+                </section>
+              </section>
+              <section className="equipment-update-submit">
+                <ButtonDelete
+                  type="button"
+                  width="15rem"
+                  onClick={deleteEquipment}
+                >
+                  Excluir equipamento
+                </ButtonDelete>
+
+                <Button type="submit" width="15rem" color="#FAFAFA">
+                  Editar equipamento
+                </Button>
+              </section>
+            </form>
+          </div>
+          <Footer />
         </div>
-        <Footer />
       </div>
-    </div>
+    </>
   );
 }
