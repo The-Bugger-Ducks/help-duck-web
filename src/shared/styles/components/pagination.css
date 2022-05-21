@@ -9,8 +9,6 @@
 
   font-weight: 300;
   font-size: 0.8rem;
-
-  border-bottom: 1px solid var(--color-gray-light);
 }
 
 .pagination-page-size {
