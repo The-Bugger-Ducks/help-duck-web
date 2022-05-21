@@ -114,6 +114,11 @@ export default function TicketRegister() {
       value: "epdi",
       label: "EPDI",
     },
+    {
+      selected: false,
+      value: "others",
+      label: "Outros",
+    },
   ];
 
   function handleDepartment(departmentValue: string) {
@@ -131,6 +136,8 @@ export default function TicketRegister() {
       setDepartment("TI");
     } else if (departmentValue == "epdi") {
       setDepartment("EPDI");
+    } else if (departmentValue == "others") {
+      setDepartment("Outros");
     }
   }
 

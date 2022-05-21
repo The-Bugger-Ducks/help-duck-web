@@ -65,6 +65,11 @@ export default function EquipmentRegister() {
       value: "epdi",
       label: "EPDI",
     },
+    {
+      selected: false,
+      value: "others",
+      label: "Outros",
+    },
   ];
 
   function handleDepartment(departmentValue: string) {
@@ -82,6 +87,8 @@ export default function EquipmentRegister() {
       setDepartment("TI");
     } else if (departmentValue == "epdi") {
       setDepartment("EPDI");
+    } else if (departmentValue == "others") {
+      setDepartment("Outros");
     }
   }
 

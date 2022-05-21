@@ -66,6 +66,8 @@ export default function EquipmentUpdatePage() {
       setDepartment("TI");
     } else if (departmentValue == "epdi") {
       setDepartment("EPDI");
+    } else if (departmentValue == "others") {
+      setDepartment("Outros");
     }
   }
 
@@ -84,6 +86,8 @@ export default function EquipmentUpdatePage() {
       setSelectedDepartment("ti");
     } else if (departmentLabel == "EPDI") {
       setSelectedDepartment("epdi");
+    } else if (departmentLabel == "Outros") {
+      setSelectedDepartment("others");
     }
   }
 
@@ -220,6 +224,11 @@ export default function EquipmentUpdatePage() {
                         selected: isSelected("epdi"),
                         value: "epdi",
                         label: "EPDI",
+                      },
+                      {
+                        selected: isSelected("others"),
+                        value: "others",
+                        label: "Outros",
                       },
                     ]}
                     backgroundColor="#FAFAFA"
