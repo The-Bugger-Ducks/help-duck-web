@@ -47,6 +47,7 @@ export default function DetailTicket() {
   const [hasSupport, setHasSupport] = useState<boolean>(false);
   const [solution, setSolution] = useState<Ticket["solution"]>();
   const [canSetSolution, setCanSetSolution] = useState<boolean>(false);
+  const [hiddenSolutionVote, setHiddenSolutionVote] = useState(false);
 
   const ticketRequest = new TicketRequests();
   const solutionRequest = new SolutionRequests();
@@ -168,6 +169,25 @@ export default function DetailTicket() {
 
   }
 
+  async function handleSolutionVote(vote : boolean) {
+    if (!solution) return;
+
+    try {
+      setLoading(true);
+      await solutionRequest.incrementVoteSolution({
+        solutionId: solution.id,
+        upVote: vote,
+        downVote: !vote
+      })
+      setHiddenSolutionVote(true);
+    } catch (error) {
+      setHiddenSolutionVote(false);      
+    } finally {
+      setLoading(false);
+    }
+
+  }
+
   return (
     <>
       <LoadingContainer loading={loading} />
@@ -273,7 +293,7 @@ export default function DetailTicket() {
           </section>
 
           {solution ? (
-            <TicketSolution solution={solution} />
+            <TicketSolution solution={solution} hiddenSolutionVote={hiddenSolutionVote} handleSolutionVote={handleSolutionVote}/>
           ) : null}
 
           {comments.length !== 0 ? (
