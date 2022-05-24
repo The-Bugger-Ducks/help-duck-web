@@ -9,14 +9,16 @@ import PriorityLevelBadge from "./PriorityLevelBadge";
 import { SortTicketTableTypes, OrderByTypes } from "../constants/sortTableEnum";
 import Ticket from "../interfaces/ticket.interface";
 import { status } from "../types/status";
+import CustomTableRow from "./Loading/CustomTableRow";
 
 import "../styles/components/TicketList.css";
 
 const TicketTable: React.FC<{
   tickets: Array<Ticket>,
   handleTableSorting: (type: SortTicketTableTypes, orderBy: OrderByTypes) => void,
-  status: status | ""
-}> = ({ tickets, handleTableSorting, status }) => {
+  status: status | "",
+  loading: boolean
+}> = ({ tickets, handleTableSorting, status, loading }) => {
   
   const navigate = useNavigate();
 
@@ -96,13 +98,8 @@ const TicketTable: React.FC<{
               />
             );
           })
-        ) : (
-          <tr>
-            <td colSpan={4} className="no-results">
-              Não foi encontrado nenhum chamado
-            </td>
-          </tr>
-        )}
+        ) : <CustomTableRow loading={loading} colSpan={4} typeTableRowText="chamado" />}
+
       </tbody>
     </table>
   );
