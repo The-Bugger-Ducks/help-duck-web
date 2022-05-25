@@ -12,6 +12,8 @@ import TextField from "../../shared/components/TextField";
 import ChoiceField from "../../shared/components/ChoiceField";
 import LoadingContainer from "../../shared/components/Loading/LoadingContainer";
 
+import { departmentList } from "../../shared/constants/departmentList";
+
 import SessionController from "../../shared/utils/handlers/SessionController";
 import "../../shared/styles/pages/ticket/TicketRegister.css";
 import { EquipmentUpdate } from "../../shared/interfaces/equipment.interface";
@@ -80,49 +82,6 @@ export default function TicketRegister() {
       equipmentList.push(listValue);
     });
 
-  const departmentList = [
-    {
-      selected: false,
-      value: "marketingAndSales",
-      label: "Marketing e vendas",
-    },
-    {
-      selected: false,
-      value: "financial",
-      label: "Financeiro",
-    },
-    {
-      selected: false,
-      value: "operations",
-      label: "Operações",
-    },
-    {
-      selected: false,
-      value: "rh",
-      label: "RH",
-    },
-    {
-      selected: false,
-      value: "eps",
-      label: "EPS",
-    },
-    {
-      selected: false,
-      value: "ti",
-      label: "TI",
-    },
-    {
-      selected: false,
-      value: "epdi",
-      label: "EPDI",
-    },
-    {
-      selected: false,
-      value: "others",
-      label: "Outros",
-    },
-  ];
-
   function handleDepartment(departmentValue: string) {
     if (departmentValue == "marketingAndSales") {
       setDepartment("Marketing e vendas");
@@ -151,10 +110,12 @@ export default function TicketRegister() {
   }
 
   const getEquipmentsList = async (sorting?: string) => {
+    setLoading(true);
     const response: { content: [] } =
       await equipmentRequest.listEquipmentRequest(sorting);
     const equipments: EquipmentUpdate[] = response.content;
     setEquipments(equipments);
+    setLoading(false);
   };
 
   async function submitForm(event: FormEvent) {
@@ -219,19 +180,32 @@ export default function TicketRegister() {
             <form className="ticket-register-form" onSubmit={submitForm}>
               <section className="form-sections">
                 <section className="ticket-register-data">
-                  <div className="ticket-register-ticket-title">
-                    <label htmlFor="titulo">Título:</label>
-                    <TextField
-                      type="text"
-                      placeholder="Título do chamado"
-                      onChange={(event) => setTitle(event.target.value)}
-                      name="titulo"
-                      height={"32px"}
-                      backgroundColor={"#FAFAFA"}
-                    />
+                  <div className="ticket-register-dual-select">
+                    <div className="ticket-register-ticket-title">
+                      <label htmlFor="titulo">Título:</label>
+                      <TextField
+                        type="text"
+                        placeholder="Título do chamado"
+                        onChange={(event) => setTitle(event.target.value)}
+                        name="titulo"
+                        height={"32px"}
+                        backgroundColor={"#FAFAFA"}
+                      />
+                    </div>
+                    <div className="ticket-register-select">
+                      <label htmlFor="tipo">Tipo de problema:</label>
+                      <ChoiceField
+                        onChange={(event) => setProblemType(event.target.value)}
+                        name="tipo"
+                        items={ticketProblemTypes}
+                        padding={"0.2rem"}
+                        height={"32px"}
+                        backgroundColor={"#FAFAFA"}
+                      />
+                    </div>
                   </div>
                   <div className="ticket-register-dual-select">
-                    <div className="ticket-register-select first">
+                    <div>
                       <label htmlFor="prioridade">Grau de prioridade:</label>
                       <ChoiceField
                         onChange={(event) =>
@@ -244,12 +218,31 @@ export default function TicketRegister() {
                         backgroundColor={"#FAFAFA"}
                       />
                     </div>
-                    <div className="ticket-register-select">
-                      <label htmlFor="tipo">Tipo de problema:</label>
+                    <div id="inputs">
+                      <label htmlFor="department">
+                        Departamento solicitante:
+                      </label>
                       <ChoiceField
-                        onChange={(event) => setProblemType(event.target.value)}
-                        name="tipo"
-                        items={ticketProblemTypes}
+                        onChange={(event) =>
+                          handleDepartment(event.target.value)
+                        }
+                        name="department"
+                        items={departmentList()}
+                        padding={"0.2rem"}
+                        height={"32px"}
+                        backgroundColor={"#FAFAFA"}
+                      />
+                    </div>
+                    <div id="inputs">
+                      <label htmlFor="equipment">
+                        Equipamento relacionado:
+                      </label>
+                      <ChoiceField
+                        onChange={(event) =>
+                          handleEquipment(event.target.value)
+                        }
+                        name="equipment"
+                        items={equipmentList}
                         padding={"0.2rem"}
                         height={"32px"}
                         backgroundColor={"#FAFAFA"}
