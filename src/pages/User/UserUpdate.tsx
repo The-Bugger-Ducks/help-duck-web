@@ -59,8 +59,8 @@ export default function UserUpdate() {
 
     const response: User = await userRequest.showRequest(id ?? "");
 
-    setEmailPlaceholder(response.email)
-    setEmail(response.email)
+    setEmailPlaceholder(response.email);
+    setEmail(response.email);
     setNamePlaceholder(response.firstName);
     setName(response.firstName);
     setLastNamePlaceholder(response.lastName);
@@ -114,20 +114,26 @@ export default function UserUpdate() {
     }
   }, []);
 
+  function handleConfirmPassword() {
+    if (!isUser) {
+      console.log("auuu");
+    }
+  }
+
   function DeleteButton() {
     return (
       <>
-        { user?.id !== id && user?.role === "admin" ? (
+        {user?.id !== id && user?.role === "admin" ? (
           <ButtonDelete
             type="button"
             width="15rem"
             onClick={() => submitUserDelete(id)}
-            >
+          >
             Deletar usuário
           </ButtonDelete>
-        ) : null } 
-      </>     
-    )
+        ) : null}
+      </>
+    );
   }
 
   async function submitUserUpdate(event: FormEvent) {
@@ -176,7 +182,7 @@ export default function UserUpdate() {
 
     setLoading(true);
     const response = await userRequest.deleteRequest(id);
-    
+
     setLoading(false);
 
     if (response?.status === 200) {
@@ -228,7 +234,7 @@ export default function UserUpdate() {
                     onChange={(event) => setLastname(event.target.value)}
                     name="lastname"
                     disabled={isUser}
-                    />
+                  />
                 </div>
               </section>
 
@@ -241,8 +247,21 @@ export default function UserUpdate() {
                     onChange={(event) => setEmail(event.target.value)}
                     name="email"
                     disabled={isAdmin}
-                    />
+                  />
                 </div>
+
+                <div>
+                  <label htmlFor="role">Cargo</label>
+                  <SelectInput
+                    onChange={(event) => setRole(event.target.value)}
+                    name="role"
+                    items={userProfiles}
+                    disabled={isAdmin}
+                  />
+                </div>
+              </section>
+
+              <section className="user-update-data">
                 <div>
                   <label htmlFor="password">Senha</label>
                   <TextField
@@ -251,19 +270,17 @@ export default function UserUpdate() {
                     name="password"
                     type="password"
                     disabled={isUser}
-                    />
+                  />
                 </div>
-              </section>
-
-              <section className="user-update-data">
                 <div>
-                  <label htmlFor="role">Cargo</label>
-                  <SelectInput
-                    onChange={(event) => setRole(event.target.value)}
-                    name="role"
-                    items={userProfiles}
-                    disabled={isAdmin}
-                    />
+                  <label htmlFor="password">Confirmar senha</label>
+                  <TextField
+                    placeholder="Senha"
+                    onChange={() => handleConfirmPassword()}
+                    name="password"
+                    type="password"
+                    disabled={isUser}
+                  />
                 </div>
               </section>
             </section>
@@ -271,7 +288,11 @@ export default function UserUpdate() {
             <section className="user-update-submit">
               <DeleteButton />
 
-              <Button width="15rem" type="submit" color="var(--color-white-light)">
+              <Button
+                width="15rem"
+                type="submit"
+                color="var(--color-white-light)"
+              >
                 Confirmar alteração
               </Button>
             </section>

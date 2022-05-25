@@ -37,7 +37,7 @@
   column-gap: 2rem;
 }
 
-#user-update .user-update-form input {
+#user-update .user-update-form .input-primary {
   margin-top: 0.5rem;
   margin-bottom: 1rem;
 }
