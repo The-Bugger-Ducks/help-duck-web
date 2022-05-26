@@ -1,11 +1,20 @@
+#component-container main {
+  padding: 0;
+}
+
 #detail-ticket {
   flex: 1;
   display: flex;
   flex-direction: column;
   gap: 1.3rem;
-
   max-height: 100%;
   overflow-y: auto;
+  padding: 3% 10% !important;
+}
+
+#component-container Header {
+  width: 100%;
+  padding: 0% 10%;
 }
 
 #detail-ticket h1,
