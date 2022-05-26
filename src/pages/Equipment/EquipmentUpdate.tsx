@@ -28,8 +28,6 @@ export default function EquipmentUpdatePage() {
   const [model, setModel] = useState("");
   const [brand, setBrand] = useState("");
   const [type, setType] = useState("");
-  const [department, setDepartment] = useState("");
-  const [selectedDepartment, setSelectedDepartment] = useState("");
 
   useEffect(() => {
     const subscribe = getEquipment();
@@ -49,53 +47,11 @@ export default function EquipmentUpdatePage() {
     setModel(response.model);
     setBrand(response.brand);
     setType(response.type);
-    setDepartment(response.department);
-    handleDepartmentLabel(response.department);
     setLoading(false);
   }
 
   function back() {
     navigate("/homepage");
-  }
-
-  function handleDepartmentValue(departmentValue: string) {
-    if (departmentValue == "marketingAndSales") {
-      setDepartment("Marketing e vendas");
-    } else if (departmentValue == "financial") {
-      setDepartment("Financeiro");
-    } else if (departmentValue == "operations") {
-      setDepartment("Operações");
-    } else if (departmentValue == "rh") {
-      setDepartment("RH");
-    } else if (departmentValue == "eps") {
-      setDepartment("EPS");
-    } else if (departmentValue == "ti") {
-      setDepartment("TI");
-    } else if (departmentValue == "epdi") {
-      setDepartment("EPDI");
-    } else if (departmentValue == "others") {
-      setDepartment("Outros");
-    }
-  }
-
-  function handleDepartmentLabel(departmentLabel: string) {
-    if (departmentLabel == "Marketing e vendas") {
-      setSelectedDepartment("marketingAndSales");
-    } else if (departmentLabel == "Financeiro") {
-      setSelectedDepartment("financial");
-    } else if (departmentLabel == "Operações") {
-      setSelectedDepartment("operations");
-    } else if (departmentLabel == "RH") {
-      setSelectedDepartment("rh");
-    } else if (departmentLabel == "EPS") {
-      setSelectedDepartment("eps");
-    } else if (departmentLabel == "TI") {
-      setSelectedDepartment("ti");
-    } else if (departmentLabel == "EPDI") {
-      setSelectedDepartment("epdi");
-    } else if (departmentLabel == "Outros") {
-      setSelectedDepartment("others");
-    }
   }
 
   async function deleteEquipment() {
@@ -116,7 +72,6 @@ export default function EquipmentUpdatePage() {
       model: model,
       brand: brand,
       type: type,
-      department: department,
     };
 
     setLoading(true);
@@ -193,19 +148,6 @@ export default function EquipmentUpdatePage() {
                     />
                   </div>
                 </section>
-                <section className="equipment-update-data">
-                  <div>
-                    <label htmlFor="department">Departamento</label>
-                    <ChoiceField
-                      name="department"
-                      items={departmentListVariable(selectedDepartment)}
-                      backgroundColor="#FAFAFA"
-                      onChange={(event) =>
-                        handleDepartmentValue(event.target.value)
-                      }
-                    />
-                  </div>
-                </section>
               </section>
               <section className="equipment-update-submit">
                 <ButtonDelete
@@ -215,7 +157,6 @@ export default function EquipmentUpdatePage() {
                 >
                   Excluir
                 </ButtonDelete>
-
                 <Button type="submit" width="15rem" color="#FAFAFA">
                   Editar
                 </Button>

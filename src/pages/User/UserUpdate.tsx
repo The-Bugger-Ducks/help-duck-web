@@ -3,7 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 
 import { UserRequests } from "../../shared/utils/requests/User.requests";
 import { FiArrowLeft } from "react-icons/fi";
-
+import { departmentListVariable } from "../../shared/constants/departmentList";
 import Button from "../../shared/components/Button";
 import ButtonDelete from "../../shared/components/ButtonDelete";
 import Footer from "../../shared/components/Footer";
@@ -17,6 +17,7 @@ import { User } from "../../shared/interfaces/user.interface";
 import SessionController from "../../shared/utils/handlers/SessionController";
 
 import "../../shared/styles/pages/user/UserUpdate.css";
+import ChoiceField from "../../shared/components/ChoiceField";
 
 type Role = {
   value: string;
@@ -31,7 +32,8 @@ export default function UserUpdate() {
   const [name, setName] = useState("");
   const [lastname, setLastname] = useState("");
   const [role, setRole] = useState<"admin" | "support" | "client">();
-
+  const [selectedDepartment, setSelectedDepartment] = useState("");
+  const [department, setDepartment] = useState("");
   const [emailPlaceholder, setEmailPlaceholder] = useState("");
   const [namePlaceholder, setNamePlaceholder] = useState("");
   const [lastnamePlaceholder, setLastNamePlaceholder] = useState("");
@@ -53,6 +55,46 @@ export default function UserUpdate() {
   const user = SessionController.getUserInfo();
 
   const userRequest = new UserRequests();
+
+  function handleDepartmentValue(departmentValue: string) {
+    if (departmentValue == "marketingAndSales") {
+      setDepartment("Marketing e vendas");
+    } else if (departmentValue == "financial") {
+      setDepartment("Financeiro");
+    } else if (departmentValue == "operations") {
+      setDepartment("Operações");
+    } else if (departmentValue == "rh") {
+      setDepartment("RH");
+    } else if (departmentValue == "eps") {
+      setDepartment("EPS");
+    } else if (departmentValue == "ti") {
+      setDepartment("TI");
+    } else if (departmentValue == "epdi") {
+      setDepartment("EPDI");
+    } else if (departmentValue == "others") {
+      setDepartment("Outros");
+    }
+  }
+
+  function handleDepartmentLabel(departmentLabel: string) {
+    if (departmentLabel == "Marketing e vendas") {
+      setSelectedDepartment("marketingAndSales");
+    } else if (departmentLabel == "Financeiro") {
+      setSelectedDepartment("financial");
+    } else if (departmentLabel == "Operações") {
+      setSelectedDepartment("operations");
+    } else if (departmentLabel == "RH") {
+      setSelectedDepartment("rh");
+    } else if (departmentLabel == "EPS") {
+      setSelectedDepartment("eps");
+    } else if (departmentLabel == "TI") {
+      setSelectedDepartment("ti");
+    } else if (departmentLabel == "EPDI") {
+      setSelectedDepartment("epdi");
+    } else if (departmentLabel == "Outros") {
+      setSelectedDepartment("others");
+    }
+  }
 
   const getUser = async () => {
     setLoading(true);
@@ -84,6 +126,8 @@ export default function UserUpdate() {
         selected: response.role === "admin",
       },
     ]);
+    setDepartment(response.department);
+    handleDepartmentLabel(response.department);
     setLoading(false);
   };
 
@@ -164,6 +208,7 @@ export default function UserUpdate() {
       firstName: name,
       lastName: lastname,
       role: role!,
+      department: department,
     };
 
     setLoading(true);
@@ -279,7 +324,17 @@ export default function UserUpdate() {
                     disabled={isUser}
                   />
                 </div>
-                {/* Adicionar campo de departamento aqui */}
+                <div>
+                  <label htmlFor="department">Departamento</label>
+                  <ChoiceField
+                    name="department"
+                    items={departmentListVariable(selectedDepartment)}
+                    backgroundColor="#FAFAFA"
+                    onChange={(event) =>
+                      handleDepartmentValue(event.target.value)
+                    }
+                  />
+                </div>
               </section>
             </section>
 
