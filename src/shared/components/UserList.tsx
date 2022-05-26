@@ -14,7 +14,7 @@ import { Pageable } from "../interfaces/pagable.interface";
 
 import "../styles/components/UserList.css";
 
-export default function TicketList() {
+export default function UserList({filterUserList} : {filterUserList: string})  {
   const userRequest = new UserRequests();
 
   const [loading, setLoading] = useState(false);
@@ -29,6 +29,8 @@ export default function TicketList() {
   const [pageSize, setPageSize] = useState(20);
   const [pageNumber, setPageNumber] = useState(0);
 
+  const [listUserToFilter, setListUserToFilter] = useState<User[]>();
+
   const tableHeaderOptions = [
     { text: "Nome", type: SortUserTableTypes.name },
     { text: "Email", type: SortUserTableTypes.email },
@@ -39,6 +41,10 @@ export default function TicketList() {
     getUserList();
   }, []);
 
+  useEffect(() => {
+    if (users) renderListUser(users);
+  }, [filterUserList])
+
   const getUserList = async (sorting?: string) => {
     setLoading(true);
     const response = await userRequest.listUserRequest(
@@ -48,8 +54,17 @@ export default function TicketList() {
     setLoading(false);
     
     setUsers(response.content ?? []);
+    renderListUser(response.content);
     setPageable(response);
   };
+
+  function renderListUser(userList: User[]) {
+    if (filterUserList && filterUserList !== "allUsers") {
+      setListUserToFilter(userList?.filter(user => user.role == filterUserList));
+    } else {
+      setListUserToFilter(userList)
+    }
+  }
 
   function handleClickOptionSort(
     event: MouseEvent,
@@ -148,8 +163,8 @@ export default function TicketList() {
                   </th>
                 ))}
               </tr>
-              {users && users.length > 0 ? (
-                users.map((user, index) => {
+              {listUserToFilter && listUserToFilter.length > 0 ? (
+                listUserToFilter.map((user, index) => {
                   return (
                     <UserComponent
                       name={`${user.firstName} ${user.lastName}`}

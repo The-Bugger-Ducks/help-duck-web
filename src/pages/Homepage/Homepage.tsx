@@ -71,6 +71,21 @@ export default function Homepage() {
           label: "Todos os usuários",
           selected: true,
         },
+        {
+          value: "admin",
+          label: "Administradores",
+          selected: false,
+        },
+        {
+          value: "support",
+          label: "Suportes",
+          selected: false,
+        },
+        {
+          value: "client",
+          label: "Comuns",
+          selected: false,
+        },
       ]);
     }
   }, []);
@@ -115,7 +130,7 @@ export default function Homepage() {
         </section>
         {userInformation?.role === "admin" ? (
           <>
-            <UserList />
+            <UserList filterUserList={statusFilter} />
             <div className="btn-create-user">
               <Link to="/signup">
                 <Button width="20%">Cadastrar usuário</Button>
