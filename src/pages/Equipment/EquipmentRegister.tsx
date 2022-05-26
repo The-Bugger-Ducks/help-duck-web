@@ -5,6 +5,7 @@ import { FiArrowLeft } from "react-icons/fi";
 
 import { EquipmentRequests } from "../../shared/utils/requests/Equipment.requests";
 import { Equipment } from "../../shared/interfaces/equipment.interface";
+import { departmentList } from "../../shared/constants/departmentList";
 
 import Button from "../../shared/components/Button";
 import Footer from "../../shared/components/Footer";
@@ -32,6 +33,26 @@ export default function EquipmentRegister() {
     navigate("/homepage");
   }
 
+  function handleDepartment(departmentValue: string) {
+    if (departmentValue === "marketingAndSales") {
+      setDepartment("Marketing e vendas");
+    } else if (departmentValue === "financial") {
+      setDepartment("Financeiro");
+    } else if (departmentValue === "operations") {
+      setDepartment("Operações");
+    } else if (departmentValue === "rh") {
+      setDepartment("RH");
+    } else if (departmentValue === "eps") {
+      setDepartment("EPS");
+    } else if (departmentValue === "ti") {
+      setDepartment("TI");
+    } else if (departmentValue === "epdi") {
+      setDepartment("EPDI");
+    } else if (departmentValue == "others") {
+      setDepartment("Outros");
+    }
+  }
+
   async function submitForm(event: FormEvent) {
     event.preventDefault();
     if (name === "" || model === "" || brand === "" || type === "") {
@@ -39,7 +60,6 @@ export default function EquipmentRegister() {
     }
 
     const user = SessionController.getUserInfo();
-    // setDepartment(user?.department);
     if (!user) return alert("Não foi possivel cadastrar seu chamado");
 
     const payload: Equipment = {
@@ -47,7 +67,7 @@ export default function EquipmentRegister() {
       model: model,
       brand: brand,
       type: type,
-      // department: department,
+      department: department,
     };
 
     setLoading(true);
@@ -124,6 +144,18 @@ export default function EquipmentRegister() {
                       onChange={(event) => setType(event.target.value)}
                       name="type"
                       backgroundColor="#FAFAFA"
+                    />
+                  </div>
+                </section>
+
+                <section className="equipment-register-data">
+                  <div>
+                    <label htmlFor="department">Departamento</label>
+                    <ChoiceField
+                      name="department"
+                      items={departmentList()}
+                      backgroundColor="#FAFAFA"
+                      onChange={(event) => handleDepartment(event.target.value)}
                     />
                   </div>
                 </section>
