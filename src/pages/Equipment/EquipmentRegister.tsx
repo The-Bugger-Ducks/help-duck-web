@@ -3,8 +3,6 @@ import { useNavigate } from "react-router-dom";
 
 import { FiArrowLeft } from "react-icons/fi";
 
-import { departmentList } from "../../shared/constants/departmentList";
-
 import { EquipmentRequests } from "../../shared/utils/requests/Equipment.requests";
 import { Equipment } from "../../shared/interfaces/equipment.interface";
 
@@ -28,6 +26,7 @@ export default function EquipmentRegister() {
   const [model, setModel] = useState("");
   const [brand, setBrand] = useState("");
   const [type, setType] = useState("");
+  const [department, setDepartment] = useState("");
 
   function back() {
     navigate("/homepage");
@@ -40,6 +39,7 @@ export default function EquipmentRegister() {
     }
 
     const user = SessionController.getUserInfo();
+    // setDepartment(user?.department);
     if (!user) return alert("Não foi possivel cadastrar seu chamado");
 
     const payload: Equipment = {
@@ -47,6 +47,7 @@ export default function EquipmentRegister() {
       model: model,
       brand: brand,
       type: type,
+      // department: department,
     };
 
     setLoading(true);
