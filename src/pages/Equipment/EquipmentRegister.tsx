@@ -28,41 +28,14 @@ export default function EquipmentRegister() {
   const [model, setModel] = useState("");
   const [brand, setBrand] = useState("");
   const [type, setType] = useState("");
-  const [department, setDepartment] = useState("");
 
   function back() {
     navigate("/homepage");
   }
 
-  function handleDepartment(departmentValue: string) {
-    if (departmentValue === "marketingAndSales") {
-      setDepartment("Marketing e vendas");
-    } else if (departmentValue === "financial") {
-      setDepartment("Financeiro");
-    } else if (departmentValue === "operations") {
-      setDepartment("Operações");
-    } else if (departmentValue === "rh") {
-      setDepartment("RH");
-    } else if (departmentValue === "eps") {
-      setDepartment("EPS");
-    } else if (departmentValue === "ti") {
-      setDepartment("TI");
-    } else if (departmentValue === "epdi") {
-      setDepartment("EPDI");
-    } else if (departmentValue == "others") {
-      setDepartment("Outros");
-    }
-  }
-
   async function submitForm(event: FormEvent) {
     event.preventDefault();
-    if (
-      name === "" ||
-      model === "" ||
-      brand === "" ||
-      type === "" ||
-      department === "defaultValue"
-    ) {
+    if (name === "" || model === "" || brand === "" || type === "") {
       return alert("Preencha todos os campos");
     }
 
@@ -74,7 +47,6 @@ export default function EquipmentRegister() {
       model: model,
       brand: brand,
       type: type,
-      department: department,
     };
 
     setLoading(true);
@@ -151,17 +123,6 @@ export default function EquipmentRegister() {
                       onChange={(event) => setType(event.target.value)}
                       name="type"
                       backgroundColor="#FAFAFA"
-                    />
-                  </div>
-                </section>
-                <section className="equipment-register-data">
-                  <div>
-                    <label htmlFor="department">Departamento</label>
-                    <ChoiceField
-                      name="department"
-                      items={departmentList()}
-                      backgroundColor="#FAFAFA"
-                      onChange={(event) => handleDepartment(event.target.value)}
                     />
                   </div>
                 </section>
