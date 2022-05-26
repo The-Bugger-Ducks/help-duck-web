@@ -103,10 +103,12 @@ export default function TicketRegister() {
   }
 
   async function handleEquipment(equipmentValue: string) {
+    setLoading(true);
     const searchedEquipment = await equipmentRequest.listEquipmentByID(
       equipmentValue
     );
     setEquipmentSelected(searchedEquipment);
+    setLoading(false);
   }
 
   const getEquipmentsList = async (sorting?: string) => {
