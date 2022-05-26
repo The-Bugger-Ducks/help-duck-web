@@ -15,7 +15,7 @@
 
 #login {
   height: 100vh;
-  width: 100vw;
+  width: 100%;
   background-color: var(--color-primary-main);
 }
 

@@ -1,13 +1,13 @@
 /* ESTILIZAÇÃO GERAL*/
 
 #equipment-update {
-  width: 99vw;
+  width: 100%;
   height: 99vh;
 }
 
 #equipment-update Header {
   padding-left: 5%;
-  width: 100vw;
+  width: 100%;
   height: 80px;
 }
 

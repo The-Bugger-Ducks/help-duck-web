@@ -325,7 +325,6 @@ export default function DetailTicket() {
                 name="tipo"
                 backgroundColor="#FAFAFA"
                 height="32px"
-                width="80%"
                 />
             </div>
 

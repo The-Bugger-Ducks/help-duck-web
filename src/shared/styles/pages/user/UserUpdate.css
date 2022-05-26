@@ -1,13 +1,13 @@
 /* ESTILIZAÇÃO GERAL*/
 
 #user-update {
-  width: 99vw;
+  width: 100%;
   height: 99vh;
 }
 
 #user-update Header {
   padding-left: 5%;
-  width: 100vw;
+  width: 100%;
   height: 80px;
 }
 

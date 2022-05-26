@@ -1,13 +1,13 @@
 /* ESTILIZAÇÃO GERAL*/
 
 #equipment-register {
-  width: 100vw;
+  width: 100%;
   height: 100vh;
 }
 
 #equipment-register Header {
   padding-left: 5%;
-  width: 100vw;
+  width: 100%;
   height: 80px;
 }
 
