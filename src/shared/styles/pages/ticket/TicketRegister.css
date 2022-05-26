@@ -43,15 +43,18 @@
   column-gap: 2rem;
 }
 
-#ticket-register .ticket-register-form input {
+#ticket-register .ticket-register-form input,
+#ticket-register .ticket-register-form select {
   margin-top: 0.5rem;
   margin-bottom: 1rem;
+  width: 50%;
 }
 
 #ticket-register
   .ticket-register-form
   .ticket-register-data
-  .ticket-register-ticket-title {
+  .ticket-register-ticket-title,
+#ticket-register .ticket-priority {
   width: 45%;
 }
 
@@ -68,7 +71,7 @@
   display: flex;
   justify-content: space-between;
 }
-
+/* 
 #ticket-register
   .ticket-register-form
   .ticket-register-data
@@ -76,12 +79,16 @@
   .first {
   margin-right: 5rem;
   width: 30%;
+} */
+#ticket-register #inputs .input-primary {
+  max-width: 100% !important;
 }
 
 #ticket-register
   .ticket-register-form
   .ticket-register-data
-  .ticket-register-select {
+  .ticket-register-select,
+#ticket-register .ticket-equipment {
   display: block;
   width: 50%;
 }
@@ -104,6 +111,7 @@
 #ticket-register .ticket-register-form .ticket-register-submit {
   text-align: end;
   padding-top: 1%;
+  padding-bottom: 1%;
 }
 
 #ticket-register .ticket-register-form select {
@@ -129,10 +137,6 @@
   position: fixed;
   bottom: 0;
   left: 0;
-}
-
-#ticket-register #inputs .input-primary {
-  max-width: 65rem !important;
 }
 
 @media only screen and (max-width: 583px) {
@@ -185,6 +189,7 @@
     .ticket-register-form
     .ticket-register-data
     .ticket-register-ticket-title,
+  #ticket-register .ticket-priority,
   #ticket-register
     .ticket-register-form
     .ticket-register-data
@@ -193,7 +198,8 @@
     .ticket-register-form
     .ticket-register-data
     .ticket-register-dual-select
-    .ticket-register-select {
+    .ticket-register-select,
+  #ticket-register .ticket-equipment {
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -218,6 +224,12 @@
 }
 
 @media only screen and (max-width: 583px) {
+  #ticket-register .ticket-register-form .ticket-register-submit {
+    text-align: end;
+    padding-top: 1%;
+    padding-bottom: 15% !important;
+  }
+
   #ticket-register .ticket-register-content {
     margin-left: 5%;
   }
@@ -259,6 +271,7 @@
     .ticket-register-form
     .ticket-register-data
     .ticket-register-ticket-title,
+  #ticket-register .ticket-priority,
   #ticket-register
     .ticket-register-form
     .ticket-register-data
@@ -268,6 +281,7 @@
     .ticket-register-data
     .ticket-register-dual-select
     .ticket-register-select,
+  #ticket-register .ticket-equipment,
   #ticket-register
     .ticket-register-form
     .ticket-register-data
