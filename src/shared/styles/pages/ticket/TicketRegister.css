@@ -26,13 +26,12 @@
 
 #ticket-register .ticket-register-title svg {
   padding: 0.2vw 0;
-  }
-
+}
 
 /* ESTILIZAÇÃO DO FORMULÁRIO */
 
 #ticket-register .ticket-register-form {
-  padding: 3% 0%;
+  padding: 3% 0 0 0;
   height: 50%;
   width: 100%;
   border-bottom: 100px;
@@ -155,7 +154,7 @@
   #ticket-register .ticket-register-title svg {
     padding: 0.2vw 0;
   }
-  
+
   #ticket-register #inputs .input-primary {
     max-width: 100% !important;
   }
@@ -235,7 +234,6 @@
   #ticket-register .ticket-register-title svg {
     padding: 0.2vw 0;
   }
-  
 
   #ticket-register .ticket-register-content {
     margin-top: 3rem;
