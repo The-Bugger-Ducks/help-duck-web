@@ -28,6 +28,28 @@ export default function EquipmentUpdatePage() {
   const [model, setModel] = useState("");
   const [brand, setBrand] = useState("");
   const [type, setType] = useState("");
+  const [selectedDepartment, setSelectedDepartment] = useState("");
+  const [hadDepartment, setHadDepartment] = useState(false);
+
+  function handleDepartmentLabel(departmentLabel: string) {
+    if (departmentLabel == "Marketing e vendas") {
+      setSelectedDepartment("marketingAndSales");
+    } else if (departmentLabel == "Financeiro") {
+      setSelectedDepartment("financial");
+    } else if (departmentLabel == "Operações") {
+      setSelectedDepartment("operations");
+    } else if (departmentLabel == "RH") {
+      setSelectedDepartment("rh");
+    } else if (departmentLabel == "EPS") {
+      setSelectedDepartment("eps");
+    } else if (departmentLabel == "TI") {
+      setSelectedDepartment("ti");
+    } else if (departmentLabel == "EPDI") {
+      setSelectedDepartment("epdi");
+    } else if (departmentLabel == "Outros") {
+      setSelectedDepartment("others");
+    }
+  }
 
   useEffect(() => {
     const subscribe = getEquipment();
@@ -48,6 +70,13 @@ export default function EquipmentUpdatePage() {
     setBrand(response.brand);
     setType(response.type);
     setLoading(false);
+
+    if (response.department) {
+      handleDepartmentLabel(response.department);
+      setHadDepartment(true);
+    } else {
+      setHadDepartment(false);
+    }
   }
 
   function back() {
@@ -125,7 +154,6 @@ export default function EquipmentUpdatePage() {
                     />
                   </div>
                 </section>
-
                 <section className="equipment-update-data">
                   <div>
                     <label htmlFor="model">Modelo</label>
@@ -148,6 +176,21 @@ export default function EquipmentUpdatePage() {
                     />
                   </div>
                 </section>
+                {hadDepartment ? (
+                  <section className="equipment-update-data">
+                    <div>
+                      <label htmlFor="department">Departamento</label>
+                      <ChoiceField
+                        name="department"
+                        items={departmentListVariable(selectedDepartment)}
+                        backgroundColor="rgb(237, 237, 238)"
+                        disabled={true}
+                      />
+                    </div>
+                  </section>
+                ) : (
+                  ""
+                )}
               </section>
               <section className="equipment-update-submit">
                 <ButtonDelete
@@ -157,6 +200,7 @@ export default function EquipmentUpdatePage() {
                 >
                   Excluir
                 </ButtonDelete>
+
                 <Button type="submit" width="15rem" color="#FAFAFA">
                   Editar
                 </Button>
