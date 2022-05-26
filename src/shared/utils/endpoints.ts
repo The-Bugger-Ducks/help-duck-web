@@ -1,9 +1,9 @@
 export enum USER_ENDPOINTS {
-  USER_LOGIN = "/auth/authentication",
-  USER_REGISTER = "/users/create",
-  USER_UPDATE = "/users/update",
+  USER_LOGIN = '/auth/authentication',
+  USER_REGISTER = '/users/create',
+  USER_UPDATE = '/users/update',
   USER_DELETE = `/users/delete/`,
-  USER_DETAILS = "/users/",
+  USER_DETAILS = '/users/',
 }
 
 export enum TICKET_ENDPOINTS {
@@ -28,4 +28,9 @@ export enum EQUIPMENT_ENDPOINTS {
 export enum SOLUTION_ENDPOINTS {
   SOLUTION_CREATE = `/solutions/create`,
   SOLUTION_VOTE = `/solutions/vote`,
+}
+
+export enum PROBLEM_ENDPOINTS {
+  PROBLEM_LIST = `/problems`,
+  PROBLEM_DETAILS = `/problems/`,
 }
