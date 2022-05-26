@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 
 import { FiArrowLeft } from "react-icons/fi";
 
+import { departmentList } from "../../shared/constants/departmentList";
+
 import { EquipmentRequests } from "../../shared/utils/requests/Equipment.requests";
 import { Equipment } from "../../shared/interfaces/equipment.interface";
 
@@ -47,6 +49,8 @@ export default function EquipmentRegister() {
       setDepartment("TI");
     } else if (departmentValue === "epdi") {
       setDepartment("EPDI");
+    } else if (departmentValue == "others") {
+      setDepartment("Outros");
     }
   }
 
@@ -73,7 +77,7 @@ export default function EquipmentRegister() {
       department: department,
     };
 
-    setLoading(true)
+    setLoading(true);
     const response = await equipmentRequests.createEquipment(payload);
 
     setLoading(false);
@@ -155,43 +159,7 @@ export default function EquipmentRegister() {
                     <label htmlFor="department">Departamento</label>
                     <ChoiceField
                       name="department"
-                      items={[
-                        {
-                          selected: false,
-                          value: "marketingAndSales",
-                          label: "Marketing e vendas",
-                        },
-                        {
-                          selected: false,
-                          value: "financial",
-                          label: "Financeiro",
-                        },
-                        {
-                          selected: false,
-                          value: "operations",
-                          label: "Operações",
-                        },
-                        {
-                          selected: false,
-                          value: "rh",
-                          label: "RH",
-                        },
-                        {
-                          selected: false,
-                          value: "eps",
-                          label: "EPS",
-                        },
-                        {
-                          selected: false,
-                          value: "ti",
-                          label: "TI",
-                        },
-                        {
-                          selected: false,
-                          value: "epdi",
-                          label: "EPDI",
-                        },
-                      ]}
+                      items={departmentList()}
                       backgroundColor="#FAFAFA"
                       onChange={(event) => handleDepartment(event.target.value)}
                     />

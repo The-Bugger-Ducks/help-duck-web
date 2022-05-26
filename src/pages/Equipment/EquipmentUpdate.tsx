@@ -1,6 +1,8 @@
 import { useState, FormEvent, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
+import { departmentListVariable } from "../../shared/constants/departmentList";
+
 import { FiArrowLeft } from "react-icons/fi";
 
 import { EquipmentRequests } from "../../shared/utils/requests/Equipment.requests";
@@ -49,7 +51,7 @@ export default function EquipmentUpdatePage() {
     setType(response.type);
     setDepartment(response.department);
     handleDepartmentLabel(response.department);
-    setLoading(false)
+    setLoading(false);
   }
 
   function back() {
@@ -71,6 +73,8 @@ export default function EquipmentUpdatePage() {
       setDepartment("TI");
     } else if (departmentValue == "epdi") {
       setDepartment("EPDI");
+    } else if (departmentValue == "others") {
+      setDepartment("Outros");
     }
   }
 
@@ -89,11 +93,9 @@ export default function EquipmentUpdatePage() {
       setSelectedDepartment("ti");
     } else if (departmentLabel == "EPDI") {
       setSelectedDepartment("epdi");
+    } else if (departmentLabel == "Outros") {
+      setSelectedDepartment("others");
     }
-  }
-
-  function isSelected(value: string) {
-    return value === selectedDepartment ? true : false;
   }
 
   async function deleteEquipment() {
@@ -196,43 +198,7 @@ export default function EquipmentUpdatePage() {
                     <label htmlFor="department">Departamento</label>
                     <ChoiceField
                       name="department"
-                      items={[
-                        {
-                          selected: isSelected("marketingAndSales"),
-                          value: "marketingAndSales",
-                          label: "Marketing e vendas",
-                        },
-                        {
-                          selected: isSelected("financial"),
-                          value: "financial",
-                          label: "Financeiro",
-                        },
-                        {
-                          selected: isSelected("operations"),
-                          value: "operations",
-                          label: "Operações",
-                        },
-                        {
-                          selected: isSelected("rh"),
-                          value: "rh",
-                          label: "RH",
-                        },
-                        {
-                          selected: isSelected("eps"),
-                          value: "eps",
-                          label: "EPS",
-                        },
-                        {
-                          selected: isSelected("ti"),
-                          value: "ti",
-                          label: "TI",
-                        },
-                        {
-                          selected: isSelected("epdi"),
-                          value: "epdi",
-                          label: "EPDI",
-                        },
-                      ]}
+                      items={departmentListVariable(selectedDepartment)}
                       backgroundColor="#FAFAFA"
                       onChange={(event) =>
                         handleDepartmentValue(event.target.value)

@@ -1,7 +1,7 @@
 import { apiSolution } from "../../services/Api.service";
 
 import { SOLUTION_ENDPOINTS } from "../endpoints";
-import { CreateSolution, Solution } from "../../interfaces/solution.interface";
+import { CreateSolution, Solution, VoteSolution } from "../../interfaces/solution.interface";
 
 export class SolutionRequests {
   public async setSolutionTicket(solution: CreateSolution) {
@@ -13,6 +13,15 @@ export class SolutionRequests {
     } catch (error) {
       console.log(error);
       alert("Não foi possível definir a solução do chamado, tente novamente!");
+    }
+  }
+
+  public async incrementVoteSolution(vote: VoteSolution) {
+    try {
+      return await apiSolution.post(SOLUTION_ENDPOINTS.SOLUTION_VOTE, vote);
+    } catch (error) {
+      console.log(error);
+      alert("Não foi possível adicionar voto, tente novamente!");
     }
   }
 }

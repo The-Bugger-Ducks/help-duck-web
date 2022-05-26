@@ -27,4 +27,5 @@ export enum EQUIPMENT_ENDPOINTS {
 
 export enum SOLUTION_ENDPOINTS {
   SOLUTION_CREATE = `/solutions/create`,
+  SOLUTION_VOTE = `/solutions/vote`,
 }

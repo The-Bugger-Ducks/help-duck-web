@@ -109,7 +109,7 @@
 }
 
 #ticket-register .ticket-register-form select {
-  margin-top: 1rem;
+  margin-top: 0.5rem;
   margin-bottom: 1rem;
 }
 
@@ -133,6 +133,20 @@
   left: 0;
 }
 
+#ticket-register #inputs .input-primary {
+  max-width: 65rem !important;
+}
+
+@media only screen and (max-width: 583px) {
+  #ticket-register .ticket-register-form .form-sections {
+    margin-bottom: 3rem;
+  }
+
+  #ticket-register #inputs .input-primary {
+    max-width: 100% !important;
+  }
+}
+
 @media only screen and (min-width: 583px) and (max-width: 1227px) {
   #ticket-register .ticket-register-title h1 {
     font-size: 1.5rem;
@@ -143,6 +157,10 @@
     padding: 0.2vw 0;
   }
   
+  #ticket-register #inputs .input-primary {
+    max-width: 100% !important;
+  }
+
   #ticket-register .ticket-register-content {
     margin-left: 5%;
   }
