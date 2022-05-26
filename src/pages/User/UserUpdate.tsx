@@ -5,14 +5,18 @@ import { UserRequests } from "../../shared/utils/requests/User.requests";
 import { FiArrowLeft } from "react-icons/fi";
 
 import Button from "../../shared/components/Button";
+import ButtonDelete from "../../shared/components/ButtonDelete";
 import Footer from "../../shared/components/Footer";
 import Header from "../../shared/components/Header";
 import TextField from "../../shared/components/TextField";
-import { User } from "../../shared/interfaces/user.interface";
-import SessionController from "../../shared/utils/handlers/SessionController";
-import "../../shared/styles/pages/user/UserUpdate.css";
 import SelectInput from "../../shared/components/ChoiceField";
-import ButtonDelete from "../../shared/components/ButtonDelete";
+import LoadingContainer from "../../shared/components/Loading/LoadingContainer";
+
+import { User } from "../../shared/interfaces/user.interface";
+
+import SessionController from "../../shared/utils/handlers/SessionController";
+
+import "../../shared/styles/pages/user/UserUpdate.css";
 
 type Role = {
   value: string;
@@ -21,6 +25,7 @@ type Role = {
 };
 
 export default function UserUpdate() {
+  const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
@@ -50,6 +55,8 @@ export default function UserUpdate() {
   const userRequest = new UserRequests();
 
   const getUser = async () => {
+    setLoading(true);
+
     const response: User = await userRequest.showRequest(id ?? "");
 
     setEmailPlaceholder(response.email)
@@ -77,6 +84,7 @@ export default function UserUpdate() {
         selected: response.role === "admin",
       },
     ]);
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -145,7 +153,10 @@ export default function UserUpdate() {
       role: role!,
     };
 
+    setLoading(true);
     const response = await userRequest.updateRequest(payload);
+
+    setLoading(false);
 
     if (response?.status === 200) {
       alert("Usuário atualizado com sucesso!");
@@ -163,7 +174,10 @@ export default function UserUpdate() {
       return;
     }
 
+    setLoading(true);
     const response = await userRequest.deleteRequest(id);
+    
+    setLoading(false);
 
     if (response?.status === 200) {
       alert("Usuário excluido com sucesso!");
@@ -173,6 +187,7 @@ export default function UserUpdate() {
 
   return (
     <div id="user-update">
+      <LoadingContainer loading={loading} />
       <div className="user-update-container">
         <Header hiddenDropdown={true} />
         <div className="user-update-content">

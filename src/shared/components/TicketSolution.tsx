@@ -10,14 +10,12 @@ import "../styles/components/TicketSolution.css";
 
 interface Props {
   solution: Solution;
+  hiddenSolutionVote: boolean;
+  handleSolutionVote: (vote: boolean) => Promise<void>;
 }
 
-const TicketSolution: React.FC<Props> = ({ solution }) => {
+const TicketSolution: React.FC<Props> = ({ solution, hiddenSolutionVote, handleSolutionVote }) => {
   const { solutionComment } = solution;
-
-  async function handleSolutionVote(vote : boolean) {
-    return;
-  }
 
   const SolutionVoteContainer = () => {
     return (
@@ -63,7 +61,7 @@ const TicketSolution: React.FC<Props> = ({ solution }) => {
         <p>{solutionComment.comment}</p>
         
         <div className="footer-solution">
-          {/* <SolutionVoteContainer />   */}
+          {!hiddenSolutionVote ? <SolutionVoteContainer /> : null} 
           <small>
             {solutionComment.ownerComment.firstName}
             ({solutionComment.ownerComment.email})

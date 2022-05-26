@@ -9,11 +9,13 @@ import Footer from "../../shared/components/Footer";
 import Header from "../../shared/components/Header";
 import TextField from "../../shared/components/TextField";
 import ChoiceField from "../../shared/components/ChoiceField";
+import LoadingContainer from "../../shared/components/Loading/LoadingContainer";
 
 import SessionController from "../../shared/utils/handlers/SessionController";
 import "../../shared/styles/pages/user/Signup.css";
 
 export default function Signup() {
+  const [loading, setLoading] = useState(false);  
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
@@ -53,8 +55,10 @@ export default function Signup() {
       role: role,
     };
 
+    setLoading(true);
     const response = await userRequest.registerRequest(payload);
 
+    setLoading(false)
     if (response?.status === 201) {
       alert("Usuário cadastrado com sucesso!");
 
@@ -64,6 +68,7 @@ export default function Signup() {
 
   return (
     <div id="signup">
+      <LoadingContainer loading={loading} />
       <div className="signup-container">
         <Header hiddenDropdown={true} />
         <div className="signup-content">
