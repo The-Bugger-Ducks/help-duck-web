@@ -206,20 +206,23 @@ export default function DetailTicket() {
       <Container>
         <Header hiddenDropdown={false} />
         <main id="detail-ticket">
+          <section className="detail-ticket-title">
+            <h1 className="ticket-name">
+              <div>
+                <FiArrowLeft
+                  className="navigation-button"
+                  color="var(--color-gray-dark)"
+                  onClick={() => {
+                    navigate("/homepage");
+                  }}
+                />
+              </div>
+              {ticket?.title ?? 'Carregando...'}
+            </h1>
+          </section>
           <section className="ticket-about">
             <div>
-              <FiArrowLeft
-                className="navigation-button"
-                color="var(--color-gray-dark)"
-                onClick={() => {
-                  navigate("/homepage");
-                }}
-              />
-              <h1 className="ticket-name">
-                {ticket?.title ?? "Carregando..."}
-              </h1>
-
-              <p>Protocólo: #{ticket?.id ?? "..."}</p>
+              <p>Protocolo: #{ticket?.id ?? '...'}</p>
               <p>
                 <span className="detail-date-created">
                   <FiClock color="var(--color-gray-dark)" size="0.8rem" />{" "}
@@ -276,12 +279,12 @@ export default function DetailTicket() {
           </section>
 
           <section className="ticket-dual-info">
-            <article id="priority-dual-info">
+            <div className="ticket-priority">
               <h3>Grau de prioridade:</h3>
               <PriorityLevelBadge priority={priorityLevel} />
-            </article>
+            </div>
 
-            <article id="type-dual-info">
+            <div className="ticket-type">
               <h3>Tipo de problema:</h3>
               <TextField
                 title={
@@ -300,38 +303,38 @@ export default function DetailTicket() {
                 backgroundColor="#FAFAFA"
                 height="32px"
               />
-            </article>
+            </div>
           </section>
 
-          <section className="department-and-equipment">
-            <article>
+          <section className="ticket-dual-info">
+            <div className="ticket-department">
               <h3>Departamento:</h3>
               <TextField
                 title={
                   ticketDepartment != null && ticketDepartment != ""
-                    ? ticketDepartment
-                    : "Sem equipamento definido"
+                  ? ticketDepartment
+                  : "Sem equipamento definido"
                 }
                 type="text"
                 placeholder={
                   ticketDepartment != null && ticketDepartment != ""
-                    ? ticketDepartment
-                    : "Sem departamento definido"
+                  ? ticketDepartment
+                  : "Sem departamento definido"
                 }
                 disabled={true}
                 name="tipo"
                 backgroundColor="#FAFAFA"
                 height="32px"
-              />
-            </article>
+                />
+            </div>
 
-            <article>
+            <div className="ticket-equipment">
               <h3>Equipamento:</h3>
               <TextField
                 title={
                   ticketEquipment
-                    ? ticketEquipment.name
-                    : "Sem equipamento definido"
+                  ? ticketEquipment.name
+                  : "Sem equipamento definido"
                 }
                 type="text"
                 placeholder={
@@ -343,12 +346,12 @@ export default function DetailTicket() {
                 name="tipo"
                 backgroundColor="#FAFAFA"
                 height="32px"
-              />
-            </article>
+                />
+            </div>
           </section>
 
           <section>
-            <h3>Descrição do problema:</h3>
+            <h3>Descrição do problema</h3>
             <div className="description-problem">
               <p>{ticket?.description ?? "..."}</p>
               <p className="owner-comment">{ticket?.user.email}</p>
@@ -380,44 +383,31 @@ export default function DetailTicket() {
             <section id="add-comment-container">
               <TicketAddComment ref={formCommentRef} />
               <div className="button-container">
+              </div>
+            </section>)}
+            
+            {/* Removido temporáriamente por falta de definição
+            <section className="ticket-resolve-content">
+              <h3>A resolução adicionada pelo suporte foi útil?</h3>
+              <div>
                 <Button
-                  backgroundColor="transparent"
-                  color="var(--color-black-dark)"
-                  width="4rem"
+                  backgroundColor="var(--color-green)"
+                  color="#FFFFFF"
+                  width="7rem"
                   height="2rem"
-                  fontSize="0.8rem"
-                  fontWeight="600"
-                  border="1px solid var(--color-black-main)"
-                  onClick={handleSubmitComment}
                 >
-                  Enviar
+                  Sim
+                </Button>
+                <Button
+                  backgroundColor="var(--color-red)"
+                  color="#FFFFFF"
+                  width="7rem"
+                  height="2rem"
+                >
+                  Não
                 </Button>
               </div>
-            </section>
-          )}
-
-          {/* Removido temporáriamente por falta de definição */}
-          {/* <section className="ticket-resolve-content">
-            <h3>A resolução adicionada pelo suporte foi útil?</h3>
-            <div>
-              <Button
-                backgroundColor="var(--color-green)"
-                color="#FFFFFF"
-                width="7rem"
-                height="2rem"
-              >
-                Sim
-              </Button>
-              <Button
-                backgroundColor="var(--color-red)"
-                color="#FFFFFF"
-                width="7rem"
-                height="2rem"
-              >
-                Não
-              </Button>
-            </div>
-          </section> */}
+            </section> */}
         </main>
         <Footer />
       </Container>

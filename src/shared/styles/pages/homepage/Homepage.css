@@ -3,6 +3,11 @@
   margin-right: 10%;
 }
 
+#homepage Header {
+  padding: 0% 10%;
+  width: 100%;
+}
+
 #homepage .footer {
   position: fixed !important;
   margin-top: 1rem !important;

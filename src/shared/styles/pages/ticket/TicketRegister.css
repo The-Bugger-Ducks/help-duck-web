@@ -1,31 +1,38 @@
 /* ESTILIZAÇÃO GERAL*/
 
 #ticket-register {
-  width: 100vw;
+  width: 100%;
   height: 100vh;
 }
 
 #ticket-register Header {
-  padding-left: 5%;
-  width: 100vw;
-  height: 80px;
+  padding: 0% 10%;
+  width: 100%;
+}
+
+#ticket-register .ticket-register-content {
+  padding: 5% 10%;
 }
 
 /* ESTILIZAÇÃO DO TITULO E SUBTITULO DA PÁGINA */
-#ticket-register .ticket-register-content .ticket-register-title {
-  padding: 5% 10% 0 5%;
-}
-
 #ticket-register .ticket-register-title h1 {
+  display: flex;
+  align-items: center;
   font-size: 2rem;
   font-weight: 400;
   color: var(--color-black-light);
+  gap: 0.5rem;
 }
+
+#ticket-register .ticket-register-title svg {
+  padding: 0.2vw 0;
+  }
+
 
 /* ESTILIZAÇÃO DO FORMULÁRIO */
 
 #ticket-register .ticket-register-form {
-  padding: 2% 5%;
+  padding: 3% 0%;
   height: 50%;
   width: 100%;
   border-bottom: 100px;
@@ -140,6 +147,15 @@
 }
 
 @media only screen and (min-width: 583px) and (max-width: 1227px) {
+  #ticket-register .ticket-register-title h1 {
+    font-size: 1.5rem;
+    gap: 0.4rem;
+  }
+
+  #ticket-register .ticket-register-title svg {
+    padding: 0.2vw 0;
+  }
+  
   #ticket-register #inputs .input-primary {
     max-width: 100% !important;
   }
@@ -150,10 +166,6 @@
 
   #ticket-register .ticket-register-content .ticket-register-title {
     padding: 0 10% 0 5%;
-  }
-
-  #ticket-register .ticket-register-title h1 {
-    font-size: 1.5rem;
   }
 
   #ticket-register .ticket-register-content {
@@ -217,7 +229,13 @@
 
   #ticket-register .ticket-register-title h1 {
     font-size: 1.5rem;
+    gap: 0.4rem;
   }
+
+  #ticket-register .ticket-register-title svg {
+    padding: 0.2vw 0;
+  }
+  
 
   #ticket-register .ticket-register-content {
     margin-top: 3rem;
