@@ -120,6 +120,13 @@ export default function UserUpdate() {
     }
   }
 
+  function TitlePage() {
+    if (user?.id === id) {
+      return "Edição de perfil";
+    }
+    return "Detalhes do usuário";
+  }
+
   function DeleteButton() {
     return (
       <>
@@ -129,7 +136,7 @@ export default function UserUpdate() {
             width="15rem"
             onClick={() => submitUserDelete(id)}
           >
-            Deletar usuário
+            Excluir usuário
           </ButtonDelete>
         ) : null}
       </>
@@ -208,7 +215,7 @@ export default function UserUpdate() {
                   }}
                 />
               </div>
-              Editar perfil
+              {TitlePage()}
             </h1>
           </section>
           <form className="user-update-form" onSubmit={submitUserUpdate}>

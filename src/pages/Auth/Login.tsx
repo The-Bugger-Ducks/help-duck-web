@@ -98,7 +98,7 @@ export default function Login() {
               <span id="recover-password" onClick={() => alertForgotPassword()}>
                 Esqueceu a senha?
               </span>
-              <Button type="submit" width="100%">
+              <Button type="submit" width="75%">
                 Entrar
               </Button>
             </form>
