@@ -279,16 +279,7 @@ export default function UserUpdate() {
                     disabled={isUser}
                   />
                 </div>
-                <div>
-                  <label htmlFor="password">Confirmar senha</label>
-                  <TextField
-                    placeholder="Senha"
-                    onChange={() => handleConfirmPassword()}
-                    name="password"
-                    type="password"
-                    disabled={isUser}
-                  />
-                </div>
+                {/* Adicionar campo de departamento aqui */}
               </section>
             </section>
 
