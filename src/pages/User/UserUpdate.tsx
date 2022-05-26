@@ -329,10 +329,10 @@ export default function UserUpdate() {
                   <ChoiceField
                     name="department"
                     items={departmentListVariable(selectedDepartment)}
-                    backgroundColor="#FAFAFA"
                     onChange={(event) =>
                       handleDepartmentValue(event.target.value)
                     }
+                    disabled={isAdmin}
                   />
                 </div>
               </section>
