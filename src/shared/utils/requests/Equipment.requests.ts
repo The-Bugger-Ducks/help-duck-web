@@ -45,14 +45,17 @@ export class EquipmentRequests {
     }
   }
 
-  public async listEquipmentRequest() {
+  public async listEquipmentRequest(sorting?: string) {
+    let url = `${EQUIPMENT_ENDPOINTS.EQUIPMENT_LIST}`;
+
+    if (sorting) {
+      url = `${EQUIPMENT_ENDPOINTS.EQUIPMENT_LIST}?${sorting}`;
+    }
+
     try {
-      const response = await apiEquipment.get(
-        EQUIPMENT_ENDPOINTS.EQUIPMENT_LIST,
-        {
-          validateStatus,
-        }
-      );
+      const response = await apiEquipment.get(url, {
+        validateStatus,
+      });
       return response.data;
     } catch (error) {
       console.log(error);

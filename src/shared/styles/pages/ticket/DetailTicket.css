@@ -1,11 +1,20 @@
+#component-container main {
+  padding: 0;
+}
+
 #detail-ticket {
   flex: 1;
   display: flex;
   flex-direction: column;
   gap: 1.3rem;
-
   max-height: 100%;
   overflow-y: auto;
+  padding: 3% 10% !important;
+}
+
+#component-container Header {
+  width: 100%;
+  padding: 0% 10%;
 }
 
 #detail-ticket h1,
@@ -54,20 +63,24 @@ h4 {
   display: flex;
   justify-content: space-between;
   width: 100%;
-  height: 32px;
+  gap: 2rem;
 }
 
-#detail-ticket .ticket-priority {
-  margin-right: 2rem;
-}
-
-#detail-ticket .ticket-priority,
 #detail-ticket .ticket-type h3 {
-  width: 25rem;
+  width: 21rem;
 }
 
 #detail-ticket .ticket-priority,
-#detail-ticket .ticket-type {
+#detail-ticket .ticket-type,
+#detail-ticket .ticket-department,
+#detail-ticket .ticket-equipment {
+  width: 100%;
+}
+
+#detail-ticket .ticket-priority,
+#detail-ticket .ticket-type,
+#detail-ticket .ticket-department,
+#detail-ticket .ticket-equipment {
   display: inline-flex;
   gap: 1rem;
 }
@@ -132,18 +145,28 @@ h4 {
   
   #detail-ticket .ticket-dual-info {
     display: flex;
-    flex-direction: column;
+    flex-direction: column !important;
     gap: 1rem;
-    margin-bottom: 2rem;
+  }
+
+  #detail-ticket .ticket-dual-info .ticket-priority {
+    display: flex !important;
+    gap: 1rem !important;
+  }
+
+
+  #detail-ticket .ticket-dual-info .ticket-type,
+  #detail-ticket .ticket-dual-info .ticket-department,
+  #detail-ticket .ticket-dual-info .ticket-equipment {
+    display: flex;
+    flex-direction: column !important;
   }
 
   #detail-ticket .ticket-dual-info .ticket-priority h3,
-  #detail-ticket .ticket-dual-info .ticket-type h3 {
+  #detail-ticket .ticket-dual-info .ticket-type h3,
+  #detail-ticket .ticket-dual-info .ticket-department h3,
+  #detail-ticket .ticket-dual-info .ticket-equipment h3 {
     font-size: 1.2rem !important;
-  }
-
-  #detail-ticket .ticket-dual-info .ticket-type input.input-primary {
-    height: 20px !important;
   }
 }
 
@@ -160,17 +183,27 @@ h4 {
 
   #detail-ticket .ticket-dual-info {
     display: flex;
-    flex-direction: column;
+    flex-direction: column !important;
     gap: 1rem;
-    margin-bottom: 2rem;
+  }
+
+  #detail-ticket .ticket-dual-info .ticket-priority {
+    display: flex !important;
+    gap: 1rem !important;
+  }
+
+
+  #detail-ticket .ticket-dual-info .ticket-type,
+  #detail-ticket .ticket-dual-info .ticket-department,
+  #detail-ticket .ticket-dual-info .ticket-equipment {
+    display: flex;
+    flex-direction: column !important;
   }
 
   #detail-ticket .ticket-dual-info .ticket-priority h3,
-  #detail-ticket .ticket-dual-info .ticket-type h3 {
+  #detail-ticket .ticket-dual-info .ticket-type h3,
+  #detail-ticket .ticket-dual-info .ticket-department h3,
+  #detail-ticket .ticket-dual-info .ticket-equipment h3 {
     font-size: 1.2rem !important;
-  }
-
-  #detail-ticket .ticket-dual-info .ticket-type input.input-primary {
-    height: 20px !important;
   }
 }

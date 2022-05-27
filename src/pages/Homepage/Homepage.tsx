@@ -8,13 +8,14 @@ import Footer from "../../shared/components/Footer";
 import Header from "../../shared/components/Header";
 import TextField from "../../shared/components/TextField";
 import TicketList from "../../shared/components/TicketList";
+import UserList from "../../shared/components/UserList";
+import EquipmentList from "../../shared/components/EquipmentList";
 
 import SessionController from "../../shared/utils/handlers/SessionController";
-import UserList from "../../shared/components/UserList";
+
 import { status } from "../../shared/types/status";
 
 import "../../shared/styles/pages/homepage/Homepage.css";
-import EquipmentList from "../../shared/components/EquipmentList";
 
 export default function Homepage() {
   const token = SessionController.getToken();
@@ -23,13 +24,9 @@ export default function Homepage() {
   const userInformation = SessionController.getUserInfo();
 
   const [statusFilter, setStatusFilter] = useState<status | "">("");
-  const [equipmentStatusFilter, setEquipmentStatusFilter] = useState<
-    status | ""
-  >("");
+  const [equipmentStatusFilter, setEquipmentStatusFilter] = useState<status | "">("");
   const [pageTitle, setPageTitle] = useState("Chamados");
-  const [searchPlaceholder, setSearchPlaceholder] = useState(
-    "Buscar por título do chamado"
-  );
+  const [searchPlaceholder, setSearchPlaceholder] = useState("Buscar por título do chamado");
   const [filterOptions, setFilterOptions] = useState(
     userInformation?.role === "support"
       ? [

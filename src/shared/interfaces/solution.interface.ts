@@ -25,3 +25,10 @@ export interface CreateSolution {
 
 }
 
+export interface VoteSolution {
+  solutionId: string;
+
+  upVote: boolean;
+  downVote: boolean;
+}
+

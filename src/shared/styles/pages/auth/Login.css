@@ -15,7 +15,7 @@
 
 #login {
   height: 100vh;
-  width: 100vw;
+  width: 100%;
   background-color: var(--color-primary-main);
 }
 
@@ -50,7 +50,7 @@
 
 #login .login-form {
   background-color: var(--color-white-main);
-  padding: 4rem 5rem 2.5rem;
+  padding: 3rem 3rem 2rem;
   height: 50%;
   width: 50%;
   border-radius: 2%;
@@ -119,7 +119,7 @@
 
 @media (min-width: 1830px) {
   #login .login-form {
-    padding: 4rem 5rem 2.5rem;
+    padding: 3rem 3rem 2rem;
     width: 40%;
     border-radius: 3%;
   }
@@ -132,7 +132,7 @@
 
 @media (max-width: 1024px) {
   #login .login-form {
-    padding: 4rem 5rem 2.5rem;
+    padding: 3rem 3rem 2rem;
     width: 70%;
   }
 

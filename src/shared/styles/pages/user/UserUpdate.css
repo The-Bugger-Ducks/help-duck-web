@@ -1,18 +1,17 @@
 /* ESTILIZAÇÃO GERAL*/
 
 #user-update {
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 99vh;
 }
 
 #user-update Header {
-  padding-left: 5%;
-  width: 100vw;
-  height: 80px;
+  padding: 0% 10%;
+  width: 100%;
 }
 
 #user-update .user-update-content {
-  padding: 0% 10% 10% 10%;
+  padding: 0% 10% 8% 10%;
 }
 
 /* ESTILIZAÇÃO DO TITULO E SUBTITULO DA PÁGINA */

@@ -1,0 +1,29 @@
+#loading_container {
+  z-index: 1;
+  position: absolute;
+
+  background-color: #e9e9e963;
+  backdrop-filter: blur(1px);
+
+  width: 100%;
+  height: 100vh;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+div.loading_lottie {
+  max-width: 10rem;
+  max-height: 10rem;
+}
+
+.table-row .loading_container {
+  height: 100px;
+  width: 100%;
+}
+
+.table-row span.loading_lottie {
+  width: 60px;
+  height: 60px;
+}

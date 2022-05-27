@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 interface Props {
   backgroundColor?: string;
   color?: string;
@@ -14,6 +14,7 @@ interface Props {
   padding?: string;
   disabled?: boolean;
   onChange?: (event: any) => void;
+  title?: string;
 }
 
 const TextInput: React.FC<Props> = ({
@@ -26,14 +27,16 @@ const TextInput: React.FC<Props> = ({
   defaultValue,
   radius = "0.3rem",
   width = "100%",
-  color = '#495057',
-  height = '50px',
+  color = "#495057",
+  height = "50px",
   required = true,
-  padding = '0.5rem',
+  padding = "0.5rem",
   onChange,
+  title,
 }) => {
   return (
     <input
+      title={title}
       onChange={onChange}
       style={{
         backgroundColor: backgroundColor,
@@ -42,7 +45,7 @@ const TextInput: React.FC<Props> = ({
         width,
         padding,
         height,
-        fontSize: '16px',
+        fontSize: "16px",
         color,
       }}
       className="input-primary"
