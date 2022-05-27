@@ -231,7 +231,7 @@ export default function UserUpdate() {
     let oldPassword = null;
     let passwordUpdatePayload = {};
 
-    if (isAdmin && user?.id !== userID) {
+    if (user?.id !== id) {
       updateUser(payload);
     } else {
       oldPassword = window.prompt(
@@ -242,18 +242,19 @@ export default function UserUpdate() {
         setLoading(false);
       } else {
         passwordUpdatePayload = {
-          id: id,
+          userId: id,
           newPassword: password,
           oldPassword: oldPassword,
         };
         const responseUpdatePassword = await userRequest.updatePassword(
           passwordUpdatePayload
         );
-        if (responseUpdatePassword?.status !== 200) {
+
+        if (responseUpdatePassword?.status == 200) {
+          updateUser(payload);
+        } else {
           setLoading(false);
           navigate("/homepage");
-        } else {
-          updateUser(payload);
         }
       }
     }

@@ -4,8 +4,6 @@ import { USER_ENDPOINTS } from "../../utils/endpoints";
 import { validateStatus } from "../handlers/HandlerResponseStatusCodeFound";
 
 export class UserRequests {
-  navigate = useNavigate();
-
   public async showRequest(userId: string) {
     try {
       const response = await apiUsers.get(
@@ -90,13 +88,12 @@ export class UserRequests {
 
     try {
       const response = await apiUsers.put(url, body);
-      return response.data;
+      return response;
     } catch (error) {
       console.log(error);
       alert(
         "A senha informada está incorreta. Não foi possível atualizar as informações."
       );
-      this.navigate("/homepage");
     }
   }
 }
