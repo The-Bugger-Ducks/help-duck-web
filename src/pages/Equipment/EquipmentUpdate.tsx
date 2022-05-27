@@ -30,7 +30,6 @@ export default function EquipmentUpdatePage() {
   const [brand, setBrand] = useState("");
   const [type, setType] = useState("");
   const [selectedDepartment, setSelectedDepartment] = useState("");
-  const [hadDepartment, setHadDepartment] = useState(false);
 
   function handleDepartmentLabel(departmentLabel: string) {
     if (departmentLabel == "Marketing e vendas") {
@@ -74,9 +73,6 @@ export default function EquipmentUpdatePage() {
 
     if (response.department) {
       handleDepartmentLabel(response.department);
-      setHadDepartment(true);
-    } else {
-      setHadDepartment(false);
     }
   }
 
@@ -104,9 +100,7 @@ export default function EquipmentUpdatePage() {
       model: model,
       brand: brand,
       type: type,
-      department: user?.department
-        ? user?.department
-        : "Sem departamento definido",
+      department: user?.department,
     };
 
     setLoading(true);
@@ -182,21 +176,17 @@ export default function EquipmentUpdatePage() {
                     />
                   </div>
                 </section>
-                {hadDepartment ? (
-                  <section className="equipment-update-data">
-                    <div>
-                      <label htmlFor="department">Departamento</label>
-                      <ChoiceField
-                        name="department"
-                        items={departmentListVariable(selectedDepartment)}
-                        backgroundColor="rgb(237, 237, 238)"
-                        disabled={true}
-                      />
-                    </div>
-                  </section>
-                ) : (
-                  ""
-                )}
+                <section className="equipment-update-data">
+                  <div>
+                    <label htmlFor="department">Departamento</label>
+                    <ChoiceField
+                      name="department"
+                      items={departmentListVariable(selectedDepartment)}
+                      backgroundColor="rgb(237, 237, 238)"
+                      disabled={true}
+                    />
+                  </div>
+                </section>
               </section>
               <section className="equipment-update-submit">
                 <ButtonDelete
