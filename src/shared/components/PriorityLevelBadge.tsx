@@ -1,8 +1,14 @@
 import Ticket from "../interfaces/ticket.interface";
 import Badge from "./Badge";
 
-const PriorityLevelBadge: React.FC<{ priority: Ticket["priorityLevel"] }> = ({
+const PriorityLevelBadge: React.FC<{ 
+  priority: Ticket["priorityLevel"],   
+  handlePriorityLevel?: () => Promise<void>,
+  className?: string | undefined
+}> = ({
   priority = "low",
+  handlePriorityLevel,
+  className,
 }) => {
   const high = {
     label: "ALTA",
@@ -27,6 +33,8 @@ const PriorityLevelBadge: React.FC<{ priority: Ticket["priorityLevel"] }> = ({
       label={priorityBadge.label}
       border={`1px solid ${priorityBadge.color}`}
       color={priorityBadge.color}
+      handlePriorityLevel={handlePriorityLevel}
+      className={className}
     />
   );
 };

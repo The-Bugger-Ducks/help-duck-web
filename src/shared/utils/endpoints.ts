@@ -12,6 +12,7 @@ export enum TICKET_ENDPOINTS {
   TICKET_LIST_SUPPORT = `/tickets/support/`,
   TICKET_LIST_STATUS = `/tickets/status/`,
   TICKET_REGISTER = `/tickets/create`,
+  TICKET_UPDATE_PRIORITY = `tickets/updatePriorityLevel/`,
   TICKET_RESERVE = `helpUser/reserveTicket/`,
   TICKET_INSERT_COMMENT = `helpUser/updateComment/`,
   TICKET_CLOSE = `helpUser/closeTicket/`,

@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 
 import { useParams, useNavigate } from "react-router-dom";
-import { FiClock, FiArrowLeft, FiCheck } from "react-icons/fi";
+import { FiClock, FiArrowLeft, FiCheck, FiEdit2 } from "react-icons/fi";
 
 import SessionController from "../../shared/utils/handlers/SessionController";
 
@@ -161,6 +161,45 @@ export default function DetailTicket() {
     setLoading(false);
   }
 
+  async function handlePriorityLevel() {
+    if (user && user.role !== "support") {
+      return
+    }
+
+    if (!ticket) {
+      return
+    }
+    
+    let priorityLevelAux = priorityLevel
+
+    if (priorityLevelAux === 'low') {
+      priorityLevelAux = 'medium'
+    } else if (priorityLevelAux === 'medium') {
+      priorityLevelAux = 'high'
+    } else {
+      priorityLevelAux = "low"
+    }
+
+    setPriorityLevel(priorityLevelAux);
+
+    const payload = {
+      ticketId: ticket.id,
+      priorityLevel: priorityLevelAux,
+    }
+
+    console.log(payload)
+    // return {
+    //   <>
+    //     <label htmlFor="role">Cargo</label>
+    //     <ChoiceField
+    //       name="role"
+    //       items={userProfiles}
+    //       onChange={(event) => setRole(event.target.value)}
+    //     />
+    //   </>
+    // };
+  }
+
   async function handleSetSolution(comment: Comment) {
     if (!ticket) return;
 
@@ -281,7 +320,17 @@ export default function DetailTicket() {
           <section className="ticket-dual-info">
             <div className="ticket-priority">
               <h3>Grau de prioridade:</h3>
-              <PriorityLevelBadge priority={priorityLevel} />
+              <PriorityLevelBadge 
+                priority={priorityLevel}
+                handlePriorityLevel={handlePriorityLevel} 
+              />
+              {ticket?.support ?
+               <FiEdit2
+                  className="edit-priority-button"
+                  color="var(--color-gray-dark)"
+                  onClick={() => {
+                    navigate("/homepage");
+                  }}/> : ""}{" "}
             </div>
 
             <div className="ticket-type">

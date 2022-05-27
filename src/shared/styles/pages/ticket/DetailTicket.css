@@ -48,6 +48,10 @@ h4 {
   padding-top: 0.3vw;
   }
 
+#detail-ticket .edit-priority-button {
+    margin-top: 0.5vw;
+  }
+
 #detail-ticket .ticket-about p {
   display: flex;
   gap: 2rem;
@@ -168,6 +172,9 @@ h4 {
   #detail-ticket .ticket-dual-info .ticket-equipment h3 {
     font-size: 1.2rem !important;
   }
+}
+  #detail-ticket PriorityLevelBadge {
+    cursor:"pointer"
 }
 
 @media only screen and (max-width: 500px) {
