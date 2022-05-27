@@ -189,6 +189,21 @@ export default function UserUpdate() {
     );
   }
 
+  async function updateUser(payload: User) {
+    const response = await userRequest.updateRequest(payload);
+    setLoading(false);
+
+    if (response?.status === 200) {
+      alert("Usuário atualizado com sucesso!");
+      if (user?.id === id) {
+        //@ts-expect-error
+        delete payload.password;
+        SessionController.setUserInfo(payload);
+      }
+      navigate("/homepage");
+    }
+  }
+
   async function submitUserUpdate(event: FormEvent) {
     event.preventDefault();
     if (user?.id === id) {
@@ -203,29 +218,44 @@ export default function UserUpdate() {
     if (!id) {
       return;
     }
+
     const payload = {
       id: id,
       email: email,
-      password: password,
       firstName: name,
       lastName: lastname,
       role: role!,
       department: department,
     };
 
-    setLoading(true);
-    const response = await userRequest.updateRequest(payload);
+    let oldPassword = null;
+    let passwordUpdatePayload = {};
 
-    setLoading(false);
+    if (isAdmin && user?.id !== userID) {
+      updateUser(payload);
+    } else {
+      oldPassword = window.prompt(
+        "Insira sua senha atual para realizar as altereções:"
+      );
 
-    if (response?.status === 200) {
-      alert("Usuário atualizado com sucesso!");
-      if (user?.id === id) {
-        //@ts-expect-error
-        delete payload.password;
-        SessionController.setUserInfo(payload);
+      if (oldPassword === null) {
+        setLoading(false);
+      } else {
+        passwordUpdatePayload = {
+          id: id,
+          newPassword: password,
+          oldPassword: oldPassword,
+        };
+        const responseUpdatePassword = await userRequest.updatePassword(
+          passwordUpdatePayload
+        );
+        if (responseUpdatePassword?.status !== 200) {
+          setLoading(false);
+          navigate("/homepage");
+        } else {
+          updateUser(payload);
+        }
       }
-      navigate("/homepage");
     }
   }
 

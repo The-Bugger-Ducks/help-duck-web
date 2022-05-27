@@ -4,6 +4,7 @@ export enum USER_ENDPOINTS {
   USER_UPDATE = "/users/update",
   USER_DELETE = `/users/delete/`,
   USER_DETAILS = "/users/",
+  USER_UPDATE_PASSWORD = "/users/update-password",
 }
 
 export enum TICKET_ENDPOINTS {
