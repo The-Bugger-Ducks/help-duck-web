@@ -81,12 +81,17 @@ export default function EquipmentUpdatePage() {
   }
 
   async function deleteEquipment() {
-    setLoading(true);
-    await equipmentRequests.deleteEquipment(id ?? "");
+    const isConfirmed = window.confirm(
+      "Tem certeza de que deseja excluir o equipamento?"
+    );
 
-    setLoading(false);
-    alert("Equipamento deletado com sucesso!");
-    navigate("/homepage");
+    if (isConfirmed) {
+      setLoading(true);
+      await equipmentRequests.deleteEquipment(id ?? "");
+      setLoading(false);
+      alert("Equipamento deletado com sucesso!");
+      navigate("/homepage");
+    }
   }
 
   async function submitForm(event: FormEvent) {
@@ -182,8 +187,7 @@ export default function EquipmentUpdatePage() {
                     <ChoiceField
                       name="department"
                       items={departmentListVariable(selectedDepartment)}
-                      backgroundColor="rgb(237, 237, 238)"
-                      disabled={true}
+                      backgroundColor="#FAFAFA"
                     />
                   </div>
                 </section>

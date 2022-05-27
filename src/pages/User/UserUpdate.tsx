@@ -265,14 +265,20 @@ export default function UserUpdate() {
       return;
     }
 
-    setLoading(true);
-    const response = await userRequest.deleteRequest(id);
+    const isConfirmed = window.confirm(
+      "Tem certeza de que deseja excluir o usuário?"
+    );
 
-    setLoading(false);
+    if (isConfirmed) {
+      setLoading(true);
+      const response = await userRequest.deleteRequest(id);
 
-    if (response?.status === 200) {
-      alert("Usuário excluido com sucesso!");
-      navigate("/homepage");
+      setLoading(false);
+
+      if (response?.status === 200) {
+        alert("Usuário excluido com sucesso!");
+        navigate("/homepage");
+      }
     }
   }
 
