@@ -17,6 +17,7 @@ import ButtonDelete from "../../shared/components/ButtonDelete";
 import LoadingContainer from "../../shared/components/Loading/LoadingContainer";
 
 import "../../shared/styles/pages/equipment/EquipmentUpdate.css";
+import SessionController from "../../shared/utils/handlers/SessionController";
 
 export default function EquipmentUpdatePage() {
   const equipmentRequests = new EquipmentRequests();
@@ -95,12 +96,17 @@ export default function EquipmentUpdatePage() {
   async function submitForm(event: FormEvent) {
     event.preventDefault();
 
+    const user = SessionController.getUserInfo();
+
     const payload: EquipmentUpdate = {
       id: id ?? "",
       name: name,
       model: model,
       brand: brand,
       type: type,
+      department: user?.department
+        ? user?.department
+        : "Sem departamento definido",
     };
 
     setLoading(true);

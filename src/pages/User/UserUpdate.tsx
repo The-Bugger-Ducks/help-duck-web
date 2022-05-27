@@ -36,6 +36,7 @@ export default function UserUpdate() {
   const [department, setDepartment] = useState("");
   const [emailPlaceholder, setEmailPlaceholder] = useState("");
   const [namePlaceholder, setNamePlaceholder] = useState("");
+  const [userID, setUserID] = useState("");
   const [lastnamePlaceholder, setLastNamePlaceholder] = useState("");
   const [, setRolePlaceholder] = useState<"admin" | "support" | "client">(
     "client"
@@ -109,6 +110,7 @@ export default function UserUpdate() {
     setLastname(response.lastName);
     setRolePlaceholder(response.role);
     setRole(response.role);
+    setUserID(response.id);
     setUserProfiles([
       {
         value: "client",
@@ -332,7 +334,7 @@ export default function UserUpdate() {
                     onChange={(event) =>
                       handleDepartmentValue(event.target.value)
                     }
-                    disabled={isAdmin}
+                    disabled={isAdmin && user?.id === userID}
                   />
                 </div>
               </section>
