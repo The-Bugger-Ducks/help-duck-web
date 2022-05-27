@@ -122,6 +122,7 @@ export default function TicketRegister() {
       priorityLevel,
       tags: [problemType],
       equipment: equipmentSelected,
+      department: user.department,
     };
 
     setLoading(true);
