@@ -3,10 +3,9 @@ import { useNavigate } from "react-router-dom";
 
 import { FiArrowLeft } from "react-icons/fi";
 
-import { departmentList } from "../../shared/constants/departmentList";
-
 import { EquipmentRequests } from "../../shared/utils/requests/Equipment.requests";
 import { Equipment } from "../../shared/interfaces/equipment.interface";
+import { departmentList } from "../../shared/constants/departmentList";
 
 import Button from "../../shared/components/Button";
 import Footer from "../../shared/components/Footer";
@@ -56,13 +55,7 @@ export default function EquipmentRegister() {
 
   async function submitForm(event: FormEvent) {
     event.preventDefault();
-    if (
-      name === "" ||
-      model === "" ||
-      brand === "" ||
-      type === "" ||
-      department === "defaultValue"
-    ) {
+    if (name === "" || model === "" || brand === "" || type === "") {
       return alert("Preencha todos os campos");
     }
 
@@ -154,6 +147,7 @@ export default function EquipmentRegister() {
                     />
                   </div>
                 </section>
+
                 <section className="equipment-register-data">
                   <div>
                     <label htmlFor="department">Departamento</label>

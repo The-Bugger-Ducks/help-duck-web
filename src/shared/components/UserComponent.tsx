@@ -4,6 +4,7 @@ interface UserInformationProps {
   name: React.ReactElement | string;
   email: React.ReactElement | string;
   role: React.ReactElement | string;
+  department: React.ReactElement | string;
   onClick?: () => void;
 }
 
@@ -11,6 +12,7 @@ const UserComponent: React.FC<UserInformationProps> = ({
   name,
   email,
   role,
+  department,
   onClick,
 }) => {
   return (
@@ -18,6 +20,7 @@ const UserComponent: React.FC<UserInformationProps> = ({
       <td id="name">{name}</td>
       <td>{email}</td>
       <td>{role}</td>
+      <td>{department}</td>
     </tr>
   );
 };

@@ -3,7 +3,8 @@ export interface UserRegister {
   lastName: string;
   email: string;
   password: string;
-  role: "admin" | "support" | "client"
+  role: "admin" | "support" | "client";
+  department: string;
 }
 
 export interface UserLogin {
@@ -12,9 +13,10 @@ export interface UserLogin {
 }
 
 export interface User {
-  id: string
+  id: string;
   firstName: string;
   lastName: string;
   email: string;
-  role: "admin" | "support" | "client"
+  role: "admin" | "support" | "client";
+  department: string;
 }

@@ -46,7 +46,7 @@ h4 {
 
 #detail-ticket .detail-ticket-title svg {
   padding-top: 0.3vw;
-  }
+}
 
 #detail-ticket .ticket-about p {
   display: flex;
@@ -62,12 +62,15 @@ h4 {
 #detail-ticket .ticket-dual-info {
   display: flex;
   justify-content: space-between;
-  width: 100%;
-  gap: 2rem;
+  gap: 1rem;
 }
 
-#detail-ticket .ticket-type h3 {
-  width: 21rem;
+#detail-ticket .ticket-dual-info div {
+  display: contents;
+}
+
+#detail-ticket .ticket-dual-info h3 {
+  white-space: nowrap;
 }
 
 #detail-ticket .ticket-priority,
@@ -104,6 +107,10 @@ h4 {
   justify-content: space-between;
 }
 
+#detail-ticket #concludedAt svg {
+  margin-right: 0.2rem;
+}
+
 #detail-ticket .description-block {
   width: 100%;
   background: #f5f8fa;
@@ -134,6 +141,20 @@ h4 {
   list-style: none;
 }
 
+@media only screen and (max-width: 421px) {
+  #detail-ticket .ticket-about p {
+    gap: 0.2rem;
+    flex-direction: column;
+  }
+}
+
+@media only screen and (min-width: 501px) and (max-width: 554px) {
+  #detail-ticket .ticket-about p {
+    gap: 0.2rem;
+    flex-direction: column;
+  }
+}
+
 @media only screen and (min-width: 501px) and (max-width: 1024px) {
   #detail-ticket .detail-ticket-title h1 {
     gap: 0.4rem;
@@ -142,7 +163,7 @@ h4 {
   #detail-ticket .detail-ticket-title svg {
     padding-top: 0.4vw;
   }
-  
+
   #detail-ticket .ticket-dual-info {
     display: flex;
     flex-direction: column !important;
@@ -153,7 +174,6 @@ h4 {
     display: flex !important;
     gap: 1rem !important;
   }
-
 
   #detail-ticket .ticket-dual-info .ticket-type,
   #detail-ticket .ticket-dual-info .ticket-department,
@@ -179,7 +199,6 @@ h4 {
   #detail-ticket .detail-ticket-title svg {
     padding-top: 0.3vw;
   }
-  
 
   #detail-ticket .ticket-dual-info {
     display: flex;
@@ -191,7 +210,6 @@ h4 {
     display: flex !important;
     gap: 1rem !important;
   }
-
 
   #detail-ticket .ticket-dual-info .ticket-type,
   #detail-ticket .ticket-dual-info .ticket-department,
@@ -205,5 +223,20 @@ h4 {
   #detail-ticket .ticket-dual-info .ticket-department h3,
   #detail-ticket .ticket-dual-info .ticket-equipment h3 {
     font-size: 1.2rem !important;
+  }
+}
+
+@media only screen and (max-width: 1024px) {
+  #detail-ticket .department-and-equipment {
+    flex-direction: column;
+  }
+
+  #detail-ticket .ticket-dual-info #priority-dual-info {
+    display: flex !important;
+    gap: 1rem !important;
+  }
+
+  #detail-ticket .ticket-dual-info {
+    flex-direction: column !important;
   }
 }

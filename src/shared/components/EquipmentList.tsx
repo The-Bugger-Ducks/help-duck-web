@@ -50,10 +50,10 @@ export default function EquipmentList() {
     setLoading(true);
     const response = await equipmentRequest.listEquipmentRequest(sorting);
 
-    setLoading(false)
-    
+    setLoading(false);
+
     setEquipments(response.content);
-    setPageable(response)
+    setPageable(response);
   };
 
   function handleClickOptionSort(event: any, sorting: SortEquipmentTableTypes) {
@@ -107,8 +107,8 @@ export default function EquipmentList() {
   }
 
   function handlePageable(pageNumber: number, pageSize: number) {
-    setPageNumber(pageNumber)
-    setPageSize(pageSize)
+    setPageNumber(pageNumber);
+    setPageSize(pageSize);
 
     let sortAux = "";
     if (orderBy) {
@@ -116,7 +116,7 @@ export default function EquipmentList() {
     } else {
       sortAux = `page=${pageNumber}&size=${pageSize}&sort=${sort}`;
     }
-    
+
     getEquipmentsList(sortAux);
   }
 
@@ -131,7 +131,9 @@ export default function EquipmentList() {
                   <th
                     id={`${index}`}
                     key={index}
-                    onClick={(event) => handleClickOptionSort(event, option.type)}
+                    onClick={(event) =>
+                      handleClickOptionSort(event, option.type)
+                    }
                   >
                     {option.text}
                     <FaArrowUp className="th-arrow" />
@@ -146,14 +148,24 @@ export default function EquipmentList() {
                       model={equipment.model}
                       brand={equipment.brand}
                       type={equipment.type}
-                      department={equipment.department}
+                      department={
+                        equipment.department
+                          ? equipment.department
+                          : "Não há departamento cadastrado"
+                      }
                       onClick={() =>
                         navigate(`/equipment_update/${equipment.id}`)
                       }
                     />
                   );
                 })
-              ) : <CustomTableRow colSpan={5} loading={loading} typeTableRowText={"equipamento"} />}
+              ) : (
+                <CustomTableRow
+                  colSpan={5}
+                  loading={loading}
+                  typeTableRowText={"equipamento"}
+                />
+              )}
             </tbody>
           </table>
         </div>

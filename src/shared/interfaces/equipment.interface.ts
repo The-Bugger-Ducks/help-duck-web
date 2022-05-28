@@ -3,7 +3,7 @@ export interface Equipment {
   model: string;
   brand: string;
   type: string;
-  department: string;
+  department?: string;
 }
 
 export interface EquipmentUpdate {
@@ -12,5 +12,5 @@ export interface EquipmentUpdate {
   model: string;
   brand: string;
   type: string;
-  department: string;
+  department?: string;
 }

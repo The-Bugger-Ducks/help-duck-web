@@ -17,6 +17,7 @@ import ButtonDelete from "../../shared/components/ButtonDelete";
 import LoadingContainer from "../../shared/components/Loading/LoadingContainer";
 
 import "../../shared/styles/pages/equipment/EquipmentUpdate.css";
+import SessionController from "../../shared/utils/handlers/SessionController";
 
 export default function EquipmentUpdatePage() {
   const equipmentRequests = new EquipmentRequests();
@@ -31,31 +32,24 @@ export default function EquipmentUpdatePage() {
   const [department, setDepartment] = useState("");
   const [selectedDepartment, setSelectedDepartment] = useState("");
 
-  useEffect(() => {
-    const subscribe = getEquipment();
-
-    return () => {
-      subscribe.finally();
-    };
-  }, []);
-
-  async function getEquipment() {
-    setLoading(true);
-    const response: EquipmentUpdate = await equipmentRequests.listEquipmentByID(
-      id ?? ""
-    );
-
-    setName(response.name);
-    setModel(response.model);
-    setBrand(response.brand);
-    setType(response.type);
-    setDepartment(response.department);
-    handleDepartmentLabel(response.department);
-    setLoading(false);
-  }
-
-  function back() {
-    navigate("/homepage");
+  function handleDepartmentLabel(departmentLabel: string) {
+    if (departmentLabel == "Marketing e vendas") {
+      setSelectedDepartment("marketingAndSales");
+    } else if (departmentLabel == "Financeiro") {
+      setSelectedDepartment("financial");
+    } else if (departmentLabel == "Operações") {
+      setSelectedDepartment("operations");
+    } else if (departmentLabel == "RH") {
+      setSelectedDepartment("rh");
+    } else if (departmentLabel == "EPS") {
+      setSelectedDepartment("eps");
+    } else if (departmentLabel == "TI") {
+      setSelectedDepartment("ti");
+    } else if (departmentLabel == "EPDI") {
+      setSelectedDepartment("epdi");
+    } else if (departmentLabel == "Outros") {
+      setSelectedDepartment("others");
+    }
   }
 
   function handleDepartmentValue(departmentValue: string) {
@@ -78,37 +72,53 @@ export default function EquipmentUpdatePage() {
     }
   }
 
-  function handleDepartmentLabel(departmentLabel: string) {
-    if (departmentLabel == "Marketing e vendas") {
-      setSelectedDepartment("marketingAndSales");
-    } else if (departmentLabel == "Financeiro") {
-      setSelectedDepartment("financial");
-    } else if (departmentLabel == "Operações") {
-      setSelectedDepartment("operations");
-    } else if (departmentLabel == "RH") {
-      setSelectedDepartment("rh");
-    } else if (departmentLabel == "EPS") {
-      setSelectedDepartment("eps");
-    } else if (departmentLabel == "TI") {
-      setSelectedDepartment("ti");
-    } else if (departmentLabel == "EPDI") {
-      setSelectedDepartment("epdi");
-    } else if (departmentLabel == "Outros") {
-      setSelectedDepartment("others");
+  useEffect(() => {
+    const subscribe = getEquipment();
+
+    return () => {
+      subscribe.finally();
+    };
+  }, []);
+
+  async function getEquipment() {
+    setLoading(true);
+    const response: EquipmentUpdate = await equipmentRequests.listEquipmentByID(
+      id ?? ""
+    );
+
+    setName(response.name);
+    setModel(response.model);
+    setBrand(response.brand);
+    setType(response.type);
+    setLoading(false);
+
+    if (response.department) {
+      handleDepartmentLabel(response.department);
     }
   }
 
-  async function deleteEquipment() {
-    setLoading(true);
-    await equipmentRequests.deleteEquipment(id ?? "");
-
-    setLoading(false);
-    alert("Equipamento deletado com sucesso!");
+  function back() {
     navigate("/homepage");
+  }
+
+  async function deleteEquipment() {
+    const isConfirmed = window.confirm(
+      "Tem certeza de que deseja excluir o equipamento?"
+    );
+
+    if (isConfirmed) {
+      setLoading(true);
+      await equipmentRequests.deleteEquipment(id ?? "");
+      setLoading(false);
+      alert("Equipamento deletado com sucesso!");
+      navigate("/homepage");
+    }
   }
 
   async function submitForm(event: FormEvent) {
     event.preventDefault();
+
+    const user = SessionController.getUserInfo();
 
     const payload: EquipmentUpdate = {
       id: id ?? "",
@@ -170,7 +180,6 @@ export default function EquipmentUpdatePage() {
                     />
                   </div>
                 </section>
-
                 <section className="equipment-update-data">
                   <div>
                     <label htmlFor="model">Modelo</label>

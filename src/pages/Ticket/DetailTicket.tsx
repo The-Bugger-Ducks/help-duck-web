@@ -164,6 +164,8 @@ export default function DetailTicket() {
   async function handleSetSolution(comment: Comment) {
     if (!ticket) return;
 
+    setLoading(true);
+
     const payload: CreateSolution = {
       ticketId: ticket.id,
       titleProblem: ticket.title,
@@ -176,12 +178,14 @@ export default function DetailTicket() {
 
       setSolution(response);
       setCanSetSolution(false);
+      setLoading(false);
     } catch (error) {
       setCanSetSolution(true);
+      setLoading(false);
     }
   }
 
-  async function handleSolutionVote(vote : boolean) {
+  async function handleSolutionVote(vote: boolean) {
     if (!solution) return;
 
     try {
@@ -189,15 +193,14 @@ export default function DetailTicket() {
       await solutionRequest.incrementVoteSolution({
         solutionId: solution.id,
         upVote: vote,
-        downVote: !vote
-      })
+        downVote: !vote,
+      });
       setHiddenSolutionVote(true);
     } catch (error) {
-      setHiddenSolutionVote(false);      
+      setHiddenSolutionVote(false);
     } finally {
       setLoading(false);
     }
-
   }
 
   return (
@@ -229,6 +232,12 @@ export default function DetailTicket() {
                   {createdAt?.toLocaleString("pt-br") ?? "..."}
                 </span>
                 <StatusTicket status={ticket?.status} />
+                <span id="concludedAt">
+                  <FiCheck color="var(--color-gray-dark)" size="0.8rem" />
+                  {concludedAt
+                    ? concludedAt.toLocaleString("pt-br")
+                    : "Sem data de conclusão"}
+                </span>
               </p>
               <p>
                 Responsável:{" "}
@@ -359,7 +368,11 @@ export default function DetailTicket() {
           </section>
 
           {solution ? (
-            <TicketSolution solution={solution} hiddenSolutionVote={hiddenSolutionVote} handleSolutionVote={handleSolutionVote}/>
+            <TicketSolution
+              solution={solution}
+              hiddenSolutionVote={hiddenSolutionVote}
+              handleSolutionVote={handleSolutionVote}
+            />
           ) : null}
 
           {comments.length !== 0 ? (

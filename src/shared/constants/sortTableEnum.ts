@@ -9,6 +9,7 @@ export enum SortUserTableTypes {
   name = "firstName",
   email = "email",
   role = "role",
+  department = "department",
 }
 
 export enum SortEquipmentTableTypes {

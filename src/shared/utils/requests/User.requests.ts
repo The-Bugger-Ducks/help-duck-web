@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { apiUsers } from "../../services/Api.service";
 import { USER_ENDPOINTS } from "../../utils/endpoints";
 import { validateStatus } from "../handlers/HandlerResponseStatusCodeFound";
@@ -5,9 +6,12 @@ import { validateStatus } from "../handlers/HandlerResponseStatusCodeFound";
 export class UserRequests {
   public async showRequest(userId: string) {
     try {
-      const response = await apiUsers.get(USER_ENDPOINTS.USER_DETAILS + userId, {
-        validateStatus,
-      });
+      const response = await apiUsers.get(
+        USER_ENDPOINTS.USER_DETAILS + userId,
+        {
+          validateStatus,
+        }
+      );
       return response.data;
     } catch (error) {
       alert("Não foi possível encontrar o usuario. Tente novamente!");
@@ -52,7 +56,9 @@ export class UserRequests {
 
   public async deleteRequest(userId: string) {
     try {
-      const response = await apiUsers.delete(USER_ENDPOINTS.USER_DELETE + userId);
+      const response = await apiUsers.delete(
+        USER_ENDPOINTS.USER_DELETE + userId
+      );
       return response;
     } catch (error) {
       alert("Não foi possível deletar o usuario. Tente novamente!");
@@ -60,10 +66,10 @@ export class UserRequests {
   }
 
   public async listUserRequest(sorting?: string) {
-    let url = `${USER_ENDPOINTS.USER_DETAILS}`
+    let url = `${USER_ENDPOINTS.USER_DETAILS}`;
 
     if (sorting) {
-      url = `${USER_ENDPOINTS.USER_DETAILS}?${sorting}`
+      url = `${USER_ENDPOINTS.USER_DETAILS}?${sorting}`;
     }
 
     try {
@@ -74,6 +80,20 @@ export class UserRequests {
     } catch (error) {
       console.log(error);
       alert("Não foi possível buscar todos usuários.");
+    }
+  }
+
+  public async updatePassword(body: object) {
+    let url = `${USER_ENDPOINTS.USER_UPDATE_PASSWORD}`;
+
+    try {
+      const response = await apiUsers.put(url, body);
+      return response;
+    } catch (error) {
+      console.log(error);
+      alert(
+        "A senha informada está incorreta. Não foi possível atualizar as informações."
+      );
     }
   }
 }
