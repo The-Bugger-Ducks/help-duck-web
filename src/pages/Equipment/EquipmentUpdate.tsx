@@ -29,6 +29,7 @@ export default function EquipmentUpdatePage() {
   const [model, setModel] = useState("");
   const [brand, setBrand] = useState("");
   const [type, setType] = useState("");
+  const [department, setDepartment] = useState("");
   const [selectedDepartment, setSelectedDepartment] = useState("");
 
   function handleDepartmentLabel(departmentLabel: string) {
@@ -48,6 +49,26 @@ export default function EquipmentUpdatePage() {
       setSelectedDepartment("epdi");
     } else if (departmentLabel == "Outros") {
       setSelectedDepartment("others");
+    }
+  }
+
+  function handleDepartmentValue(departmentValue: string) {
+    if (departmentValue == "marketingAndSales") {
+      setDepartment("Marketing e vendas");
+    } else if (departmentValue == "financial") {
+      setDepartment("Financeiro");
+    } else if (departmentValue == "operations") {
+      setDepartment("Operações");
+    } else if (departmentValue == "rh") {
+      setDepartment("RH");
+    } else if (departmentValue == "eps") {
+      setDepartment("EPS");
+    } else if (departmentValue == "ti") {
+      setDepartment("TI");
+    } else if (departmentValue == "epdi") {
+      setDepartment("EPDI");
+    } else if (departmentValue == "others") {
+      setDepartment("Outros");
     }
   }
 
@@ -105,7 +126,7 @@ export default function EquipmentUpdatePage() {
       model: model,
       brand: brand,
       type: type,
-      department: user?.department,
+      department: department,
     };
 
     setLoading(true);
@@ -188,6 +209,9 @@ export default function EquipmentUpdatePage() {
                       name="department"
                       items={departmentListVariable(selectedDepartment)}
                       backgroundColor="#FAFAFA"
+                      onChange={(event) =>
+                        handleDepartmentValue(event.target.value)
+                      }
                     />
                   </div>
                 </section>
