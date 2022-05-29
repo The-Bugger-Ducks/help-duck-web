@@ -121,10 +121,10 @@ export class TicketRequests {
     }
   }
 
-  public async updatePriorityLevel(ticketId: string, payload: string) {
+  public async updatePriorityLevel(payload: {id: string, priorityLevel: "high" | "medium" | "low"}) {
     try {
       return await apiTickets.put(
-        `${TICKET_ENDPOINTS.TICKET_UPDATE_PRIORITY}${ticketId}`,
+        `${TICKET_ENDPOINTS.TICKET_UPDATE}`,
         payload
       );
     } catch (error) {
