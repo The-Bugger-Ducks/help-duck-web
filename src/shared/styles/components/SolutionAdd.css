@@ -1,0 +1,69 @@
+/* ESTILIZAÇÃO GERAL*/
+/* ESTILIZAÇÃO DO FORMULÁRIO */
+
+
+.tag-add-container .separator{
+  height: 0.1rem;
+  background-color: #868E96;
+}
+
+
+.tag-add-container textarea {
+  resize: none;
+  background: none;
+  width: 100%;
+  border-radius: 0.2rem;
+}
+
+.tag-add-container form {
+  border: 0.2rem solid #868E96;
+  border-radius: 0.5rem;
+  width:60%;
+  padding: 1.5rem ;
+  text-align: center;
+  margin-right: 0%;
+}
+
+
+.tag-add-container #tag-add-button{
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1rem;
+}
+
+
+.tag-add-container #problem-title {
+  margin-top: 1.2rem;
+  margin-bottom:1rem ;
+  width: 100%;
+
+}
+
+.tag-add-container #problem-description{
+  margin-top: 1rem;
+  width: 100%;
+  height: 4.72rem;
+}
+
+
+
+/* RESPONSIVIDADE */
+
+@media (max-width: 768px) {
+  #solutionadd .solutionadd-form {
+    background-color: var(--color-primary-main);
+    padding: 0;
+    height: 100%;
+    width: 100%;
+  }
+
+
+  #solutionadd #recover-password {
+    color: var(--color-white-main);
+  }
+
+  #solutionadd .solutionadd-content .solutionadd-welcome {
+    width: 100%;
+    margin-top: 4rem;
+  }
+}

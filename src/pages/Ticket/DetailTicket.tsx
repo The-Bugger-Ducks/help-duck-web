@@ -25,6 +25,8 @@ import TicketSolution from "../../shared/components/TicketSolution";
 import LoadingContainer from "../../shared/components/Loading/LoadingContainer";
 
 import "../../shared/styles/pages/ticket/DetailTicket.css";
+import SolutionDetails from "../../shared/components/SolutionDetails";
+import SolutionAddCenter from "../../shared/components/SolutionAddCenter";
 
 export default function DetailTicket() {
   const navigate = useNavigate();
@@ -53,6 +55,8 @@ export default function DetailTicket() {
   const [solution, setSolution] = useState<Ticket["solution"]>();
   const [canSetSolution, setCanSetSolution] = useState<boolean>(false);
   const [hiddenSolutionVote, setHiddenSolutionVote] = useState(false);
+  const [addTagSolution, setAddTagSolution] = useState<boolean>(false);
+  const [addSolutionDetails, setSolutionDetails] = useState<boolean>(false);
 
   const ticketRequest = new TicketRequests();
   const solutionRequest = new SolutionRequests();
@@ -201,6 +205,16 @@ export default function DetailTicket() {
     } finally {
       setLoading(false);
     }
+  }
+
+  async function handlerCreateTagSolution(title:string, description:string) {
+
+    console.log(title, description);    
+  } 
+
+  async function handlerSolutionDetails(title:string, description:string) {
+
+    console.log(title, description);    
   }
 
   return (
@@ -398,6 +412,39 @@ export default function DetailTicket() {
               <div className="button-container">
               </div>
             </section>)}
+
+
+            {
+          addTagSolution ? 
+          <SolutionAddCenter
+          handlerCreateTagSolution={handlerCreateTagSolution}
+          />:null
+        }
+
+        {
+          addSolutionDetails ?
+          <SolutionDetails
+          handlerSolutionDetails={handlerSolutionDetails}
+          />:null
+          
+        }
+
+
+        <Button
+          backgroundColor="var(--color-green)"
+          color="var(--color-white-light)"
+          width="12rem"
+          height="2rem"
+          fontSize="0.8rem"
+          fontWeight="600"
+          border="1px solid var(--color-black-main)"
+          onClick={() => {setAddTagSolution(true); setSolutionDetails(true)}}
+        >
+          botão
+        </Button>
+
+
+
             
             {/* Removido temporáriamente por falta de definição
             <section className="ticket-resolve-content">
