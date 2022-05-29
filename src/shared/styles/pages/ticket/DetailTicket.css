@@ -50,7 +50,14 @@ h4 {
 
 #detail-ticket .edit-priority-button {
     margin-top: 0.5vw;
-  }
+    cursor: pointer;
+}
+
+#detail-ticket select {
+  padding: 0.1rem !important;
+  height: 32px !important;
+  cursor: pointer;
+}
 
 #detail-ticket .ticket-about p {
   display: flex;
@@ -172,9 +179,6 @@ h4 {
   #detail-ticket .ticket-dual-info .ticket-equipment h3 {
     font-size: 1.2rem !important;
   }
-}
-  #detail-ticket PriorityLevelBadge {
-    cursor:"pointer"
 }
 
 @media only screen and (max-width: 500px) {
