@@ -3,11 +3,9 @@ import Badge from "./Badge";
 
 const PriorityLevelBadge: React.FC<{ 
   priority: Ticket["priorityLevel"],   
-  handlePriorityLevel?: () => Promise<void>,
   className?: string | undefined
 }> = ({
   priority = "low",
-  handlePriorityLevel,
   className,
 }) => {
   const high = {
@@ -33,7 +31,6 @@ const PriorityLevelBadge: React.FC<{
       label={priorityBadge.label}
       border={`1px solid ${priorityBadge.color}`}
       color={priorityBadge.color}
-      handlePriorityLevel={handlePriorityLevel}
       className={className}
     />
   );

@@ -221,7 +221,6 @@ export default function DetailTicket() {
         <>
           <PriorityLevelBadge 
             priority={priorityLevel}
-            // handlePriorityLevel={handlePriorityLevel} 
             />
           {user && user.role === "support" ?
             <FiEdit2

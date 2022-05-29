@@ -10,7 +10,6 @@ interface Props {
   textAlign?: string;
   label: string;
   className?: string | undefined;
-  handlePriorityLevel?: () => Promise<void>;
 }
 
 const Badge: React.FC<Props> = ({
@@ -22,7 +21,6 @@ const Badge: React.FC<Props> = ({
   color = "var(--color-primary-dark)",
   textAlign = "center" as "center",
   label = "",
-  handlePriorityLevel,
   className,
 
 }) => {
@@ -41,7 +39,6 @@ const Badge: React.FC<Props> = ({
         padding: "0 1rem",
         fontSize: "0.8rem",
       }}
-      onClick={handlePriorityLevel}
       className={className}
     >
       {label}
