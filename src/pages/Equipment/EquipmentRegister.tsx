@@ -3,10 +3,9 @@ import { useNavigate } from "react-router-dom";
 
 import { FiArrowLeft } from "react-icons/fi";
 
-import { departmentList } from "../../shared/constants/departmentList";
-
 import { EquipmentRequests } from "../../shared/utils/requests/Equipment.requests";
 import { Equipment } from "../../shared/interfaces/equipment.interface";
+import { departmentList } from "../../shared/constants/departmentList";
 
 import Button from "../../shared/components/Button";
 import Footer from "../../shared/components/Footer";
@@ -35,19 +34,19 @@ export default function EquipmentRegister() {
   }
 
   function handleDepartment(departmentValue: string) {
-    if (departmentValue == "marketingAndSales") {
+    if (departmentValue === "marketingAndSales") {
       setDepartment("Marketing e vendas");
-    } else if (departmentValue == "financial") {
+    } else if (departmentValue === "financial") {
       setDepartment("Financeiro");
-    } else if (departmentValue == "operations") {
+    } else if (departmentValue === "operations") {
       setDepartment("Operações");
-    } else if (departmentValue == "rh") {
+    } else if (departmentValue === "rh") {
       setDepartment("RH");
-    } else if (departmentValue == "eps") {
+    } else if (departmentValue === "eps") {
       setDepartment("EPS");
-    } else if (departmentValue == "ti") {
+    } else if (departmentValue === "ti") {
       setDepartment("TI");
-    } else if (departmentValue == "epdi") {
+    } else if (departmentValue === "epdi") {
       setDepartment("EPDI");
     } else if (departmentValue == "others") {
       setDepartment("Outros");
@@ -56,13 +55,7 @@ export default function EquipmentRegister() {
 
   async function submitForm(event: FormEvent) {
     event.preventDefault();
-    if (
-      name === "" ||
-      model === "" ||
-      brand === "" ||
-      type === "" ||
-      department === "defaultValue"
-    ) {
+    if (name === "" || model === "" || brand === "" || type === "") {
       return alert("Preencha todos os campos");
     }
 
@@ -111,7 +104,7 @@ export default function EquipmentRegister() {
               <section className="form-sections">
                 <section className="equipment-register-data">
                   <div>
-                    <label htmlFor="name">Nome:</label>
+                    <label htmlFor="name">Nome</label>
                     <TextField
                       type="text"
                       placeholder="Nome do equipamento"
@@ -121,7 +114,7 @@ export default function EquipmentRegister() {
                     />
                   </div>
                   <div>
-                    <label htmlFor="brand">Marca:</label>
+                    <label htmlFor="brand">Marca</label>
                     <TextField
                       onChange={(event) => setBrand(event.target.value)}
                       name="brand"
@@ -134,7 +127,7 @@ export default function EquipmentRegister() {
 
                 <section className="equipment-register-data">
                   <div>
-                    <label htmlFor="model">Modelo:</label>
+                    <label htmlFor="model">Modelo</label>
                     <TextField
                       type="text"
                       placeholder="Modelo do equipamento"
@@ -144,7 +137,7 @@ export default function EquipmentRegister() {
                     />
                   </div>
                   <div>
-                    <label htmlFor="type">Tipo:</label>
+                    <label htmlFor="type">Tipo</label>
                     <TextField
                       type="text"
                       placeholder="Tipo do equipamento"
@@ -154,9 +147,10 @@ export default function EquipmentRegister() {
                     />
                   </div>
                 </section>
+
                 <section className="equipment-register-data">
                   <div>
-                    <label htmlFor="department">Departamento:</label>
+                    <label htmlFor="department">Departamento</label>
                     <ChoiceField
                       name="department"
                       items={departmentList()}
@@ -166,9 +160,10 @@ export default function EquipmentRegister() {
                   </div>
                 </section>
               </section>
+
               <section className="equipment-register-submit">
                 <Button type="submit" width="15rem">
-                  Cadastrar equipamento
+                  Cadastrar
                 </Button>
               </section>
             </form>

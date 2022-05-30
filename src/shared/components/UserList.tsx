@@ -35,6 +35,7 @@ export default function UserList({filterUserList} : {filterUserList: string})  {
     { text: "Nome", type: SortUserTableTypes.name },
     { text: "Email", type: SortUserTableTypes.email },
     { text: "Tipo de usuário", type: SortUserTableTypes.role },
+    { text: "Departamento", type: SortUserTableTypes.department },
   ];
 
   useEffect(() => {
@@ -47,12 +48,10 @@ export default function UserList({filterUserList} : {filterUserList: string})  {
 
   const getUserList = async (sorting?: string) => {
     setLoading(true);
-    const response = await userRequest.listUserRequest(
-      sorting
-    );
-    
+    const response = await userRequest.listUserRequest(sorting);
+
     setLoading(false);
-    
+
     setUsers(response.content ?? []);
     renderListUser(response.content);
     setPageable(response);
@@ -103,7 +102,7 @@ export default function UserList({filterUserList} : {filterUserList: string})  {
     handleTableSorting(sorting, orderBy);
   }
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   function handleTableSorting(type: SortUserTableTypes, orderBy: OrderByTypes) {
     const containsOrderBy = orderBy !== OrderByTypes.none;
@@ -122,18 +121,18 @@ export default function UserList({filterUserList} : {filterUserList: string})  {
   }
 
   function handleRoleName(role: string) {
-    if ( role === "support") {
-      return "suporte"
-    } else if ( role === "admin") {
-      return "administrador"
+    if (role === "support") {
+      return "suporte";
+    } else if (role === "admin") {
+      return "administrador";
     } else {
-      return "cliente"
+      return "cliente";
     }
   }
 
   function handlePageable(pageNumber: number, pageSize: number) {
-    setPageNumber(pageNumber)
-    setPageSize(pageSize)
+    setPageNumber(pageNumber);
+    setPageSize(pageSize);
 
     let sortAux = "";
     if (orderBy) {
@@ -141,7 +140,7 @@ export default function UserList({filterUserList} : {filterUserList: string})  {
     } else {
       sortAux = `page=${pageNumber}&size=${pageSize}&sort=${sort}`;
     }
-    
+
     getUserList(sortAux);
   }
 
@@ -156,7 +155,9 @@ export default function UserList({filterUserList} : {filterUserList: string})  {
                   <th
                     id={`${index}`}
                     key={index}
-                    onClick={(event) => handleClickOptionSort(event, option.type)}
+                    onClick={(event) =>
+                      handleClickOptionSort(event, option.type)
+                    }
                   >
                     {option.text}
                     <FaArrowUp className="th-arrow" />
@@ -170,11 +171,22 @@ export default function UserList({filterUserList} : {filterUserList: string})  {
                       name={`${user.firstName} ${user.lastName}`}
                       email={user.email}
                       role={handleRoleName(user.role)}
+                      department={
+                        user.department
+                          ? user.department
+                          : "Sem departamento definido"
+                      }
                       onClick={() => navigate(`/user/edit/${user.id}`)}
                     />
                   );
                 })
-              ) : <CustomTableRow loading={loading} colSpan={3} typeTableRowText="usuário" />}
+              ) : (
+                <CustomTableRow
+                  loading={loading}
+                  colSpan={4}
+                  typeTableRowText="usuário"
+                />
+              )}
             </tbody>
           </table>
         </div>

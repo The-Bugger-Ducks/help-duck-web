@@ -25,7 +25,6 @@ export default function TicketRegister() {
   const [priorityLevel, setPriorityLevel] = useState("");
   const [problemType, setProblemType] = useState("");
   const [description, setDescription] = useState("");
-  const [department, setDepartment] = useState("");
   const [equipments, setEquipments] = useState<EquipmentUpdate[]>();
   const [equipmentSelected, setEquipmentSelected] = useState("");
   const [loading, setLoading] = useState(false);
@@ -43,8 +42,8 @@ export default function TicketRegister() {
   const ticketProblemTypes = [
     { value: "Acesso na rede", label: "Acesso na rede", selected: false },
     {
-      value: "Malfuncionamento de software",
-      label: "Malfuncionamento de software",
+      value: "Mau funcionamento de software",
+      label: "Mau funcionamento de software",
       selected: false,
     },
     { value: "Acesso ao email", label: "Acesso ao email", selected: false },
@@ -82,31 +81,13 @@ export default function TicketRegister() {
       equipmentList.push(listValue);
     });
 
-  function handleDepartment(departmentValue: string) {
-    if (departmentValue == "marketingAndSales") {
-      setDepartment("Marketing e vendas");
-    } else if (departmentValue == "financial") {
-      setDepartment("Financeiro");
-    } else if (departmentValue == "operations") {
-      setDepartment("Operações");
-    } else if (departmentValue == "rh") {
-      setDepartment("RH");
-    } else if (departmentValue == "eps") {
-      setDepartment("EPS");
-    } else if (departmentValue == "ti") {
-      setDepartment("TI");
-    } else if (departmentValue == "epdi") {
-      setDepartment("EPDI");
-    } else if (departmentValue == "others") {
-      setDepartment("Outros");
-    }
-  }
-
   async function handleEquipment(equipmentValue: string) {
+    setLoading(true);
     const searchedEquipment = await equipmentRequest.listEquipmentByID(
       equipmentValue
     );
     setEquipmentSelected(searchedEquipment);
+    setLoading(false);
   }
 
   const getEquipmentsList = async (sorting?: string) => {
@@ -126,7 +107,6 @@ export default function TicketRegister() {
       description === "" ||
       priorityLevel === "" ||
       problemType === "" ||
-      department === "" ||
       equipmentSelected === ""
     ) {
       return alert("Preencha todos os campos");
@@ -142,7 +122,7 @@ export default function TicketRegister() {
       priorityLevel,
       tags: [problemType],
       equipment: equipmentSelected,
-      requestingDepartment: department,
+      department: user.department,
     };
 
     setLoading(true);
@@ -182,7 +162,7 @@ export default function TicketRegister() {
                 <section className="ticket-register-data">
                   <div className="ticket-register-dual-select">
                     <div className="ticket-register-ticket-title">
-                      <label htmlFor="titulo">Título:</label>
+                      <label htmlFor="titulo">Título</label>
                       <TextField
                         type="text"
                         placeholder="Título do chamado"
@@ -193,7 +173,7 @@ export default function TicketRegister() {
                       />
                     </div>
                     <div className="ticket-register-select">
-                      <label htmlFor="tipo">Tipo de problema:</label>
+                      <label htmlFor="tipo">Tipo de problema</label>
                       <ChoiceField
                         onChange={(event) => setProblemType(event.target.value)}
                         name="tipo"
@@ -205,8 +185,8 @@ export default function TicketRegister() {
                     </div>
                   </div>
                   <div className="ticket-register-dual-select">
-                    <div>
-                      <label htmlFor="prioridade">Grau de prioridade:</label>
+                    <div className="ticket-priority">
+                      <label htmlFor="prioridade">Grau de prioridade</label>
                       <ChoiceField
                         onChange={(event) =>
                           setPriorityLevel(event.target.value)
@@ -218,22 +198,7 @@ export default function TicketRegister() {
                         backgroundColor={"#FAFAFA"}
                       />
                     </div>
-                    <div id="inputs">
-                      <label htmlFor="department">
-                        Departamento solicitante:
-                      </label>
-                      <ChoiceField
-                        onChange={(event) =>
-                          handleDepartment(event.target.value)
-                        }
-                        name="department"
-                        items={departmentList()}
-                        padding={"0.2rem"}
-                        height={"32px"}
-                        backgroundColor={"#FAFAFA"}
-                      />
-                    </div>
-                    <div id="inputs">
+                    <div className="ticket-equipment">
                       <label htmlFor="equipment">
                         Equipamento relacionado:
                       </label>
@@ -251,7 +216,7 @@ export default function TicketRegister() {
                   </div>
                 </section>
                 <section className="ticket-register-description">
-                  <label htmlFor="titulo">Descrição do problema:</label>
+                  <label htmlFor="titulo">Descrição do problema</label>
                   <textarea
                     placeholder="Descreva seu problema aqui"
                     onChange={(event) => setDescription(event.target.value)}

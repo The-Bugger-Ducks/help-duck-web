@@ -1,31 +1,37 @@
 /* ESTILIZAÇÃO GERAL*/
 
 #ticket-register {
-  width: 100vw;
+  width: 100%;
   height: 100vh;
 }
 
 #ticket-register Header {
-  padding-left: 5%;
-  width: 100vw;
-  height: 80px;
+  padding: 0% 10%;
+  width: 100%;
+}
+
+#ticket-register .ticket-register-content {
+  padding: 5% 10%;
 }
 
 /* ESTILIZAÇÃO DO TITULO E SUBTITULO DA PÁGINA */
-#ticket-register .ticket-register-content .ticket-register-title {
-  padding: 5% 10% 0 5%;
-}
-
 #ticket-register .ticket-register-title h1 {
+  display: flex;
+  align-items: center;
   font-size: 2rem;
   font-weight: 400;
   color: var(--color-black-light);
+  gap: 0.5rem;
+}
+
+#ticket-register .ticket-register-title svg {
+  padding: 0.2vw 0;
 }
 
 /* ESTILIZAÇÃO DO FORMULÁRIO */
 
 #ticket-register .ticket-register-form {
-  padding: 2% 5%;
+  padding: 3% 0 0 0;
   height: 50%;
   width: 100%;
   border-bottom: 100px;
@@ -37,15 +43,18 @@
   column-gap: 2rem;
 }
 
-#ticket-register .ticket-register-form input {
+#ticket-register .ticket-register-form input,
+#ticket-register .ticket-register-form select {
   margin-top: 0.5rem;
   margin-bottom: 1rem;
+  width: 50%;
 }
 
 #ticket-register
   .ticket-register-form
   .ticket-register-data
-  .ticket-register-ticket-title {
+  .ticket-register-ticket-title,
+#ticket-register .ticket-priority {
   width: 45%;
 }
 
@@ -62,7 +71,7 @@
   display: flex;
   justify-content: space-between;
 }
-
+/* 
 #ticket-register
   .ticket-register-form
   .ticket-register-data
@@ -70,12 +79,16 @@
   .first {
   margin-right: 5rem;
   width: 30%;
+} */
+#ticket-register #inputs .input-primary {
+  max-width: 100% !important;
 }
 
 #ticket-register
   .ticket-register-form
   .ticket-register-data
-  .ticket-register-select {
+  .ticket-register-select,
+#ticket-register .ticket-equipment {
   display: block;
   width: 50%;
 }
@@ -98,6 +111,7 @@
 #ticket-register .ticket-register-form .ticket-register-submit {
   text-align: end;
   padding-top: 1%;
+  padding-bottom: 1%;
 }
 
 #ticket-register .ticket-register-form select {
@@ -125,10 +139,6 @@
   left: 0;
 }
 
-#ticket-register #inputs .input-primary {
-  max-width: 65rem !important;
-}
-
 @media only screen and (max-width: 583px) {
   #ticket-register .ticket-register-form .form-sections {
     margin-bottom: 3rem;
@@ -140,6 +150,15 @@
 }
 
 @media only screen and (min-width: 583px) and (max-width: 1227px) {
+  #ticket-register .ticket-register-title h1 {
+    font-size: 1.5rem;
+    gap: 0.4rem;
+  }
+
+  #ticket-register .ticket-register-title svg {
+    padding: 0.2vw 0;
+  }
+
   #ticket-register #inputs .input-primary {
     max-width: 100% !important;
   }
@@ -150,10 +169,6 @@
 
   #ticket-register .ticket-register-content .ticket-register-title {
     padding: 0 10% 0 5%;
-  }
-
-  #ticket-register .ticket-register-title h1 {
-    font-size: 1.5rem;
   }
 
   #ticket-register .ticket-register-content {
@@ -174,6 +189,7 @@
     .ticket-register-form
     .ticket-register-data
     .ticket-register-ticket-title,
+  #ticket-register .ticket-priority,
   #ticket-register
     .ticket-register-form
     .ticket-register-data
@@ -182,7 +198,8 @@
     .ticket-register-form
     .ticket-register-data
     .ticket-register-dual-select
-    .ticket-register-select {
+    .ticket-register-select,
+  #ticket-register .ticket-equipment {
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -207,6 +224,12 @@
 }
 
 @media only screen and (max-width: 583px) {
+  #ticket-register .ticket-register-form .ticket-register-submit {
+    text-align: end;
+    padding-top: 1%;
+    padding-bottom: 15% !important;
+  }
+
   #ticket-register .ticket-register-content {
     margin-left: 5%;
   }
@@ -217,6 +240,11 @@
 
   #ticket-register .ticket-register-title h1 {
     font-size: 1.5rem;
+    gap: 0.4rem;
+  }
+
+  #ticket-register .ticket-register-title svg {
+    padding: 0.2vw 0;
   }
 
   #ticket-register .ticket-register-content {
@@ -243,6 +271,7 @@
     .ticket-register-form
     .ticket-register-data
     .ticket-register-ticket-title,
+  #ticket-register .ticket-priority,
   #ticket-register
     .ticket-register-form
     .ticket-register-data
@@ -252,6 +281,7 @@
     .ticket-register-data
     .ticket-register-dual-select
     .ticket-register-select,
+  #ticket-register .ticket-equipment,
   #ticket-register
     .ticket-register-form
     .ticket-register-data
