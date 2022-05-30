@@ -5,6 +5,7 @@ export enum USER_ENDPOINTS {
   USER_DELETE = `/users/delete/`,
   USER_DETAILS = "/users/",
   USER_UPDATE_PASSWORD = "/users/update-password/",
+  USER_SEARCH = "/users/search",
 }
 
 export enum TICKET_ENDPOINTS {
