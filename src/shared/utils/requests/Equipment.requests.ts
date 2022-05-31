@@ -78,4 +78,32 @@ export class EquipmentRequests {
       this.navigate("/homepage");
     }
   }
+
+  public async searchEquipment(equipment?: string, sorting?: string) {
+    let url = `${EQUIPMENT_ENDPOINTS.EQUIPMENT_LIST}`;
+
+    if (equipment?.length != 0) {
+      url += `search?equipment=${equipment}`;
+    }
+
+    if (sorting && equipment?.length == 0) {
+      url += `?${sorting}`;
+    } else if (sorting) {
+      url += `&${sorting}`;
+    }
+
+    if (sorting) {
+      url = `${EQUIPMENT_ENDPOINTS.EQUIPMENT_LIST}?${sorting}`;
+    }
+
+    try {
+      const response = await apiEquipment.get(url, {
+        validateStatus,
+      });
+      return response.data;
+    } catch (error) {
+      console.log(error);
+      alert("Não foi possivel carregar a lista de equipamentos.");
+    }
+  }
 }

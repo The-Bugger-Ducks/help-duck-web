@@ -27,11 +27,19 @@ export default function Homepage() {
 
   const [statusFilter, setStatusFilter] = useState<status | "">("");
   const [inputSearch, setInputSearch] = useState("");
+  const [inputSearchEquipment, setInputSearchEquipment] = useState("");
   const [searchUsername, setSearchUsername] = useState("");
-  const [equipmentStatusFilter, setEquipmentStatusFilter] = useState<status | "">("");
+  const [searchEquipment, setSearchEquipment] = useState("");
+  const [equipmentStatusFilter, setEquipmentStatusFilter] = useState<
+    status | ""
+  >("");
   const [pageTitle, setPageTitle] = useState("Chamados");
-  const [searchPlaceholder, setSearchPlaceholder] = useState("Buscar por título do chamado");
-  const [filterOptions, setFilterOptions] = useState(getOptionListSelectPerUserRole(userInformation?.role));
+  const [searchPlaceholder, setSearchPlaceholder] = useState(
+    "Buscar por título do chamado"
+  );
+  const [filterOptions, setFilterOptions] = useState(
+    getOptionListSelectPerUserRole(userInformation?.role)
+  );
 
   useEffect(() => {
     if (!token || !userInformation) {
@@ -46,11 +54,12 @@ export default function Homepage() {
 
   function handleFilterTickets(event: React.FormEvent) {
     event.preventDefault();
-    setSearchUsername(inputSearch);    
+    setSearchUsername(inputSearch);
   }
 
   function handleFilterEquipment(event: React.FormEvent) {
     event.preventDefault();
+    setSearchEquipment(inputSearchEquipment);
   }
 
   return (
@@ -80,7 +89,7 @@ export default function Homepage() {
               items={filterOptions}
               width="100%"
               backgroundColor="#FAFAFA"
-              onChange={event => setStatusFilter(event.target.value)}
+              onChange={(event) => setStatusFilter(event.target.value)}
               height="42px"
             />
           </div>
@@ -105,6 +114,9 @@ export default function Homepage() {
                   backgroundColor="#FAFAFA"
                   type="text"
                   height="42px"
+                  onChange={(event) =>
+                    setInputSearchEquipment(event.target.value)
+                  }
                 />
                 <Button width="20%" type="submit" fontSize="0.8rem">
                   Buscar
@@ -122,14 +134,14 @@ export default function Homepage() {
                   ]}
                   width="100%"
                   backgroundColor="#FAFAFA"
-                  onChange={event => setStatusFilter(event.target.value)}
+                  onChange={(event) => setStatusFilter(event.target.value)}
                   height="42px"
                   color="#495057"
                 />
               </div>
             </section>
 
-            <EquipmentList />
+            <EquipmentList equipment={searchEquipment} />
 
             <div className="btn-create-equipment">
               <Link to="/equipment_register">

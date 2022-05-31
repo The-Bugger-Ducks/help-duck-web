@@ -18,7 +18,7 @@ import "../styles/components/EquipmentList.css";
 import Pagination from "./Pagination/Pagination";
 import { Pageable } from "../interfaces/pagable.interface";
 
-export default function EquipmentList() {
+export default function EquipmentList({ equipment }: { equipment: string }) {
   const equipmentRequest = new EquipmentRequests();
   const navigate = useNavigate();
 
@@ -30,6 +30,7 @@ export default function EquipmentList() {
 
   const [orderBy, setOrderBy] = useState<OrderByTypes>();
   const [sort, setSort] = useState<SortEquipmentTableTypes>();
+  const [uriParam, setUriParam] = useState("");
 
   const [pageSize, setPageSize] = useState(20);
   const [pageNumber, setPageNumber] = useState(0);
@@ -46,13 +47,19 @@ export default function EquipmentList() {
     getEquipmentsList();
   }, []);
 
+  useEffect(() => {
+    if (equipment.length != 0) {
+      getEquipmentsList(uriParam);
+    }
+  }, [equipment]);
+
   const getEquipmentsList = async (sorting?: string) => {
     setLoading(true);
-    const response = await equipmentRequest.listEquipmentRequest(sorting);
+    const response = await equipmentRequest.searchEquipment(equipment, sorting);
 
     setLoading(false);
 
-    setEquipments(response.content);
+    setEquipments(response.content ?? []);
     setPageable(response);
   };
 
@@ -104,6 +111,8 @@ export default function EquipmentList() {
     }
 
     getEquipmentsList(sortAux);
+    setUriParam(sortAux);
+    getEquipmentsList(sortAux);
   }
 
   function handlePageable(pageNumber: number, pageSize: number) {
@@ -117,6 +126,8 @@ export default function EquipmentList() {
       sortAux = `page=${pageNumber}&size=${pageSize}&sort=${sort}`;
     }
 
+    getEquipmentsList(sortAux);
+    setUriParam(sortAux);
     getEquipmentsList(sortAux);
   }
 
