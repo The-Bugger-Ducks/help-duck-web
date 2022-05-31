@@ -31,6 +31,6 @@ export enum SOLUTION_ENDPOINTS {
 }
 
 export enum PROBLEM_ENDPOINTS {
-  PROBLEM_LIST = `/problems`,
+  PROBLEM_LIST = `/problems/`,
   PROBLEM_DETAILS = `/problems/`,
 }

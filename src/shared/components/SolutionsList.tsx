@@ -47,7 +47,7 @@ const SolutionsList: React.FC<SolutionsListProps> = ({ problem, keyword }) => {
           <table>
             <tbody>
               <tr>
-                <th>Descrição da solução</th>
+                <th>Título da solução</th>
               </tr>
               {solutions.length > 0 ? (
                 solutions.map((solution, index) => {
@@ -57,7 +57,7 @@ const SolutionsList: React.FC<SolutionsListProps> = ({ problem, keyword }) => {
                         key={index}
                         onClick={() => console.log(solution.title)}
                       >
-                        <td className="ticket-title">{solution.title}</td>
+                        <td>{solution.title}</td>
                       </tr>
                     </>
                   );
@@ -91,12 +91,12 @@ const SolutionsList: React.FC<SolutionsListProps> = ({ problem, keyword }) => {
 
   function getSearchResult() {
     return (
-      <section className="ticket-list-container">
-        <div className="grid-tickets">
+      <section className="solution-list-container">
+        <div className="grid-solutions">
           <table>
             <tbody>
               <tr>
-                <th>Título do problema</th>
+                <th>Título da solução</th>
                 <th>Descrição da solução</th>
               </tr>
               {searchResult.length > 0 ? (
@@ -104,7 +104,7 @@ const SolutionsList: React.FC<SolutionsListProps> = ({ problem, keyword }) => {
                   return (
                     <>
                       <tr key={index} onClick={() => console.log(result)}>
-                        <td className="ticket-title">{result}</td>
+                        <td>{result}</td>
                         <td>{result}</td>
                       </tr>
                     </>
@@ -124,11 +124,9 @@ const SolutionsList: React.FC<SolutionsListProps> = ({ problem, keyword }) => {
     );
   }
 
-  if (userInformation?.role === 'support') {
-    return getPossibleSolutionsList();
-  } else {
-    return getSearchResult();
-  }
+  if (userInformation?.role === 'support') return getPossibleSolutionsList();
+  if (keyword != null) return getSearchResult();
+  return <></>;
 };
 
 export default SolutionsList;

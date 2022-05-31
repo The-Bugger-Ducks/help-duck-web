@@ -27,7 +27,10 @@ export class TicketRequests {
     title: string;
     description: string;
     priorityLevel: string;
-    tags: string[];
+    problems: {
+      id: string;
+      title: string;
+    };
     user: User;
   }) {
     try {

@@ -23,12 +23,13 @@
   color: #868e96;
   text-align: left;
   font-weight: normal;
-  padding-bottom: 0.5rem;
+  padding: 0.5rem;
   border-bottom: 1px solid #ced4da;
 }
 
 .solution-list-container table td {
   padding: 0.5rem;
+  color: #868e96;
 }
 
 .solution-list-container table tr {

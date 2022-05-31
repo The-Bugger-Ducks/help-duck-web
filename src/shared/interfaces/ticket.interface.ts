@@ -7,9 +7,12 @@ export default interface Ticket {
   id: string;
   title: string;
   description: string;
-  tags: Array<string>;
-  priorityLevel: "high" | "medium" | "low";
-  status: "underAnalysis" | "awaiting" | "done";
+  problems: {
+    id: string;
+    title: string;
+  };
+  priorityLevel: 'high' | 'medium' | 'low';
+  status: 'underAnalysis' | 'awaiting' | 'done';
   reserved: boolean;
   createdAt: Date;
   updatedAt?: Date;

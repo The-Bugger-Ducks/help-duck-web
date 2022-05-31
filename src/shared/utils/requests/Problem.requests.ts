@@ -18,9 +18,14 @@ export class ProblemRequests {
 
   public async getProblem(problemId: String) {
     try {
-      return (await apiSolution.get(
-        PROBLEM_ENDPOINTS.PROBLEM_DETAILS + problemId
-      )) as Problem;
+      const response = await apiSolution.get(
+        PROBLEM_ENDPOINTS.PROBLEM_DETAILS + problemId,
+        {
+          validateStatus,
+        }
+      );
+
+      return handleResponseStatus(response);
     } catch (error) {
       console.log(error);
       alert(

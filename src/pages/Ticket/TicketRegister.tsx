@@ -14,23 +14,28 @@ import LoadingContainer from "../../shared/components/Loading/LoadingContainer";
 
 import { departmentList } from "../../shared/constants/departmentList";
 
-import SessionController from "../../shared/utils/handlers/SessionController";
-import "../../shared/styles/pages/ticket/TicketRegister.css";
-import { EquipmentUpdate } from "../../shared/interfaces/equipment.interface";
-import { EquipmentRequests } from "../../shared/utils/requests/Equipment.requests";
+import SessionController from '../../shared/utils/handlers/SessionController';
+import '../../shared/styles/pages/ticket/TicketRegister.css';
+import { EquipmentUpdate } from '../../shared/interfaces/equipment.interface';
+import { EquipmentRequests } from '../../shared/utils/requests/Equipment.requests';
+import Ticket from '../../shared/interfaces/ticket.interface';
+import { ProblemRequests } from '../../shared/utils/requests/Problem.requests';
 
 export default function TicketRegister() {
   const equipmentRequest = new EquipmentRequests();
-  const [title, setTitle] = useState("");
-  const [priorityLevel, setPriorityLevel] = useState("");
-  const [problemType, setProblemType] = useState("");
-  const [description, setDescription] = useState("");
-  const [department, setDepartment] = useState("");
+  const [title, setTitle] = useState('');
+  const [priorityLevel, setPriorityLevel] = useState('');
+  const [problemType, setProblemType] = useState<Ticket['problems']>();
+  const [description, setDescription] = useState('');
+  const [department, setDepartment] = useState('');
   const [equipments, setEquipments] = useState<EquipmentUpdate[]>();
   const [equipmentSelected, setEquipmentSelected] = useState("");
   const [loading, setLoading] = useState(false);
+  const [ticketProblems, setTicketProblems] =
+    useState<Array<{ value: string; label: string; selected?: boolean }>>();
 
   const ticketRequest = new TicketRequests();
+  const problemRequest = new ProblemRequests();
 
   const navigate = useNavigate();
 
@@ -65,15 +70,37 @@ export default function TicketRegister() {
 
   useEffect(() => {
     getEquipmentsList();
+    getTicketProblemsList();
   }, []);
+
+  async function getTicketProblemsList() {
+    const problems = await problemRequest.getProblems();
+
+    let problemsList: Array<{
+      value: string;
+      label: string;
+      selected?: boolean;
+    }> = [];
+
+    problems.content.map((problem: { id: string; title: string }) => {
+      problemsList.push({
+        value: problem.id,
+        selected: false,
+        label: problem.title,
+      });
+    });
+
+    setTicketProblems(problemsList);
+  }
 
   const equipmentList: {
     value: string;
     label: string;
     selected?: boolean | undefined;
   }[] = [];
+
   equipments &&
-    equipments.map((equipment, index) => {
+    equipments.map(equipment => {
       const listValue = {
         label: equipment.name,
         value: equipment.id,
@@ -122,12 +149,12 @@ export default function TicketRegister() {
     event.preventDefault();
 
     if (
-      title === "" ||
-      description === "" ||
-      priorityLevel === "" ||
-      problemType === "" ||
-      department === "" ||
-      equipmentSelected === ""
+      title === '' ||
+      description === '' ||
+      priorityLevel === '' ||
+      problemType != null ||
+      department === '' ||
+      equipmentSelected === ''
     ) {
       return alert("Preencha todos os campos");
     }
@@ -140,7 +167,7 @@ export default function TicketRegister() {
       description,
       user,
       priorityLevel,
-      tags: [problemType],
+      problems: problemType!,
       equipment: equipmentSelected,
       requestingDepartment: department,
     };
@@ -197,10 +224,10 @@ export default function TicketRegister() {
                       <ChoiceField
                         onChange={(event) => setProblemType(event.target.value)}
                         name="tipo"
-                        items={ticketProblemTypes}
-                        padding={"0.2rem"}
-                        height={"32px"}
-                        backgroundColor={"#FAFAFA"}
+                        items={ticketProblems}
+                        padding={'0.2rem'}
+                        height={'32px'}
+                        backgroundColor={'#FAFAFA'}
                       />
                     </div>
                   </div>

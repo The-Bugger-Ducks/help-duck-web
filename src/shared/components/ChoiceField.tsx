@@ -11,7 +11,9 @@ interface Props {
   required?: boolean;
   padding?: string;
   onChange?: (event: any) => void;
-  items: Array<{ value: string; label: string; selected?: boolean }>;
+  items:
+    | Array<{ value: string; label: string; selected?: boolean }>
+    | undefined;
 }
 
 const SelectInput: React.FC<Props> = ({
@@ -50,11 +52,12 @@ const SelectInput: React.FC<Props> = ({
         <option value="" selected>
           Selecione uma opção
         </option>
-        {items.map((item, index) => (
-          <option key={index} value={item.value} selected={item.selected}>
-            {item.label}
-          </option>
-        ))}
+        {items != undefined &&
+          items.map((item, index) => (
+            <option key={index} value={item.value} selected={item.selected}>
+              {item.label}
+            </option>
+          ))}
       </select>
     </div>
   );

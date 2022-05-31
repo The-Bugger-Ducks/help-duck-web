@@ -45,7 +45,7 @@ export default function DetailTicket() {
   const [status, setStatus] = useState<status>();
   const [priorityLevel, setPriorityLevel] =
     useState<Ticket['priorityLevel']>('low');
-  const [problemType, setProblemType] = useState<Ticket['tags']>(['']);
+  const [problemType, setProblemType] = useState<Ticket['problems']>();
   const [ticketDepartment, setTicketDepartment] =
     useState<Ticket['department']>('');
   const [ticketEquipment, setTicketEquipment] = useState<Ticket['equipment']>();
@@ -78,18 +78,13 @@ export default function DetailTicket() {
     setComments(response.comments);
     setStatus(response.status);
     setPriorityLevel(response.priorityLevel);
-    setProblemType(response.tags);
+    setProblemType(response.problems);
     setSolution(response.solution);
     setTicketDepartment(response.department);
     setTicketEquipment(response.equipment);
 
-    const problems = (await problemRequest.getProblems()) as Problem[];
-    problems.length > 0 &&
-      problems.map(possibleProblem => {
-        if (possibleProblem.title == response.tags[0]) {
-          setTicketProblem(possibleProblem);
-        }
-      });
+    const problems: Problem[] = await problemRequest.getProblems();
+    //setTicketProblem();
 
     if (response.support && !response.solution && user?.role === 'support') {
       setCanSetSolution(true);
@@ -180,7 +175,7 @@ export default function DetailTicket() {
     const payload: CreateSolution = {
       ticketId: ticket.id,
       titleProblem: ticket.title,
-      problemTags: ticket.tags,
+      problems: ticket.problems,
       solutionComment: comment,
     };
 
@@ -299,17 +294,9 @@ export default function DetailTicket() {
             <div className="ticket-type">
               <h3>Tipo de problema:</h3>
               <TextField
-                title={
-                  problemType != null && problemType[0] != ''
-                    ? problemType[0]
-                    : 'Sem tipo definido'
-                }
+                title={problemType?.title ?? 'Sem tipo definido'}
                 type="text"
-                placeholder={
-                  problemType != null && problemType[0] != ''
-                    ? problemType[0]
-                    : 'Sem tipo definido'
-                }
+                placeholder={problemType?.title ?? 'Sem tipo definido'}
                 disabled={true}
                 name="tipo"
                 backgroundColor="#FAFAFA"
