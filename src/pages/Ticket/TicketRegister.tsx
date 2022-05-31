@@ -152,7 +152,7 @@ export default function TicketRegister() {
       title === '' ||
       description === '' ||
       priorityLevel === '' ||
-      problemType != null ||
+      problemType === null ||
       department === '' ||
       equipmentSelected === ''
     ) {

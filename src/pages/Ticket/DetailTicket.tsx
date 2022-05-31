@@ -83,8 +83,10 @@ export default function DetailTicket() {
     setTicketDepartment(response.department);
     setTicketEquipment(response.equipment);
 
-    const problems: Problem[] = await problemRequest.getProblems();
-    //setTicketProblem();
+    const problem: Problem = await problemRequest.getProblem(
+      response.problems.id
+    );
+    setTicketProblem(problem);
 
     if (response.support && !response.solution && user?.role === 'support') {
       setCanSetSolution(true);
