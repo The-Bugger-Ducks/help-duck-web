@@ -14,7 +14,9 @@ import { Pageable } from "../interfaces/pagable.interface";
 
 import "../styles/components/UserList.css";
 
-export default function TicketList() {
+export default function UserList({filterUserList, username} : {filterUserList: string, username: string})  {
+  const navigate = useNavigate();
+  
   const userRequest = new UserRequests();
 
   const [loading, setLoading] = useState(false);
@@ -25,6 +27,7 @@ export default function TicketList() {
 
   const [orderBy, setOrderBy] = useState<OrderByTypes>();
   const [sort, setSort] = useState<SortUserTableTypes>();
+  const [uriParam, setUriParam] = useState("");
 
   const [pageSize, setPageSize] = useState(20);
   const [pageNumber, setPageNumber] = useState(0);
@@ -37,18 +40,27 @@ export default function TicketList() {
   ];
 
   useEffect(() => {
-    getUserList();
-  }, []);
+    getUserList()
+  }, [])
+  
+  useEffect(() => {
+    if (filterUserList.length != 0 || username.length != 0) {
+      getUserList(uriParam)
+    }
+  }, [filterUserList, username])
 
-  const getUserList = async (sorting?: string) => {
+  async function getUserList(sorting?: string) {
     setLoading(true);
-    const response = await userRequest.listUserRequest(sorting);
+
+    const role = filterUserList !== "allUsers" ? filterUserList : "";
+
+    const response = await userRequest.searchUsers(username, role, sorting);
 
     setLoading(false);
 
     setUsers(response.content ?? []);
     setPageable(response);
-  };
+  };  
 
   function handleClickOptionSort(
     event: MouseEvent,
@@ -87,8 +99,6 @@ export default function TicketList() {
     handleTableSorting(sorting, orderBy);
   }
 
-  const navigate = useNavigate();
-
   function handleTableSorting(type: SortUserTableTypes, orderBy: OrderByTypes) {
     const containsOrderBy = orderBy !== OrderByTypes.none;
 
@@ -101,6 +111,7 @@ export default function TicketList() {
 
     setSort(type);
     setOrderBy(orderBy);
+    setUriParam(sortAux)
 
     getUserList(sortAux);
   }
@@ -126,6 +137,7 @@ export default function TicketList() {
       sortAux = `page=${pageNumber}&size=${pageSize}&sort=${sort}`;
     }
 
+    setUriParam(sortAux)
     getUserList(sortAux);
   }
 
