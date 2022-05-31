@@ -11,7 +11,9 @@ function handleResponseStatus(response: AxiosResponse) {
     if (response.status === 404) {
       return []
     } else {
-      alert("Não foi possível carregar os chamados. Tente novamente!");
+      alert(
+        'Não foi possível carregar os tipos de problemas. Tente novamente!'
+      );
     }
   }
 }
