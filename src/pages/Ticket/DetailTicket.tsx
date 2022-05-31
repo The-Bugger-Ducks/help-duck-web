@@ -58,7 +58,6 @@ export default function DetailTicket() {
   const [hiddenSolutionVote, setHiddenSolutionVote] = useState(false);
   const [editPriority, setEditPriority] = useState(false);
 
-
   const ticketRequest = new TicketRequests();
   const solutionRequest = new SolutionRequests();
 
@@ -80,11 +79,13 @@ export default function DetailTicket() {
     setLoading(true);
     const response: Ticket = await ticketRequest.showRequest(id ?? "");
 
+    console.log(response);
+
     setTicket(response);
     setComments(response.comments);
     setStatus(response.status);
     setPriorityLevel(response.priorityLevel);
-    setProblemType(response.tags);
+    setProblemType(response.tags ?? [""]);
     setSolution(response.solution);
     setTicketDepartment(response.department);
     setTicketEquipment(response.equipment);
@@ -174,67 +175,67 @@ export default function DetailTicket() {
 
   async function handleChangePriorityLevel() {
     if (user && user.role !== "support") {
-      return
+      return;
     }
 
     if (!ticket) {
-      return
+      return;
     }
 
     const payload = {
       id: ticket.id,
       priorityLevel: priorityLevelSelected,
-    }
+    };
 
     try {
-      setLoading(true)
-      await ticketRequest.updatePriorityLevel(payload)
-      setLoading(false)
+      setLoading(true);
+      await ticketRequest.updatePriorityLevel(payload);
+      setLoading(false);
       setPriorityLevel(priorityLevelSelected);
       setEditPriority(false);
       alert("Prioridade do chamado alterado com sucesso.");
     } catch (error) {
-      console.log(error)
+      console.log(error);
     } finally {
       setLoading(false);
     }
-
   }
 
   function HandlePriorityLevel() {
     return (
       <>
-      {editPriority ? (
-        <>
-          <SelectInput
-            onChange={(event) => setPriorityLevelSelected(event.target.value)}
-            name="role"
-            items={ticketPriorityAux}
-          />
-          <FiCheck
-            className="edit-priority-button"
-            color="var(--color-gray-dark)"
-            onClick={() => {handleChangePriorityLevel()}}
-          />
-        </>
-      ) : (
-        <>
-          <PriorityLevelBadge 
-            priority={priorityLevel}
+        {editPriority ? (
+          <>
+            <SelectInput
+              onChange={(event) => setPriorityLevelSelected(event.target.value)}
+              name="role"
+              items={ticketPriorityAux}
             />
-          {user && user.role === "support" ?
-            <FiEdit2
+            <FiCheck
               className="edit-priority-button"
               color="var(--color-gray-dark)"
-              onClick={() => {setEditPriority(true)}}
-            /> : null
-          }{" "}
-        </>
-      )}
+              onClick={() => {
+                handleChangePriorityLevel();
+              }}
+            />
+          </>
+        ) : (
+          <>
+            <PriorityLevelBadge priority={priorityLevel} />
+            {user && user.role === "support" ? (
+              <FiEdit2
+                className="edit-priority-button"
+                color="var(--color-gray-dark)"
+                onClick={() => {
+                  setEditPriority(true);
+                }}
+              />
+            ) : null}{" "}
+          </>
+        )}
       </>
-    )
+    );
   }
-
 
   async function handleSetSolution(comment: Comment) {
     if (!ticket) return;
@@ -295,12 +296,12 @@ export default function DetailTicket() {
                   }}
                 />
               </div>
-              {ticket?.title ?? 'Carregando...'}
+              {ticket?.title ?? "Carregando..."}
             </h1>
           </section>
           <section className="ticket-about">
             <div>
-              <p>Protocolo: #{ticket?.id ?? '...'}</p>
+              <p>Protocolo: #{ticket?.id ?? "..."}</p>
               <p>
                 <span className="detail-date-created">
                   <FiClock color="var(--color-gray-dark)" size="0.8rem" />{" "}
@@ -372,15 +373,15 @@ export default function DetailTicket() {
               <h3>Tipo de problema:</h3>
               <TextField
                 title={
-                  problemType !== null && problemType[0] !== ""
-                    ? problemType[0]
-                    : "Sem tipo definido"
+                  problemType == null || problemType[0] == ""
+                    ? "Sem tipo definido"
+                    : problemType[0]
                 }
                 type="text"
                 placeholder={
-                  problemType !== null && problemType[0] !== ""
-                    ? problemType[0]
-                    : "Sem tipo definido"
+                  problemType == null || problemType[0] == ""
+                    ? "Sem tipo definido"
+                    : problemType[0]
                 }
                 disabled={true}
                 name="tipo"
@@ -396,20 +397,20 @@ export default function DetailTicket() {
               <TextField
                 title={
                   ticketDepartment !== null && ticketDepartment !== ""
-                  ? ticketDepartment
-                  : "Sem equipamento definido"
+                    ? ticketDepartment
+                    : "Sem equipamento definido"
                 }
                 type="text"
                 placeholder={
                   ticketDepartment !== null && ticketDepartment !== ""
-                  ? ticketDepartment
-                  : "Sem departamento definido"
+                    ? ticketDepartment
+                    : "Sem departamento definido"
                 }
                 disabled={true}
                 name="tipo"
                 backgroundColor="#FAFAFA"
                 height="32px"
-                />
+              />
             </div>
 
             <div className="ticket-equipment">
@@ -417,8 +418,8 @@ export default function DetailTicket() {
               <TextField
                 title={
                   ticketEquipment
-                  ? ticketEquipment.name
-                  : "Sem equipamento definido"
+                    ? ticketEquipment.name
+                    : "Sem equipamento definido"
                 }
                 type="text"
                 placeholder={
@@ -430,7 +431,7 @@ export default function DetailTicket() {
                 name="tipo"
                 backgroundColor="#FAFAFA"
                 height="32px"
-                />
+              />
             </div>
           </section>
 
@@ -484,9 +485,10 @@ export default function DetailTicket() {
                   Enviar
                 </Button>
               </div>
-            </section>)}
-            
-            {/* Removido temporáriamente por falta de definição
+            </section>
+          )}
+
+          {/* Removido temporáriamente por falta de definição
             <section className="ticket-resolve-content">
               <h3>A resolução adicionada pelo suporte foi útil?</h3>
               <div>

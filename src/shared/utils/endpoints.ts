@@ -18,6 +18,7 @@ export enum TICKET_ENDPOINTS {
   TICKET_RESERVE = `helpUser/reserveTicket/`,
   TICKET_INSERT_COMMENT = `helpUser/updateComment/`,
   TICKET_CLOSE = `helpUser/closeTicket/`,
+  TICKET_SEARCH = `/tickets/search/`,
 }
 
 export enum EQUIPMENT_ENDPOINTS {
