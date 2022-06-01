@@ -123,4 +123,15 @@ export class TicketRequests {
       alert("Não foi possível fechar o chamado, tente novamente!");
     }
   }
+
+  public async updatePriorityLevel(payload: {id: string, priorityLevel: "high" | "medium" | "low"}) {
+    try {
+      return await apiTickets.put(
+        `${TICKET_ENDPOINTS.TICKET_UPDATE}`,
+        payload
+      );
+    } catch (error) {
+      alert("Não foi possível alterar prioridade, tente novamente!");
+    }
+  }
 }

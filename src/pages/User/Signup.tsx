@@ -1,5 +1,7 @@
 import { FormEvent, useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+
+import { departmentList } from "../../shared/constants/departmentList";
 
 import { UserRequests } from "../../shared/utils/requests/User.requests";
 import { FiArrowLeft } from "react-icons/fi";
@@ -13,13 +15,15 @@ import LoadingContainer from "../../shared/components/Loading/LoadingContainer";
 
 import SessionController from "../../shared/utils/handlers/SessionController";
 import "../../shared/styles/pages/user/Signup.css";
+import { EquipmentUpdate } from "../../shared/interfaces/equipment.interface";
 
 export default function Signup() {
-  const [loading, setLoading] = useState(false);  
+  const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [lastname, setLastname] = useState("");
+  const [department, setDepartment] = useState("");
   const [role, setRole] = useState<"admin" | "support" | "client">("client");
 
   const userRequest = new UserRequests();
@@ -41,9 +45,35 @@ export default function Signup() {
     }
   }, []);
 
+  function handleDepartment(departmentValue: string) {
+    if (departmentValue === "marketingAndSales") {
+      setDepartment("Marketing e vendas");
+    } else if (departmentValue === "financial") {
+      setDepartment("Financeiro");
+    } else if (departmentValue === "operations") {
+      setDepartment("Operações");
+    } else if (departmentValue === "rh") {
+      setDepartment("RH");
+    } else if (departmentValue === "eps") {
+      setDepartment("EPS");
+    } else if (departmentValue === "ti") {
+      setDepartment("TI");
+    } else if (departmentValue === "epdi") {
+      setDepartment("EPDI");
+    } else if (departmentValue == "others") {
+      setDepartment("Outros");
+    }
+  }
+
   async function submitSignup(event: FormEvent) {
     event.preventDefault();
-    if (email === "" || password === "" || name === "" || lastname === "") {
+    if (
+      email === "" ||
+      password === "" ||
+      name === "" ||
+      lastname === "" ||
+      department === "defaultValue"
+    ) {
       return alert("Preencha todos os campos");
     }
 
@@ -53,12 +83,13 @@ export default function Signup() {
       firstName: name,
       lastName: lastname,
       role: role,
+      department: department,
     };
 
     setLoading(true);
     const response = await userRequest.registerRequest(payload);
 
-    setLoading(false)
+    setLoading(false);
     if (response?.status === 201) {
       alert("Usuário cadastrado com sucesso!");
 
@@ -136,7 +167,17 @@ export default function Signup() {
                     name="role"
                     items={userProfiles}
                     onChange={(event) => setRole(event.target.value)}
-                    />
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="department">Departamento</label>
+                  <ChoiceField
+                    name="department"
+                    items={departmentList()}
+                    backgroundColor="#FAFAFA"
+                    onChange={(event) => handleDepartment(event.target.value)}
+                  />
                 </div>
               </section>
             </section>

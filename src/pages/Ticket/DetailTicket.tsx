@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 
 import { useParams, useNavigate } from 'react-router-dom';
-import { FiClock, FiArrowLeft, FiCheck } from 'react-icons/fi';
+import { FiClock, FiArrowLeft, FiCheck, FiEdit2 } from 'react-icons/fi';
 
 import SessionController from '../../shared/utils/handlers/SessionController';
 
@@ -23,11 +23,14 @@ import TicketAddComment from '../../shared/components/TicketAddComment';
 import TextField from '../../shared/components/TextField';
 import TicketSolution from '../../shared/components/TicketSolution';
 import LoadingContainer from '../../shared/components/Loading/LoadingContainer';
+import SelectInput from '../../shared/components/ChoiceField';
 
 import '../../shared/styles/pages/ticket/DetailTicket.css';
 import SolutionsList from '../../shared/components/SolutionsList';
 import { Problem } from '../../shared/interfaces/problem.interface';
 import { ProblemRequests } from '../../shared/utils/requests/Problem.requests';
+
+import '../../shared/styles/pages/ticket/DetailTicket.css';
 
 export default function DetailTicket() {
   const navigate = useNavigate();
@@ -46,6 +49,9 @@ export default function DetailTicket() {
   const [priorityLevel, setPriorityLevel] =
     useState<Ticket['priorityLevel']>('low');
   const [problemType, setProblemType] = useState<Ticket['problems']>();
+  useState<Ticket['priorityLevel']>('low');
+  const [priorityLevelSelected, setPriorityLevelSelected] =
+    useState<Ticket['priorityLevel']>('low');
   const [ticketDepartment, setTicketDepartment] =
     useState<Ticket['department']>('');
   const [ticketEquipment, setTicketEquipment] = useState<Ticket['equipment']>();
@@ -57,10 +63,17 @@ export default function DetailTicket() {
   const [canSetSolution, setCanSetSolution] = useState<boolean>(false);
   const [hiddenSolutionVote, setHiddenSolutionVote] = useState(false);
   const [ticketProblem, setTicketProblem] = useState<Problem>();
+  const [editPriority, setEditPriority] = useState(false);
 
   const ticketRequest = new TicketRequests();
   const solutionRequest = new SolutionRequests();
   const problemRequest = new ProblemRequests();
+
+  const ticketPriorityAux = [
+    { value: 'low', label: 'Baixa', selected: false },
+    { value: 'medium', label: 'Média', selected: false },
+    { value: 'high', label: 'Alta', selected: false },
+  ];
 
   useEffect(() => {
     const subscribe = getTicket();
@@ -171,8 +184,74 @@ export default function DetailTicket() {
     setLoading(false);
   }
 
+  async function handleChangePriorityLevel() {
+    if (user && user.role !== 'support') {
+      return;
+    }
+
+    if (!ticket) {
+      return;
+    }
+
+    const payload = {
+      id: ticket.id,
+      priorityLevel: priorityLevelSelected,
+    };
+
+    try {
+      setLoading(true);
+      await ticketRequest.updatePriorityLevel(payload);
+      setLoading(false);
+      setPriorityLevel(priorityLevelSelected);
+      setEditPriority(false);
+      alert('Prioridade do chamado alterado com sucesso.');
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  function HandlePriorityLevel() {
+    return (
+      <>
+        {editPriority ? (
+          <>
+            <SelectInput
+              onChange={event => setPriorityLevelSelected(event.target.value)}
+              name="role"
+              items={ticketPriorityAux}
+            />
+            <FiCheck
+              className="edit-priority-button"
+              color="var(--color-gray-dark)"
+              onClick={() => {
+                handleChangePriorityLevel();
+              }}
+            />
+          </>
+        ) : (
+          <>
+            <PriorityLevelBadge priority={priorityLevel} />
+            {user && user.role === 'support' ? (
+              <FiEdit2
+                className="edit-priority-button"
+                color="var(--color-gray-dark)"
+                onClick={() => {
+                  setEditPriority(true);
+                }}
+              />
+            ) : null}{' '}
+          </>
+        )}
+      </>
+    );
+  }
+
   async function handleSetSolution(comment: Comment) {
     if (!ticket) return;
+
+    setLoading(true);
 
     const payload: CreateSolution = {
       ticketId: ticket.id,
@@ -186,8 +265,10 @@ export default function DetailTicket() {
 
       setSolution(response);
       setCanSetSolution(false);
+      setLoading(false);
     } catch (error) {
       setCanSetSolution(true);
+      setLoading(false);
     }
   }
 
@@ -238,6 +319,12 @@ export default function DetailTicket() {
                   {createdAt?.toLocaleString('pt-br') ?? '...'}
                 </span>
                 <StatusTicket status={ticket?.status} />
+                <span id="concludedAt">
+                  <FiCheck color="var(--color-gray-dark)" size="0.8rem" />
+                  {concludedAt
+                    ? concludedAt.toLocaleString('pt-br')
+                    : 'Sem data de conclusão'}
+                </span>
               </p>
               <p>
                 Responsável:{' '}
@@ -290,7 +377,7 @@ export default function DetailTicket() {
           <section className="ticket-dual-info">
             <div className="ticket-priority">
               <h3>Grau de prioridade:</h3>
-              <PriorityLevelBadge priority={priorityLevel} />
+              <HandlePriorityLevel />
             </div>
 
             <div className="ticket-type">
@@ -387,7 +474,20 @@ export default function DetailTicket() {
           (user?.role === 'support' && !hasSupport) ? null : (
             <section id="add-comment-container">
               <TicketAddComment ref={formCommentRef} />
-              <div className="button-container"></div>
+              <div className="button-container">
+                <Button
+                  backgroundColor="transparent"
+                  color="var(--color-black-dark)"
+                  width="4rem"
+                  height="2rem"
+                  fontSize="0.8rem"
+                  fontWeight="600"
+                  border="1px solid var(--color-black-main)"
+                  onClick={handleSubmitComment}
+                >
+                  Enviar
+                </Button>
+              </div>
             </section>
           )}
 

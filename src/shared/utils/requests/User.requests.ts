@@ -5,9 +5,12 @@ import { validateStatus } from "../handlers/HandlerResponseStatusCodeFound";
 export class UserRequests {
   public async showRequest(userId: string) {
     try {
-      const response = await apiUsers.get(USER_ENDPOINTS.USER_DETAILS + userId, {
-        validateStatus,
-      });
+      const response = await apiUsers.get(
+        USER_ENDPOINTS.USER_DETAILS + userId,
+        {
+          validateStatus,
+        }
+      );
       return response.data;
     } catch (error) {
       alert("Não foi possível encontrar o usuario. Tente novamente!");
@@ -52,7 +55,9 @@ export class UserRequests {
 
   public async deleteRequest(userId: string) {
     try {
-      const response = await apiUsers.delete(USER_ENDPOINTS.USER_DELETE + userId);
+      const response = await apiUsers.delete(
+        USER_ENDPOINTS.USER_DELETE + userId
+      );
       return response;
     } catch (error) {
       alert("Não foi possível deletar o usuario. Tente novamente!");
@@ -60,10 +65,10 @@ export class UserRequests {
   }
 
   public async listUserRequest(sorting?: string) {
-    let url = `${USER_ENDPOINTS.USER_DETAILS}`
+    let url = `${USER_ENDPOINTS.USER_DETAILS}`;
 
     if (sorting) {
-      url = `${USER_ENDPOINTS.USER_DETAILS}?${sorting}`
+      url = `${USER_ENDPOINTS.USER_DETAILS}?${sorting}`;
     }
 
     try {
@@ -74,6 +79,46 @@ export class UserRequests {
     } catch (error) {
       console.log(error);
       alert("Não foi possível buscar todos usuários.");
+    }
+  }
+
+  public async updatePassword(body: object) {
+    let url = `${USER_ENDPOINTS.USER_UPDATE_PASSWORD}`;
+
+    try {
+      const response = await apiUsers.put(url, body);
+      return response;
+    } catch (error) {
+      console.log(error);
+      alert(
+        "A senha informada está incorreta. Não foi possível atualizar as informações."
+      );
+    }
+  }
+
+  public async searchUsers(username: string, role: string, sorting?: string) {
+    try {
+      let url = `${USER_ENDPOINTS.USER_SEARCH}`
+
+      if (username.length != 0 && role.length != 0) {
+        url += `?username=${username}&role=${role}`
+      } else if (username.length != 0 && role.length == 0) {
+        url += `?username=${username}`
+      } else if (role.length != 0 && username.length == 0) {
+        url += `?role=${role}`
+      }
+
+      if (sorting && role.length == 0 && username.length == 0) {
+        url += `?${sorting}`;
+      } else if (sorting) {
+        url += `&${sorting}`;
+      }
+
+      const { data } = await apiUsers.get(url, { validateStatus });
+
+      return data
+    } catch (error) {
+      alert("Não foi possível realizar filtro, tente novamente!")
     }
   }
 }

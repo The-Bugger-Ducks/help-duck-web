@@ -52,6 +52,7 @@
 #homepage .btn-create-equipment {
   margin-top: 2%;
   text-align: end;
+  margin-bottom: 5%;
 }
 
 @media only screen and (max-width: 500px) {
@@ -83,7 +84,7 @@
   #homepage .btn-create-user button.button-primary {
     width: 50% !important;
     height: 2.5rem !important;
-    margin-bottom: 1%;
+    margin-bottom: 5rem;
   }
 
   #homepage .btn-create-equipment button.button-primary {
@@ -147,7 +148,7 @@
   #homepage .btn-create-user button.button-primary {
     width: 40% !important;
     height: 2.5rem !important;
-    margin-bottom: 1rem;
+    margin-bottom: 2rem;
   }
 
   #homepage .btn-create-equipment button.button-primary {

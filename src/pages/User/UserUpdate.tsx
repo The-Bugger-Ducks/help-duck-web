@@ -3,7 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 
 import { UserRequests } from "../../shared/utils/requests/User.requests";
 import { FiArrowLeft } from "react-icons/fi";
-
+import { departmentListVariable } from "../../shared/constants/departmentList";
 import Button from "../../shared/components/Button";
 import ButtonDelete from "../../shared/components/ButtonDelete";
 import Footer from "../../shared/components/Footer";
@@ -17,6 +17,7 @@ import { User } from "../../shared/interfaces/user.interface";
 import SessionController from "../../shared/utils/handlers/SessionController";
 
 import "../../shared/styles/pages/user/UserUpdate.css";
+import ChoiceField from "../../shared/components/ChoiceField";
 
 type Role = {
   value: string;
@@ -31,9 +32,11 @@ export default function UserUpdate() {
   const [name, setName] = useState("");
   const [lastname, setLastname] = useState("");
   const [role, setRole] = useState<"admin" | "support" | "client">();
-
+  const [selectedDepartment, setSelectedDepartment] = useState("");
+  const [department, setDepartment] = useState("");
   const [emailPlaceholder, setEmailPlaceholder] = useState("");
   const [namePlaceholder, setNamePlaceholder] = useState("");
+  const [userID, setUserID] = useState("");
   const [lastnamePlaceholder, setLastNamePlaceholder] = useState("");
   const [, setRolePlaceholder] = useState<"admin" | "support" | "client">(
     "client"
@@ -54,19 +57,60 @@ export default function UserUpdate() {
 
   const userRequest = new UserRequests();
 
+  function handleDepartmentValue(departmentValue: string) {
+    if (departmentValue == "marketingAndSales") {
+      setDepartment("Marketing e vendas");
+    } else if (departmentValue == "financial") {
+      setDepartment("Financeiro");
+    } else if (departmentValue == "operations") {
+      setDepartment("Operações");
+    } else if (departmentValue == "rh") {
+      setDepartment("RH");
+    } else if (departmentValue == "eps") {
+      setDepartment("EPS");
+    } else if (departmentValue == "ti") {
+      setDepartment("TI");
+    } else if (departmentValue == "epdi") {
+      setDepartment("EPDI");
+    } else if (departmentValue == "others") {
+      setDepartment("Outros");
+    }
+  }
+
+  function handleDepartmentLabel(departmentLabel: string) {
+    if (departmentLabel == "Marketing e vendas") {
+      setSelectedDepartment("marketingAndSales");
+    } else if (departmentLabel == "Financeiro") {
+      setSelectedDepartment("financial");
+    } else if (departmentLabel == "Operações") {
+      setSelectedDepartment("operations");
+    } else if (departmentLabel == "RH") {
+      setSelectedDepartment("rh");
+    } else if (departmentLabel == "EPS") {
+      setSelectedDepartment("eps");
+    } else if (departmentLabel == "TI") {
+      setSelectedDepartment("ti");
+    } else if (departmentLabel == "EPDI") {
+      setSelectedDepartment("epdi");
+    } else if (departmentLabel == "Outros") {
+      setSelectedDepartment("others");
+    }
+  }
+
   const getUser = async () => {
     setLoading(true);
 
     const response: User = await userRequest.showRequest(id ?? "");
 
-    setEmailPlaceholder(response.email)
-    setEmail(response.email)
+    setEmailPlaceholder(response.email);
+    setEmail(response.email);
     setNamePlaceholder(response.firstName);
     setName(response.firstName);
     setLastNamePlaceholder(response.lastName);
     setLastname(response.lastName);
     setRolePlaceholder(response.role);
     setRole(response.role);
+    setUserID(response.id);
     setUserProfiles([
       {
         value: "client",
@@ -84,6 +128,8 @@ export default function UserUpdate() {
         selected: response.role === "admin",
       },
     ]);
+    setDepartment(response.department);
+    handleDepartmentLabel(response.department);
     setLoading(false);
   };
 
@@ -114,27 +160,48 @@ export default function UserUpdate() {
     }
   }, []);
 
-  function TitlePage() {
-    if (user?.id === id) {  
-    return "Edição de perfil"
+  function handleConfirmPassword() {
+    if (!isUser) {
+      console.log("auuu");
+    }
   }
-  return "Detalhes do usuário"
+
+  function TitlePage() {
+    if (user?.id === id) {
+      return "Edição de perfil";
+    }
+    return "Detalhes do usuário";
   }
 
   function DeleteButton() {
     return (
       <>
-        { user?.id !== id && user?.role === "admin" ? (
+        {user?.id !== id && user?.role === "admin" ? (
           <ButtonDelete
             type="button"
             width="15rem"
             onClick={() => submitUserDelete(id)}
-            >
+          >
             Excluir usuário
           </ButtonDelete>
-        ) : null } 
-      </>     
-    )
+        ) : null}
+      </>
+    );
+  }
+
+  async function updateUser(payload: User) {
+    const response = await userRequest.updateRequest(payload);
+    setLoading(false);
+
+    if (response?.status === 200) {
+      alert("Usuário atualizado com sucesso!");
+      if (user?.id === id) {
+        //@ts-expect-error
+        delete payload.password;
+        SessionController.setUserInfo(payload);
+      }
+      navigate("/homepage");
+    }
   }
 
   async function submitUserUpdate(event: FormEvent) {
@@ -151,28 +218,45 @@ export default function UserUpdate() {
     if (!id) {
       return;
     }
+
     const payload = {
       id: id,
       email: email,
-      password: password,
       firstName: name,
       lastName: lastname,
       role: role!,
+      department: department,
     };
 
-    setLoading(true);
-    const response = await userRequest.updateRequest(payload);
+    let oldPassword = null;
+    let passwordUpdatePayload = {};
 
-    setLoading(false);
+    if (user?.id !== id) {
+      updateUser(payload);
+    } else {
+      oldPassword = window.prompt(
+        "Insira sua senha atual para realizar as altereções:"
+      );
 
-    if (response?.status === 200) {
-      alert("Usuário atualizado com sucesso!");
-      if (user?.id === id) {
-        //@ts-expect-error
-        delete payload.password;
-        SessionController.setUserInfo(payload);
+      if (oldPassword === null) {
+        setLoading(false);
+      } else {
+        passwordUpdatePayload = {
+          userId: id,
+          newPassword: password,
+          oldPassword: oldPassword,
+        };
+        const responseUpdatePassword = await userRequest.updatePassword(
+          passwordUpdatePayload
+        );
+
+        if (responseUpdatePassword?.status == 200) {
+          updateUser(payload);
+        } else {
+          setLoading(false);
+          navigate("/homepage");
+        }
       }
-      navigate("/homepage");
     }
   }
 
@@ -181,14 +265,20 @@ export default function UserUpdate() {
       return;
     }
 
-    setLoading(true);
-    const response = await userRequest.deleteRequest(id);
-    
-    setLoading(false);
+    const isConfirmed = window.confirm(
+      "Tem certeza de que deseja excluir o usuário?"
+    );
 
-    if (response?.status === 200) {
-      alert("Usuário excluido com sucesso!");
-      navigate("/homepage");
+    if (isConfirmed) {
+      setLoading(true);
+      const response = await userRequest.deleteRequest(id);
+
+      setLoading(false);
+
+      if (response?.status === 200) {
+        alert("Usuário excluido com sucesso!");
+        navigate("/homepage");
+      }
     }
   }
 
@@ -235,7 +325,7 @@ export default function UserUpdate() {
                     onChange={(event) => setLastname(event.target.value)}
                     name="lastname"
                     disabled={isUser}
-                    />
+                  />
                 </div>
               </section>
 
@@ -248,8 +338,21 @@ export default function UserUpdate() {
                     onChange={(event) => setEmail(event.target.value)}
                     name="email"
                     disabled={isAdmin}
-                    />
+                  />
                 </div>
+
+                <div>
+                  <label htmlFor="role">Cargo</label>
+                  <SelectInput
+                    onChange={(event) => setRole(event.target.value)}
+                    name="role"
+                    items={userProfiles}
+                    disabled={isAdmin}
+                  />
+                </div>
+              </section>
+
+              <section className="user-update-data">
                 <div>
                   <label htmlFor="password">Senha</label>
                   <TextField
@@ -258,19 +361,18 @@ export default function UserUpdate() {
                     name="password"
                     type="password"
                     disabled={isUser}
-                    />
+                  />
                 </div>
-              </section>
-
-              <section className="user-update-data">
                 <div>
-                  <label htmlFor="role">Cargo</label>
-                  <SelectInput
-                    onChange={(event) => setRole(event.target.value)}
-                    name="role"
-                    items={userProfiles}
-                    disabled={isAdmin}
-                    />
+                  <label htmlFor="department">Departamento</label>
+                  <ChoiceField
+                    name="department"
+                    items={departmentListVariable(selectedDepartment)}
+                    onChange={(event) =>
+                      handleDepartmentValue(event.target.value)
+                    }
+                    disabled={isAdmin && user?.id === userID}
+                  />
                 </div>
               </section>
             </section>
@@ -278,7 +380,11 @@ export default function UserUpdate() {
             <section className="user-update-submit">
               <DeleteButton />
 
-              <Button width="15rem" type="submit" color="var(--color-white-light)">
+              <Button
+                width="15rem"
+                type="submit"
+                color="var(--color-white-light)"
+              >
                 Confirmar alteração
               </Button>
             </section>
