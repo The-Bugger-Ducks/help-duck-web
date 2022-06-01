@@ -7,7 +7,7 @@ export default interface Ticket {
   id: string;
   title: string;
   description: string;
-  problems: {
+  problem: {
     id: string;
     title: string;
   };

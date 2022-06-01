@@ -23,7 +23,7 @@ export default function TicketRegister() {
   const equipmentRequest = new EquipmentRequests();
   const [title, setTitle] = useState('');
   const [priorityLevel, setPriorityLevel] = useState('');
-  const [problemType, setProblemType] = useState<Ticket['problems']>();
+  const [problem, setProblem] = useState<Ticket['problem']>();
   const [description, setDescription] = useState('');
   const [department, setDepartment] = useState('');
   const [equipments, setEquipments] = useState<EquipmentUpdate[]>();
@@ -68,6 +68,11 @@ export default function TicketRegister() {
     setTicketProblems(problemsList);
   }
 
+  async function handleProblemType(problemType: String) {
+    const ticketProblem = await problemRequest.getProblem(problemType);
+    setProblem(ticketProblem);
+  }
+
   const equipmentList: {
     value: string;
     label: string;
@@ -109,8 +114,7 @@ export default function TicketRegister() {
       title === '' ||
       description === '' ||
       priorityLevel === '' ||
-      problemType === null ||
-      department === '' ||
+      problem === null ||
       equipmentSelected === ''
     ) {
       return alert('Preencha todos os campos');
@@ -124,7 +128,7 @@ export default function TicketRegister() {
       description,
       user,
       priorityLevel,
-      problems: problemType!,
+      problem,
       equipment: equipmentSelected,
       department: user.department,
     };
@@ -179,7 +183,9 @@ export default function TicketRegister() {
                     <div className="ticket-register-select">
                       <label htmlFor="tipo">Tipo de problema</label>
                       <ChoiceField
-                        onChange={event => setProblemType(event.target.value)}
+                        onChange={event =>
+                          handleProblemType(event.target.value)
+                        }
                         name="tipo"
                         items={ticketProblems}
                         padding={'0.2rem'}

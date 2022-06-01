@@ -48,7 +48,7 @@ export default function DetailTicket() {
   const [status, setStatus] = useState<status>();
   const [priorityLevel, setPriorityLevel] =
     useState<Ticket['priorityLevel']>('low');
-  const [problemType, setProblemType] = useState<Ticket['problems']>();
+  const [problemType, setProblemType] = useState<Ticket['problem']>();
   useState<Ticket['priorityLevel']>('low');
   const [priorityLevelSelected, setPriorityLevelSelected] =
     useState<Ticket['priorityLevel']>('low');
@@ -91,15 +91,10 @@ export default function DetailTicket() {
     setComments(response.comments);
     setStatus(response.status);
     setPriorityLevel(response.priorityLevel);
-    setProblemType(response.problems);
+    setProblemType(response.problem);
     setSolution(response.solution);
     setTicketDepartment(response.department);
     setTicketEquipment(response.equipment);
-
-    const problem: Problem = await problemRequest.getProblem(
-      response.problems.id
-    );
-    setTicketProblem(problem);
 
     if (response.support && !response.solution && user?.role === 'support') {
       setCanSetSolution(true);
@@ -256,7 +251,7 @@ export default function DetailTicket() {
     const payload: CreateSolution = {
       ticketId: ticket.id,
       titleProblem: ticket.title,
-      problems: ticket.problems,
+      problem: ticket.problem,
       solutionComment: comment,
     };
 
@@ -383,9 +378,17 @@ export default function DetailTicket() {
             <div className="ticket-type">
               <h3>Tipo de problema:</h3>
               <TextField
-                title={problemType?.title ?? 'Sem tipo definido'}
+                title={
+                  problemType != null && problemType.title != ''
+                    ? problemType.title
+                    : 'Sem tipo definido'
+                }
                 type="text"
-                placeholder={problemType?.title ?? 'Sem tipo definido'}
+                placeholder={
+                  problemType != null && problemType.title != ''
+                    ? problemType.title
+                    : 'Sem tipo definido'
+                }
                 disabled={true}
                 name="tipo"
                 backgroundColor="#FAFAFA"
@@ -491,7 +494,7 @@ export default function DetailTicket() {
             </section>
           )}
 
-          <SolutionsList problem={ticketProblem} />
+          <SolutionsList problemId={problemType?.id} />
         </main>
         <Footer />
       </Container>

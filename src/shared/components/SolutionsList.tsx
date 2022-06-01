@@ -9,11 +9,14 @@ import '../styles/components/SolutionsList.css';
 import Button from './Button';
 
 interface SolutionsListProps {
-  problem?: Problem;
+  problemId?: string;
   keyword?: string;
 }
 
-const SolutionsList: React.FC<SolutionsListProps> = ({ problem, keyword }) => {
+const SolutionsList: React.FC<SolutionsListProps> = ({
+  problemId,
+  keyword,
+}) => {
   const [loading, setLoading] = useState(false);
   const [solutions, setSolutions] = useState<ProblemSolution[]>([]);
   const [searchResult, setSearchResult] = useState([]);
@@ -22,17 +25,21 @@ const SolutionsList: React.FC<SolutionsListProps> = ({ problem, keyword }) => {
   const userInformation = SessionController.getUserInfo();
 
   useEffect(() => {
-    problem != null && getSolutionsByProblem(problem.id);
+    userInformation?.role === 'support' && getSolutionsByProblem();
+  }, [problemId]);
+
+  useEffect(() => {
     keyword != null && getSolutionsByKeyword(keyword);
   }, []);
 
-  async function getSolutionsByProblem(id: string) {
+  async function getSolutionsByProblem() {
     setLoading(true);
 
-    const problem = await problemRequest.getProblem(id);
-    setSolutions(problem?.solutionList ?? []);
-
-    setLoading(false);
+    if (problemId != null) {
+      const problem = await problemRequest.getProblem(problemId!);
+      setSolutions(problem?.solutionList ?? []);
+      setLoading(false);
+    }
   }
 
   async function getSolutionsByKeyword(keyword: string) {

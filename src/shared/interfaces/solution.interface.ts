@@ -5,7 +5,7 @@ export interface Solution {
   idTicket: string;
 
   titleProblem: string;
-  problems: {
+  problem: {
     id: string;
     title: string;
   };
@@ -22,7 +22,7 @@ export interface CreateSolution {
   ticketId: string;
 
   titleProblem: string;
-  problems: {
+  problem: {
     id: string;
     title: string;
   };
