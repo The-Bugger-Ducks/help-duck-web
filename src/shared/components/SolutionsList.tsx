@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 import SessionController from '../utils/handlers/SessionController';
-import { Problem, ProblemSolution } from '../interfaces/problem.interface';
+import { ProblemSolution } from '../interfaces/problem.interface';
 import { ProblemRequests } from '../utils/requests/Problem.requests';
 import CustomTableRow from './Loading/CustomTableRow';
 
@@ -29,8 +29,8 @@ const SolutionsList: React.FC<SolutionsListProps> = ({
   }, [problemId]);
 
   useEffect(() => {
-    keyword != null && getSolutionsByKeyword(keyword);
-  }, []);
+    keyword != null && getSolutionsByKeyword();
+  }, [keyword]);
 
   async function getSolutionsByProblem() {
     setLoading(true);
@@ -38,11 +38,11 @@ const SolutionsList: React.FC<SolutionsListProps> = ({
     if (problemId != null) {
       const problem = await problemRequest.getProblem(problemId!);
       setSolutions(problem?.solutionList ?? []);
-      setLoading(false);
     }
+    setLoading(false);
   }
 
-  async function getSolutionsByKeyword(keyword: string) {
+  async function getSolutionsByKeyword() {
     console.log('buscando!');
   }
 
@@ -132,8 +132,7 @@ const SolutionsList: React.FC<SolutionsListProps> = ({
   }
 
   if (userInformation?.role === 'support') return getPossibleSolutionsList();
-  if (keyword != null) return getSearchResult();
-  return <></>;
+  return getSearchResult();
 };
 
 export default SolutionsList;

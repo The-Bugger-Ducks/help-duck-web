@@ -187,7 +187,7 @@ export default function TicketRegister() {
                           handleProblemType(event.target.value)
                         }
                         name="tipo"
-                        items={ticketProblems}
+                        items={ticketProblems ?? []}
                         padding={'0.2rem'}
                         height={'32px'}
                         backgroundColor={'#FAFAFA'}
