@@ -32,7 +32,8 @@ export class UserRequests {
     password: string;
     firstName: string;
     lastName: string;
-    role: "admin" | "support" | "client";
+    role: 'admin' | 'support' | 'client';
+    department: string;
   }) {
     try {
       const response = await apiUsers.post(USER_ENDPOINTS.USER_REGISTER, body);

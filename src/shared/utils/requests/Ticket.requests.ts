@@ -30,8 +30,14 @@ export class TicketRequests {
     title: string;
     description: string;
     priorityLevel: string;
-    tags: string[];
+    problem:
+      | {
+          id: string;
+          title: string;
+        }
+      | undefined;
     user: User;
+    department: string;
   }) {
     try {
       const response = await apiTickets.post(
