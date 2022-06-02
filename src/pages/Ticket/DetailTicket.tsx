@@ -84,7 +84,7 @@ export default function DetailTicket() {
     setComments(response.comments);
     setStatus(response.status);
     setPriorityLevel(response.priorityLevel);
-    setProblemType(response.tags);
+    setProblemType(response.tags ?? [""]);
     setSolution(response.solution);
     setTicketDepartment(response.department);
     setTicketEquipment(response.equipment);
@@ -384,7 +384,6 @@ export default function DetailTicket() {
                 }
                 disabled={true}
                 name="tipo"
-                backgroundColor="#FAFAFA"
                 height="32px"
               />
             </div>
@@ -407,7 +406,6 @@ export default function DetailTicket() {
                 }
                 disabled={true}
                 name="tipo"
-                backgroundColor="#FAFAFA"
                 height="32px"
                 />
             </div>
@@ -428,7 +426,6 @@ export default function DetailTicket() {
                 }
                 disabled={true}
                 name="tipo"
-                backgroundColor="#FAFAFA"
                 height="32px"
                 />
             </div>

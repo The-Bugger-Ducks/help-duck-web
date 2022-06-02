@@ -99,6 +99,22 @@ h4 {
   gap: 1rem;
 }
 
+#detail-ticket .footer-solution {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+#detail-ticket .footer-solution .solution-votes {
+  display: inline !important;
+  justify-self: flex-start !important;
+}
+
+#detail-ticket .footer-solution .solution-name  {
+  color: #ADB5BD !important;
+  font-size: 12.8px;
+}
+
 #detail-ticket .ticket-resolve-content div {
   display: flex;
   gap: 1rem;

@@ -18,6 +18,7 @@ import { status } from "../../shared/types/status";
 import { getOptionListSelectPerUserRole } from "../../shared/constants/userFilterSelect";
 
 import "../../shared/styles/pages/homepage/Homepage.css";
+import { FiSearch } from "react-icons/fi";
 
 export default function Homepage() {
   const token = SessionController.getToken();
@@ -71,6 +72,9 @@ export default function Homepage() {
               onChange={(event) => setInputSearch(event.target.value)}
             />
             <Button width="20%" type="submit" fontSize="0.8rem">
+              <FiSearch
+                className="Icon"
+              />
               Buscar
             </Button>
           </form>

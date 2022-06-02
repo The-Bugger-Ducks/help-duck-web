@@ -4,6 +4,8 @@ interface Props {
   backgroundColor?: string;
   color?: string;
   border?: string;
+  borderRight?: string;
+  outline?: string;
   name?: string;
   radius?: string;
   width?: string;
@@ -17,7 +19,7 @@ interface Props {
 const SelectInput: React.FC<Props> = ({
   disabled = false,
   backgroundColor = !disabled ? "#FAFAFA" : "#EDEDEE",
-  border = "1px solid #CED4DA",
+  outline = "1px solid #CED4DA",
   name = "",
   radius = "0.3rem",
   width = "100%",
@@ -25,6 +27,8 @@ const SelectInput: React.FC<Props> = ({
   height = '50px',
   required = true,
   padding = '0.5rem',
+  border = '0',
+  borderRight = '16px solid transparent',
   onChange,
   items,
 }) => {
@@ -35,6 +39,8 @@ const SelectInput: React.FC<Props> = ({
         style={{
           backgroundColor: backgroundColor,
           border,
+          borderRight,
+          outline,
           borderRadius: radius,
           width,
           padding: `${padding} 0.5rem`,

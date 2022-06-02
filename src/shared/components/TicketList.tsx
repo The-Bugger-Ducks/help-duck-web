@@ -99,9 +99,9 @@ const TicketList: React.FC<{ status: status | "" }> = ({ status }) => {
     setSort(type);
     setOrderBy(orderBy);
 
-    if (typeTicketList == "client") {
+    if (typeTicketList === "client") {
       getTicketListClient(sortAux);
-    } else if (typeTicketList == "support") {
+    } else if (typeTicketList === "support") {
       getTicketListSupport(sortAux);
     } else {
       getTicketPerStatus(status, sortAux);
@@ -119,9 +119,9 @@ const TicketList: React.FC<{ status: status | "" }> = ({ status }) => {
       sortAux = `page=${pageNumber}&size=${pageSize}&sort=${sort}`;
     }
     
-    if (typeTicketList == "client") {
+    if (typeTicketList === "client") {
       getTicketListClient(sortAux);
-    } else if (typeTicketList == "support") {
+    } else if (typeTicketList === "support") {
       getTicketListSupport(sortAux);
     } else {
       getTicketPerStatus(status, sortAux);
