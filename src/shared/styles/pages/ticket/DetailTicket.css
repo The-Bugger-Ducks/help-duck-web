@@ -48,6 +48,17 @@ h4 {
   padding-top: 0.3vw;
 }
 
+#detail-ticket .edit-priority-button {
+    margin-top: 0.5vw;
+    cursor: pointer;
+}
+
+#detail-ticket select {
+  padding: 0.1rem !important;
+  height: 32px !important;
+  cursor: pointer;
+}
+
 #detail-ticket .ticket-about p {
   display: flex;
   gap: 2rem;

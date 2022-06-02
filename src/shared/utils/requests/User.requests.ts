@@ -1,4 +1,3 @@
-import { useNavigate } from "react-router-dom";
 import { apiUsers } from "../../services/Api.service";
 import { USER_ENDPOINTS } from "../../utils/endpoints";
 import { validateStatus } from "../handlers/HandlerResponseStatusCodeFound";
@@ -94,6 +93,32 @@ export class UserRequests {
       alert(
         "A senha informada está incorreta. Não foi possível atualizar as informações."
       );
+    }
+  }
+
+  public async searchUsers(username: string, role: string, sorting?: string) {
+    try {
+      let url = `${USER_ENDPOINTS.USER_SEARCH}`
+
+      if (username.length != 0 && role.length != 0) {
+        url += `?username=${username}&role=${role}`
+      } else if (username.length != 0 && role.length == 0) {
+        url += `?username=${username}`
+      } else if (role.length != 0 && username.length == 0) {
+        url += `?role=${role}`
+      }
+
+      if (sorting && role.length == 0 && username.length == 0) {
+        url += `?${sorting}`;
+      } else if (sorting) {
+        url += `&${sorting}`;
+      }
+
+      const { data } = await apiUsers.get(url, { validateStatus });
+
+      return data
+    } catch (error) {
+      alert("Não foi possível realizar filtro, tente novamente!")
     }
   }
 }

@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 
 import { useParams, useNavigate } from "react-router-dom";
-import { FiClock, FiArrowLeft, FiCheck } from "react-icons/fi";
+import { FiClock, FiArrowLeft, FiCheck, FiEdit2 } from "react-icons/fi";
 
 import SessionController from "../../shared/utils/handlers/SessionController";
 
@@ -23,6 +23,7 @@ import TicketAddComment from "../../shared/components/TicketAddComment";
 import TextField from "../../shared/components/TextField";
 import TicketSolution from "../../shared/components/TicketSolution";
 import LoadingContainer from "../../shared/components/Loading/LoadingContainer";
+import SelectInput from "../../shared/components/ChoiceField";
 
 import "../../shared/styles/pages/ticket/DetailTicket.css";
 import SolutionDetails from "../../shared/components/SolutionDetails";
@@ -44,6 +45,8 @@ export default function DetailTicket() {
   const [status, setStatus] = useState<status>();
   const [priorityLevel, setPriorityLevel] =
     useState<Ticket["priorityLevel"]>("low");
+  const [priorityLevelSelected, setPriorityLevelSelected] =
+    useState<Ticket["priorityLevel"]>("low");
   const [problemType, setProblemType] = useState<Ticket["tags"]>([""]);
   const [ticketDepartment, setTicketDepartment] =
     useState<Ticket["department"]>("");
@@ -57,9 +60,17 @@ export default function DetailTicket() {
   const [hiddenSolutionVote, setHiddenSolutionVote] = useState(false);
   const [addTagSolution, setAddTagSolution] = useState<boolean>(false);
   const [addSolutionDetails, setSolutionDetails] = useState<boolean>(false);
+  const [editPriority, setEditPriority] = useState(false);
+
 
   const ticketRequest = new TicketRequests();
   const solutionRequest = new SolutionRequests();
+
+  const ticketPriorityAux = [
+    { value: "low", label: "Baixa", selected: false },
+    { value: "medium", label: "Média", selected: false },
+    { value: "high", label: "Alta", selected: false },
+  ];
 
   useEffect(() => {
     const subscribe = getTicket();
@@ -151,7 +162,7 @@ export default function DetailTicket() {
 
   async function handleCloseTicket() {
     if (user?.role !== "support") {
-      return alert("Usuário sem permissão para relalizar essa ação.");
+      return alert("Usuário sem permissão para realizar essa ação.");
     }
 
     setLoading(true);
@@ -164,6 +175,70 @@ export default function DetailTicket() {
     }
     setLoading(false);
   }
+
+  async function handleChangePriorityLevel() {
+    if (user && user.role !== "support") {
+      return
+    }
+
+    if (!ticket) {
+      return
+    }
+
+    const payload = {
+      id: ticket.id,
+      priorityLevel: priorityLevelSelected,
+    }
+
+    try {
+      setLoading(true)
+      await ticketRequest.updatePriorityLevel(payload)
+      setLoading(false)
+      setPriorityLevel(priorityLevelSelected);
+      setEditPriority(false);
+      alert("Prioridade do chamado alterado com sucesso.");
+    } catch (error) {
+      console.log(error)
+    } finally {
+      setLoading(false);
+    }
+
+  }
+
+  function HandlePriorityLevel() {
+    return (
+      <>
+      {editPriority ? (
+        <>
+          <SelectInput
+            onChange={(event) => setPriorityLevelSelected(event.target.value)}
+            name="role"
+            items={ticketPriorityAux}
+          />
+          <FiCheck
+            className="edit-priority-button"
+            color="var(--color-gray-dark)"
+            onClick={() => {handleChangePriorityLevel()}}
+          />
+        </>
+      ) : (
+        <>
+          <PriorityLevelBadge 
+            priority={priorityLevel}
+            />
+          {user && user.role === "support" ?
+            <FiEdit2
+              className="edit-priority-button"
+              color="var(--color-gray-dark)"
+              onClick={() => {setEditPriority(true)}}
+            /> : null
+          }{" "}
+        </>
+      )}
+      </>
+    )
+  }
+
 
   async function handleSetSolution(comment: Comment) {
     if (!ticket) return;
@@ -304,20 +379,20 @@ export default function DetailTicket() {
           <section className="ticket-dual-info">
             <div className="ticket-priority">
               <h3>Grau de prioridade:</h3>
-              <PriorityLevelBadge priority={priorityLevel} />
+              <HandlePriorityLevel />
             </div>
 
             <div className="ticket-type">
               <h3>Tipo de problema:</h3>
               <TextField
                 title={
-                  problemType != null && problemType[0] != ""
+                  problemType !== null && problemType[0] !== ""
                     ? problemType[0]
                     : "Sem tipo definido"
                 }
                 type="text"
                 placeholder={
-                  problemType != null && problemType[0] != ""
+                  problemType !== null && problemType[0] !== ""
                     ? problemType[0]
                     : "Sem tipo definido"
                 }
@@ -334,13 +409,13 @@ export default function DetailTicket() {
               <h3>Departamento:</h3>
               <TextField
                 title={
-                  ticketDepartment != null && ticketDepartment != ""
+                  ticketDepartment !== null && ticketDepartment !== ""
                   ? ticketDepartment
                   : "Sem equipamento definido"
                 }
                 type="text"
                 placeholder={
-                  ticketDepartment != null && ticketDepartment != ""
+                  ticketDepartment !== null && ticketDepartment !== ""
                   ? ticketDepartment
                   : "Sem departamento definido"
                 }
@@ -410,6 +485,18 @@ export default function DetailTicket() {
             <section id="add-comment-container">
               <TicketAddComment ref={formCommentRef} />
               <div className="button-container">
+                <Button
+                  backgroundColor="transparent"
+                  color="var(--color-black-dark)"
+                  width="4rem"
+                  height="2rem"
+                  fontSize="0.8rem"
+                  fontWeight="600"
+                  border="1px solid var(--color-black-main)"
+                  onClick={handleSubmitComment}
+                >
+                  Enviar
+                </Button>
               </div>
             </section>)}
 
