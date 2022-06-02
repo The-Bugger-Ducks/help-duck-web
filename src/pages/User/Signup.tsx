@@ -60,7 +60,7 @@ export default function Signup() {
       setDepartment("TI");
     } else if (departmentValue === "epdi") {
       setDepartment("EPDI");
-    } else if (departmentValue == "others") {
+    } else if (departmentValue === "others") {
       setDepartment("Outros");
     }
   }

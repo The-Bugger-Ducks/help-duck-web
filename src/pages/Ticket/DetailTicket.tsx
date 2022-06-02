@@ -409,7 +409,6 @@ export default function DetailTicket() {
                 }
                 disabled={true}
                 name="tipo"
-                backgroundColor="#FAFAFA"
                 height="32px"
               />
             </div>
@@ -432,7 +431,6 @@ export default function DetailTicket() {
                 }
                 disabled={true}
                 name="tipo"
-                backgroundColor="#FAFAFA"
                 height="32px"
               />
             </div>
@@ -453,7 +451,6 @@ export default function DetailTicket() {
                 }
                 disabled={true}
                 name="tipo"
-                backgroundColor="#FAFAFA"
                 height="32px"
               />
             </div>

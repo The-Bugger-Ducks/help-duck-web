@@ -1,7 +1,7 @@
 import { User } from "../interfaces/user.interface";
 
 export function getOptionListSelectPerUserRole(role?: User["role"]) {
-  if (role == "admin") {
+  if (role === "admin") {
     return [
       {
         value: "allUsers",
@@ -24,7 +24,7 @@ export function getOptionListSelectPerUserRole(role?: User["role"]) {
         selected: false,
       },
     ]
-  } else if (role == "support") {
+  } else if (role === "support") {
     return [
       {
         selected: true,

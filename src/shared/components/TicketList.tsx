@@ -171,27 +171,27 @@ const TicketList: React.FC<{
           sortAux
         );
       }
+    }
+    
+    if (typeTicketList == "client") {
+      getTicketListClient(
+        userInformation?.id ? userInformation.id : "",
+        searchedTitle,
+        sortAux
+      );
+    } else if (typeTicketList == "support") {
+      getTicketListSupport(
+        userInformation?.id ? userInformation.id : "",
+        searchedTitle,
+        sortAux
+      );
     } else {
-      if (typeTicketList == "client") {
-        getTicketListClient(
-          userInformation?.id ? userInformation.id : "",
-          searchedTitle,
-          sortAux
-        );
-      } else if (typeTicketList == "support") {
-        getTicketListSupport(
-          userInformation?.id ? userInformation.id : "",
-          searchedTitle,
-          sortAux
-        );
-      } else {
-        getTicketSupportPerStatus(
-          userInformation?.id ? userInformation.id : "",
-          "",
-          status,
-          sortAux
-        );
-      }
+      getTicketSupportPerStatus(
+        userInformation?.id ? userInformation.id : "",
+        "",
+        status,
+        sortAux
+      );
     }
   }
 

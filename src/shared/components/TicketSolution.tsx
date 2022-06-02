@@ -56,13 +56,14 @@ const TicketSolution: React.FC<Props> = ({ solution, hiddenSolutionVote, handleS
 
   return (
     <section id="solution-ticket-container">
-      <h4 className='solution-title'>Solução</h4>
+      <h4 className='solution-title'>SOLUÇÃO</h4>
       <div className="solution-wrap">
         <p>{solutionComment.comment}</p>
-        
         <div className="footer-solution">
-          {!hiddenSolutionVote ? <SolutionVoteContainer /> : null} 
-          <small>
+          <div className="solution-votes">
+            {!hiddenSolutionVote ? <SolutionVoteContainer /> : null} 
+          </div>
+          <small className="solution-name">
             {solutionComment.ownerComment.firstName}
             ({solutionComment.ownerComment.email})
           </small>
