@@ -8,13 +8,16 @@ import Footer from "../../shared/components/Footer";
 import Header from "../../shared/components/Header";
 import TextField from "../../shared/components/TextField";
 import TicketList from "../../shared/components/TicketList";
+import UserList from "../../shared/components/UserList";
+import EquipmentList from "../../shared/components/EquipmentList";
 
 import SessionController from "../../shared/utils/handlers/SessionController";
-import UserList from "../../shared/components/UserList";
+
 import { status } from "../../shared/types/status";
 
+import { getOptionListSelectPerUserRole } from "../../shared/constants/userFilterSelect";
+
 import "../../shared/styles/pages/homepage/Homepage.css";
-import EquipmentList from "../../shared/components/EquipmentList";
 
 export default function Homepage() {
   const token = SessionController.getToken();
@@ -23,6 +26,8 @@ export default function Homepage() {
   const userInformation = SessionController.getUserInfo();
 
   const [statusFilter, setStatusFilter] = useState<status | "">("");
+  const [inputSearch, setInputSearch] = useState("");
+  const [searchUsername, setSearchUsername] = useState("");
   const [equipmentStatusFilter, setEquipmentStatusFilter] = useState<
     status | ""
   >("");
@@ -31,33 +36,7 @@ export default function Homepage() {
     "Buscar por título do chamado"
   );
   const [filterOptions, setFilterOptions] = useState(
-    userInformation?.role === "support"
-      ? [
-          {
-            selected: true,
-            value: "underAnalysis",
-            label: "Meus atendimentos",
-          },
-          {
-            value: "awaiting",
-            label: "Abertos",
-          },
-          {
-            value: "done",
-            label: "Fechados",
-          },
-        ]
-      : [
-          {
-            selected: true,
-            value: '',
-            label: 'Meus chamados',
-          },
-          {
-            value: 'done',
-            label: 'Todos os chamados concluídos',
-          },
-        ]
+    getOptionListSelectPerUserRole(userInformation?.role)
   );
 
   useEffect(() => {
@@ -68,18 +47,12 @@ export default function Homepage() {
     if (userInformation?.role === "admin") {
       setSearchPlaceholder("Buscar pelo nome do usuário");
       setPageTitle("Usuários");
-      setFilterOptions([
-        {
-          value: "allUsers",
-          label: "Todos os usuários",
-          selected: true,
-        },
-      ]);
     }
   }, []);
 
   function handleFilterTickets(event: React.FormEvent) {
     event.preventDefault();
+    setSearchUsername(inputSearch);
   }
 
   function handleFilterEquipment(event: React.FormEvent) {
@@ -94,12 +67,14 @@ export default function Homepage() {
         <section className="search-or-filter">
           <form className="searchTicket" onSubmit={handleFilterTickets}>
             <TextField
+              required={false}
               placeholder={searchPlaceholder}
               name="search"
               width="75%"
               backgroundColor="#FAFAFA"
               type="text"
               height="42px"
+              onChange={(event) => setInputSearch(event.target.value)}
             />
             <Button width="20%" type="submit" fontSize="0.8rem">
               Buscar
@@ -111,14 +86,14 @@ export default function Homepage() {
               items={filterOptions}
               width="100%"
               backgroundColor="#FAFAFA"
-              onChange={event => setStatusFilter(event.target.value)}
+              onChange={(event) => setStatusFilter(event.target.value)}
               height="42px"
             />
           </div>
         </section>
         {userInformation?.role === "admin" ? (
           <>
-            <UserList />
+            <UserList filterUserList={statusFilter} username={searchUsername} />
             <div className="btn-create-user">
               <Link to="/signup">
                 <Button width="20%">Cadastrar usuário</Button>
@@ -153,7 +128,7 @@ export default function Homepage() {
                   ]}
                   width="100%"
                   backgroundColor="#FAFAFA"
-                  onChange={event => setStatusFilter(event.target.value)}
+                  onChange={(event) => setStatusFilter(event.target.value)}
                   height="42px"
                   color="#495057"
                 />
@@ -170,7 +145,7 @@ export default function Homepage() {
           </>
         ) : (
           <>
-            <TicketList status={statusFilter} />
+            <TicketList status={statusFilter} searchedTitle={searchUsername} />
             {userInformation?.role === "client" ? (
               <div className="btn-open-ticket">
                 <Link to="/ticket_register">

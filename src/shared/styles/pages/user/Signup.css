@@ -1,174 +1,210 @@
 /* ESTILIZAÇÃO GERAL*/
 
 #signup {
-  height: 100vh;
-  width: 100vw;
-  background-color: var(--color-primary-main);
+  width: 100%;
+  height: 99vh;
 }
 
-#signup .header {
-  padding: 0;
-  padding-top: 2%;
-  padding-bottom: 2%;
-
-  align-items: stretch;
-  height: auto;
-}
-
-#signup .header h1 {
-  font-size: 2rem;
-}
-
-#signup .header h1 {
-  margin: 0 10%;
-}
-
-#signup .signup-welcome h1 {
-  font-size: 2.3vw;
-}
-
-#signup .signup-welcome h2 {
-  font-size: 1.5vw;
-  color: var(--color-white-main);
-}
-
-#signup .signup-welcome h2 svg:hover {
-  color: var(--color-gray-light) !important;
-  cursor: pointer;
+#signup Header {
+  padding: 0% 10%;
+  width: 100%;
 }
 
 #signup .signup-content {
+  padding: 0% 10% 0 10%;
+}
+
+/* ESTILIZAÇÃO DO TITULO E SUBTITULO DA PÁGINA */
+#signup .signup-content .signup-title {
+  padding: 5% 10% 3% 0;
+}
+
+#signup .signup-title h1 {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
   align-items: center;
-  padding: 0% 10%;
+  font-size: 2rem;
+  font-weight: 400;
+  color: var(--color-black-light);
+  gap: 0.5rem;
+}
+
+#signup .signup-title svg {
+  padding-top: 0.5vw;
 }
 
 /* ESTILIZAÇÃO DO FORMULÁRIO */
 
 #signup .signup-form {
-  display: flex;
-  flex-direction: column;
-  background-color: var(--color-white-main);
-  padding: 3rem 2rem 2rem;
+  padding: 2% 0%;
   height: 50%;
-  width: 50%;
-  border-radius: 2%;
-  margin-top: 1rem;
+  width: 100%;
+  border-bottom: 100px;
 }
 
 #signup .signup-form .form-sections {
   display: flex;
-  flex-direction: row;
-  column-gap: 2rem;
+  flex-direction: column;
 }
 
-#signup .signup-form .signup-data-line {
-  display: flex;
-  flex-direction: row;
-  column-gap: 2rem;
+#signup .signup-form input,
+#signup .signup-form select {
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
 }
 
 #signup .signup-form .signup-data {
   display: flex;
   flex-direction: column;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+#signup .signup-form div {
+  width: 45%;
+}
+
+#signup .signup-form textarea {
   width: 100%;
+  background-color: #f2f2f3;
+  border: 1px solid #d3d3d3;
+  border-radius: 20px;
+  outline: none;
+  min-height: 120px;
+  resize: vertical;
+  padding: 16px;
+  line-height: 28px;
 }
 
-#signup .signup-form input {
-  margin-top: 0.5rem;
-  margin-bottom: 1rem;
-}
-
-#signup .signup-form select {
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-}
-
-#signup .signup-data-line Button {
-  margin-top: 1rem;
-  align-self: center;
-  width: 1rem;
+#signup .signup-form .signup-submit {
+  padding-top: 5%;
+  text-align: end;
 }
 
 #signup form label {
+  font-size: 1.5rem;
   color: var(--color-black-light);
 }
 
-/* ESTILIZAÇÃO DO TITULO E SUBTITULO DA PÁGINA */
-
-#signup .signup-content .signup-welcome {
-  width: 50%;
-  color: var(--color-white-main);
-  margin-top: 1rem;
-}
-
-#signup .signup-content .signup-welcome h2 {
-  font-weight: 400;
-}
-
-#signup .footer {
-  height: auto;
-  align-items: stretch;
-
-  padding: 0;
-  padding-top: 2%;
-  padding-bottom: 2%;
-
-  position: absolute;
+#signup Footer {
+  padding: 1.5;
+  position: fixed;
   bottom: 0;
   left: 0;
 }
 
-@media only screen and (max-width: 500px) {
-  #signup .signup-content .signup-welcome {
-    width: 100%;
+#signup .signup-title h1 div {
+  cursor: pointer;
+}
+
+#signup select.input-primary {
+  width: 223% !important;
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1227px) {
+  #signup .signup-content .signup-title {
+    padding: 0 0 5% 0;
   }
 
-  #signup .signup-content .signup-form {
-    width: 100%;
-    padding: 0;
-    background-color: var(--color-primary-main);
+  #signup .signup-title h1 {
+    font-size: 1.5rem;
   }
 
-  #signup .signup-form .form-sections,
-  #signup .signup-form .signup-data-line {
+  #signup .signup-content {
+    margin-top: 3rem;
+  }
+
+  #signup .signup-form {
+    width: 90%;
+  }
+
+  #signup button {
+    width: 100px;
+  }
+
+  #signup .signup-form .signup-data {
+    flex-direction: row;
+  }
+
+  #signup .signup-form .form-sections {
     display: flex;
     flex-direction: column;
+    margin: 0;
   }
 
   #signup form label {
-    color: var(--color-white-main);
-  }
-
-  #signup .footer {
-    position: absolute;
+    color: var(--color-black-light);
   }
 }
 
-@media only screen and (min-width: 501px) and (max-width: 800px) {
-  #signup .signup-content .signup-welcome {
+@media only screen and (max-width: 768px) {
+  #signup select.input-primary {
+    width: 100% !important;
+  }
+
+  #signup .signup-form div {
     width: 100%;
   }
 
-  #signup .signup-content .signup-form {
-    width: 100%;
-    padding: 0;
-    background-color: var(--color-primary-main);
+  #signup .signup-content {
+    margin-left: 9%;
   }
 
-  #signup .signup-form .form-sections,
-  #signup .signup-form .signup-data-line {
+  #signup .signup-title h1 {
+    font-size: 1.5rem;
+    gap: 0.4rem;
+  }
+
+  #signup .signup-title svg {
+    padding-top: 0.4vw;
+  }
+
+  #signup .signup-content {
+    margin-top: 3rem;
+    padding: 0%;
+  }
+
+  #signup .signup-form {
+    width: 90%;
+  }
+
+  #signup button.button-primary {
+    width: 100% !important;
+    height: 3rem !important;
+  }
+
+  #signup .signup-submit {
+    margin-top: 1rem;
+    margin-bottom: 3rem;
+  }
+
+  #signup .signup-form .signup-data {
     display: flex;
+    justify-content: space-between;
     flex-direction: column;
   }
 
-  #signup form label {
-    color: var(--color-white-main);
+  #signup .signup-form .form-sections {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
   }
 
-  #signup .footer {
+  #signup form label {
+    color: var(--color-black-light);
+  }
+
+  #signup Footer {
     position: relative;
+  }
+}
+
+@media only screen and (max-width: 465px) {
+  #signup .signup-title h1 {
+    font-size: 1.5rem !important;
+    gap: 0.2rem;
+  }
+
+  #signup .signup-title h1 svg {
+    margin-right: 0.5rem;
   }
 }

@@ -1,11 +1,12 @@
 export enum USER_ENDPOINTS {
-  USER_LOGIN = "/auth/authentication",
-  USER_REGISTER = "/users/create",
-  USER_UPDATE = "/users/update",
+  USER_LOGIN = '/auth/authentication',
+  USER_REGISTER = '/users/create',
+  USER_UPDATE = '/users/update',
   USER_DELETE = `/users/delete/`,
-  USER_DETAILS = "/users/"
+  USER_DETAILS = '/users/',
+  USER_UPDATE_PASSWORD = '/users/update-password/',
+  USER_SEARCH = '/users/search',
 }
-
 
 export enum TICKET_ENDPOINTS {
   TICKET_LIST = `/tickets/`,
@@ -13,9 +14,11 @@ export enum TICKET_ENDPOINTS {
   TICKET_LIST_SUPPORT = `/tickets/support/`,
   TICKET_LIST_STATUS = `/tickets/status/`,
   TICKET_REGISTER = `/tickets/create`,
+  TICKET_UPDATE = `tickets/update/`,
   TICKET_RESERVE = `helpUser/reserveTicket/`,
   TICKET_INSERT_COMMENT = `helpUser/updateComment/`,
   TICKET_CLOSE = `helpUser/closeTicket/`,
+  TICKET_SEARCH = `/tickets/search/`,
 }
 
 export enum EQUIPMENT_ENDPOINTS {
@@ -28,4 +31,10 @@ export enum EQUIPMENT_ENDPOINTS {
 
 export enum SOLUTION_ENDPOINTS {
   SOLUTION_CREATE = `/solutions/create`,
+  SOLUTION_VOTE = `/solutions/vote`,
+}
+
+export enum PROBLEM_ENDPOINTS {
+  PROBLEM_LIST = `/problems/`,
+  PROBLEM_DETAILS = `/problems/`,
 }

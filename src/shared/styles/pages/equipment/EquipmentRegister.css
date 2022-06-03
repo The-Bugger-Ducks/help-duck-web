@@ -1,31 +1,41 @@
 /* ESTILIZAÇÃO GERAL*/
 
 #equipment-register {
-  width: 100vw;
+  width: 100%;
   height: 100vh;
 }
 
 #equipment-register Header {
-  padding-left: 5%;
-  width: 100vw;
-  height: 80px;
+  padding: 0% 10%;
+  width: 100%;
+}
+
+#equipment-register .equipment-register-content {
+  padding: 0 10% 0 10%;
 }
 
 /* ESTILIZAÇÃO DO TITULO E SUBTITULO DA PÁGINA */
 #equipment-register .equipment-register-content .equipment-register-title {
-  padding: 5% 10% 0 5%;
+  padding: 5% 10% 3% 0;
 }
 
 #equipment-register .equipment-register-title h1 {
+  display: flex;
+  align-items: center;
   font-size: 2rem;
   font-weight: 400;
   color: var(--color-black-light);
+  gap: 0.5rem;
+}
+
+#equipment-register .equipment-register-title svg {
+  padding-top: 0.5vw;
 }
 
 /* ESTILIZAÇÃO DO FORMULÁRIO */
 
 #equipment-register .equipment-register-form {
-  padding: 2% 5%;
+  padding: 2% 0%;
   height: 50%;
   width: 100%;
   border-bottom: 100px;
@@ -34,10 +44,10 @@
 #equipment-register .equipment-register-form .form-sections {
   display: flex;
   flex-direction: column;
-  column-gap: 2rem;
 }
 
-#equipment-register .equipment-register-form input {
+#equipment-register .equipment-register-form input,
+#equipment-register .equipment-register-form select {
   margin-top: 0.5rem;
   margin-bottom: 1rem;
 }
@@ -46,7 +56,7 @@
   display: flex;
   flex-direction: column;
   flex-direction: row;
-  gap: 3rem;
+  justify-content: space-between;
 }
 
 #equipment-register .equipment-register-form div {
@@ -66,8 +76,8 @@
 }
 
 #equipment-register .equipment-register-form .equipment-register-submit {
+  padding-top: 5%;
   text-align: end;
-  padding-top: 1%;
 }
 
 #equipment-register form label {
@@ -77,15 +87,9 @@
 
 #equipment-register Footer {
   padding: 1.5;
-
   position: fixed;
   bottom: 0;
   left: 0;
-}
-
-#equipment-register .equipment-register-title h1 {
-  display: flex;
-  align-items: center;
 }
 
 #equipment-register .equipment-register-title h1 div {
@@ -97,12 +101,8 @@
 }
 
 @media only screen and (min-width: 768px) and (max-width: 1227px) {
-  #equipment-register .equipment-register-content {
-    margin-left: 5%;
-  }
-
   #equipment-register .equipment-register-content .equipment-register-title {
-    padding: 0 10% 0 5%;
+    padding: 0 0 5% 0;
   }
 
   #equipment-register .equipment-register-title h1 {
@@ -111,7 +111,6 @@
 
   #equipment-register .equipment-register-content {
     margin-top: 3rem;
-    padding: 0%;
   }
 
   #equipment-register .equipment-register-form {
@@ -123,8 +122,6 @@
   }
 
   #equipment-register .equipment-register-form .equipment-register-data {
-    display: flex;
-    justify-content: space-between;
     flex-direction: row;
   }
 
@@ -139,12 +136,6 @@
   }
 }
 
-@media only screen and (min-width: 768px) and (max-width: 1227px) {
-  #equipment-register Footer {
-    position: fixed;
-  }
-}
-
 @media only screen and (max-width: 768px) {
   #equipment-register select.input-primary {
     width: 100% !important;
@@ -155,15 +146,16 @@
   }
 
   #equipment-register .equipment-register-content {
-    margin-left: 5%;
-  }
-
-  #equipment-register .equipment-register-content .equipment-register-title {
-    padding: 0 10% 0 5%;
+    margin-left: 9%;
   }
 
   #equipment-register .equipment-register-title h1 {
     font-size: 1.5rem;
+    gap: 0.4rem;
+  }
+
+  #equipment-register .equipment-register-title svg {
+    padding-top: 0.4vw;
   }
 
   #equipment-register .equipment-register-content {
@@ -187,7 +179,7 @@
 
   #equipment-register .equipment-register-form .equipment-register-data {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     flex-direction: column;
   }
 
@@ -204,21 +196,12 @@
   #equipment-register Footer {
     position: relative;
   }
-
-  #equipment-register .equipment-register-form .equipment-register-data {
-    gap: 0;
-  }
-}
-
-@media only screen and (max-width: 500px) {
-  #equipment-register Footer {
-    position: fixed;
-  }
 }
 
 @media only screen and (max-width: 465px) {
   #equipment-register .equipment-register-title h1 {
     font-size: 1.5rem !important;
+    gap: 0.2rem;
   }
 
   #equipment-register .equipment-register-title h1 svg {

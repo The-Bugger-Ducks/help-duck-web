@@ -1,6 +1,9 @@
 import { apiTickets } from "../../services/Api.service";
 
-import { handleResponseStatus, validateStatus } from "../handlers/HandlerResponseStatusCodeFound";
+import {
+  handleResponseStatus,
+  validateStatus,
+} from "../handlers/HandlerResponseStatusCodeFound";
 import SessionController from "../handlers/SessionController";
 
 import Comment from "../../interfaces/comment.interface";
@@ -27,8 +30,14 @@ export class TicketRequests {
     title: string;
     description: string;
     priorityLevel: string;
-    tags: string[];
+    problem:
+      | {
+          id: string;
+          title: string;
+        }
+      | undefined;
     user: User;
+    department: string;
   }) {
     try {
       const response = await apiTickets.post(
@@ -52,10 +61,10 @@ export class TicketRequests {
   public async ticketListById(sorting?: string) {
     const userInformation = SessionController.getUserInfo();
 
-    let url = `${TICKET_ENDPOINTS.TICKET_LIST_BY_ID}${userInformation?.id}`
+    let url = `${TICKET_ENDPOINTS.TICKET_LIST_BY_ID}${userInformation?.id}`;
 
     if (sorting) {
-      url = `${TICKET_ENDPOINTS.TICKET_LIST_BY_ID}${userInformation?.id}?${sorting}`
+      url = `${TICKET_ENDPOINTS.TICKET_LIST_BY_ID}${userInformation?.id}?${sorting}`;
     }
 
     const response = await apiTickets.get(url, { validateStatus });
@@ -65,10 +74,10 @@ export class TicketRequests {
   public async ticketListBySupport(sorting?: string) {
     const userInformation = SessionController.getUserInfo();
 
-    let url = `${TICKET_ENDPOINTS.TICKET_LIST_SUPPORT}${userInformation?.id}`
+    let url = `${TICKET_ENDPOINTS.TICKET_LIST_SUPPORT}${userInformation?.id}`;
 
     if (sorting) {
-      url = `${TICKET_ENDPOINTS.TICKET_LIST_SUPPORT}${userInformation?.id}?${sorting}`
+      url = `${TICKET_ENDPOINTS.TICKET_LIST_SUPPORT}${userInformation?.id}?${sorting}`;
     }
 
     const response = await apiTickets.get(url, { validateStatus });
@@ -79,10 +88,21 @@ export class TicketRequests {
     status: "underAnalysis" | "awaiting" | "done",
     sorting?: string
   ) {
-    let url = `${TICKET_ENDPOINTS.TICKET_LIST_STATUS}${status}`
+    let url = `${TICKET_ENDPOINTS.TICKET_LIST_STATUS}${status}`;
 
     if (sorting) {
-      url = `${TICKET_ENDPOINTS.TICKET_LIST_STATUS}${status}?${sorting}`
+      url = `${TICKET_ENDPOINTS.TICKET_LIST_STATUS}${status}?${sorting}`;
+    }
+
+    const response = await apiTickets.get(url, { validateStatus });
+    return handleResponseStatus(response);
+  }
+
+  public async searchTicket(sorting?: string, title?: string) {
+    let url = `${TICKET_ENDPOINTS.TICKET_SEARCH}${title}`;
+
+    if (sorting) {
+      url += `?${sorting}`;
     }
 
     const response = await apiTickets.get(url, { validateStatus });
@@ -118,6 +138,17 @@ export class TicketRequests {
       );
     } catch (error) {
       alert("Não foi possível fechar o chamado, tente novamente!");
+    }
+  }
+
+  public async updatePriorityLevel(payload: {
+    id: string;
+    priorityLevel: "high" | "medium" | "low";
+  }) {
+    try {
+      return await apiTickets.put(`${TICKET_ENDPOINTS.TICKET_UPDATE}`, payload);
+    } catch (error) {
+      alert("Não foi possível alterar prioridade, tente novamente!");
     }
   }
 }

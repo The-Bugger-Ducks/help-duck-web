@@ -17,8 +17,9 @@ export default class HandleUserFormData {
       email: user.email,
       password: user.password,
       firstName: user.firstName,
-      lastName: user.lastName ,
+      lastName: user.lastName,
       role: user.role,
+      department: user.department,
     };
 
     let userRequests = new UserRequests();

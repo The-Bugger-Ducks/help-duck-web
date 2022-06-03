@@ -5,7 +5,10 @@ export interface Solution {
   idTicket: string;
 
   titleProblem: string;
-  problemTags: Array<string>;
+  problem: {
+    id: string;
+    title: string;
+  };
 
   solutionComment: Comment;
 
@@ -19,9 +22,19 @@ export interface CreateSolution {
   ticketId: string;
 
   titleProblem: string;
-  problemTags: Array<string>;
+  problem: {
+    id: string;
+    title: string;
+  };
 
   solutionComment: Comment;
 
+}
+
+export interface VoteSolution {
+  solutionId: string;
+
+  upVote: boolean;
+  downVote: boolean;
 }
 
