@@ -215,22 +215,24 @@ export default function DetailTicket() {
           <>
             <SelectInput
               onChange={(event) => setPriorityLevelSelected(event.target.value)}
-              name="role"
               items={ticketPriorityAux}
             />
             <FiCheck
-              className="edit-priority-button"
+              viewBox="0 0 24 78"
+              className="save-priority-button"
               color="var(--color-gray-dark)"
-              onClick={() => {
-                handleChangePriorityLevel();
-              }}
+              onClick={() => {handleChangePriorityLevel()}}
             />
           </>
         ) : (
           <>
-            <PriorityLevelBadge priority={priorityLevel} />
+            <PriorityLevelBadge 
+              className="edit-priority-badge"
+              priority={priorityLevel}
+            />
             {user && user.role === "support" ? (
               <FiEdit2
+                viewBox="0 0 24 28"
                 className="edit-priority-button"
                 color="var(--color-gray-dark)"
                 onClick={() => {
@@ -375,7 +377,7 @@ export default function DetailTicket() {
                         height="2rem"
                         fontSize="0.8rem"
                         fontWeight="600"
-                        border="1px solid var(--color-black-main)"
+                        border="0"
                         onClick={handleCloseTicket}
                       >
                         Fechar chamado
@@ -495,12 +497,13 @@ export default function DetailTicket() {
               <div className="button-container">
                 <Button
                   backgroundColor="transparent"
-                  color="var(--color-black-dark)"
-                  width="4rem"
-                  height="2rem"
+                  color="var(--color-black-light)"
+                  width="7rem"
+                  height="2.6rem"
                   fontSize="0.8rem"
                   fontWeight="600"
-                  border="1px solid var(--color-black-main)"
+                  radius="0.5rem"
+                  border="0.1px solid var(--color-gray-dark)"
                   onClick={handleSubmitComment}
                 >
                   Enviar

@@ -33,11 +33,11 @@ export function getOptionListSelectPerUserRole(role?: User["role"]) {
       },
       {
         value: "awaiting",
-        label: "Abertos",
+        label: "Chamados abertos",
       },
       {
         value: "done",
-        label: "Fechados",
+        label: "Chamados fechados",
       },
     ]
   } else {
