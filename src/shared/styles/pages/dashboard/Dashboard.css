@@ -1,0 +1,174 @@
+#dashboard .dashboard-container {
+  margin-left: 10%;
+  margin-right: 10%;
+}
+
+#dashboard Header {
+  padding: 0% 10%;
+  width: 100%;
+}
+
+#dashboard .footer {
+  position: fixed !important;
+  margin-top: 1rem !important;
+  bottom: 0 !important;
+}
+
+#dashboard #footer-admin {
+  position: sticky !important;
+}
+
+#dashboard .search-or-filter form,
+.filter {
+  width: 100%;
+}
+
+#dashboard .search-or-filter form {
+  display: flex;
+  align-items: center;
+}
+
+#dashboard .search-or-filter form button {
+  margin-left: 1%;
+  margin-right: 1%;
+}
+
+#dashboard .dashboard-container h1 {
+  margin-top: 4%;
+  margin-bottom: 1%;
+  font-weight: normal;
+  color: var(--color-black-light);
+}
+
+#dashboard .search-or-filter {
+  margin-bottom: 3%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+#dashboard .btn-open-ticket,
+#dashboard .btn-create-user,
+#dashboard .btn-create-equipment {
+  margin-top: 2%;
+  text-align: end;
+  margin-bottom: 5%;
+}
+
+@media only screen and (max-width: 500px) {
+  #dashboard .search-or-filter {
+    margin-top: 0.8rem;
+    display: block;
+  }
+
+  #dashboard .search-or-filter form,
+  .filter {
+    width: 100%;
+    display: inline;
+  }
+
+  #dashboard .search-or-filter form button {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  #dashboard form button.button-primary,
+  #dashboard form input.input-primary,
+  #dashboard select.input-primary {
+    width: 100% !important;
+    height: 2.5rem !important;
+    margin-bottom: 0.5rem;
+  }
+
+  #dashboard .btn-open-ticket button.button-primary,
+  #dashboard .btn-create-user button.button-primary {
+    width: 50% !important;
+    height: 2.5rem !important;
+    margin-bottom: 5rem;
+  }
+
+  #dashboard .btn-create-equipment button.button-primary {
+    width: 60% !important;
+    height: 2.5rem !important;
+    margin-bottom: 1%;
+  }
+
+  #dashboard input.input-primary {
+    width: 100% !important;
+    margin-bottom: 0.5rem;
+  }
+
+  #dashboard ticket-list-container {
+    height: 35vh;
+  }
+
+  #dashboard .btn-open-ticket,
+  #dashboard .btn-create-user,
+  #dashboard .btn-create-equipment {
+    margin-top: 2rem;
+  }
+
+  #dashboard .footer {
+    margin-top: 3rem;
+  }
+}
+
+@media only screen and (min-width: 501px) and (max-width: 1024px) {
+  #dashboard .search-or-filter {
+    margin-top: 0.8rem;
+    display: block;
+  }
+
+  #dashboard #footer-admin {
+    position: relative !important;
+  }
+
+  #dashboard .footer {
+    position: fixed !important;
+  }
+
+  #dashboard .search-or-filter form,
+  .filter {
+    width: 100%;
+    display: inline;
+  }
+
+  #dashboard .search-or-filter form button {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  #dashboard form button.button-primary {
+    width: 100% !important;
+    height: 2.5rem !important;
+    margin-bottom: 0.5rem;
+  }
+
+  #dashboard .btn-open-ticket button.button-primary,
+  #dashboard .btn-create-user button.button-primary {
+    width: 40% !important;
+    height: 2.5rem !important;
+    margin-bottom: 2rem;
+  }
+
+  #dashboard .btn-create-equipment button.button-primary {
+    width: 50% !important;
+    height: 2.5rem !important;
+    margin-bottom: 1rem;
+  }
+
+  #dashboard input.input-primary {
+    width: 100% !important;
+    margin-bottom: 0.5rem;
+  }
+
+  #dashboard ticket-list-container {
+    height: 35vh;
+  }
+
+  #dashboard .btn-open-ticket,
+  #dashboard .btn-create-user,
+  #dashboard .btn-create-equipment {
+    margin-top: 2rem;
+  }
+}

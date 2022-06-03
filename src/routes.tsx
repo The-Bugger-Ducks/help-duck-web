@@ -8,6 +8,7 @@ import Signup from "./pages/User/Signup";
 import UserUpdate from "./pages/User/UserUpdate";
 import DetailTicket from "./pages/Ticket/DetailTicket";
 import TicketRegister from "./pages/Ticket/TicketRegister";
+import Dashboard from "./pages/Dashboard/Dashboard";
 
 function MyRoutes() {
   return (
@@ -21,6 +22,7 @@ function MyRoutes() {
       <Route path="/ticket_register" element={<TicketRegister />} />
       <Route path="/equipment_register" element={<EquipmentRegister />} />
       <Route path="/equipment_update/:id" element={<EquipmentUpdate />} />
+      <Route path="/dashboard" element={<Dashboard />} />
     </Routes>
   );
 }
