@@ -13,7 +13,10 @@ import Pagination from "./Pagination/Pagination";
 
 import "../styles/components/TicketList.css";
 
-const TicketList: React.FC<{ status: status | "" }> = ({ status }) => {
+const TicketList: React.FC<{
+  status: status | "";
+  searchedTitle: string;
+}> = ({ status, searchedTitle }) => {
   const [loading, setLoading] = useState(false);
   const [tickets, setTickets] = useState<Ticket[]>([]);
 
@@ -25,7 +28,6 @@ const TicketList: React.FC<{ status: status | "" }> = ({ status }) => {
   const [pageSize, setPageSize] = useState(20);
   const [pageNumber, setPageNumber] = useState(0);
 
-
   const [typeTicketList, setTypeTicketList] = useState<
     "client" | "support" | "status"
   >();
@@ -34,18 +36,34 @@ const TicketList: React.FC<{ status: status | "" }> = ({ status }) => {
   const userInformation = SessionController.getUserInfo();
 
   useEffect(() => {
-    if (userInformation?.role === 'client') {
-      status === 'done' ? getTicketPerStatus(status) : getTicketListClient();
-    } else if (userInformation?.role === 'support') {
-      getTicketPerStatus(status);
+    if (userInformation?.role === "client") {
+      if (searchedTitle.length != 0) {
+        getTicketSearched("", searchedTitle);
+      } else {
+        status === "done" ? getTicketPerStatus(status) : getTicketListClient();
+      }
+    } else if (userInformation?.role === "support") {
+      if (searchedTitle.length != 0) {
+        getTicketSearched("", searchedTitle);
+      } else {
+        getTicketPerStatus(status);
+      }
     }
-  }, [status]);
+  }, [status, searchedTitle]);
 
   async function getTicketListClient(sorting?: string) {
     setLoading(true);
-    const response = await ticketRequest.ticketListById(
-      sorting
-    );
+    const response = await ticketRequest.ticketListById(sorting);
+
+    setTickets(response.content ?? []);
+    setTypeTicketList("client");
+    setPageable(response);
+    setLoading(false);
+  }
+
+  async function getTicketSearched(sorting?: string, title?: string) {
+    setLoading(true);
+    const response = await ticketRequest.searchTicket(sorting, title);
 
     setTickets(response.content ?? []);
     setTypeTicketList("client");
@@ -56,7 +74,7 @@ const TicketList: React.FC<{ status: status | "" }> = ({ status }) => {
   async function getTicketListSupport(sorting?: string) {
     setLoading(true);
     const response = await ticketRequest.ticketListBySupport(sorting);
-          
+
     const ticketsResponse: Ticket[] = response.content;
 
     const tickets = ticketsResponse.filter(
@@ -94,23 +112,31 @@ const TicketList: React.FC<{ status: status | "" }> = ({ status }) => {
       sortAux = `page=${pageNumber}&size=${pageSize}&sort=${type},${orderBy}`;
     } else {
       sortAux = `page=${pageNumber}&size=${pageSize}&sort=${type}`;
-    }    
+    }
 
     setSort(type);
     setOrderBy(orderBy);
 
-    if (typeTicketList == "client") {
-      getTicketListClient(sortAux);
-    } else if (typeTicketList == "support") {
-      getTicketListSupport(sortAux);
+    if (searchedTitle.length != 0) {
+      if (typeTicketList == "client") {
+        getTicketSearched(sortAux, searchedTitle);
+      } else if (typeTicketList == "support") {
+        getTicketSearched(sortAux, searchedTitle);
+      }
     } else {
-      getTicketPerStatus(status, sortAux);
+      if (typeTicketList == "client") {
+        getTicketListClient(sortAux);
+      } else if (typeTicketList == "support") {
+        getTicketListSupport(sortAux);
+      } else {
+        getTicketPerStatus(status, sortAux);
+      }
     }
   }
 
   function handlePageable(pageNumber: number, pageSize: number) {
-    setPageNumber(pageNumber)
-    setPageSize(pageSize)
+    setPageNumber(pageNumber);
+    setPageSize(pageSize);
 
     let sortAux = "";
     if (orderBy) {
@@ -118,7 +144,7 @@ const TicketList: React.FC<{ status: status | "" }> = ({ status }) => {
     } else {
       sortAux = `page=${pageNumber}&size=${pageSize}&sort=${sort}`;
     }
-    
+
     if (typeTicketList == "client") {
       getTicketListClient(sortAux);
     } else if (typeTicketList == "support") {

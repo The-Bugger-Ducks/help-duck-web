@@ -28,10 +28,16 @@ export default function Homepage() {
   const [statusFilter, setStatusFilter] = useState<status | "">("");
   const [inputSearch, setInputSearch] = useState("");
   const [searchUsername, setSearchUsername] = useState("");
-  const [equipmentStatusFilter, setEquipmentStatusFilter] = useState<status | "">("");
+  const [equipmentStatusFilter, setEquipmentStatusFilter] = useState<
+    status | ""
+  >("");
   const [pageTitle, setPageTitle] = useState("Chamados");
-  const [searchPlaceholder, setSearchPlaceholder] = useState("Buscar por título do chamado");
-  const [filterOptions, setFilterOptions] = useState(getOptionListSelectPerUserRole(userInformation?.role));
+  const [searchPlaceholder, setSearchPlaceholder] = useState(
+    "Buscar por título do chamado"
+  );
+  const [filterOptions, setFilterOptions] = useState(
+    getOptionListSelectPerUserRole(userInformation?.role)
+  );
 
   useEffect(() => {
     if (!token || !userInformation) {
@@ -46,7 +52,7 @@ export default function Homepage() {
 
   function handleFilterTickets(event: React.FormEvent) {
     event.preventDefault();
-    setSearchUsername(inputSearch);    
+    setSearchUsername(inputSearch);
   }
 
   function handleFilterEquipment(event: React.FormEvent) {
@@ -80,7 +86,7 @@ export default function Homepage() {
               items={filterOptions}
               width="100%"
               backgroundColor="#FAFAFA"
-              onChange={event => setStatusFilter(event.target.value)}
+              onChange={(event) => setStatusFilter(event.target.value)}
               height="42px"
             />
           </div>
@@ -122,7 +128,7 @@ export default function Homepage() {
                   ]}
                   width="100%"
                   backgroundColor="#FAFAFA"
-                  onChange={event => setStatusFilter(event.target.value)}
+                  onChange={(event) => setStatusFilter(event.target.value)}
                   height="42px"
                   color="#495057"
                 />
@@ -139,7 +145,7 @@ export default function Homepage() {
           </>
         ) : (
           <>
-            <TicketList status={statusFilter} />
+            <TicketList status={statusFilter} searchedTitle={searchUsername} />
             {userInformation?.role === "client" ? (
               <div className="btn-open-ticket">
                 <Link to="/ticket_register">
