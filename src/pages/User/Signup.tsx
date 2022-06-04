@@ -176,7 +176,7 @@ export default function Signup() {
                     name="department"
                     items={departmentList()}
                     backgroundColor="#FAFAFA"
-                    onChange={(event) => handleDepartment(event.target.value)}
+                    onChange={event => setDepartment(event.target.value)}
                   />
                 </div>
               </section>
