@@ -25,10 +25,10 @@ const TicketTable: React.FC<{
   const [headerSortTarget, setHeaderSortTarget] = useState<Element>() 
   
   const tableHeaderOptions = [
-    {text: "Prioridade", type: SortTicketTableTypes.priority},
-    {text: "Título", type: SortTicketTableTypes.title},
-    {text: "Data de criação", type: SortTicketTableTypes.createdAt},
-    {text: "Status", type: SortTicketTableTypes.status}
+    {text: "Prioridade", type: SortTicketTableTypes.priority, width: "10%"},
+    {text: "Título", type: SortTicketTableTypes.title, width: "55%"},
+    {text: "Data de criação", type: SortTicketTableTypes.createdAt, width: "20%"},
+    {text: "Status", type: SortTicketTableTypes.status, width: "15%"}
   ]
 
   useEffect(() => {
@@ -77,7 +77,7 @@ const TicketTable: React.FC<{
       <tbody>
         <tr>
           {tableHeaderOptions.map((option, index) => (
-            <th id={`${index}`} key={index} onClick={(event) => handleClickOptionSort(event, option.type)}>
+            <th id={`${index}`} key={index} onClick={(event) => handleClickOptionSort(event, option.type)} style={{width: option.width}}>
               {option.text}
               <FaArrowUp className="th-arrow" />
             </th>
