@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 import Dropdown from "../../shared/components/Dropdown";
 
@@ -11,6 +11,7 @@ interface PropsHeader {
 }
 
 const Header: React.FC<PropsHeader> = ({ hiddenDropdown = false }) => {
+  const location = useLocation()
   const navigate = useNavigate()
 
   const userInformation = SessionController.getUserInfo();
@@ -21,6 +22,7 @@ const Header: React.FC<PropsHeader> = ({ hiddenDropdown = false }) => {
       <Dropdown
         name={`${userInformation?.firstName} ${userInformation?.lastName}`}
         hiddenDropdown={hiddenDropdown}
+        location={location}
       />
     </header>
   );

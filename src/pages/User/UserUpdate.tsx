@@ -260,7 +260,7 @@ export default function UserUpdate() {
     <div id="user-update">
       <LoadingContainer loading={loading} />
       <div className="user-update-container">
-        <Header hiddenDropdown={true} />
+        <Header hiddenDropdown={false} />
         <div className="user-update-content">
           <section className="user-update-title">
             <h1>
@@ -291,6 +291,19 @@ export default function UserUpdate() {
                   />
                 </div>
                 <div>
+                  <label htmlFor="email">E-mail</label>
+                  <TextField
+                    placeholder={emailPlaceholder}
+                    defaultValue={emailPlaceholder}
+                    onChange={(event) => setEmail(event.target.value)}
+                    name="email"
+                    disabled={isAdmin}
+                  />
+                </div>                
+              </section>
+
+              <section className="user-update-data">
+                <div>
                   <label htmlFor="lastname">Sobrenome</label>
                   <TextField
                     type="text"
@@ -301,32 +314,7 @@ export default function UserUpdate() {
                     disabled={isUser}
                   />
                 </div>
-              </section>
 
-              <section className="user-update-data">
-                <div>
-                  <label htmlFor="email">E-mail</label>
-                  <TextField
-                    placeholder={emailPlaceholder}
-                    defaultValue={emailPlaceholder}
-                    onChange={(event) => setEmail(event.target.value)}
-                    name="email"
-                    disabled={isAdmin}
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="role">Cargo</label>
-                  <SelectInput
-                    onChange={(event) => setRole(event.target.value)}
-                    name="role"
-                    items={userProfiles}
-                    disabled={isAdmin}
-                  />
-                </div>
-              </section>
-
-              <section className="user-update-data">
                 <div>
                   <label htmlFor="password">Senha</label>
                   <TextField
@@ -336,7 +324,20 @@ export default function UserUpdate() {
                     type="password"
                     disabled={isUser}
                   />
+                </div>                
+              </section>
+
+              <section className="user-update-data">
+                <div>
+                  <label htmlFor="role">Cargo</label>
+                  <SelectInput
+                    onChange={(event) => setRole(event.target.value)}
+                    name="role"
+                    items={userProfiles}
+                    disabled={isAdmin}
+                  />
                 </div>
+                
                 <div>
                   <label htmlFor="department">Departamento</label>
                   <ChoiceField
