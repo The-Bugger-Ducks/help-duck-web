@@ -18,7 +18,13 @@ import "../styles/components/EquipmentList.css";
 import Pagination from "./Pagination/Pagination";
 import { Pageable } from "../interfaces/pagable.interface";
 
-export default function EquipmentList() {
+export default function EquipmentList({
+  filterEquipment,
+  nameEquipment,
+}: {
+  filterEquipment: string;
+  nameEquipment: string;
+}) {
   const equipmentRequest = new EquipmentRequests();
   const navigate = useNavigate();
 
@@ -34,6 +40,8 @@ export default function EquipmentList() {
   const [pageSize, setPageSize] = useState(20);
   const [pageNumber, setPageNumber] = useState(0);
 
+  const [uriParam, setUriParam] = useState("");
+
   const tableHeaderOptions = [
     { text: "Nome", type: SortEquipmentTableTypes.name },
     { text: "Modelo", type: SortEquipmentTableTypes.model },
@@ -43,12 +51,23 @@ export default function EquipmentList() {
   ];
 
   useEffect(() => {
+    if (filterEquipment.length != 0 || nameEquipment.length != 0) {
+      getEquipmentsList(uriParam);
+    }
+  }, [filterEquipment, nameEquipment]);
+
+  useEffect(() => {
     getEquipmentsList();
-  }, []);
+  }, [filterEquipment, nameEquipment]);
 
   const getEquipmentsList = async (sorting?: string) => {
     setLoading(true);
-    const response = await equipmentRequest.listEquipmentRequest(sorting);
+
+    const response = await equipmentRequest.searchEquipment(
+      nameEquipment ? nameEquipment : "",
+      filterEquipment ? filterEquipment : "",
+      sorting
+    );
 
     setLoading(false);
 
@@ -103,6 +122,9 @@ export default function EquipmentList() {
       sortAux = `page=${pageNumber}&size=${pageSize}&sort=${type}`;
     }
 
+    setSort(type);
+    setOrderBy(orderBy);
+    setUriParam(sortAux);
     getEquipmentsList(sortAux);
   }
 
@@ -117,6 +139,7 @@ export default function EquipmentList() {
       sortAux = `page=${pageNumber}&size=${pageSize}&sort=${sort}`;
     }
 
+    setUriParam(sortAux);
     getEquipmentsList(sortAux);
   }
 
