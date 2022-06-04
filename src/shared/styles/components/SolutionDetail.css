@@ -2,6 +2,7 @@
 .solutioAdd-container{
   height: 60vh;
   margin-left: 2rem;
+  width: 100%;
 
 }
 .solutioAdd-container .separator{
@@ -16,7 +17,7 @@
   border: 0.2rem solid #868E96;
   border-radius: 0.5rem;
   padding: 1.2rem ;
-  text-align: center;
+  text-align: left;
   margin-right: 0%;
   height:40vh;
 }

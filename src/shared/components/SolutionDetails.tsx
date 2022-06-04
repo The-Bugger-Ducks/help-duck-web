@@ -22,7 +22,7 @@ export default function SolutionDetails(props:bodySolution) {
         <label placeholder='Selecione uma solução para ver seus detalhes'>{props.title}</label>
         <div className="form-content">
           <div className='separator'></div>
-          <p className='soluction-description' placeholder='Selecione uma solução para ver seus detalhes'>{props.description}</p>
+          <p className="soluction-description" placeholder='Selecione uma solução para ver seus detalhes'>{props.description}</p>
         </div>
       </form>
     </div>
