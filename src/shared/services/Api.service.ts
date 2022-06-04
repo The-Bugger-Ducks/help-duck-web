@@ -16,6 +16,10 @@ const apiSolution = axios.create({
   baseURL: "https://help-duck-solution-center.herokuapp.com",
 });
 
+const apiDashboard = axios.create({
+  baseURL: "https://help-duck-dashboard.herokuapp.com",
+});
+
 apiUsers.interceptors.request.use(async (config: any) => {
   const token = sessionStorage.getItem("authentication_token");
   if (token) {
@@ -48,4 +52,4 @@ apiSolution.interceptors.request.use(async (config: any) => {
   return config;
 });
 
-export { apiUsers, apiTickets, apiEquipment, apiSolution };
+export { apiUsers, apiTickets, apiEquipment, apiSolution, apiDashboard };

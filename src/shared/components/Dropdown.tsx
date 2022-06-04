@@ -1,8 +1,10 @@
 import React, { useState } from "react";
-import "../styles/components/Dropdown.css";
-import { BsChevronDown } from "react-icons/bs";
-import SessionController from "../utils/handlers/SessionController";
 import { useNavigate } from "react-router-dom";
+import { BsChevronDown } from "react-icons/bs";
+
+import SessionController from "../utils/handlers/SessionController";
+
+import "../styles/components/Dropdown.css";
 
 interface PropsDropdown {
   name: string;
@@ -36,6 +38,9 @@ const Dropdown: React.FC<PropsDropdown> = ({
       <div className="dropdown-list-container" hidden={isHidden}>
         <ul>
           <li onClick={() => editUser()}>Editar perfil</li>
+          {user?.role == "admin" ? (
+            <li onClick={() => navigate('/dashboard')}>Relatórios</li>
+          ):null}
           <li onClick={() => logout()}>Logout</li>
         </ul>
       </div>

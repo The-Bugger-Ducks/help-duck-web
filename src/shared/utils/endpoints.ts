@@ -38,3 +38,7 @@ export enum PROBLEM_ENDPOINTS {
   PROBLEM_LIST = `/problems/`,
   PROBLEM_DETAILS = `/problems/`,
 }
+
+export enum REPORT_ENDPOINTS {
+  REPORT = `/dashboard/report`,
+}
