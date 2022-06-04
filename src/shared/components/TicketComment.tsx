@@ -47,7 +47,7 @@ const TicketComment: React.FC<Props> = ({ commentData, canSetSolution, handleSet
           {solutionChecked ? (
             <FaCheckCircle size="2rem" color="var(--color-green)"/>
           ):(
-            <FaRegCheckCircle size="2rem" className="check-solution-icon"/>
+            <FaRegCheckCircle size="2rem" className="check-solution-icon" title="Adicionar este comentário como solução do chamado"/>
           )}        
        </div>
       ):null}      
