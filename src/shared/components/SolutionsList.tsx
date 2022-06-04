@@ -10,8 +10,6 @@ import Button from './Button';
 import SolutionAddCenter from './SolutionAddCenter';
 import SolutionDetails from './SolutionDetails';
 
-
-
 interface SolutionsListProps {
   problemId?: string;
   keyword?: string;
@@ -31,17 +29,13 @@ const SolutionsList: React.FC<SolutionsListProps> = ({
   const [solutions, setSolutions] = useState<ProblemSolution[]>([]);
   const [searchResult, setSearchResult] = useState([]);
 
-
-
-
   const problemRequest = new ProblemRequests();
   const userInformation = SessionController.getUserInfo();
   const [isVisible, setIsVisible] = useState(false);
   const [IsVisibleDetails, setIsVisibleDetails] = useState(false);
   const [bodySolution, setBodySolution] = useState({"title":'', "description":''});
   
-
-
+  
   function handlerIsVisible(Visible:boolean){
     setIsVisible(Visible);
   } 
@@ -74,9 +68,6 @@ const SolutionsList: React.FC<SolutionsListProps> = ({
     console.log('buscando!');
   }
 
-  console.log(IsVisibleDetails);
-
-
 
   function getPossibleSolutionsList() {
     return (
@@ -96,7 +87,7 @@ const SolutionsList: React.FC<SolutionsListProps> = ({
                     <>
                       <tr
                         key={index}
-                        onClick={() => {handlerIsVisibleDetails(true, solution.title, solution.description); {handlerIsVisible(false)}}}
+                        onClick={() => {handlerIsVisibleDetails(true, solution.title, solution.description) }}
                       >
                         <td>{solution.title}</td>
                       </tr>
@@ -127,7 +118,6 @@ const SolutionsList: React.FC<SolutionsListProps> = ({
           </Button>
         </div>
       </section>
-
       {isVisible ?
         <section className='section-solutionAdd'>
           <SolutionAddCenter
@@ -135,29 +125,17 @@ const SolutionsList: React.FC<SolutionsListProps> = ({
            handlerIsVisible = {handlerIsVisible}/>
         </section>:null  
       }  
-
-
-
       {IsVisibleDetails?
           <section  className='section-solutionDetails'>   
           <SolutionDetails
           title= {bodySolution.title}
           description= {bodySolution.description}/>
           </section>:null
-
         }  
-
-
       </section>
-
-
       </>
-
     );
   }
-
-
-  
 
   function getSearchResult() {
     return (

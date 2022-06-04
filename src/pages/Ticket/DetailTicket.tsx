@@ -27,7 +27,6 @@ import SelectInput from "../../shared/components/ChoiceField";
 
 import "../../shared/styles/pages/ticket/DetailTicket.css";
 import SolutionsList from "../../shared/components/SolutionsList";
-import { Problem } from "../../shared/interfaces/problem.interface";
 import { ProblemRequests } from "../../shared/utils/requests/Problem.requests";
 
 import "../../shared/styles/pages/ticket/DetailTicket.css";
@@ -62,10 +61,7 @@ export default function DetailTicket() {
   const [solution, setSolution] = useState<Ticket["solution"]>();
   const [canSetSolution, setCanSetSolution] = useState<boolean>(false);
   const [hiddenSolutionVote, setHiddenSolutionVote] = useState(false);
-  const [addTagSolution, setAddTagSolution] = useState<boolean>(false);
 
-  const [addSolutionDetails, setSolutionDetails] = useState<boolean>(false);
-  const [ticketProblem, setTicketProblem] = useState<Problem>();
   const [editPriority, setEditPriority] = useState(false);
 
   const ticketRequest = new TicketRequests();
@@ -300,11 +296,11 @@ export default function DetailTicket() {
     setLoading(false)   
   } 
 
-
-
-  async function handlerSolutionDetails(title:string, description:string) {
-
-    console.log(title, description);    
+  async function handlerSolutionDetails(){
+    if(!ticket){
+      return
+    }
+    setLoading(true)    
   }
 
   return (
@@ -514,36 +510,6 @@ export default function DetailTicket() {
                 </Button>
               </div>
             </section>)}
-
-
-
-
-
-           
-            {/* Removido temporáriamente por falta de definição
-            <section className="ticket-resolve-content">
-              <h3>A resolução adicionada pelo suporte foi útil?</h3>
-              <div>
-                <Button
-                  backgroundColor="var(--color-green)"
-                  color="#FFFFFF"
-                  width="7rem"
-                  height="2rem"
-                >
-                  Sim
-                </Button>
-                <Button
-                  backgroundColor="var(--color-red)"
-                  color="#FFFFFF"
-                  width="7rem"
-                  height="2rem"
-                >
-                  Não
-                </Button>
-              </div>
-            </section> */}
-            {/* </section>           )}*/}
-
 
           <SolutionsList problemId={problemType?.id}
           handlerCreateTagSolution={handlerCreateTagSolution}

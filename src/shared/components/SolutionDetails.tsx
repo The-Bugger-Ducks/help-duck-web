@@ -1,20 +1,11 @@
-import { useState, FormEvent } from 'react';
-import { ProblemSolution } from '../interfaces/problem.interface';
 import "../styles/components/SolutionDetail.css";
-import CustomTableRow from './Loading/CustomTableRow';
 
 interface bodySolution{
   title: string,
   description:string
 }
 
-
-
-
 export default function SolutionDetails(props:bodySolution) {
-
-
-
   return (
   <>
     <div className='solutioAdd-container'>
