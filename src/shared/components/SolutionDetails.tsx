@@ -20,10 +20,9 @@ export default function SolutionDetails(props:bodySolution) {
     <div className='solutioAdd-container'>
       <form>
         <label placeholder='Selecione uma solução para ver seus detalhes'>{props.title}</label>
-        <div className="form-content">
-          <div className='separator'></div>
-          <p className="soluction-description" placeholder='Selecione uma solução para ver seus detalhes'>{props.description}</p>
-        </div>
+        <div className='separator'></div>
+        <p className="soluction-description" placeholder='Selecione uma solução para ver seus detalhes'>{props.description}</p>
+
       </form>
     </div>
   </>

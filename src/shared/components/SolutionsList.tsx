@@ -127,20 +127,26 @@ const SolutionsList: React.FC<SolutionsListProps> = ({
           </Button>
         </div>
       </section>
-      <section>
-      {isVisible ?   
+
+      {isVisible ?
+        <section className='section-solutionAdd'>
           <SolutionAddCenter
            handlerCreateTagSolution={handlerCreateTagSolution} 
-           handlerIsVisible = {handlerIsVisible}/>:null
-        } 
-      </section>
-      <section>
-      {IsVisibleDetails? 
+           handlerIsVisible = {handlerIsVisible}/>
+        </section>:null  
+      }  
+
+
+
+      {IsVisibleDetails?
+          <section  className='section-solutionDetails'>   
           <SolutionDetails
           title= {bodySolution.title}
-          description= {bodySolution.description}/>:null
+          description= {bodySolution.description}/>
+          </section>:null
+
         }  
-      </section>
+
 
       </section>
 

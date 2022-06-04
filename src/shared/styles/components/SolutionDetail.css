@@ -1,10 +1,24 @@
 /* ESTILIZAÇÃO GERAL*/
 .solutioAdd-container{
-  height: 60vh;
-  margin-left: 2rem;
+  /*height: 60vh;*/
+  width: 100%;
+  overflow-x: scroll;
+  border: 0.2rem solid #868E96;
+  border-radius: 0.5rem;
+  min-width: 100%;
+
+}
+
+.solutioAdd-container p{
+  /*width: auto;*/
   width: 100%;
 
 }
+
+
+
+
+
 .solutioAdd-container .separator{
   height: 0.1rem;
   background-color: #868E96;
@@ -14,12 +28,16 @@
 
 /* ESTILIZAÇÃO DO FORMULÁRIO */
 .solutioAdd-container form {
-  border: 0.2rem solid #868E96;
-  border-radius: 0.5rem;
+
   padding: 1.2rem ;
   text-align: left;
   margin-right: 0%;
   height:40vh;
+
+
+
+
+
 }
 
 

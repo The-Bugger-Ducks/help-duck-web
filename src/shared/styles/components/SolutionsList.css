@@ -1,5 +1,17 @@
 .solution-list-components{
   display: flex;
+  justify-content: space-between;
+  gap:2rem;
+}
+
+.section-solutionDetails{
+  min-width: 50%;
+
+}
+
+.section-solutionAdd{
+  min-width: 50%;
+
 }
 .solution-list-container {
   width: 45%;
