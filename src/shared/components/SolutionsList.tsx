@@ -7,15 +7,23 @@ import CustomTableRow from './Loading/CustomTableRow';
 
 import '../styles/components/SolutionsList.css';
 import Button from './Button';
+import SolutionAddCenter from './SolutionAddCenter';
+import SolutionDetails from './SolutionDetails';
 
 interface SolutionsListProps {
   problemId?: string;
   keyword?: string;
+  handlerSolutionDetails?:(title: string,
+    description:string) => Promise<void>;
+  handlerCreateTagSolution?:(title: string,
+    description:string) => Promise<void>;
+
 }
 
 const SolutionsList: React.FC<SolutionsListProps> = ({
   problemId,
   keyword,
+  handlerCreateTagSolution
 }) => {
   const [loading, setLoading] = useState(false);
   const [solutions, setSolutions] = useState<ProblemSolution[]>([]);
@@ -23,6 +31,20 @@ const SolutionsList: React.FC<SolutionsListProps> = ({
 
   const problemRequest = new ProblemRequests();
   const userInformation = SessionController.getUserInfo();
+  const [isVisible, setIsVisible] = useState(false);
+  const [IsVisibleDetails, setIsVisibleDetails] = useState(false);
+  const [bodySolution, setBodySolution] = useState({"title":'', "description":''});
+  
+  
+  function handlerIsVisible(Visible:boolean){
+    setIsVisible(Visible);
+  } 
+
+  function handlerIsVisibleDetails(VisibleDet:boolean, title:string, description:string){
+    setIsVisibleDetails(VisibleDet)
+    setBodySolution({"title":title, "description":description})
+  }
+
 
   useEffect(() => {
     userInformation?.role === 'support' && getSolutionsByProblem();
@@ -46,8 +68,11 @@ const SolutionsList: React.FC<SolutionsListProps> = ({
     console.log('buscando!');
   }
 
+
   function getPossibleSolutionsList() {
     return (
+      <>
+      <section className="solution-list-components">
       <section className="solution-list-container">
         <h3>Soluções possíveis</h3>
         <div className="grid-solutions">
@@ -62,7 +87,7 @@ const SolutionsList: React.FC<SolutionsListProps> = ({
                     <>
                       <tr
                         key={index}
-                        onClick={() => console.log(solution.title)}
+                        onClick={() => {handlerIsVisibleDetails(true, solution.title, solution.description) }}
                       >
                         <td>{solution.title}</td>
                       </tr>
@@ -87,12 +112,28 @@ const SolutionsList: React.FC<SolutionsListProps> = ({
             height="2rem"
             fontSize="0.8rem"
             fontWeight="600"
-            onClick={() => console.log('nova solução')}
+            onClick={ () => {handlerIsVisible(true); handlerIsVisibleDetails(false, '', '')}}
           >
             Nova solução
           </Button>
         </div>
       </section>
+      {isVisible ?
+        <section className='section-solutionAdd'>
+          <SolutionAddCenter
+           handlerCreateTagSolution={handlerCreateTagSolution} 
+           handlerIsVisible = {handlerIsVisible}/>
+        </section>:null  
+      }  
+      {IsVisibleDetails?
+          <section  className='section-solutionDetails'>   
+          <SolutionDetails
+          title= {bodySolution.title}
+          description= {bodySolution.description}/>
+          </section>:null
+        }  
+      </section>
+      </>
     );
   }
 

@@ -1,7 +1,7 @@
 import { apiSolution } from '../../services/Api.service';
 
 import { PROBLEM_ENDPOINTS } from '../endpoints';
-import { Problem } from '../../interfaces/problem.interface';
+import { Problem, SetProblemSolutionAdd } from '../../interfaces/problem.interface';
 import {
   validateStatus,
   handleResponseStatus,
@@ -33,4 +33,24 @@ export class ProblemRequests {
       );
     }
   }
+  
+  public async setSolutionProblem(payload: SetProblemSolutionAdd) {
+    try {
+      const response = await apiSolution.post(
+        PROBLEM_ENDPOINTS.PROBLEM_SOLUTION_ADD,
+        payload
+      );
+
+      return response;
+    } catch (error) {
+      console.log(error);
+      alert(
+        'Não foi possível encontrar as possíveis soluções do problema, tente novamente!'
+      );
+    }
+  }
+
+
+
+
 }

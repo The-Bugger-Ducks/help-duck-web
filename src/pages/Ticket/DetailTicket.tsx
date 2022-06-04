@@ -27,7 +27,6 @@ import SelectInput from "../../shared/components/ChoiceField";
 
 import "../../shared/styles/pages/ticket/DetailTicket.css";
 import SolutionsList from "../../shared/components/SolutionsList";
-import { Problem } from "../../shared/interfaces/problem.interface";
 import { ProblemRequests } from "../../shared/utils/requests/Problem.requests";
 
 import "../../shared/styles/pages/ticket/DetailTicket.css";
@@ -62,7 +61,7 @@ export default function DetailTicket() {
   const [solution, setSolution] = useState<Ticket["solution"]>();
   const [canSetSolution, setCanSetSolution] = useState<boolean>(false);
   const [hiddenSolutionVote, setHiddenSolutionVote] = useState(false);
-  const [ticketProblem, setTicketProblem] = useState<Problem>();
+
   const [editPriority, setEditPriority] = useState(false);
 
   const ticketRequest = new TicketRequests();
@@ -287,6 +286,23 @@ export default function DetailTicket() {
     }
   }
 
+  async function handlerCreateTagSolution(title:string, description:string) {
+    if(!ticket){
+      return
+    }
+    setLoading(true)    
+    await problemRequest.setSolutionProblem({title, description, problemId: ticket.problem.id})
+    alert('Nova solução cadastrada com sucesso!');
+    setLoading(false)   
+  } 
+
+  async function handlerSolutionDetails(){
+    if(!ticket){
+      return
+    }
+    setLoading(true)    
+  }
+
   return (
     <>
       <LoadingContainer loading={loading} />
@@ -493,10 +509,11 @@ export default function DetailTicket() {
                   Enviar
                 </Button>
               </div>
-            </section>
-          )}
+            </section>)}
 
-          <SolutionsList problemId={problemType?.id} />
+          <SolutionsList problemId={problemType?.id}
+          handlerCreateTagSolution={handlerCreateTagSolution}
+          handlerSolutionDetails={handlerSolutionDetails}/>
         </main>
         <Footer />
       </Container>
