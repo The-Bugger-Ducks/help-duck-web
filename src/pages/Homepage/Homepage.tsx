@@ -28,9 +28,9 @@ export default function Homepage() {
   const [statusFilter, setStatusFilter] = useState<status | "">("");
   const [inputSearch, setInputSearch] = useState("");
   const [searchUsername, setSearchUsername] = useState("");
-  const [equipmentStatusFilter, setEquipmentStatusFilter] = useState<
-    status | ""
-  >("");
+  const [equipmentFilter, setEquipmentFilter] = useState<status | "">("");
+  const [equipmentName, setEquipmentName] = useState<status | "">("");
+  const [equipmentInput, setEquipmentInput] = useState<status | "">("");
   const [pageTitle, setPageTitle] = useState("Chamados");
   const [searchPlaceholder, setSearchPlaceholder] = useState(
     "Buscar por título do chamado"
@@ -57,6 +57,7 @@ export default function Homepage() {
 
   function handleFilterEquipment(event: React.FormEvent) {
     event.preventDefault();
+    setEquipmentName(equipmentInput);
   }
 
   return (
@@ -111,6 +112,8 @@ export default function Homepage() {
                   backgroundColor="#FAFAFA"
                   type="text"
                   height="42px"
+                  onChange={(event) => setEquipmentInput(event.target.value)}
+                  required={false}
                 />
                 <Button width="20%" type="submit" fontSize="0.8rem">
                   Buscar
@@ -122,20 +125,58 @@ export default function Homepage() {
                   items={[
                     {
                       selected: true,
-                      value: "allEquipments",
+                      value: "",
                       label: "Todos os equipamentos",
+                    },
+                    {
+                      selected: false,
+                      value: "finnance",
+                      label: "Financeiro",
+                    },
+                    {
+                      selected: false,
+                      value: "operations",
+                      label: "Operações",
+                    },
+                    {
+                      selected: false,
+                      value: "rh",
+                      label: "RH",
+                    },
+                    {
+                      selected: false,
+                      value: "eps",
+                      label: "EPS",
+                    },
+                    {
+                      selected: false,
+                      value: "ti",
+                      label: "TI",
+                    },
+                    {
+                      selected: false,
+                      value: "epdi",
+                      label: "EPDI",
+                    },
+                    {
+                      selected: false,
+                      value: "others",
+                      label: "Outros",
                     },
                   ]}
                   width="100%"
                   backgroundColor="#FAFAFA"
-                  onChange={(event) => setStatusFilter(event.target.value)}
+                  onChange={(event) => setEquipmentFilter(event.target.value)}
                   height="42px"
                   color="#495057"
                 />
               </div>
             </section>
 
-            <EquipmentList />
+            <EquipmentList
+              filterEquipment={equipmentFilter}
+              nameEquipment={equipmentName}
+            />
 
             <div className="btn-create-equipment">
               <Link to="/equipment_register">
