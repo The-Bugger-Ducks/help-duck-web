@@ -10,7 +10,6 @@
 
 #dashboard .footer {
   position: fixed !important;
-  margin-top: 1rem !important;
   bottom: 0 !important;
 }
 
@@ -18,157 +17,108 @@
   position: sticky !important;
 }
 
-#dashboard .search-or-filter form,
-.filter {
-  width: 100%;
-}
-
-#dashboard .search-or-filter form {
+#dashboard {
   display: flex;
-  align-items: center;
+  flex-direction: column;
+
+  gap: 1rem
 }
 
-#dashboard .search-or-filter form button {
-  margin-left: 1%;
-  margin-right: 1%;
+#dashboard .dashboard-container {
+  flex: 1;
+  margin-bottom: 5rem;
+
+}
+
+#dashboard .dashboard-main {
+  display: flex;
+  flex-direction: column;
+
+  gap: 4rem;
 }
 
 #dashboard .dashboard-container h1 {
-  margin-top: 4%;
-  margin-bottom: 1%;
-  font-weight: normal;
+  line-height: 5rem;
+  font-weight: 400;
   color: var(--color-black-light);
-}
 
-#dashboard .search-or-filter {
-  margin-bottom: 3%;
-  width: 100%;
   display: flex;
   align-items: center;
+
+  gap: 1rem;
+}
+#dashboard .dashboard-container h1 .go-back-icon {
+  cursor: pointer;
 }
 
-#dashboard .btn-open-ticket,
-#dashboard .btn-create-user,
-#dashboard .btn-create-equipment {
-  margin-top: 2%;
-  text-align: end;
-  margin-bottom: 5%;
+#dashboard .dashboard-container h1 .go-back-icon:hover {
+  filter: brightness(80%)
+}
+
+#dashboard .dashboard-container .dashboard-content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 4rem;
+}
+
+
+#dashboard .dashboard-container .dashboard-content section {
+  flex: 1;
+
+  min-width: 250px;
+}
+
+#dashboard .dashboard-container .dashboard-content h3 {
+  border-bottom: 1px solid var(--color-black-dark);
+  color: var(--color-black-light);
+  font-weight: 500;
+}
+
+#dashboard .dashboard-container .dashboard-content section ul {
+  list-style: none;
+
+  line-height: 2rem;
+}
+
+#dashboard .dashboard-container .dashboard-content section ul li {
+  display: flex;
+  justify-content: space-between;
+
+  color: var(--color-gray-dark)
+}
+
+#dashboard .dashboard-container .dashboard-content .total-row {
+  border-top: 1px solid var(--color-black-dark);
+
+  color: var(--color-black-light);
+
+  font-weight: 700;
 }
 
 @media only screen and (max-width: 500px) {
-  #dashboard .search-or-filter {
-    margin-top: 0.8rem;
-    display: block;
-  }
-
-  #dashboard .search-or-filter form,
-  .filter {
-    width: 100%;
-    display: inline;
-  }
-
-  #dashboard .search-or-filter form button {
-    margin-left: 0;
-    margin-right: 0;
-  }
-
-  #dashboard form button.button-primary,
-  #dashboard form input.input-primary,
-  #dashboard select.input-primary {
-    width: 100% !important;
-    height: 2.5rem !important;
-    margin-bottom: 0.5rem;
-  }
-
-  #dashboard .btn-open-ticket button.button-primary,
-  #dashboard .btn-create-user button.button-primary {
-    width: 50% !important;
-    height: 2.5rem !important;
-    margin-bottom: 5rem;
-  }
-
-  #dashboard .btn-create-equipment button.button-primary {
-    width: 60% !important;
-    height: 2.5rem !important;
-    margin-bottom: 1%;
-  }
-
-  #dashboard input.input-primary {
-    width: 100% !important;
-    margin-bottom: 0.5rem;
-  }
-
-  #dashboard ticket-list-container {
-    height: 35vh;
-  }
-
-  #dashboard .btn-open-ticket,
-  #dashboard .btn-create-user,
-  #dashboard .btn-create-equipment {
-    margin-top: 2rem;
+  #dashboard .footer {
+    position: relative !important;
   }
 
   #dashboard .footer {
     margin-top: 3rem;
   }
+
+  #dashboard .dashboard-container .dashboard-content {
+    gap: 4rem;
+  }
 }
 
 @media only screen and (min-width: 501px) and (max-width: 1024px) {
-  #dashboard .search-or-filter {
-    margin-top: 0.8rem;
-    display: block;
-  }
 
-  #dashboard #footer-admin {
+  #dashboard .footer {
     position: relative !important;
   }
 
-  #dashboard .footer {
-    position: fixed !important;
+  #dashboard .dashboard-container {
+    margin-bottom: 0;
   }
 
-  #dashboard .search-or-filter form,
-  .filter {
-    width: 100%;
-    display: inline;
-  }
-
-  #dashboard .search-or-filter form button {
-    margin-left: 0;
-    margin-right: 0;
-  }
-
-  #dashboard form button.button-primary {
-    width: 100% !important;
-    height: 2.5rem !important;
-    margin-bottom: 0.5rem;
-  }
-
-  #dashboard .btn-open-ticket button.button-primary,
-  #dashboard .btn-create-user button.button-primary {
-    width: 40% !important;
-    height: 2.5rem !important;
-    margin-bottom: 2rem;
-  }
-
-  #dashboard .btn-create-equipment button.button-primary {
-    width: 50% !important;
-    height: 2.5rem !important;
-    margin-bottom: 1rem;
-  }
-
-  #dashboard input.input-primary {
-    width: 100% !important;
-    margin-bottom: 0.5rem;
-  }
-
-  #dashboard ticket-list-container {
-    height: 35vh;
-  }
-
-  #dashboard .btn-open-ticket,
-  #dashboard .btn-create-user,
-  #dashboard .btn-create-equipment {
-    margin-top: 2rem;
-  }
+  
 }
