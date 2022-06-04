@@ -114,8 +114,7 @@ export default function TicketRegister() {
       title === '' ||
       description === '' ||
       priorityLevel === '' ||
-      problem === null ||
-      equipmentSelected === ''
+      problem === null
     ) {
       return alert('Preencha todos os campos');
     }
@@ -129,7 +128,7 @@ export default function TicketRegister() {
       user,
       priorityLevel,
       problem,
-      equipment: equipmentSelected,
+      equipment: equipmentSelected != "" ? equipmentSelected : null,
       department: user.department,
     };
 
@@ -217,6 +216,7 @@ export default function TicketRegister() {
                         padding={'0.2rem'}
                         height={'32px'}
                         backgroundColor={'#FAFAFA'}
+                        required={false}
                       />
                     </div>
                   </div>
