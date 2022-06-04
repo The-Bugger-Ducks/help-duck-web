@@ -1,4 +1,9 @@
 /* ESTILIZAÇÃO GERAL*/
+.solutioAdd-container{
+  height: 60vh;
+  margin-left: 2rem;
+
+}
 .solutioAdd-container .separator{
   height: 0.1rem;
   background-color: #868E96;
@@ -6,24 +11,17 @@
 }
 
 
-
 /* ESTILIZAÇÃO DO FORMULÁRIO */
 .solutioAdd-container form {
   border: 0.2rem solid #868E96;
   border-radius: 0.5rem;
-  width:60%;
-  padding: 1.5rem ;
+  padding: 1.2rem ;
   text-align: center;
   margin-right: 0%;
+  height:40vh;
 }
 
-.solutioAdd-container textarea {
-  resize: none;
-  background: none;
-  width: 100%;
-  border-radius: 0.2rem;
-  border: 0 none;
-}
+
 
 
 .solutioAdd-container #tag-add-button{

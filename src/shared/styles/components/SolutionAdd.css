@@ -1,12 +1,17 @@
 /* ESTILIZAÇÃO GERAL*/
 /* ESTILIZAÇÃO DO FORMULÁRIO */
 
+.tag-add-container {
+  width: max(36.3rem, 100%);
+  min-width: 5rem;
+  margin-left: 2rem;
+  
 
+}
 .tag-add-container .separator{
   height: 0.1rem;
   background-color: #868E96;
 }
-
 
 .tag-add-container textarea {
   resize: none;
@@ -18,7 +23,6 @@
 .tag-add-container form {
   border: 0.2rem solid #868E96;
   border-radius: 0.5rem;
-  width:60%;
   padding: 1.5rem ;
   text-align: center;
   margin-right: 0%;

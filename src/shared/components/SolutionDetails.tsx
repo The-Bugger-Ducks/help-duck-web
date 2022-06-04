@@ -1,35 +1,31 @@
 import { useState, FormEvent } from 'react';
+import { ProblemSolution } from '../interfaces/problem.interface';
 import "../styles/components/SolutionDetail.css";
+import CustomTableRow from './Loading/CustomTableRow';
 
-export default function SolutionDetails({handlerSolutionDetails}: {handlerSolutionDetails: (title: string,
-description:string) => Promise<void>}) {
+interface bodySolution{
+  title: string,
+  description:string
+}
 
-  const [title, setTitle] = useState('')
-  const [description, setDescription] = useState('')
 
-  function submitForm(event: FormEvent) {
-  event.preventDefault();
-  if (
-  title === '' ||
-  description === ''
-  ) {
-  return alert('Preencha todos os campos');
-  }
-  handlerSolutionDetails(title, description)
-  }
+
+
+export default function SolutionDetails(props:bodySolution) {
+
 
 
   return (
-  <div className='solutioAdd-container'>
-    <form>
-      <label for-id="solution">Selecione uma solução para ver seus detalhes</label>
-      <div id='form-content'>
-        <div className='separator'></div>
-        <textarea name="problem-soluction-description" id="soluction-description" placeholder="Selecione uma solução para ver seus detalhes"></textarea>
-      </div>
-    </form>
-
-  </div>
-
+  <>
+    <div className='solutioAdd-container'>
+      <form>
+        <label placeholder='Selecione uma solução para ver seus detalhes'>{props.title}</label>
+        <div className="form-content">
+          <div className='separator'></div>
+          <p className='soluction-description' placeholder='Selecione uma solução para ver seus detalhes'>{props.description}</p>
+        </div>
+      </form>
+    </div>
+  </>
   );
-  }
+}
