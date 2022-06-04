@@ -25,21 +25,21 @@ const TicketSolution: React.FC<Props> = ({ solution, hiddenSolutionVote, handleS
           color="var(--color-green)"
           border="1px solid var(--color-green)"
           height="1.5rem"
-          width="160px"
+          width="210px"
           border-radius="8px"
           fontSize="0.7rem"
           onClick={() => handleSolutionVote(true)}
         >
           <span className="solution-vote-button-text">
             <AiOutlineLike size="14px" />
-            FOI ÚTIL PRA MIM
+            FOI ÚTIL PRA MIM{" | "}{solution.upVote != 1 ? `${solution.upVote} votos`: `${solution.upVote} voto`}
           </span>
         </Button>
         <Button
           backgroundColor="var(--color-white-light)"
           color="var(--color-red)"
           height="1.5rem"
-          width="160px"
+          width="210px"
           border="1px solid var(--color-red)"
           border-radius="8px"
           fontSize="0.7rem"
@@ -47,7 +47,7 @@ const TicketSolution: React.FC<Props> = ({ solution, hiddenSolutionVote, handleS
         >
           <span className="solution-vote-button-text">
             <AiOutlineDislike size="14px"  />
-            NÃO FOI ÚTIL PRA MIM
+            NÃO FOI ÚTIL PRA MIM{" | "}{solution.downVote != 1 ? `${solution.downVote} votos`: `${solution.downVote} voto`}
           </span>
         </Button>
       </div>
