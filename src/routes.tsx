@@ -2,13 +2,14 @@ import { Routes, Route } from "react-router-dom";
 import EquipmentRegister from "./pages/Equipment/EquipmentRegister";
 import EquipmentUpdate from "./pages/Equipment/EquipmentUpdate";
 
-import Homepage from "./pages/Homepage/Homepage";
-import Login from "./pages/Auth/Login";
-import Signup from "./pages/User/Signup";
-import UserUpdate from "./pages/User/UserUpdate";
-import DetailTicket from "./pages/Ticket/DetailTicket";
-import TicketRegister from "./pages/Ticket/TicketRegister";
-import Dashboard from "./pages/Dashboard/Dashboard";
+import Homepage from './pages/Homepage/Homepage';
+import Login from './pages/Auth/Login';
+import Signup from './pages/User/Signup';
+import UserUpdate from './pages/User/UserUpdate';
+import DetailTicket from './pages/Ticket/DetailTicket';
+import TicketRegister from './pages/Ticket/TicketRegister';
+import Dashboard from './pages/Dashboard/Dashboard';
+import SolutionsCenter from './pages/SolutionsCenter/SolutionsCenter';
 
 function MyRoutes() {
   return (
@@ -23,6 +24,7 @@ function MyRoutes() {
       <Route path="/equipment_register" element={<EquipmentRegister />} />
       <Route path="/equipment_update/:id" element={<EquipmentUpdate />} />
       <Route path="/dashboard" element={<Dashboard />} />
+      <Route path="/solutions_center" element={<SolutionsCenter />} />
     </Routes>
   );
 }

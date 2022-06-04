@@ -146,17 +146,26 @@ export default function Homepage() {
         ) : (
           <>
             <TicketList status={statusFilter} searchedTitle={searchUsername} />
-            {userInformation?.role === "client" ? (
-              <div className="btn-open-ticket">
+
+            <div className="btn-open-ticket">
+              <div>
+                <Link to="/solutions_center">
+                  <Button backgroundColor="#ADB5BD" color="#F2F2F3" width="25%">
+                    Acessar centro de soluções
+                  </Button>
+                </Link>
+              </div>
+
+              {userInformation?.role === 'client' ? (
                 <Link to="/ticket_register">
                   <Button width="20%">Abrir chamado</Button>
                 </Link>
-              </div>
-            ) : null}
+              ) : null}
+            </div>
           </>
         )}
       </div>
-      <Footer id={userInformation?.role === "admin" ? "footer-admin" : ""} />
+      <Footer id={userInformation?.role === 'admin' ? 'footer-admin' : ''} />
     </div>
   );
 }

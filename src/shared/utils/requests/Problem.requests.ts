@@ -1,7 +1,6 @@
 import { apiSolution } from '../../services/Api.service';
 
 import { PROBLEM_ENDPOINTS } from '../endpoints';
-import { Problem } from '../../interfaces/problem.interface';
 import {
   validateStatus,
   handleResponseStatus,
