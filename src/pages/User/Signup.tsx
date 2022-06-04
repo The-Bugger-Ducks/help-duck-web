@@ -114,7 +114,7 @@ export default function Signup() {
                   }}
                 />
               </div>
-              Cadastre a conta
+              Cadastro de usuário
             </h1>
           </section>
           <form className="signup-form" onSubmit={submitSignup}>

@@ -27,15 +27,14 @@ export default function Homepage() {
   const userInformation = SessionController.getUserInfo();
 
   const [statusFilter, setStatusFilter] = useState<status | "">("");
+
   const [inputSearch, setInputSearch] = useState("");
   const [searchUsername, setSearchUsername] = useState("");
   const [equipmentFilter, setEquipmentFilter] = useState<status | "">("");
   const [equipmentName, setEquipmentName] = useState<status | "">("");
   const [equipmentInput, setEquipmentInput] = useState<status | "">("");
   const [pageTitle, setPageTitle] = useState("Chamados");
-  const [searchPlaceholder, setSearchPlaceholder] = useState(
-    "Buscar por título do chamado"
-  );
+  const [searchPlaceholder, setSearchPlaceholder] = useState("Buscar por título do chamado");
   const [filterOptions, setFilterOptions] = useState(
     getOptionListSelectPerUserRole(userInformation?.role)
   );
@@ -184,7 +183,7 @@ export default function Homepage() {
 
             <div className="btn-create-equipment">
               <Link to="/equipment_register">
-                <Button width="20%">Cadastrar Equipamento</Button>
+                <Button width="20%">Cadastrar equipamento</Button>
               </Link>
             </div>
           </>

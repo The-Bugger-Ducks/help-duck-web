@@ -222,11 +222,11 @@ export default function EquipmentUpdatePage() {
                   width="15rem"
                   onClick={deleteEquipment}
                 >
-                  Excluir
+                  Excluir equipamento
                 </ButtonDelete>
 
                 <Button type="submit" width="15rem" color="#FAFAFA">
-                  Editar
+                  Confirmar alterações
                 </Button>
               </section>
             </form>
