@@ -27,15 +27,16 @@ export default function Homepage() {
   const userInformation = SessionController.getUserInfo();
 
   const [statusFilter, setStatusFilter] = useState<status | "">("");
+
   const [inputSearch, setInputSearch] = useState("");
   const [searchUsername, setSearchUsername] = useState("");
-  const [equipmentStatusFilter, setEquipmentStatusFilter] = useState<
-    status | ""
-  >("");
+  
+  const [inputEquipmentSearch, setInputEquipmentSearch] = useState("");
+  const [searchEquipment, setSearchEquipment] = useState("");
+  const [equipmentStatusFilter, setEquipmentStatusFilter] = useState<status | "">("");
+
   const [pageTitle, setPageTitle] = useState("Chamados");
-  const [searchPlaceholder, setSearchPlaceholder] = useState(
-    "Buscar por título do chamado"
-  );
+  const [searchPlaceholder, setSearchPlaceholder] = useState("Buscar por título do chamado");
   const [filterOptions, setFilterOptions] = useState(
     getOptionListSelectPerUserRole(userInformation?.role)
   );
@@ -58,6 +59,8 @@ export default function Homepage() {
 
   function handleFilterEquipment(event: React.FormEvent) {
     event.preventDefault();
+    
+    setSearchEquipment(inputEquipmentSearch);
   }
 
   return (
@@ -115,6 +118,7 @@ export default function Homepage() {
                   backgroundColor="#FAFAFA"
                   type="text"
                   height="42px"
+                  onChange={(event) => setInputEquipmentSearch(event.target.value)}
                 />
                 <Button width="20%" type="submit" fontSize="0.8rem">
                   Buscar
@@ -132,18 +136,18 @@ export default function Homepage() {
                   ]}
                   width="100%"
                   backgroundColor="#FAFAFA"
-                  onChange={(event) => setStatusFilter(event.target.value)}
+                  onChange={(event) => setEquipmentStatusFilter(event.target.value)}
                   height="42px"
                   color="#495057"
                 />
               </div>
             </section>
 
-            <EquipmentList />
+            <EquipmentList searchEquipmentName={searchEquipment} filterEquipmentList={equipmentStatusFilter}/>
 
             <div className="btn-create-equipment">
               <Link to="/equipment_register">
-                <Button width="20%">Cadastrar Equipamento</Button>
+                <Button width="20%">Cadastrar equipamento</Button>
               </Link>
             </div>
           </>

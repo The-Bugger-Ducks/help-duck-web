@@ -14,11 +14,17 @@ import {
   SortEquipmentTableTypes,
 } from "../constants/sortTableEnum";
 
-import "../styles/components/EquipmentList.css";
-import Pagination from "./Pagination/Pagination";
 import { Pageable } from "../interfaces/pagable.interface";
+import Pagination from "./Pagination/Pagination";
 
-export default function EquipmentList() {
+import "../styles/components/EquipmentList.css";
+
+interface Props {
+  searchEquipmentName: string,
+  filterEquipmentList: string
+}
+
+export default function EquipmentList(props: Props) {
   const equipmentRequest = new EquipmentRequests();
   const navigate = useNavigate();
 
@@ -34,6 +40,8 @@ export default function EquipmentList() {
   const [pageSize, setPageSize] = useState(20);
   const [pageNumber, setPageNumber] = useState(0);
 
+  const [uriParam, setUriParam] = useState("");
+
   const tableHeaderOptions = [
     { text: "Nome", type: SortEquipmentTableTypes.name },
     { text: "Modelo", type: SortEquipmentTableTypes.model },
@@ -46,9 +54,17 @@ export default function EquipmentList() {
     getEquipmentsList();
   }, []);
 
+  useEffect(() => {
+    if (props.searchEquipmentName.length != 0 || props.filterEquipmentList.length != 0) {
+      getEquipmentsList(uriParam)
+    }
+  }, [props.searchEquipmentName, props.filterEquipmentList])
+
   const getEquipmentsList = async (sorting?: string) => {
     setLoading(true);
-    const response = await equipmentRequest.listEquipmentRequest(sorting);
+
+    const department = props.filterEquipmentList !== "allEquipments" ? props.filterEquipmentList : "";
+    const response = await equipmentRequest.searchEquipments(props.searchEquipmentName, department, sorting);
 
     setLoading(false);
 
@@ -103,6 +119,10 @@ export default function EquipmentList() {
       sortAux = `page=${pageNumber}&size=${pageSize}&sort=${type}`;
     }
 
+    setSort(type);
+    setOrderBy(orderBy);
+    setUriParam(sortAux)
+
     getEquipmentsList(sortAux);
   }
 
@@ -117,6 +137,7 @@ export default function EquipmentList() {
       sortAux = `page=${pageNumber}&size=${pageSize}&sort=${sort}`;
     }
 
+    setUriParam(sortAux)
     getEquipmentsList(sortAux);
   }
 
@@ -144,6 +165,7 @@ export default function EquipmentList() {
                 equipments.map((equipment, index) => {
                   return (
                     <EquipmentComponent
+                      key={equipment.id}
                       name={equipment.name}
                       model={equipment.model}
                       brand={equipment.brand}

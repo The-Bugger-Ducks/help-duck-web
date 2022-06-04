@@ -165,6 +165,7 @@ export default function UserList({filterUserList, username} : {filterUserList: s
                 users.map((user, index) => {
                   return (
                     <UserComponent
+                      key={user.id}
                       name={`${user.firstName} ${user.lastName}`}
                       email={user.email}
                       role={handleRoleName(user.role)}
