@@ -13,3 +13,9 @@ export interface ProblemSolution {
   description: string;
   title: string;
 }
+
+export interface SetProblemSolutionAdd {
+  description: string;
+  title: string;
+  problemId: string;
+}
