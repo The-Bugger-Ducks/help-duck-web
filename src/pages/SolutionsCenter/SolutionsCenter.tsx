@@ -19,7 +19,13 @@ export default function SolutionsCenter() {
 
   function handleSearchSolution(event: React.FormEvent) {
     event.preventDefault();
+    if (inputText === '') {
+      alert('Digite uma palavra chave para realizar a busca!');
+      return;
+    }
+
     setKeyword(inputText);
+    setInputText('');
   }
 
   return (
@@ -28,7 +34,7 @@ export default function SolutionsCenter() {
       <div className="homepage-container">
         <h1>
           <FiArrowLeft
-            className="Icon"
+            className="navigation-button"
             color="var(--color-gray-dark)"
             onClick={() => {
               navigate('/homepage');
@@ -41,6 +47,7 @@ export default function SolutionsCenter() {
             <TextField
               required={false}
               placeholder={'Buscar por palavra-chave'}
+              value={inputText}
               name="search"
               width="40%"
               type="text"

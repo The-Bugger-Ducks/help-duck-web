@@ -148,13 +148,11 @@ export default function Homepage() {
             <TicketList status={statusFilter} searchedTitle={searchUsername} />
 
             <div className="btn-open-ticket">
-              <div>
-                <Link to="/solutions_center">
-                  <Button backgroundColor="#ADB5BD" color="#F2F2F3" width="25%">
-                    Acessar centro de soluções
-                  </Button>
-                </Link>
-              </div>
+              <Link to="/solutions_center">
+                <Button backgroundColor="#ADB5BD" color="#F2F2F3" width="25%">
+                  Acessar centro de soluções
+                </Button>
+              </Link>
 
               {userInformation?.role === 'client' ? (
                 <Link to="/ticket_register">

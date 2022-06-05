@@ -187,7 +187,7 @@ const SolutionsList: React.FC<SolutionsListProps> = ({
 
   function getSearchResult() {
     return (
-      <>
+      <div className="solutions-center">
         <section className="solution-list-container search">
           <div className="grid-solutions">
             <table>
@@ -200,13 +200,28 @@ const SolutionsList: React.FC<SolutionsListProps> = ({
                   searchResult.map((result, index) => {
                     return (
                       <>
-                        <tr key={index} onClick={() => console.log(result)}>
+                        <tr
+                          key={index}
+                          onClick={() => {
+                            handlerIsVisibleDetails(
+                              true,
+                              result.title,
+                              result.description
+                            );
+                          }}
+                        >
                           <td>{result.title}</td>
                           <td>{result.description}</td>
                         </tr>
                       </>
                     );
                   })
+                ) : keyword !== undefined && keyword.length > 0 ? (
+                  <CustomTableRow
+                    loading={loading}
+                    colSpan={4}
+                    typeTableRowText="busca-vazia"
+                  />
                 ) : (
                   <CustomTableRow
                     loading={loading}
@@ -217,9 +232,18 @@ const SolutionsList: React.FC<SolutionsListProps> = ({
               </tbody>
             </table>
           </div>
+
+          <Pagination pageable={pageable} onChangePage={handlePageable} />
         </section>
-        <Pagination pageable={pageable} onChangePage={handlePageable} />
-      </>
+        {IsVisibleDetails ? (
+          <section className="section-solutionDetails">
+            <SolutionDetails
+              title={bodySolution.title}
+              description={bodySolution.description}
+            />
+          </section>
+        ) : null}
+      </div>
     );
   }
 

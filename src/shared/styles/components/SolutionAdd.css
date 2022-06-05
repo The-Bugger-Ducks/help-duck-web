@@ -5,12 +5,12 @@
   width: max(36.3rem, 100%);
   min-width: 5rem;
   margin-left: 2rem;
-  
-
+  color: #495057;
 }
-.tag-add-container .separator{
-  height: 0.1rem;
-  background-color: #868E96;
+
+.tag-add-container .separator {
+  height: 0.05rem;
+  background-color: #868e96;
 }
 
 .tag-add-container textarea {
@@ -18,38 +18,35 @@
   background: none;
   width: 100%;
   border-radius: 0.2rem;
+  border: 0.05rem solid #ced4da;
+  padding: 0.3rem;
 }
 
 .tag-add-container form {
-  border: 0.2rem solid #868E96;
+  border: 0.1rem solid #868e96;
   border-radius: 0.5rem;
-  padding: 1.5rem ;
+  padding: 1.5rem;
   text-align: center;
   margin-right: 0%;
 }
 
-
-.tag-add-container #tag-add-button{
+.tag-add-container #tag-add-button {
   display: flex;
   justify-content: space-between;
   margin-top: 1rem;
 }
 
-
 .tag-add-container #problem-title {
   margin-top: 1.2rem;
-  margin-bottom:1rem ;
+  margin-bottom: 1rem;
   width: 100%;
-
 }
 
-.tag-add-container #problem-description{
+.tag-add-container #problem-description {
   margin-top: 1rem;
   width: 100%;
   height: 4.72rem;
 }
-
-
 
 /* RESPONSIVIDADE */
 
@@ -60,7 +57,6 @@
     height: 100%;
     width: 100%;
   }
-
 
   #solutionadd #recover-password {
     color: var(--color-white-main);

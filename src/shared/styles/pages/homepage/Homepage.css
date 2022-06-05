@@ -55,6 +55,16 @@
   margin-bottom: 5%;
 }
 
+#homepage .btn-open-ticket a {
+  margin-left: 1rem;
+}
+
+#homepage .navigation-button {
+  cursor: pointer;
+  margin-right: 0.5rem;
+  width: 1.5rem;
+}
+
 @media only screen and (max-width: 500px) {
   #homepage .search-or-filter {
     margin-top: 0.8rem;

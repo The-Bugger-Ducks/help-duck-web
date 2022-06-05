@@ -10,7 +10,8 @@ interface Props {
     | 'equipamento'
     | 'chamado'
     | 'soluções'
-    | 'busca';
+    | 'busca'
+    | 'busca-vazia';
 
   colSpan: number;
 }
@@ -36,13 +37,20 @@ const CustomTableRow: React.FC<Props> = ({
 
   return (
     <tr className={loading ? 'table-row' : ''}>
-      <td colSpan={colSpan} className="no-results">
+      <td
+        colSpan={colSpan}
+        className={
+          typeTableRowText == 'busca' ? 'no-results search' : 'no-results'
+        }
+      >
         {loading ? (
           <div className="loading_container">
             <span ref={container} className="loading_lottie" />
           </div>
         ) : typeTableRowText == 'busca' ? (
-          `Busque por uma palavra chave para obter todos os resultados sobre possíveis soluções para o seu problema`
+          `Busque por uma palavra chave para obter todos os resultados  sobre possíveis soluções para o seu problema`
+        ) : typeTableRowText == 'busca-vazia' ? (
+          `Nenhum resultado para a busca. Tente outra palavra chave!`
         ) : typeTableRowText == 'soluções' ? (
           `Nenhuma possível solução foi encontrada`
         ) : (

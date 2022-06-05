@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 interface Props {
   backgroundColor?: string;
   color?: string;
@@ -15,24 +15,26 @@ interface Props {
   disabled?: boolean;
   onChange?: (event: any) => void;
   title?: string;
+  value?: string;
 }
 
 const TextInput: React.FC<Props> = ({
   disabled = false,
-  backgroundColor = !disabled ? "#FAFAFA" : "#EDEDEE",
-  border = "1px solid #CED4DA",
-  type = "text",
-  name = "",
-  placeholder = "",
+  backgroundColor = !disabled ? '#FAFAFA' : '#EDEDEE',
+  border = '1px solid #CED4DA',
+  type = 'text',
+  name = '',
+  placeholder = '',
   defaultValue,
-  radius = "0.3rem",
-  width = "100%",
-  color = "#495057",
-  height = "50px",
+  radius = '0.3rem',
+  width = '100%',
+  color = '#495057',
+  height = '50px',
   required = true,
-  padding = "0.5rem",
+  padding = '0.5rem',
   onChange,
   title,
+  value,
 }) => {
   return (
     <input
@@ -45,7 +47,7 @@ const TextInput: React.FC<Props> = ({
         width,
         padding,
         height,
-        fontSize: "16px",
+        fontSize: '16px',
         color,
       }}
       className="input-primary"
@@ -55,6 +57,7 @@ const TextInput: React.FC<Props> = ({
       placeholder={placeholder}
       defaultValue={defaultValue}
       disabled={disabled}
+      value={value}
     />
   );
 };

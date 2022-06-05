@@ -1,17 +1,20 @@
-.solution-list-components{
+.solutions-center {
   display: flex;
   justify-content: space-between;
-  gap:0.1rem;
 }
 
-.section-solutionDetails{
-  min-width: 50%;
-
+.solution-list-components {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.1rem;
+}
+.section-solutionDetails {
+  width: 45%;
+  margin-left: 2rem;
 }
 
-.section-solutionAdd{
+.section-solutionAdd {
   min-width: 50%;
-
 }
 .solution-list-container {
   width: 45%;
@@ -70,9 +73,22 @@
   cursor: default;
 }
 
+.solution-list-container table .no-results.search {
+  color: #868e96;
+  text-align: center;
+  padding-top: 3%;
+  max-width: 100%;
+  overflow: initial;
+  white-space: normal;
+  text-overflow: initial;
+}
+
 .solution-list-container .new-solution {
   margin-top: 1rem;
   margin-bottom: 1rem;
   display: flex;
   justify-content: end;
+}
+
+@media only screen and (min-width: 501px) and (max-width: 1024px) {
 }
