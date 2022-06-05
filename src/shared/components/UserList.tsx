@@ -126,6 +126,26 @@ export default function UserList({filterUserList, username} : {filterUserList: s
     }
   }
 
+  function handleDepartmentName(department: string) {
+    if (department === "marketingAndSales"){
+      return "marketing e vendas";
+    } else if (department === "finance"){
+      return "financeiro";
+    } else if (department === "operations"){
+      return "operações";
+    } else if (department === "rh"){
+      return "RH";
+    } else if (department === "eps"){
+      return "EPS";
+    } else if (department === "ti"){
+      return "TI";
+    } else if (department === "epdi"){
+      return "EPDI";
+    } else {
+      return "sem departamento definido";
+    }
+  }
+
   function handlePageable(pageNumber: number, pageSize: number) {
     setPageNumber(pageNumber);
     setPageSize(pageSize);
@@ -165,14 +185,11 @@ export default function UserList({filterUserList, username} : {filterUserList: s
                 users.map((user, index) => {
                   return (
                     <UserComponent
+                      key={user.id}
                       name={`${user.firstName} ${user.lastName}`}
                       email={user.email}
                       role={handleRoleName(user.role)}
-                      department={
-                        user.department
-                          ? user.department
-                          : "Sem departamento definido"
-                      }
+                      department={handleDepartmentName(user.department)}
                       onClick={() => navigate(`/user/edit/${user.id}`)}
                     />
                   );

@@ -18,23 +18,21 @@ import { status } from "../../shared/types/status";
 import { getOptionListSelectPerUserRole } from "../../shared/constants/userFilterSelect";
 
 import "../../shared/styles/pages/homepage/Homepage.css";
+import { FiSearch } from "react-icons/fi";
 
 export default function Homepage() {
   const token = SessionController.getToken();
 
   const navigate = useNavigate();
   const userInformation = SessionController.getUserInfo();
-
   const [statusFilter, setStatusFilter] = useState<status | "">("");
   const [inputSearch, setInputSearch] = useState("");
   const [searchUsername, setSearchUsername] = useState("");
-  const [equipmentStatusFilter, setEquipmentStatusFilter] = useState<
-    status | ""
-  >("");
+  const [equipmentFilter, setEquipmentFilter] = useState<status | "">("");
+  const [equipmentName, setEquipmentName] = useState<status | "">("");
+  const [equipmentInput, setEquipmentInput] = useState<status | "">("");
   const [pageTitle, setPageTitle] = useState("Chamados");
-  const [searchPlaceholder, setSearchPlaceholder] = useState(
-    "Buscar por título do chamado"
-  );
+  const [searchPlaceholder, setSearchPlaceholder] = useState("Buscar por título do chamado");
   const [filterOptions, setFilterOptions] = useState(
     getOptionListSelectPerUserRole(userInformation?.role)
   );
@@ -57,6 +55,7 @@ export default function Homepage() {
 
   function handleFilterEquipment(event: React.FormEvent) {
     event.preventDefault();
+    setEquipmentName(equipmentInput);
   }
 
   return (
@@ -77,6 +76,9 @@ export default function Homepage() {
               onChange={(event) => setInputSearch(event.target.value)}
             />
             <Button width="20%" type="submit" fontSize="0.8rem">
+              <FiSearch
+                className="Icon"
+              />
               Buscar
             </Button>
           </form>
@@ -111,6 +113,8 @@ export default function Homepage() {
                   backgroundColor="#FAFAFA"
                   type="text"
                   height="42px"
+                  onChange={(event) => setEquipmentInput(event.target.value)}
+                  required={false}
                 />
                 <Button width="20%" type="submit" fontSize="0.8rem">
                   Buscar
@@ -122,24 +126,62 @@ export default function Homepage() {
                   items={[
                     {
                       selected: true,
-                      value: "allEquipments",
-                      label: "Todos os equipamentos",
+                      value: "",
+                      label: "todos os equipamentos",
+                    },
+                    {
+                      selected: false,
+                      value: "finance",
+                      label: "financeiro",
+                    },
+                    {
+                      selected: false,
+                      value: "operations",
+                      label: "operações",
+                    },
+                    {
+                      selected: false,
+                      value: "rh",
+                      label: "RH",
+                    },
+                    {
+                      selected: false,
+                      value: "eps",
+                      label: "EPS",
+                    },
+                    {
+                      selected: false,
+                      value: "ti",
+                      label: "TI",
+                    },
+                    {
+                      selected: false,
+                      value: "epdi",
+                      label: "EPDI",
+                    },
+                    {
+                      selected: false,
+                      value: "others",
+                      label: "outros",
                     },
                   ]}
                   width="100%"
                   backgroundColor="#FAFAFA"
-                  onChange={(event) => setStatusFilter(event.target.value)}
+                  onChange={(event) => setEquipmentFilter(event.target.value)}
                   height="42px"
                   color="#495057"
                 />
               </div>
             </section>
 
-            <EquipmentList />
+            <EquipmentList
+              filterEquipment={equipmentFilter}
+              nameEquipment={equipmentName}
+            />
 
             <div className="btn-create-equipment">
               <Link to="/equipment_register">
-                <Button width="20%">Cadastrar Equipamento</Button>
+                <Button width="20%">Cadastrar equipamento</Button>
               </Link>
             </div>
           </>

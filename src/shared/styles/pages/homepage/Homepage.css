@@ -40,6 +40,21 @@
   color: var(--color-black-light);
 }
 
+#homepage .search-or-filter button {
+  font-size: 1rem !important;
+  font-weight: 500 !important;
+  background: #FAFAFA !important;
+  border: 1px solid #CED4DA !important;
+  color: #868E96 !important;
+  vertical-align: middle;
+}
+
+#homepage .Icon {
+  font-size: larger;
+  padding-top: 0.4rem;
+  margin-right: 0.6rem;
+}
+
 #homepage .search-or-filter {
   margin-bottom: 3%;
   width: 100%;

@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Location, useNavigate } from "react-router-dom";
 import { BsChevronDown } from "react-icons/bs";
 
 import SessionController from "../utils/handlers/SessionController";
@@ -9,16 +9,23 @@ import "../styles/components/Dropdown.css";
 interface PropsDropdown {
   name: string;
   hiddenDropdown: boolean;
+  location: Location 
 }
 
 const Dropdown: React.FC<PropsDropdown> = ({
   name = "Fulano",
   hiddenDropdown = true,
+  location
 }) => {
   const [isHidden, setIsHidden] = useState(true);
   const navigate = useNavigate();
 
   const user = SessionController.getUserInfo();
+
+  useEffect(() => {
+    console.log(location);
+    
+  }, [])
 
   function editUser() {
     navigate(`../user/edit/${user?.id}/`);
@@ -37,8 +44,10 @@ const Dropdown: React.FC<PropsDropdown> = ({
       </span>
       <div className="dropdown-list-container" hidden={isHidden}>
         <ul>
-          <li onClick={() => editUser()}>Editar perfil</li>
-          {user?.role == "admin" ? (
+          {!location.pathname.includes("/user/edit/") ? 
+            <li onClick={() => editUser()}>Editar perfil</li> : null
+          }
+          {user?.role == "admin" && !location.pathname.includes("/dashboard") ? (
             <li onClick={() => navigate('/dashboard')}>Relatórios</li>
           ):null}
           <li onClick={() => logout()}>Logout</li>
