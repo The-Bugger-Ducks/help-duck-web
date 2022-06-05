@@ -228,20 +228,18 @@ export default function DetailTicket() {
               className="edit-priority-badge"
               priority={priorityLevel}
             />
-            {user && user.role === "support" ? (
+            {user && user.role === "support" ?
               <FiEdit2
                 viewBox="0 0 24 28"
                 className="edit-priority-button"
                 color="var(--color-gray-dark)"
-                onClick={() => {
-                  setEditPriority(true);
-                }}
-              />
-            ) : null}{" "}
+                onClick={() => {setEditPriority(true)}}
+              /> : null
+            }{" "}
           </>
         )}
       </>
-    );
+    )
   }
 
   async function handleSetSolution(comment: Comment) {

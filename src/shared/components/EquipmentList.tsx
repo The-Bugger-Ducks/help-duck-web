@@ -55,6 +55,12 @@ export default function EquipmentList({
     }
   }, [filterEquipment, nameEquipment]);
 
+  useEffect(() => {
+    if (nameEquipment.length != 0 || filterEquipment.length != 0) {
+      getEquipmentsList(uriParam)
+    }
+  }, [nameEquipment, filterEquipment])
+
   const getEquipmentsList = async (sorting?: string) => {
     setLoading(true);
 
