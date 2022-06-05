@@ -91,7 +91,13 @@
 }
 
 @media only screen and (max-width: 824px) {
-  .solution-list-container {
+  .solutions-center {
+    display: block;
+    width: 100%;
+  }
+
+  .solution-list-container,
+  .solution-list-container.search {
     display: block;
     width: 100%;
   }
