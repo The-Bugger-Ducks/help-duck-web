@@ -40,22 +40,14 @@ const TicketList: React.FC<{
   useEffect(() => {
     if (userInformation?.role === "client") {
       if (searchedTitle.length != 0) {
-        if (status != "done") {
-          getTicketListClient(userInformation.id, searchedTitle, uriParam);
-        } else {
-          getTicketListClient("", searchedTitle, uriParam, status);
-        }
+        getTicketListClient(userInformation.id, searchedTitle, uriParam);
       } else {
         status === "done"
           ? getTicketListClient("", "", uriParam, "done")
           : getTicketListClient(userInformation.id, "", uriParam);
       }
     } else if (userInformation?.role === "support") {
-      if (searchedTitle.length != 0) {
-        getTicketListSupport("", searchedTitle, uriParam, status);
-      } else {
-        getTicketListSupport("", "", uriParam, status);
-      }
+      getTicketListSupport("", searchedTitle, uriParam, status);
     }
   }, [status, searchedTitle]);
 
@@ -87,7 +79,7 @@ const TicketList: React.FC<{
     status?: string
   ) {
     setLoading(true);
-    const response = await ticketRequest.searchTicketClient(
+    const response = await ticketRequest.searchTicketSupport(
       id,
       title,
       sorting,

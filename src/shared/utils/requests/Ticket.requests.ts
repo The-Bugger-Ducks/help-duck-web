@@ -153,9 +153,9 @@ export class TicketRequests {
     }
 
     if (status && (title.length != 0 || id.length != 0)) {
-      url += `&${status}`;
+      url += `&status=${status}`;
     } else if (status) {
-      url += `${status}`;
+      url += `status=${status}`;
     }
 
     const response = await apiTickets.get(url, { validateStatus });
