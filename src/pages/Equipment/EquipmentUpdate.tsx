@@ -33,41 +33,41 @@ export default function EquipmentUpdatePage() {
   const [selectedDepartment, setSelectedDepartment] = useState("");
 
   function handleDepartmentLabel(departmentLabel: string) {
-    if (departmentLabel == "Marketing e vendas") {
+    if (departmentLabel === "Marketing e vendas") {
       setSelectedDepartment("marketingAndSales");
-    } else if (departmentLabel == "Financeiro") {
-      setSelectedDepartment("financial");
-    } else if (departmentLabel == "Operações") {
+    } else if (departmentLabel === "Financeiro") {
+      setSelectedDepartment("finance");
+    } else if (departmentLabel === "Operações") {
       setSelectedDepartment("operations");
-    } else if (departmentLabel == "RH") {
+    } else if (departmentLabel === "RH") {
       setSelectedDepartment("rh");
-    } else if (departmentLabel == "EPS") {
+    } else if (departmentLabel === "EPS") {
       setSelectedDepartment("eps");
-    } else if (departmentLabel == "TI") {
+    } else if (departmentLabel === "TI") {
       setSelectedDepartment("ti");
-    } else if (departmentLabel == "EPDI") {
+    } else if (departmentLabel === "EPDI") {
       setSelectedDepartment("epdi");
-    } else if (departmentLabel == "Outros") {
+    } else if (departmentLabel === "Outros") {
       setSelectedDepartment("others");
     }
   }
 
   function handleDepartmentValue(departmentValue: string) {
-    if (departmentValue == "marketingAndSales") {
+    if (departmentValue === "marketingAndSales") {
       setDepartment("Marketing e vendas");
-    } else if (departmentValue == "financial") {
+    } else if (departmentValue === "finance") {
       setDepartment("Financeiro");
-    } else if (departmentValue == "operations") {
+    } else if (departmentValue === "operations") {
       setDepartment("Operações");
-    } else if (departmentValue == "rh") {
+    } else if (departmentValue === "rh") {
       setDepartment("RH");
-    } else if (departmentValue == "eps") {
+    } else if (departmentValue === "eps") {
       setDepartment("EPS");
-    } else if (departmentValue == "ti") {
+    } else if (departmentValue === "ti") {
       setDepartment("TI");
-    } else if (departmentValue == "epdi") {
+    } else if (departmentValue === "epdi") {
       setDepartment("EPDI");
-    } else if (departmentValue == "others") {
+    } else if (departmentValue === "others") {
       setDepartment("Outros");
     }
   }
@@ -222,11 +222,11 @@ export default function EquipmentUpdatePage() {
                   width="15rem"
                   onClick={deleteEquipment}
                 >
-                  Excluir
+                  Excluir equipamento
                 </ButtonDelete>
 
                 <Button type="submit" width="15rem" color="#FAFAFA">
-                  Editar
+                  Confirmar alterações
                 </Button>
               </section>
             </form>

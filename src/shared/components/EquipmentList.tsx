@@ -15,8 +15,8 @@ import {
 } from "../constants/sortTableEnum";
 
 import "../styles/components/EquipmentList.css";
-import Pagination from "./Pagination/Pagination";
 import { Pageable } from "../interfaces/pagable.interface";
+import Pagination from "./Pagination/Pagination";
 
 export default function EquipmentList({
   filterEquipment,
@@ -167,6 +167,7 @@ export default function EquipmentList({
                 equipments.map((equipment, index) => {
                   return (
                     <EquipmentComponent
+                      key={equipment.id}
                       name={equipment.name}
                       model={equipment.model}
                       brand={equipment.brand}

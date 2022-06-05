@@ -29,7 +29,6 @@ import "../../shared/styles/pages/ticket/DetailTicket.css";
 import SolutionsList from "../../shared/components/SolutionsList";
 import { ProblemRequests } from "../../shared/utils/requests/Problem.requests";
 
-import "../../shared/styles/pages/ticket/DetailTicket.css";
 
 export default function DetailTicket() {
   const navigate = useNavigate();
@@ -61,7 +60,6 @@ export default function DetailTicket() {
   const [solution, setSolution] = useState<Ticket["solution"]>();
   const [canSetSolution, setCanSetSolution] = useState<boolean>(false);
   const [hiddenSolutionVote, setHiddenSolutionVote] = useState(false);
-
   const [editPriority, setEditPriority] = useState(false);
 
   const ticketRequest = new TicketRequests();
@@ -166,7 +164,7 @@ export default function DetailTicket() {
 
   async function handleCloseTicket() {
     if (user?.role !== "support") {
-      return alert("Usuário sem permissão para relalizar essa ação.");
+      return alert("Usuário sem permissão para realizar essa ação.");
     }
 
     setLoading(true);
@@ -215,33 +213,33 @@ export default function DetailTicket() {
           <>
             <SelectInput
               onChange={(event) => setPriorityLevelSelected(event.target.value)}
-              name="role"
               items={ticketPriorityAux}
             />
             <FiCheck
-              className="edit-priority-button"
+              viewBox="0 0 24 78"
+              className="save-priority-button"
               color="var(--color-gray-dark)"
-              onClick={() => {
-                handleChangePriorityLevel();
-              }}
+              onClick={() => {handleChangePriorityLevel()}}
             />
           </>
         ) : (
           <>
-            <PriorityLevelBadge priority={priorityLevel} />
-            {user && user.role === "support" ? (
+            <PriorityLevelBadge 
+              className="edit-priority-badge"
+              priority={priorityLevel}
+            />
+            {user && user.role === "support" ?
               <FiEdit2
+                viewBox="0 0 24 28"
                 className="edit-priority-button"
                 color="var(--color-gray-dark)"
-                onClick={() => {
-                  setEditPriority(true);
-                }}
-              />
-            ) : null}{" "}
+                onClick={() => {setEditPriority(true)}}
+              /> : null
+            }{" "}
           </>
         )}
       </>
-    );
+    )
   }
 
   async function handleSetSolution(comment: Comment) {
@@ -375,7 +373,7 @@ export default function DetailTicket() {
                         height="2rem"
                         fontSize="0.8rem"
                         fontWeight="600"
-                        border="1px solid var(--color-black-main)"
+                        border="0"
                         onClick={handleCloseTicket}
                       >
                         Fechar chamado
@@ -409,7 +407,6 @@ export default function DetailTicket() {
                 }
                 disabled={true}
                 name="tipo"
-                backgroundColor="#FAFAFA"
                 height="32px"
               />
             </div>
@@ -432,7 +429,6 @@ export default function DetailTicket() {
                 }
                 disabled={true}
                 name="tipo"
-                backgroundColor="#FAFAFA"
                 height="32px"
               />
             </div>
@@ -453,7 +449,6 @@ export default function DetailTicket() {
                 }
                 disabled={true}
                 name="tipo"
-                backgroundColor="#FAFAFA"
                 height="32px"
               />
             </div>
@@ -498,12 +493,13 @@ export default function DetailTicket() {
               <div className="button-container">
                 <Button
                   backgroundColor="transparent"
-                  color="var(--color-black-dark)"
-                  width="4rem"
-                  height="2rem"
+                  color="var(--color-black-light)"
+                  width="7rem"
+                  height="2.6rem"
                   fontSize="0.8rem"
                   fontWeight="600"
-                  border="1px solid var(--color-black-main)"
+                  radius="0.5rem"
+                  border="0.1px solid var(--color-gray-dark)"
                   onClick={handleSubmitComment}
                 >
                   Enviar

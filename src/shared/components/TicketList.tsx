@@ -49,11 +49,7 @@ const TicketList: React.FC<{
         getTicketListClient("", searchedTitle, uriParam, status);
       }
     } else if (userInformation?.role === "support") {
-      if (searchedTitle.length != 0) {
-        getTicketListSupport("", searchedTitle, uriParam, status);
-      } else {
-        getTicketListSupport("", "", uriParam, status);
-      }
+      getTicketListSupport("", searchedTitle, uriParam, status);
     }
   }, [status, searchedTitle]);
 

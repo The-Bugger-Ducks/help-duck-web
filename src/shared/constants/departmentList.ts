@@ -5,17 +5,17 @@ export function departmentList() {
     {
       selected: false,
       value: "marketingAndSales",
-      label: "Marketing e vendas",
+      label: "marketing e vendas",
     },
     {
       selected: false,
-      value: "financial",
-      label: "Financeiro",
+      value: "finance",
+      label: "financeiro",
     },
     {
       selected: false,
       value: "operations",
-      label: "Operações",
+      label: "operações",
     },
     {
       selected: false,
@@ -51,17 +51,17 @@ export function departmentListVariable(selectedDepartment: string) {
     {
       selected: isSelected("marketingAndSales"),
       value: "marketingAndSales",
-      label: "Marketing e vendas",
+      label: "marketing e vendas",
     },
     {
-      selected: isSelected("financial"),
-      value: "financial",
-      label: "Financeiro",
+      selected: isSelected("finance"),
+      value: "finance",
+      label: "financeiro",
     },
     {
       selected: isSelected("operations"),
       value: "operations",
-      label: "Operações",
+      label: "operações",
     },
     {
       selected: isSelected("rh"),

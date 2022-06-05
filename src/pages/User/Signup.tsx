@@ -48,7 +48,7 @@ export default function Signup() {
   function handleDepartment(departmentValue: string) {
     if (departmentValue === "marketingAndSales") {
       setDepartment("Marketing e vendas");
-    } else if (departmentValue === "financial") {
+    } else if (departmentValue === "finance") {
       setDepartment("Financeiro");
     } else if (departmentValue === "operations") {
       setDepartment("Operações");
@@ -60,7 +60,7 @@ export default function Signup() {
       setDepartment("TI");
     } else if (departmentValue === "epdi") {
       setDepartment("EPDI");
-    } else if (departmentValue == "others") {
+    } else if (departmentValue === "others") {
       setDepartment("Outros");
     }
   }
@@ -114,7 +114,7 @@ export default function Signup() {
                   }}
                 />
               </div>
-              Cadastre a conta
+              Cadastro de usuário
             </h1>
           </section>
           <form className="signup-form" onSubmit={submitSignup}>
