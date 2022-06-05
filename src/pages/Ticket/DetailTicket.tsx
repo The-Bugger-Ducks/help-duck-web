@@ -29,7 +29,6 @@ import "../../shared/styles/pages/ticket/DetailTicket.css";
 import SolutionsList from "../../shared/components/SolutionsList";
 import { ProblemRequests } from "../../shared/utils/requests/Problem.requests";
 
-
 export default function DetailTicket() {
   const navigate = useNavigate();
   const { id } = useParams();
@@ -219,27 +218,31 @@ export default function DetailTicket() {
               viewBox="0 0 24 78"
               className="save-priority-button"
               color="var(--color-gray-dark)"
-              onClick={() => {handleChangePriorityLevel()}}
+              onClick={() => {
+                handleChangePriorityLevel();
+              }}
             />
           </>
         ) : (
           <>
-            <PriorityLevelBadge 
+            <PriorityLevelBadge
               className="edit-priority-badge"
               priority={priorityLevel}
             />
-            {user && user.role === "support" ?
+            {user && user.role === "support" ? (
               <FiEdit2
                 viewBox="0 0 24 28"
                 className="edit-priority-button"
                 color="var(--color-gray-dark)"
-                onClick={() => {setEditPriority(true)}}
-              /> : null
-            }{" "}
+                onClick={() => {
+                  setEditPriority(true);
+                }}
+              />
+            ) : null}{" "}
           </>
         )}
       </>
-    )
+    );
   }
 
   async function handleSetSolution(comment: Comment) {
@@ -277,6 +280,7 @@ export default function DetailTicket() {
         downVote: !vote,
       });
       setHiddenSolutionVote(true);
+      alert("Sua avaliação foi registrada com sucesso!");
     } catch (error) {
       setHiddenSolutionVote(false);
     } finally {
@@ -284,21 +288,25 @@ export default function DetailTicket() {
     }
   }
 
-  async function handlerCreateTagSolution(title:string, description:string) {
-    if(!ticket){
-      return
+  async function handlerCreateTagSolution(title: string, description: string) {
+    if (!ticket) {
+      return;
     }
-    setLoading(true)    
-    await problemRequest.setSolutionProblem({title, description, problemId: ticket.problem.id})
-    alert('Nova solução cadastrada com sucesso!');
-    setLoading(false)   
-  } 
+    setLoading(true);
+    await problemRequest.setSolutionProblem({
+      title,
+      description,
+      problemId: ticket.problem.id,
+    });
+    alert("Nova solução cadastrada com sucesso!");
+    setLoading(false);
+  }
 
-  async function handlerSolutionDetails(){
-    if(!ticket){
-      return
+  async function handlerSolutionDetails() {
+    if (!ticket) {
+      return;
     }
-    setLoading(true)    
+    setLoading(true);
   }
 
   return (
@@ -507,7 +515,7 @@ export default function DetailTicket() {
               </div>
             </section>
           )}
-          {user?.role === 'support' && (
+          {user?.role === "support" && (
             <SolutionsList
               problemId={problemType?.id}
               handlerCreateTagSolution={handlerCreateTagSolution}
