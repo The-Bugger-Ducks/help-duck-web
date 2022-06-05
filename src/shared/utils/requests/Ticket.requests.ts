@@ -98,11 +98,64 @@ export class TicketRequests {
     return handleResponseStatus(response);
   }
 
-  public async searchTicket(sorting?: string, title?: string) {
-    let url = `${TICKET_ENDPOINTS.TICKET_SEARCH}${title}`;
+  public async searchTicketClient(
+    id: string,
+    title: string,
+    sorting?: string,
+    status?: string
+  ) {
+    let url = `${TICKET_ENDPOINTS.TICKET_SEARCH}`;
 
-    if (sorting) {
-      url += `?${sorting}`;
+    if (title.length != 0 && id.length != 0) {
+      url += `ticketTitle=${title}&clientId=${id}`;
+    } else if (title.length == 0 && id.length != 0) {
+      url += `clientId=${id}`;
+    } else if (title.length != 0 && id.length == 0) {
+      url += `ticketTitle=${title}`;
+    }
+
+    if (sorting && (title.length != 0 || id.length != 0)) {
+      url += `&${sorting}`;
+    } else if (sorting) {
+      url += `${sorting}`;
+    }
+
+    if (status && (title.length != 0 || id.length != 0)) {
+      url += `&status=${status}`;
+    } else if (status) {
+      url += `status=${status}`;
+    }
+
+    const response = await apiTickets.get(url, { validateStatus });
+    return handleResponseStatus(response);
+  }
+
+  public async searchTicketSupport(
+    id: string,
+    title: string,
+    sorting?: string,
+    status?: string
+  ) {
+    let url = `${TICKET_ENDPOINTS.TICKET_SEARCH}`;
+
+    if (title.length != 0 && id.length != 0) {
+      url += `ticketTitle=${title}&supportID=${id}`;
+    } else if (title.length == 0 && id.length != 0) {
+      url += `supportId=${id}`;
+    } else if (title.length != 0 && id.length == 0) {
+      url += `ticketTitle=${title}`;
+    }
+
+    if (sorting && (title.length != 0 || id.length != 0)) {
+      url += `&${sorting}`;
+    } else if (sorting) {
+      url += `${sorting}`;
+    }
+
+    if (status && (title.length != 0 || id.length != 0)) {
+      url += `&${status}`;
+    } else if (status) {
+      url += `${status}`;
     }
 
     const response = await apiTickets.get(url, { validateStatus });

@@ -126,17 +126,17 @@ export default function Homepage() {
                     {
                       selected: true,
                       value: "",
-                      label: "Todos os equipamentos",
+                      label: "todos os equipamentos",
                     },
                     {
                       selected: false,
                       value: "finnance",
-                      label: "Financeiro",
+                      label: "financeiro",
                     },
                     {
                       selected: false,
                       value: "operations",
-                      label: "Operações",
+                      label: "operações",
                     },
                     {
                       selected: false,
@@ -161,7 +161,7 @@ export default function Homepage() {
                     {
                       selected: false,
                       value: "others",
-                      label: "Outros",
+                      label: "outros",
                     },
                   ]}
                   width="100%"
