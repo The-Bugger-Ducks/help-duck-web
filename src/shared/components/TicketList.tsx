@@ -52,11 +52,9 @@ const TicketList: React.FC<{
       }
     } else if (userInformation?.role === "support") {
       if (searchedTitle.length != 0) {
-        if (status != "done") {
-          getTicketListSupport(userInformation.id, searchedTitle, uriParam);
-        } else {
-          getTicketListSupport("", searchedTitle, uriParam, status);
-        }
+        getTicketListSupport("", searchedTitle, uriParam, status);
+      } else {
+        getTicketListSupport("", "", uriParam, status);
       }
     }
   }, [status, searchedTitle]);
