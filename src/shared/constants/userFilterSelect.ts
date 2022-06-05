@@ -1,7 +1,7 @@
 import { User } from "../interfaces/user.interface";
 
 export function getOptionListSelectPerUserRole(role?: User["role"]) {
-  if (role == "admin") {
+  if (role === "admin") {
     return [
       {
         value: "allUsers",
@@ -24,7 +24,7 @@ export function getOptionListSelectPerUserRole(role?: User["role"]) {
         selected: false,
       },
     ]
-  } else if (role == "support") {
+  } else if (role === "support") {
     return [
       {
         selected: true,
@@ -33,11 +33,11 @@ export function getOptionListSelectPerUserRole(role?: User["role"]) {
       },
       {
         value: "awaiting",
-        label: "Abertos",
+        label: "Chamados abertos",
       },
       {
         value: "done",
-        label: "Fechados",
+        label: "Chamados fechados",
       },
     ]
   } else {

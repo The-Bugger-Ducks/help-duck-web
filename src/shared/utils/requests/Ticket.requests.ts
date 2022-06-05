@@ -153,15 +153,14 @@ export class TicketRequests {
     }
 
     if (status && (title.length != 0 || id.length != 0)) {
-      url += `&${status}`;
+      url += `&status=${status}`;
     } else if (status) {
-      url += `${status}`;
+      url += `status=${status}`;
     }
 
     const response = await apiTickets.get(url, { validateStatus });
     return handleResponseStatus(response);
   }
-
   public async reserveTicket(ticketId: string, payload: User) {
     try {
       return await apiTickets.put(
@@ -172,7 +171,6 @@ export class TicketRequests {
       alert("Não foi possível reservar o chamado, tente novamente!");
     }
   }
-
   public async insertComment(ticketId: string, payload: Comment) {
     try {
       return await apiTickets.put(
@@ -183,7 +181,6 @@ export class TicketRequests {
       alert("Não foi possível adicionar comentário, tente novamente!");
     }
   }
-
   public async closeTicket(ticketId: string) {
     try {
       return await apiTickets.put(
@@ -193,7 +190,6 @@ export class TicketRequests {
       alert("Não foi possível fechar o chamado, tente novamente!");
     }
   }
-
   public async updatePriorityLevel(payload: {
     id: string;
     priorityLevel: "high" | "medium" | "low";

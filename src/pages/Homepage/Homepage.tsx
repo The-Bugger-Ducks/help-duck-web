@@ -18,13 +18,13 @@ import { status } from "../../shared/types/status";
 import { getOptionListSelectPerUserRole } from "../../shared/constants/userFilterSelect";
 
 import "../../shared/styles/pages/homepage/Homepage.css";
+import { FiSearch } from "react-icons/fi";
 
 export default function Homepage() {
   const token = SessionController.getToken();
 
   const navigate = useNavigate();
   const userInformation = SessionController.getUserInfo();
-
   const [statusFilter, setStatusFilter] = useState<status | "">("");
   const [inputSearch, setInputSearch] = useState("");
   const [searchUsername, setSearchUsername] = useState("");
@@ -32,9 +32,7 @@ export default function Homepage() {
   const [equipmentName, setEquipmentName] = useState<status | "">("");
   const [equipmentInput, setEquipmentInput] = useState<status | "">("");
   const [pageTitle, setPageTitle] = useState("Chamados");
-  const [searchPlaceholder, setSearchPlaceholder] = useState(
-    "Buscar por título do chamado"
-  );
+  const [searchPlaceholder, setSearchPlaceholder] = useState("Buscar por título do chamado");
   const [filterOptions, setFilterOptions] = useState(
     getOptionListSelectPerUserRole(userInformation?.role)
   );
@@ -78,6 +76,9 @@ export default function Homepage() {
               onChange={(event) => setInputSearch(event.target.value)}
             />
             <Button width="20%" type="submit" fontSize="0.8rem">
+              <FiSearch
+                className="Icon"
+              />
               Buscar
             </Button>
           </form>
@@ -130,7 +131,7 @@ export default function Homepage() {
                     },
                     {
                       selected: false,
-                      value: "finnance",
+                      value: "finance",
                       label: "financeiro",
                     },
                     {
@@ -180,7 +181,7 @@ export default function Homepage() {
 
             <div className="btn-create-equipment">
               <Link to="/equipment_register">
-                <Button width="20%">Cadastrar Equipamento</Button>
+                <Button width="20%">Cadastrar equipamento</Button>
               </Link>
             </div>
           </>

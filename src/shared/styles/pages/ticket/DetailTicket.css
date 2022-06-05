@@ -49,8 +49,14 @@ h4 {
 }
 
 #detail-ticket .edit-priority-button {
-    margin-top: 0.5vw;
-    cursor: pointer;
+  margin-right: 0.3rem;
+  font-size: 32px !important;
+  cursor: pointer;
+}
+
+#detail-ticket .save-priority-button {
+  font-size: 100px !important;
+  cursor: pointer;
 }
 
 #detail-ticket select {
@@ -89,14 +95,24 @@ h4 {
 #detail-ticket .ticket-department,
 #detail-ticket .ticket-equipment {
   width: 100%;
-}
-
-#detail-ticket .ticket-priority,
-#detail-ticket .ticket-type,
-#detail-ticket .ticket-department,
-#detail-ticket .ticket-equipment {
   display: inline-flex;
   gap: 1rem;
+}
+
+#detail-ticket .footer-solution {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+#detail-ticket .footer-solution .solution-votes {
+  display: inline !important;
+  justify-self: flex-start !important;
+}
+
+#detail-ticket .footer-solution .solution-name  {
+  color: #ADB5BD !important;
+  font-size: 12.8px;
 }
 
 #detail-ticket .ticket-resolve-content div {
@@ -128,7 +144,7 @@ h4 {
   border: 1px solid #d3e2e5;
   border-radius: 20px;
   outline: none;
-  color: #5c8599;
+  color: #495057;
   min-height: 120px;
   resize: vertical;
   padding: 16px;
@@ -186,6 +202,16 @@ h4 {
     gap: 1rem !important;
   }
 
+  #detail-ticket .edit-priority-button {
+    padding-top: 5px;
+    font-size: 25px !important;
+  }
+
+  #detail-ticket .save-priority-button {
+    padding-top: 2px;
+    font-size: 90px !important;
+  }
+
   #detail-ticket .ticket-dual-info .ticket-type,
   #detail-ticket .ticket-dual-info .ticket-department,
   #detail-ticket .ticket-dual-info .ticket-equipment {
@@ -220,6 +246,16 @@ h4 {
   #detail-ticket .ticket-dual-info .ticket-priority {
     display: flex !important;
     gap: 1rem !important;
+  }
+
+  #detail-ticket .edit-priority-button {
+    padding-top: 2px;
+    font-size: 20px !important;
+  }
+
+  #detail-ticket .save-priority-button {
+    padding-top: 5px;
+    font-size: 80px !important;
   }
 
   #detail-ticket .ticket-dual-info .ticket-type,

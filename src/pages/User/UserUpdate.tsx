@@ -57,32 +57,12 @@ export default function UserUpdate() {
 
   const userRequest = new UserRequests();
 
-  function handleDepartmentValue(departmentValue: string) {
-    if (departmentValue == "marketingAndSales") {
-      setDepartment("Marketing e vendas");
-    } else if (departmentValue == "financial") {
-      setDepartment("Financeiro");
-    } else if (departmentValue == "operations") {
-      setDepartment("Operações");
-    } else if (departmentValue == "rh") {
-      setDepartment("RH");
-    } else if (departmentValue == "eps") {
-      setDepartment("EPS");
-    } else if (departmentValue == "ti") {
-      setDepartment("TI");
-    } else if (departmentValue == "epdi") {
-      setDepartment("EPDI");
-    } else if (departmentValue == "others") {
-      setDepartment("Outros");
-    }
-  }
-
   function handleDepartmentLabel(departmentLabel: string) {
-    if (departmentLabel == "Marketing e vendas") {
+    if (departmentLabel == "marketing e vendas") {
       setSelectedDepartment("marketingAndSales");
-    } else if (departmentLabel == "Financeiro") {
-      setSelectedDepartment("financial");
-    } else if (departmentLabel == "Operações") {
+    } else if (departmentLabel == "financeiro") {
+      setSelectedDepartment("finance");
+    } else if (departmentLabel == "operações") {
       setSelectedDepartment("operations");
     } else if (departmentLabel == "RH") {
       setSelectedDepartment("rh");
@@ -92,7 +72,7 @@ export default function UserUpdate() {
       setSelectedDepartment("ti");
     } else if (departmentLabel == "EPDI") {
       setSelectedDepartment("epdi");
-    } else if (departmentLabel == "Outros") {
+    } else if (departmentLabel == "outros") {
       setSelectedDepartment("others");
     }
   }
@@ -159,12 +139,6 @@ export default function UserUpdate() {
       setIsUser(true);
     }
   }, []);
-
-  function handleConfirmPassword() {
-    if (!isUser) {
-      console.log("auuu");
-    }
-  }
 
   function TitlePage() {
     if (user?.id === id) {
@@ -286,7 +260,7 @@ export default function UserUpdate() {
     <div id="user-update">
       <LoadingContainer loading={loading} />
       <div className="user-update-container">
-        <Header hiddenDropdown={true} />
+        <Header hiddenDropdown={false} />
         <div className="user-update-content">
           <section className="user-update-title">
             <h1>
@@ -317,6 +291,19 @@ export default function UserUpdate() {
                   />
                 </div>
                 <div>
+                  <label htmlFor="email">E-mail</label>
+                  <TextField
+                    placeholder={emailPlaceholder}
+                    defaultValue={emailPlaceholder}
+                    onChange={(event) => setEmail(event.target.value)}
+                    name="email"
+                    disabled={isAdmin}
+                  />
+                </div>                
+              </section>
+
+              <section className="user-update-data">
+                <div>
                   <label htmlFor="lastname">Sobrenome</label>
                   <TextField
                     type="text"
@@ -327,32 +314,7 @@ export default function UserUpdate() {
                     disabled={isUser}
                   />
                 </div>
-              </section>
 
-              <section className="user-update-data">
-                <div>
-                  <label htmlFor="email">E-mail</label>
-                  <TextField
-                    placeholder={emailPlaceholder}
-                    defaultValue={emailPlaceholder}
-                    onChange={(event) => setEmail(event.target.value)}
-                    name="email"
-                    disabled={isAdmin}
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="role">Cargo</label>
-                  <SelectInput
-                    onChange={(event) => setRole(event.target.value)}
-                    name="role"
-                    items={userProfiles}
-                    disabled={isAdmin}
-                  />
-                </div>
-              </section>
-
-              <section className="user-update-data">
                 <div>
                   <label htmlFor="password">Senha</label>
                   <TextField
@@ -362,14 +324,27 @@ export default function UserUpdate() {
                     type="password"
                     disabled={isUser}
                   />
+                </div>                
+              </section>
+
+              <section className="user-update-data">
+                <div>
+                  <label htmlFor="role">Cargo</label>
+                  <SelectInput
+                    onChange={(event) => setRole(event.target.value)}
+                    name="role"
+                    items={userProfiles}
+                    disabled={isAdmin}
+                  />
                 </div>
+                
                 <div>
                   <label htmlFor="department">Departamento</label>
                   <ChoiceField
                     name="department"
                     items={departmentListVariable(selectedDepartment)}
                     onChange={(event) =>
-                      handleDepartmentValue(event.target.value)
+                      setDepartment(event.target.value)
                     }
                     disabled={isAdmin && user?.id === userID}
                   />
