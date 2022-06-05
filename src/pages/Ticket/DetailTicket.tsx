@@ -280,7 +280,7 @@ export default function DetailTicket() {
         downVote: !vote,
       });
       setHiddenSolutionVote(true);
-      alert("Sua avaliação foi registrada com suceso!");
+      alert("Sua avaliação foi registrada com sucesso!");
     } catch (error) {
       setHiddenSolutionVote(false);
     } finally {
