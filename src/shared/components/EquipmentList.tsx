@@ -14,6 +14,7 @@ import {
   SortEquipmentTableTypes,
 } from "../constants/sortTableEnum";
 
+import "../styles/components/EquipmentList.css";
 import { Pageable } from "../interfaces/pagable.interface";
 import Pagination from "./Pagination/Pagination";
 
@@ -56,10 +57,8 @@ export default function EquipmentList({
   }, [filterEquipment, nameEquipment]);
 
   useEffect(() => {
-    if (nameEquipment.length != 0 || filterEquipment.length != 0) {
-      getEquipmentsList(uriParam)
-    }
-  }, [nameEquipment, filterEquipment])
+    getEquipmentsList();
+  }, [filterEquipment, nameEquipment]);
 
   const getEquipmentsList = async (sorting?: string) => {
     setLoading(true);

@@ -25,9 +25,7 @@ export default function Homepage() {
 
   const navigate = useNavigate();
   const userInformation = SessionController.getUserInfo();
-
   const [statusFilter, setStatusFilter] = useState<status | "">("");
-
   const [inputSearch, setInputSearch] = useState("");
   const [searchUsername, setSearchUsername] = useState("");
   const [equipmentFilter, setEquipmentFilter] = useState<status | "">("");
@@ -133,7 +131,7 @@ export default function Homepage() {
                     },
                     {
                       selected: false,
-                      value: "finnance",
+                      value: "finance",
                       label: "financeiro",
                     },
                     {

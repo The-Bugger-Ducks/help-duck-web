@@ -141,8 +141,6 @@ export default function UserList({filterUserList, username} : {filterUserList: s
       return "TI";
     } else if (department === "epdi"){
       return "EPDI";
-    } else if (department === "ti"){
-      return "TI";
     } else {
       return "sem departamento definido";
     }
