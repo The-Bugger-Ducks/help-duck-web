@@ -36,7 +36,7 @@ export default function EquipmentUpdatePage() {
     if (departmentLabel === "Marketing e vendas") {
       setSelectedDepartment("marketingAndSales");
     } else if (departmentLabel === "Financeiro") {
-      setSelectedDepartment("financial");
+      setSelectedDepartment("finance");
     } else if (departmentLabel === "Operações") {
       setSelectedDepartment("operations");
     } else if (departmentLabel === "RH") {
@@ -55,7 +55,7 @@ export default function EquipmentUpdatePage() {
   function handleDepartmentValue(departmentValue: string) {
     if (departmentValue === "marketingAndSales") {
       setDepartment("Marketing e vendas");
-    } else if (departmentValue === "financial") {
+    } else if (departmentValue === "finance") {
       setDepartment("Financeiro");
     } else if (departmentValue === "operations") {
       setDepartment("Operações");

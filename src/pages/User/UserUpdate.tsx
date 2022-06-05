@@ -57,32 +57,12 @@ export default function UserUpdate() {
 
   const userRequest = new UserRequests();
 
-  function handleDepartmentValue(departmentValue: string) {
-    if (departmentValue == "marketingAndSales") {
-      setDepartment("Marketing e vendas");
-    } else if (departmentValue == "financial") {
-      setDepartment("Financeiro");
-    } else if (departmentValue == "operations") {
-      setDepartment("Operações");
-    } else if (departmentValue == "rh") {
-      setDepartment("RH");
-    } else if (departmentValue == "eps") {
-      setDepartment("EPS");
-    } else if (departmentValue == "ti") {
-      setDepartment("TI");
-    } else if (departmentValue == "epdi") {
-      setDepartment("EPDI");
-    } else if (departmentValue == "others") {
-      setDepartment("Outros");
-    }
-  }
-
   function handleDepartmentLabel(departmentLabel: string) {
-    if (departmentLabel == "Marketing e vendas") {
+    if (departmentLabel == "marketing e vendas") {
       setSelectedDepartment("marketingAndSales");
-    } else if (departmentLabel == "Financeiro") {
-      setSelectedDepartment("financial");
-    } else if (departmentLabel == "Operações") {
+    } else if (departmentLabel == "financeiro") {
+      setSelectedDepartment("finance");
+    } else if (departmentLabel == "operações") {
       setSelectedDepartment("operations");
     } else if (departmentLabel == "RH") {
       setSelectedDepartment("rh");
@@ -92,7 +72,7 @@ export default function UserUpdate() {
       setSelectedDepartment("ti");
     } else if (departmentLabel == "EPDI") {
       setSelectedDepartment("epdi");
-    } else if (departmentLabel == "Outros") {
+    } else if (departmentLabel == "outros") {
       setSelectedDepartment("others");
     }
   }
@@ -159,12 +139,6 @@ export default function UserUpdate() {
       setIsUser(true);
     }
   }, []);
-
-  function handleConfirmPassword() {
-    if (!isUser) {
-      console.log("auuu");
-    }
-  }
 
   function TitlePage() {
     if (user?.id === id) {
@@ -369,7 +343,7 @@ export default function UserUpdate() {
                     name="department"
                     items={departmentListVariable(selectedDepartment)}
                     onChange={(event) =>
-                      handleDepartmentValue(event.target.value)
+                      setDepartment(event.target.value)
                     }
                     disabled={isAdmin && user?.id === userID}
                   />

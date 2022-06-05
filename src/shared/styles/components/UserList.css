@@ -5,7 +5,35 @@
   border-bottom: 1px solid var(--color-white-dark);
 }
 
-.ticket-list-container #name {
+.user-list-container #name {
+  width: 30%;
+  max-width: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding-right: 1%;
+}
+
+.user-list-container #email {
+  width: 20%;
+  max-width: 100px !important;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding-right: 1%;
+}
+
+.user-list-container #role {
+  width: 20%;
+  max-width: 100px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding-right: 1%;
+}
+
+.user-list-container #department {
+  width: 30%;
   max-width: 150px;
   overflow: hidden;
   text-overflow: ellipsis;

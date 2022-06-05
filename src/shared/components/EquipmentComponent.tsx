@@ -20,10 +20,10 @@ const EquipmentComponent: React.FC<UserInformationProps> = ({
   return (
     <tr onClick={onClick}>
       <td id="name">{name}</td>
-      <td>{model}</td>
-      <td>{brand}</td>
-      <td>{type}</td>
-      <td>{department}</td>
+      <td id="model">{model}</td>
+      <td id="brand">{brand}</td>
+      <td id="type">{type}</td>
+      <td id="department">{department}</td>
     </tr>
   );
 };

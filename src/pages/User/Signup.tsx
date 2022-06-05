@@ -48,7 +48,7 @@ export default function Signup() {
   function handleDepartment(departmentValue: string) {
     if (departmentValue === "marketingAndSales") {
       setDepartment("Marketing e vendas");
-    } else if (departmentValue === "financial") {
+    } else if (departmentValue === "finance") {
       setDepartment("Financeiro");
     } else if (departmentValue === "operations") {
       setDepartment("Operações");

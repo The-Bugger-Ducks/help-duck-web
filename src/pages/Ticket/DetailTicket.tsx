@@ -29,7 +29,6 @@ import "../../shared/styles/pages/ticket/DetailTicket.css";
 import SolutionsList from "../../shared/components/SolutionsList";
 import { ProblemRequests } from "../../shared/utils/requests/Problem.requests";
 
-import "../../shared/styles/pages/ticket/DetailTicket.css";
 
 export default function DetailTicket() {
   const navigate = useNavigate();
@@ -61,7 +60,6 @@ export default function DetailTicket() {
   const [solution, setSolution] = useState<Ticket["solution"]>();
   const [canSetSolution, setCanSetSolution] = useState<boolean>(false);
   const [hiddenSolutionVote, setHiddenSolutionVote] = useState(false);
-
   const [editPriority, setEditPriority] = useState(false);
 
   const ticketRequest = new TicketRequests();
@@ -166,7 +164,7 @@ export default function DetailTicket() {
 
   async function handleCloseTicket() {
     if (user?.role !== "support") {
-      return alert("Usuário sem permissão para relalizar essa ação.");
+      return alert("Usuário sem permissão para realizar essa ação.");
     }
 
     setLoading(true);
