@@ -25,6 +25,8 @@ const TicketList: React.FC<{
   const [orderBy, setOrderBy] = useState<OrderByTypes>();
   const [sort, setSort] = useState<SortTicketTableTypes>();
 
+  const [uriParam, setUriParam] = useState("");
+
   const [pageSize, setPageSize] = useState(20);
   const [pageNumber, setPageNumber] = useState(0);
 
@@ -38,22 +40,39 @@ const TicketList: React.FC<{
   useEffect(() => {
     if (userInformation?.role === "client") {
       if (searchedTitle.length != 0) {
-        getTicketSearched("", searchedTitle);
+        if (status != "done") {
+          getTicketListClient(userInformation.id, searchedTitle, uriParam);
+        } else {
+          getTicketListClient("", searchedTitle, uriParam, status);
+        }
       } else {
-        status === "done" ? getTicketPerStatus(status) : getTicketListClient();
+        status === "done"
+          ? getTicketListClient("", "", uriParam, "done")
+          : getTicketListClient(userInformation.id, "", uriParam);
       }
     } else if (userInformation?.role === "support") {
       if (searchedTitle.length != 0) {
-        getTicketSearched("", searchedTitle);
+        getTicketListSupport("", searchedTitle, uriParam, status);
       } else {
-        getTicketPerStatus(status);
+        getTicketListSupport("", "", uriParam, status);
       }
     }
   }, [status, searchedTitle]);
 
-  async function getTicketListClient(sorting?: string) {
+  async function getTicketListClient(
+    id: string,
+    title: string,
+    sorting?: string,
+    status?: string
+  ) {
     setLoading(true);
-    const response = await ticketRequest.ticketListById(sorting);
+
+    const response = await ticketRequest.searchTicketClient(
+      id,
+      title,
+      sorting,
+      status
+    );
 
     setTickets(response.content ?? []);
     setTypeTicketList("client");
@@ -61,35 +80,55 @@ const TicketList: React.FC<{
     setLoading(false);
   }
 
-  async function getTicketSearched(sorting?: string, title?: string) {
+  async function getTicketListSupport(
+    id: string,
+    title: string,
+    sorting?: string,
+    status?: string
+  ) {
     setLoading(true);
-    const response = await ticketRequest.searchTicket(sorting, title);
-
-    setTickets(response.content ?? []);
-    setTypeTicketList("client");
-    setPageable(response);
-    setLoading(false);
-  }
-
-  async function getTicketListSupport(sorting?: string) {
-    setLoading(true);
-    const response = await ticketRequest.ticketListBySupport(sorting);
+    const response = await ticketRequest.searchTicketClient(
+      id,
+      title,
+      sorting,
+      status
+    );
 
     const ticketsResponse: Ticket[] = response.content;
 
-    const tickets = ticketsResponse.filter(
-      (ticket) => ticket.status === "underAnalysis"
-    );
-
-    setTickets(tickets ?? []);
+    setTickets(ticketsResponse ?? []);
     setTypeTicketList("support");
     setPageable(response);
     setLoading(false);
   }
 
-  async function getTicketPerStatus(status: status | "", sorting?: string) {
+  async function getTicketSupportPerStatus(
+    id: string,
+    title: string,
+    status: status | "",
+    sorting?: string
+  ) {
     if (status === "underAnalysis" || status === "") {
-      return getTicketListSupport();
+      return getTicketListSupport(id, title, sorting);
+    }
+
+    setLoading(true);
+    const response = await ticketRequest.ticketListPerStatus(status, sorting);
+
+    setTickets(response.content ?? []);
+    setTypeTicketList("status");
+    setPageable(response);
+    setLoading(false);
+  }
+
+  async function getTicketClientPerStatus(
+    id: string,
+    title: string,
+    status: status | "",
+    sorting?: string
+  ) {
+    if (status === "underAnalysis" || status === "") {
+      return getTicketListClient(id, title, sorting);
     }
 
     setLoading(true);
@@ -116,20 +155,42 @@ const TicketList: React.FC<{
 
     setSort(type);
     setOrderBy(orderBy);
+    setUriParam(sortAux);
 
     if (searchedTitle.length != 0) {
       if (typeTicketList == "client") {
-        getTicketSearched(sortAux, searchedTitle);
+        getTicketListClient(
+          userInformation?.id ? userInformation.id : "",
+          searchedTitle,
+          sortAux
+        );
       } else if (typeTicketList == "support") {
-        getTicketSearched(sortAux, searchedTitle);
+        getTicketListSupport(
+          userInformation?.id ? userInformation.id : "",
+          searchedTitle,
+          sortAux
+        );
       }
     } else {
       if (typeTicketList == "client") {
-        getTicketListClient(sortAux);
+        getTicketListClient(
+          userInformation?.id ? userInformation.id : "",
+          searchedTitle,
+          sortAux
+        );
       } else if (typeTicketList == "support") {
-        getTicketListSupport(sortAux);
+        getTicketListSupport(
+          userInformation?.id ? userInformation.id : "",
+          searchedTitle,
+          sortAux
+        );
       } else {
-        getTicketPerStatus(status, sortAux);
+        getTicketSupportPerStatus(
+          userInformation?.id ? userInformation.id : "",
+          "",
+          status,
+          sortAux
+        );
       }
     }
   }
@@ -145,12 +206,27 @@ const TicketList: React.FC<{
       sortAux = `page=${pageNumber}&size=${pageSize}&sort=${sort}`;
     }
 
+    setUriParam(sortAux);
+
     if (typeTicketList == "client") {
-      getTicketListClient(sortAux);
+      getTicketListClient(
+        userInformation?.id ? userInformation.id : "",
+        searchedTitle,
+        sortAux
+      );
     } else if (typeTicketList == "support") {
-      getTicketListSupport(sortAux);
+      getTicketListSupport(
+        userInformation?.id ? userInformation.id : "",
+        searchedTitle,
+        sortAux
+      );
     } else {
-      getTicketPerStatus(status, sortAux);
+      getTicketSupportPerStatus(
+        userInformation?.id ? userInformation.id : "",
+        "",
+        status,
+        sortAux
+      );
     }
   }
 
