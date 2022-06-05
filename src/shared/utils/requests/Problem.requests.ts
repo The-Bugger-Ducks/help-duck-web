@@ -1,7 +1,7 @@
 import { apiSolution } from '../../services/Api.service';
 
 import { PROBLEM_ENDPOINTS } from '../endpoints';
-import { Problem, SetProblemSolutionAdd } from '../../interfaces/problem.interface';
+import { SetProblemSolutionAdd } from '../../interfaces/problem.interface';
 import {
   validateStatus,
   handleResponseStatus,
@@ -33,7 +33,7 @@ export class ProblemRequests {
       );
     }
   }
-  
+
   public async setSolutionProblem(payload: SetProblemSolutionAdd) {
     try {
       const response = await apiSolution.post(
@@ -49,8 +49,4 @@ export class ProblemRequests {
       );
     }
   }
-
-
-
-
 }

@@ -505,11 +505,15 @@ export default function DetailTicket() {
                   Enviar
                 </Button>
               </div>
-            </section>)}
-
-          <SolutionsList problemId={problemType?.id}
-          handlerCreateTagSolution={handlerCreateTagSolution}
-          handlerSolutionDetails={handlerSolutionDetails}/>
+            </section>
+          )}
+          {user?.role === 'support' && (
+            <SolutionsList
+              problemId={problemType?.id}
+              handlerCreateTagSolution={handlerCreateTagSolution}
+              handlerSolutionDetails={handlerSolutionDetails}
+            />
+          )}
         </main>
         <Footer />
       </Container>

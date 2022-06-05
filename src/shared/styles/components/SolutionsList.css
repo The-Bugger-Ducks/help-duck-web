@@ -1,21 +1,28 @@
-.solution-list-components{
+.solutions-center {
   display: flex;
   justify-content: space-between;
-  gap:0.1rem;
 }
 
-.section-solutionDetails{
-  min-width: 50%;
-
+.solution-list-components {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.1rem;
+}
+.section-solutionDetails {
+  width: 45%;
+  margin-left: 2rem;
 }
 
-.section-solutionAdd{
+.section-solutionAdd {
   min-width: 50%;
-
 }
 .solution-list-container {
   width: 45%;
   height: 50vh;
+}
+
+.solution-list-container.search {
+  width: 50%;
 }
 
 .solution-list-container h3 {
@@ -42,9 +49,17 @@
   border-bottom: 1px solid #ced4da;
 }
 
+.solution-list-container table #first-column {
+  width: 30%;
+}
+
 .solution-list-container table td {
   padding: 0.5rem;
   color: #868e96;
+  max-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .solution-list-container table tr {
@@ -58,9 +73,37 @@
   cursor: default;
 }
 
+.solution-list-container table .no-results.search {
+  color: #868e96;
+  text-align: center;
+  padding-top: 3%;
+  max-width: 100%;
+  overflow: initial;
+  white-space: normal;
+  text-overflow: initial;
+}
+
 .solution-list-container .new-solution {
   margin-top: 1rem;
   margin-bottom: 1rem;
   display: flex;
   justify-content: end;
+}
+
+@media only screen and (max-width: 824px) {
+  .solutions-center {
+    display: block;
+    width: 100%;
+  }
+
+  .solution-list-container,
+  .solution-list-container.search {
+    display: block;
+    width: 100%;
+  }
+
+  .solution-list-components {
+    display: block;
+    width: 100%;
+  }
 }
