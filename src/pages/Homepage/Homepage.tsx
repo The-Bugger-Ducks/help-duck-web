@@ -32,7 +32,9 @@ export default function Homepage() {
   const [equipmentName, setEquipmentName] = useState<status | "">("");
   const [equipmentInput, setEquipmentInput] = useState<status | "">("");
   const [pageTitle, setPageTitle] = useState("Chamados");
-  const [searchPlaceholder, setSearchPlaceholder] = useState("Buscar por título do chamado");
+  const [searchPlaceholder, setSearchPlaceholder] = useState(
+    "Buscar por título do chamado"
+  );
   const [filterOptions, setFilterOptions] = useState(
     getOptionListSelectPerUserRole(userInformation?.role)
   );
@@ -76,9 +78,7 @@ export default function Homepage() {
               onChange={(event) => setInputSearch(event.target.value)}
             />
             <Button width="20%" type="submit" fontSize="0.8rem">
-              <FiSearch
-                className="Icon"
-              />
+              <FiSearch className="Icon" />
               Buscar
             </Button>
           </form>
@@ -190,13 +190,13 @@ export default function Homepage() {
             <TicketList status={statusFilter} searchedTitle={searchUsername} />
 
             <div className="btn-open-ticket">
-              <Link to="/solutions_center">
+              <Link id="btn-solutions" to="/solutions_center">
                 <Button backgroundColor="#ADB5BD" color="#F2F2F3" width="25%">
                   Acessar centro de soluções
                 </Button>
               </Link>
 
-              {userInformation?.role === 'client' ? (
+              {userInformation?.role === "client" ? (
                 <Link to="/ticket_register">
                   <Button width="20%">Abrir chamado</Button>
                 </Link>
@@ -205,7 +205,7 @@ export default function Homepage() {
           </>
         )}
       </div>
-      <Footer id={userInformation?.role === 'admin' ? 'footer-admin' : ''} />
+      <Footer id={userInformation?.role === "admin" ? "footer-admin" : ""} />
     </div>
   );
 }
