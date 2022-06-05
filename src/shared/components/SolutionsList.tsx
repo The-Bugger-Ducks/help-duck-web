@@ -49,22 +49,20 @@ const SolutionsList: React.FC<SolutionsListProps> = ({
   const solutionRequest = new SolutionRequests();
   const userInformation = SessionController.getUserInfo();
   const [isVisible, setIsVisible] = useState(false);
-  const [IsVisibleDetails, setIsVisibleDetails] = useState(false);
+  const [isVisibleDetails, setIsVisibleDetails] = useState(false);
   const [bodySolution, setBodySolution] = useState({
     title: '',
     description: '',
   });
 
-  function handlerIsVisible(Visible: boolean) {
-    setIsVisible(Visible);
+  function handlerIsVisible(visible: boolean) {
+    setIsVisible(visible);
+    if (visible) setIsVisibleDetails(false);
   }
 
-  function handlerIsVisibleDetails(
-    VisibleDet: boolean,
-    title: string,
-    description: string
-  ) {
-    setIsVisibleDetails(VisibleDet);
+  function handlerIsVisibleDetails(title: string, description: string) {
+    setIsVisible(false);
+    setIsVisibleDetails(true);
     setBodySolution({ title: title, description: description });
   }
 
@@ -122,7 +120,6 @@ const SolutionsList: React.FC<SolutionsListProps> = ({
                             key={index}
                             onClick={() => {
                               handlerIsVisibleDetails(
-                                true,
                                 solution.title,
                                 solution.description
                               );
@@ -153,29 +150,28 @@ const SolutionsList: React.FC<SolutionsListProps> = ({
                 fontWeight="600"
                 onClick={() => {
                   handlerIsVisible(true);
-                  handlerIsVisibleDetails(false, '', '');
                 }}
               >
                 Nova solução
               </Button>
             </div>
           </section>
-          {isVisible ? (
+          {isVisible && (
             <section className="section-solutionAdd">
               <SolutionAddCenter
                 handlerCreateTagSolution={handlerCreateTagSolution}
                 handlerIsVisible={handlerIsVisible}
               />
             </section>
-          ) : null}
-          {IsVisibleDetails ? (
+          )}
+          {isVisibleDetails && (
             <section className="section-solutionDetails">
               <SolutionDetails
                 title={bodySolution.title}
                 description={bodySolution.description}
               />
             </section>
-          ) : null}
+          )}
         </section>
       </>
     );
@@ -204,7 +200,6 @@ const SolutionsList: React.FC<SolutionsListProps> = ({
                           key={index}
                           onClick={() => {
                             handlerIsVisibleDetails(
-                              true,
                               result.title,
                               result.description
                             );
@@ -235,7 +230,7 @@ const SolutionsList: React.FC<SolutionsListProps> = ({
 
           <Pagination pageable={pageable} onChangePage={handlePageable} />
         </section>
-        {IsVisibleDetails ? (
+        {isVisibleDetails ? (
           <section className="section-solutionDetails">
             <SolutionDetails
               title={bodySolution.title}

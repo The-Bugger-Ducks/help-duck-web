@@ -44,22 +44,11 @@
 }
 
 /* RESPONSIVIDADE */
-
-/* @media (max-width: 768px) {
-  #solutionadd .solutionadd-form {
-    background-color: var(--color-primary-main);
-    padding: 0;
-    height: 100%;
+@media only screen and (max-width: 824px) {
+  .solutionAdd-container,
+  .section-solutionDetails {
+    display: block;
     width: 100%;
+    margin: 0;
   }
-
-
-  #solutionadd #recover-password {
-    color: var(--color-white-main);
-  }
-
-  #solutionadd .solutionadd-content .solutionadd-welcome {
-    width: 100%;
-    margin-top: 4rem;
-  }
-} */
+}
