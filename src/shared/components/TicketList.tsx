@@ -59,7 +59,7 @@ const TicketList: React.FC<{
       }
     } else if (userInformation?.role === "support") {
       if (searchedTitle.length != 0) {
-        if (status) {
+        if (status == "done" || status == "awaiting") {
           getTicketListSupport("", searchedTitle, uriParam, status);
         } else {
           getTicketListSupport(
@@ -70,7 +70,8 @@ const TicketList: React.FC<{
           );
         }
       } else {
-        if (status) {
+        console.log(status);
+        if (status == "done" || status == "awaiting") {
           getTicketListSupport("", "", uriParam, status);
         } else {
           getTicketListSupport(userInformation.id, "", uriParam, status);
