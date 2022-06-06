@@ -38,6 +38,7 @@ export default function TicketRegister() {
   const navigate = useNavigate();
 
   const ticketPriority = [
+    { value: "", label: "Selecione uma opção", selected: false },
     { value: "low", label: "Prioridade baixa", selected: false },
     { value: "medium", label: "Prioridade média", selected: false },
     { value: "high", label: "Prioridade alta", selected: false },
