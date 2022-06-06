@@ -111,7 +111,6 @@ export default function UserUpdate() {
       },
     ]);
     setDepartment(response.department);
-    console.log(response.department);
     handleDepartmentLabel(response.department);
     setLoading(false);
   };
