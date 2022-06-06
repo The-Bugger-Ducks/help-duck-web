@@ -1,4 +1,5 @@
 import React from "react";
+import "../styles/components/TicketTable.css";
 
 interface TicketInformationProps {
   priority: React.ReactElement | string;
@@ -20,7 +21,7 @@ const Ticket: React.FC<TicketInformationProps> = ({
       <td>{priority}</td>
       <td className="ticket-title">{title}</td>
       <td>{creationDate}</td>
-      <td>{status}</td>
+      <td id="ticket-status">{status}</td>
     </tr>
   );
 };

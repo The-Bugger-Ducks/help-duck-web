@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 interface Props {
   disabled?: boolean;
   backgroundColor?: string;
@@ -23,12 +23,12 @@ const SelectInput: React.FC<Props> = ({
   name = "",
   radius = "0.3rem",
   width = "100%",
-  color = '#495057',
-  height = '50px',
+  color = "#495057",
+  height = "50px",
   required = true,
-  padding = '0.5rem',
-  border = '0',
-  borderRight = '16px solid transparent',
+  padding = "0.5rem",
+  border = "0",
+  borderRight = "16px solid transparent",
   onChange,
   items,
 }) => {
@@ -45,7 +45,7 @@ const SelectInput: React.FC<Props> = ({
           width,
           padding: `${padding} 0.5rem`,
           height,
-          fontSize: '16px',
+          fontSize: "16px",
           color,
         }}
         className="input-primary"
@@ -53,9 +53,6 @@ const SelectInput: React.FC<Props> = ({
         required={required}
         disabled={disabled}
       >
-        <option value="" selected>
-          Selecione uma opção
-        </option>
         {items.map((item, index) => (
           <option key={index} value={item.value} selected={item.selected}>
             {item.label}
