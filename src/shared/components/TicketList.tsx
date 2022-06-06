@@ -58,7 +58,24 @@ const TicketList: React.FC<{
         }
       }
     } else if (userInformation?.role === "support") {
-      getTicketListSupport("", searchedTitle, uriParam, status);
+      if (searchedTitle.length != 0) {
+        if (status) {
+          getTicketListSupport("", searchedTitle, uriParam, status);
+        } else {
+          getTicketListSupport(
+            userInformation.id,
+            searchedTitle,
+            uriParam,
+            status
+          );
+        }
+      } else {
+        if (status) {
+          getTicketListSupport("", "", uriParam, status);
+        } else {
+          getTicketListSupport(userInformation.id, "", uriParam, status);
+        }
+      }
     }
   }, [status, searchedTitle]);
 
