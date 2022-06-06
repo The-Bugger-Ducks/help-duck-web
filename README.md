@@ -52,5 +52,6 @@ A aplicação inciará localmente na porta 3000. Use o navegador para acessar o 
 - Funcionalidades do sistema acessadas pelo usuário administrador:
 
 <div align="center">
+  
 ![usuario_administrador](./usuario_administrador.gif)
 </div>
