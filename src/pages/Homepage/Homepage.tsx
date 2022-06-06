@@ -25,7 +25,9 @@ export default function Homepage() {
 
   const navigate = useNavigate();
   const userInformation = SessionController.getUserInfo();
-  const [statusFilter, setStatusFilter] = useState<status | "">("");
+  const [statusFilter, setStatusFilter] = useState<status | "">(
+    userInformation?.role === "support" ? "underAnalysis" : ""
+  );
   const [inputSearch, setInputSearch] = useState("");
   const [searchUsername, setSearchUsername] = useState("");
   const [equipmentFilter, setEquipmentFilter] = useState<status | "">("");

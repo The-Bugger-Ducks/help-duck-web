@@ -58,22 +58,24 @@ export default function UserUpdate() {
   const userRequest = new UserRequests();
 
   function handleDepartmentLabel(departmentLabel: string) {
-    if (departmentLabel == "marketing e vendas") {
+    if (departmentLabel == "marketingAndSales") {
       setSelectedDepartment("marketingAndSales");
-    } else if (departmentLabel == "financeiro") {
+    } else if (departmentLabel == "finance") {
       setSelectedDepartment("finance");
-    } else if (departmentLabel == "operações") {
+    } else if (departmentLabel == "operations") {
       setSelectedDepartment("operations");
-    } else if (departmentLabel == "RH") {
+    } else if (departmentLabel == "rh") {
       setSelectedDepartment("rh");
-    } else if (departmentLabel == "EPS") {
+    } else if (departmentLabel == "eps") {
       setSelectedDepartment("eps");
-    } else if (departmentLabel == "TI") {
+    } else if (departmentLabel == "ti") {
       setSelectedDepartment("ti");
-    } else if (departmentLabel == "EPDI") {
+    } else if (departmentLabel == "epdi") {
       setSelectedDepartment("epdi");
-    } else if (departmentLabel == "outros") {
+    } else if (departmentLabel == "others") {
       setSelectedDepartment("others");
+    } else if (departmentLabel == null) {
+      setSelectedDepartment("");
     }
   }
 
@@ -299,7 +301,7 @@ export default function UserUpdate() {
                     name="email"
                     disabled={isAdmin}
                   />
-                </div>                
+                </div>
               </section>
 
               <section className="user-update-data">
@@ -324,7 +326,7 @@ export default function UserUpdate() {
                     type="password"
                     disabled={isUser}
                   />
-                </div>                
+                </div>
               </section>
 
               <section className="user-update-data">
@@ -337,15 +339,13 @@ export default function UserUpdate() {
                     disabled={isAdmin}
                   />
                 </div>
-                
+
                 <div>
                   <label htmlFor="department">Departamento</label>
                   <ChoiceField
                     name="department"
                     items={departmentListVariable(selectedDepartment)}
-                    onChange={(event) =>
-                      setDepartment(event.target.value)
-                    }
+                    onChange={(event) => setDepartment(event.target.value)}
                     disabled={isAdmin && user?.id === userID}
                   />
                 </div>

@@ -4,6 +4,11 @@ export function departmentList() {
   const departmentList = [
     {
       selected: false,
+      value: "",
+      label: "Selecione uma opção",
+    },
+    {
+      selected: false,
       value: "marketingAndSales",
       label: "marketing e vendas",
     },
@@ -48,6 +53,12 @@ export function departmentListVariable(selectedDepartment: string) {
   }
 
   const departmentList = [
+    {
+      selected: isSelected(""),
+      value: "",
+      label: "Selecione uma opção",
+    },
+
     {
       selected: isSelected("marketingAndSales"),
       value: "marketingAndSales",

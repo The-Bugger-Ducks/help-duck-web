@@ -46,10 +46,36 @@ const TicketList: React.FC<{
           getTicketListClient("", "", uriParam, status);
         }
       } else {
-        getTicketListClient("", searchedTitle, uriParam, status);
+        if (searchedTitle.length != 0) {
+          getTicketListClient(
+            userInformation.id,
+            searchedTitle,
+            uriParam,
+            status
+          );
+        } else {
+          getTicketListClient(userInformation.id, "", uriParam, status);
+        }
       }
     } else if (userInformation?.role === "support") {
-      getTicketListSupport("", searchedTitle, uriParam, status);
+      if (searchedTitle.length != 0) {
+        if (status == "done" || status == "awaiting") {
+          getTicketListSupport("", searchedTitle, uriParam, status);
+        } else {
+          getTicketListSupport(
+            userInformation.id,
+            searchedTitle,
+            uriParam,
+            status
+          );
+        }
+      } else {
+        if (status == "done" || status == "awaiting") {
+          getTicketListSupport("", "", uriParam, status);
+        } else {
+          getTicketListSupport(userInformation.id, "", uriParam, status);
+        }
+      }
     }
   }, [status, searchedTitle]);
 
