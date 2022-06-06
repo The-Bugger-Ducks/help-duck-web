@@ -70,7 +70,6 @@ const TicketList: React.FC<{
           );
         }
       } else {
-        console.log(status);
         if (status == "done" || status == "awaiting") {
           getTicketListSupport("", "", uriParam, status);
         } else {
