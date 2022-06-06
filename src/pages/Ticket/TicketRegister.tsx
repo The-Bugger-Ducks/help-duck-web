@@ -1,33 +1,33 @@
-import { useState, FormEvent, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState, FormEvent, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
-import { FiArrowLeft } from 'react-icons/fi';
+import { FiArrowLeft } from "react-icons/fi";
 
-import { TicketRequests } from '../../shared/utils/requests/Ticket.requests';
+import { TicketRequests } from "../../shared/utils/requests/Ticket.requests";
 
-import Button from '../../shared/components/Button';
-import Footer from '../../shared/components/Footer';
-import Header from '../../shared/components/Header';
-import TextField from '../../shared/components/TextField';
-import ChoiceField from '../../shared/components/ChoiceField';
-import LoadingContainer from '../../shared/components/Loading/LoadingContainer';
+import Button from "../../shared/components/Button";
+import Footer from "../../shared/components/Footer";
+import Header from "../../shared/components/Header";
+import TextField from "../../shared/components/TextField";
+import ChoiceField from "../../shared/components/ChoiceField";
+import LoadingContainer from "../../shared/components/Loading/LoadingContainer";
 
-import SessionController from '../../shared/utils/handlers/SessionController';
-import '../../shared/styles/pages/ticket/TicketRegister.css';
-import { EquipmentUpdate } from '../../shared/interfaces/equipment.interface';
-import { EquipmentRequests } from '../../shared/utils/requests/Equipment.requests';
-import Ticket from '../../shared/interfaces/ticket.interface';
-import { ProblemRequests } from '../../shared/utils/requests/Problem.requests';
+import SessionController from "../../shared/utils/handlers/SessionController";
+import "../../shared/styles/pages/ticket/TicketRegister.css";
+import { EquipmentUpdate } from "../../shared/interfaces/equipment.interface";
+import { EquipmentRequests } from "../../shared/utils/requests/Equipment.requests";
+import Ticket from "../../shared/interfaces/ticket.interface";
+import { ProblemRequests } from "../../shared/utils/requests/Problem.requests";
 
 export default function TicketRegister() {
   const equipmentRequest = new EquipmentRequests();
-  const [title, setTitle] = useState('');
-  const [priorityLevel, setPriorityLevel] = useState('');
-  const [problem, setProblem] = useState<Ticket['problem']>();
-  const [description, setDescription] = useState('');
-  const [department, setDepartment] = useState('');
+  const [title, setTitle] = useState("");
+  const [priorityLevel, setPriorityLevel] = useState("");
+  const [problem, setProblem] = useState<Ticket["problem"]>();
+  const [description, setDescription] = useState("");
+  const [department, setDepartment] = useState("");
   const [equipments, setEquipments] = useState<EquipmentUpdate[]>();
-  const [equipmentSelected, setEquipmentSelected] = useState('');
+  const [equipmentSelected, setEquipmentSelected] = useState("");
   const [loading, setLoading] = useState(false);
   const [ticketProblems, setTicketProblems] =
     useState<Array<{ value: string; label: string; selected?: boolean }>>();
@@ -38,9 +38,9 @@ export default function TicketRegister() {
   const navigate = useNavigate();
 
   const ticketPriority = [
-    { value: 'low', label: 'Prioridade baixa', selected: false },
-    { value: 'medium', label: 'Prioridade média', selected: false },
-    { value: 'high', label: 'Prioridade alta', selected: false },
+    { value: "low", label: "Prioridade baixa", selected: false },
+    { value: "medium", label: "Prioridade média", selected: false },
+    { value: "high", label: "Prioridade alta", selected: false },
   ];
 
   useEffect(() => {
@@ -77,10 +77,10 @@ export default function TicketRegister() {
     value: string;
     label: string;
     selected?: boolean | undefined;
-  }[] = [];
+  }[] = [{ value: "", label: "Selecione uma opção", selected: false }];
 
   equipments &&
-    equipments.map(equipment => {
+    equipments.map((equipment) => {
       const listValue = {
         label: equipment.name,
         value: equipment.id,
@@ -111,16 +111,16 @@ export default function TicketRegister() {
     event.preventDefault();
 
     if (
-      title === '' ||
-      description === '' ||
-      priorityLevel === '' ||
+      title === "" ||
+      description === "" ||
+      priorityLevel === "" ||
       problem === null
     ) {
-      return alert('Preencha todos os campos');
+      return alert("Preencha todos os campos");
     }
 
     const user = SessionController.getUserInfo();
-    if (!user) return alert('Não foi possivel cadastrar seu chamado');
+    if (!user) return alert("Não foi possivel cadastrar seu chamado");
 
     const payload = {
       title,
@@ -139,9 +139,9 @@ export default function TicketRegister() {
     setLoading(false);
 
     if (response?.status === 201) {
-      alert('Chamado cadastrado com sucesso!');
+      alert("Chamado cadastrado com sucesso!");
 
-      navigate('/homepage');
+      navigate("/homepage");
     }
   }
 
@@ -158,7 +158,7 @@ export default function TicketRegister() {
                   className="navigation-button"
                   color="var(--color-gray-dark)"
                   onClick={() => {
-                    navigate('/homepage');
+                    navigate("/homepage");
                   }}
                 />
                 Cadastro de chamado
@@ -173,23 +173,23 @@ export default function TicketRegister() {
                       <TextField
                         type="text"
                         placeholder="Título do chamado"
-                        onChange={event => setTitle(event.target.value)}
+                        onChange={(event) => setTitle(event.target.value)}
                         name="titulo"
-                        height={'32px'}
-                        backgroundColor={'#FAFAFA'}
+                        height={"32px"}
+                        backgroundColor={"#FAFAFA"}
                       />
                     </div>
                     <div className="ticket-register-select">
                       <label htmlFor="tipo">Tipo de problema</label>
                       <ChoiceField
-                        onChange={event =>
+                        onChange={(event) =>
                           handleProblemType(event.target.value)
                         }
                         name="tipo"
                         items={ticketProblems ?? []}
-                        padding={'0.2rem'}
-                        height={'32px'}
-                        backgroundColor={'#FAFAFA'}
+                        padding={"0.2rem"}
+                        height={"32px"}
+                        backgroundColor={"#FAFAFA"}
                       />
                     </div>
                   </div>
@@ -197,12 +197,14 @@ export default function TicketRegister() {
                     <div className="ticket-priority">
                       <label htmlFor="prioridade">Grau de prioridade</label>
                       <ChoiceField
-                        onChange={event => setPriorityLevel(event.target.value)}
+                        onChange={(event) =>
+                          setPriorityLevel(event.target.value)
+                        }
                         name="prioridade"
                         items={ticketPriority}
-                        padding={'0.2rem'}
-                        height={'32px'}
-                        backgroundColor={'#FAFAFA'}
+                        padding={"0.2rem"}
+                        height={"32px"}
+                        backgroundColor={"#FAFAFA"}
                       />
                     </div>
                     <div className="ticket-equipment">
@@ -210,12 +212,14 @@ export default function TicketRegister() {
                         Equipamento relacionado:
                       </label>
                       <ChoiceField
-                        onChange={event => handleEquipment(event.target.value)}
+                        onChange={(event) =>
+                          handleEquipment(event.target.value)
+                        }
                         name="equipment"
                         items={equipmentList}
-                        padding={'0.2rem'}
-                        height={'32px'}
-                        backgroundColor={'#FAFAFA'}
+                        padding={"0.2rem"}
+                        height={"32px"}
+                        backgroundColor={"#FAFAFA"}
                         required={false}
                       />
                     </div>
@@ -225,7 +229,7 @@ export default function TicketRegister() {
                   <label htmlFor="titulo">Descrição do problema</label>
                   <textarea
                     placeholder="Descreva seu problema aqui"
-                    onChange={event => setDescription(event.target.value)}
+                    onChange={(event) => setDescription(event.target.value)}
                     name="description"
                   />
                 </section>
