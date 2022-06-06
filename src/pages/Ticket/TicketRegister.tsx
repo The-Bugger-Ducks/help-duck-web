@@ -55,7 +55,7 @@ export default function TicketRegister() {
       value: string;
       label: string;
       selected?: boolean;
-    }> = [];
+    }> = [{ value: "", label: "Selecione uma opção", selected: false }];
 
     problems.content.map((problem: { id: string; title: string }) => {
       problemsList.push({
