@@ -1,20 +1,20 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 
-import SessionController from "../utils/handlers/SessionController";
-import { TicketRequests } from "../utils/requests/Ticket.requests";
+import SessionController from '../utils/handlers/SessionController';
+import { TicketRequests } from '../utils/requests/Ticket.requests';
 
-import Ticket from "../../shared/interfaces/ticket.interface";
-import { status } from "../types/status";
-import { SortTicketTableTypes, OrderByTypes } from "../constants/sortTableEnum";
-import { Pageable } from "../interfaces/pagable.interface";
+import Ticket from '../../shared/interfaces/ticket.interface';
+import { status } from '../types/status';
+import { SortTicketTableTypes, OrderByTypes } from '../constants/sortTableEnum';
+import { Pageable } from '../interfaces/pagable.interface';
 
-import TicketTable from "./TicketTable";
-import Pagination from "./Pagination/Pagination";
+import TicketTable from './TicketTable';
+import Pagination from './Pagination/Pagination';
 
-import "../styles/components/TicketList.css";
+import '../styles/components/TicketList.css';
 
 const TicketList: React.FC<{
-  status: status | "";
+  status: status | '';
   searchedTitle: string;
 }> = ({ status, searchedTitle }) => {
   const [loading, setLoading] = useState(false);
@@ -25,78 +25,137 @@ const TicketList: React.FC<{
   const [orderBy, setOrderBy] = useState<OrderByTypes>();
   const [sort, setSort] = useState<SortTicketTableTypes>();
 
+  const [uriParam, setUriParam] = useState('');
+
   const [pageSize, setPageSize] = useState(20);
   const [pageNumber, setPageNumber] = useState(0);
 
   const [typeTicketList, setTypeTicketList] = useState<
-    "client" | "support" | "status"
+    'client' | 'support' | 'status'
   >();
 
   const ticketRequest = new TicketRequests();
   const userInformation = SessionController.getUserInfo();
 
   useEffect(() => {
-    if (userInformation?.role === "client") {
-      if (searchedTitle.length != 0) {
-        getTicketSearched("", searchedTitle);
+    if (userInformation?.role === 'client') {
+      if (status == 'done') {
+        if (searchedTitle.length != 0) {
+          getTicketListClient('', searchedTitle, uriParam, status);
+        } else {
+          getTicketListClient('', '', uriParam, status);
+        }
       } else {
-        status === "done" ? getTicketPerStatus(status) : getTicketListClient();
+        if (searchedTitle.length != 0) {
+          getTicketListClient(
+            userInformation.id,
+            searchedTitle,
+            uriParam,
+            status
+          );
+        } else {
+          getTicketListClient(userInformation.id, '', uriParam, status);
+        }
       }
-    } else if (userInformation?.role === "support") {
+    } else if (userInformation?.role === 'support') {
       if (searchedTitle.length != 0) {
-        getTicketSearched("", searchedTitle);
+        if (status == 'done' || status == 'awaiting') {
+          getTicketListSupport('', searchedTitle, uriParam, status);
+        } else {
+          getTicketListSupport(
+            userInformation.id,
+            searchedTitle,
+            uriParam,
+            status
+          );
+        }
       } else {
-        getTicketPerStatus(status);
+        if (status == 'done' || status == 'awaiting') {
+          getTicketListSupport('', '', uriParam, status);
+        } else {
+          getTicketListSupport(userInformation.id, '', uriParam, status);
+        }
       }
     }
   }, [status, searchedTitle]);
 
-  async function getTicketListClient(sorting?: string) {
+  async function getTicketListClient(
+    id: string,
+    title: string,
+    sorting?: string,
+    status?: string
+  ) {
     setLoading(true);
-    const response = await ticketRequest.ticketListById(sorting);
+
+    const response = await ticketRequest.searchTicketClient(
+      id,
+      title,
+      sorting,
+      status
+    );
 
     setTickets(response.content ?? []);
-    setTypeTicketList("client");
+    setTypeTicketList('client');
     setPageable(response);
     setLoading(false);
   }
 
-  async function getTicketSearched(sorting?: string, title?: string) {
+  async function getTicketListSupport(
+    id: string,
+    title: string,
+    sorting?: string,
+    status?: string
+  ) {
     setLoading(true);
-    const response = await ticketRequest.searchTicket(sorting, title);
-
-    setTickets(response.content ?? []);
-    setTypeTicketList("client");
-    setPageable(response);
-    setLoading(false);
-  }
-
-  async function getTicketListSupport(sorting?: string) {
-    setLoading(true);
-    const response = await ticketRequest.ticketListBySupport(sorting);
+    const response = await ticketRequest.searchTicketSupport(
+      id,
+      title,
+      sorting,
+      status
+    );
 
     const ticketsResponse: Ticket[] = response.content;
 
-    const tickets = ticketsResponse.filter(
-      (ticket) => ticket.status === "underAnalysis"
-    );
-
-    setTickets(tickets ?? []);
-    setTypeTicketList("support");
+    setTickets(ticketsResponse ?? []);
+    setTypeTicketList('support');
     setPageable(response);
     setLoading(false);
   }
 
-  async function getTicketPerStatus(status: status | "", sorting?: string) {
-    if (status === "underAnalysis" || status === "") {
-      return getTicketListSupport();
+  async function getTicketSupportPerStatus(
+    id: string,
+    title: string,
+    status: status | '',
+    sorting?: string
+  ) {
+    if (status === 'underAnalysis' || status === '') {
+      return getTicketListSupport(id, title, sorting);
     }
 
     setLoading(true);
     const response = await ticketRequest.ticketListPerStatus(status, sorting);
 
     setTickets(response.content ?? []);
-    setTypeTicketList("status");
+    setTypeTicketList('status');
+    setPageable(response);
+    setLoading(false);
+  }
+
+  async function getTicketClientPerStatus(
+    id: string,
+    title: string,
+    status: status | '',
+    sorting?: string
+  ) {
+    if (status === 'underAnalysis' || status === '') {
+      return getTicketListClient(id, title, sorting);
+    }
+
+    setLoading(true);
+    const response = await ticketRequest.ticketListPerStatus(status, sorting);
+
+    setTickets(response.content ?? []);
+    setTypeTicketList('status');
     setPageable(response);
     setLoading(false);
   }
@@ -107,7 +166,7 @@ const TicketList: React.FC<{
   ) {
     const containsOrderBy = orderBy !== OrderByTypes.none;
 
-    let sortAux = "";
+    let sortAux = '';
     if (containsOrderBy) {
       sortAux = `page=${pageNumber}&size=${pageSize}&sort=${type},${orderBy}`;
     } else {
@@ -116,20 +175,47 @@ const TicketList: React.FC<{
 
     setSort(type);
     setOrderBy(orderBy);
+    setUriParam(sortAux);
 
     if (searchedTitle.length != 0) {
-      if (typeTicketList == "client") {
-        getTicketSearched(sortAux, searchedTitle);
-      } else if (typeTicketList == "support") {
-        getTicketSearched(sortAux, searchedTitle);
+      if (typeTicketList == 'client') {
+        if (status == 'done') {
+          getTicketListClient('', searchedTitle, sortAux, status);
+        } else {
+          getTicketListClient(
+            userInformation?.id ? userInformation.id : '',
+            searchedTitle,
+            sortAux,
+            status
+          );
+        }
+      } else if (typeTicketList == 'support') {
+        getTicketListSupport(
+          userInformation?.id ? userInformation.id : '',
+          searchedTitle,
+          sortAux,
+          status
+        );
       }
     } else {
-      if (typeTicketList == "client") {
-        getTicketListClient(sortAux);
-      } else if (typeTicketList == "support") {
-        getTicketListSupport(sortAux);
-      } else {
-        getTicketPerStatus(status, sortAux);
+      if (typeTicketList == 'client') {
+        if (status == 'done') {
+          getTicketListClient('', '', sortAux, status);
+        } else {
+          getTicketListClient(
+            userInformation?.id ? userInformation.id : '',
+            '',
+            sortAux,
+            status
+          );
+        }
+      } else if (typeTicketList == 'support') {
+        getTicketListSupport(
+          userInformation?.id ? userInformation.id : '',
+          '',
+          sortAux,
+          status
+        );
       }
     }
   }
@@ -138,20 +224,56 @@ const TicketList: React.FC<{
     setPageNumber(pageNumber);
     setPageSize(pageSize);
 
-    let sortAux = "";
+    let sortAux = '';
     if (orderBy) {
-      sortAux = `page=${pageNumber}&size=${pageSize}&sort=${sort},${orderBy}`;
+      if (sort) {
+        sortAux = `page=${pageNumber}&size=${pageSize}&sort=${sort},${orderBy}`;
+      } else {
+        sortAux = `page=${pageNumber}&size=${pageSize}&sort=${orderBy}`;
+      }
     } else {
-      sortAux = `page=${pageNumber}&size=${pageSize}&sort=${sort}`;
+      if (sort) {
+        sortAux = `page=${pageNumber}&size=${pageSize}&sort=${sort}`;
+      } else {
+        sortAux = `page=${pageNumber}&size=${pageSize}`;
+      }
     }
 
-    if (typeTicketList == "client") {
-      getTicketListClient(sortAux);
-    } else if (typeTicketList == "support") {
-      getTicketListSupport(sortAux);
+    if (searchedTitle.length != 0) {
+      if (typeTicketList == 'client') {
+        if (status == 'done') {
+          sortAux += '&';
+          getTicketListClient('', searchedTitle, sortAux, status);
+        } else {
+          getTicketListClient(
+            userInformation?.id ? userInformation.id : '',
+            searchedTitle,
+            sortAux,
+            status
+          );
+        }
+      } else if (typeTicketList == 'support') {
+        getTicketListSupport('', searchedTitle, sortAux, status);
+      }
     } else {
-      getTicketPerStatus(status, sortAux);
+      if (typeTicketList == 'client') {
+        if (status == 'done') {
+          sortAux += '&';
+          getTicketListClient('', '', sortAux, status);
+        } else {
+          getTicketListClient(
+            userInformation?.id ? userInformation.id : '',
+            '',
+            sortAux,
+            status
+          );
+        }
+      } else if (typeTicketList == 'support') {
+        sortAux += '&';
+        getTicketListSupport('', '', sortAux, status);
+      }
     }
+    setUriParam(sortAux);
   }
 
   return (

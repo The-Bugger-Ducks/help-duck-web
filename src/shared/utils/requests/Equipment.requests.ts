@@ -78,4 +78,34 @@ export class EquipmentRequests {
       this.navigate("/homepage");
     }
   }
+
+  public async searchEquipment(
+    equipmentName: string,
+    department: string,
+    sorting?: string
+  ) {
+    try {
+      let url = `${EQUIPMENT_ENDPOINTS.EQUIPMENT_SEARCH}`;
+
+      if (equipmentName.length != 0 && department.length == 0) {
+        url += `?name=${equipmentName}`;
+      } else if (equipmentName.length != 0 && department.length != 0) {
+        url += `?name=${equipmentName}&department=${department}`;
+      } else if (department.length != 0 && equipmentName.length == 0) {
+        url += `?department=${department}`;
+      }
+
+      if (sorting && equipmentName.length == 0 && department.length == 0) {
+        url += `?${sorting}`;
+      } else if (sorting) {
+        url += `&${sorting}`;
+      }
+
+      const { data } = await apiEquipment.get(url, { validateStatus });
+
+      return data;
+    } catch (error) {
+      alert("Não foi possível realizar filtro, tente novamente!");
+    }
+  }
 }

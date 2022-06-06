@@ -40,6 +40,21 @@
   color: var(--color-black-light);
 }
 
+#homepage .search-or-filter button {
+  font-size: 1rem !important;
+  font-weight: 500 !important;
+  background: #fafafa !important;
+  border: 1px solid #ced4da !important;
+  color: #868e96 !important;
+  vertical-align: middle;
+}
+
+#homepage .Icon {
+  font-size: larger;
+  padding-top: 0.4rem;
+  margin-right: 0.6rem;
+}
+
 #homepage .search-or-filter {
   margin-bottom: 3%;
   width: 100%;
@@ -53,6 +68,16 @@
   margin-top: 2%;
   text-align: end;
   margin-bottom: 5%;
+}
+
+#homepage .btn-open-ticket a {
+  margin-left: 1rem;
+}
+
+#homepage .navigation-button {
+  cursor: pointer;
+  margin-right: 0.5rem;
+  width: 1.5rem;
 }
 
 @media only screen and (max-width: 500px) {
@@ -82,9 +107,9 @@
 
   #homepage .btn-open-ticket button.button-primary,
   #homepage .btn-create-user button.button-primary {
-    width: 50% !important;
+    width: 66% !important;
     height: 2.5rem !important;
-    margin-bottom: 5rem;
+    margin-bottom: 2rem;
   }
 
   #homepage .btn-create-equipment button.button-primary {
@@ -146,7 +171,7 @@
 
   #homepage .btn-open-ticket button.button-primary,
   #homepage .btn-create-user button.button-primary {
-    width: 40% !important;
+    width: 50% !important;
     height: 2.5rem !important;
     margin-bottom: 2rem;
   }

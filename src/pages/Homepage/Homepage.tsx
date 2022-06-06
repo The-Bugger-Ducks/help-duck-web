@@ -1,39 +1,41 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link } from 'react-router-dom';
 
-import Button from "../../shared/components/Button";
-import ChoiceField from "../../shared/components/ChoiceField";
-import Footer from "../../shared/components/Footer";
-import Header from "../../shared/components/Header";
-import TextField from "../../shared/components/TextField";
-import TicketList from "../../shared/components/TicketList";
-import UserList from "../../shared/components/UserList";
-import EquipmentList from "../../shared/components/EquipmentList";
+import Button from '../../shared/components/Button';
+import ChoiceField from '../../shared/components/ChoiceField';
+import Footer from '../../shared/components/Footer';
+import Header from '../../shared/components/Header';
+import TextField from '../../shared/components/TextField';
+import TicketList from '../../shared/components/TicketList';
+import UserList from '../../shared/components/UserList';
+import EquipmentList from '../../shared/components/EquipmentList';
 
-import SessionController from "../../shared/utils/handlers/SessionController";
+import SessionController from '../../shared/utils/handlers/SessionController';
 
-import { status } from "../../shared/types/status";
+import { status } from '../../shared/types/status';
 
-import { getOptionListSelectPerUserRole } from "../../shared/constants/userFilterSelect";
+import { getOptionListSelectPerUserRole } from '../../shared/constants/userFilterSelect';
 
-import "../../shared/styles/pages/homepage/Homepage.css";
+import '../../shared/styles/pages/homepage/Homepage.css';
+import { FiSearch } from 'react-icons/fi';
 
 export default function Homepage() {
   const token = SessionController.getToken();
 
   const navigate = useNavigate();
   const userInformation = SessionController.getUserInfo();
-
-  const [statusFilter, setStatusFilter] = useState<status | "">("");
-  const [inputSearch, setInputSearch] = useState("");
-  const [searchUsername, setSearchUsername] = useState("");
-  const [equipmentStatusFilter, setEquipmentStatusFilter] = useState<
-    status | ""
-  >("");
-  const [pageTitle, setPageTitle] = useState("Chamados");
+  const [statusFilter, setStatusFilter] = useState<status | ''>(
+    userInformation?.role === 'support' ? 'underAnalysis' : ''
+  );
+  const [inputSearch, setInputSearch] = useState('');
+  const [searchUsername, setSearchUsername] = useState('');
+  const [equipmentFilter, setEquipmentFilter] = useState<status | ''>('');
+  const [equipmentName, setEquipmentName] = useState<status | ''>('');
+  const [equipmentInput, setEquipmentInput] = useState<status | ''>('');
+  const [pageTitle, setPageTitle] = useState('Chamados');
   const [searchPlaceholder, setSearchPlaceholder] = useState(
-    "Buscar por título do chamado"
+    'Buscar por título do chamado'
   );
   const [filterOptions, setFilterOptions] = useState(
     getOptionListSelectPerUserRole(userInformation?.role)
@@ -41,12 +43,12 @@ export default function Homepage() {
 
   useEffect(() => {
     if (!token || !userInformation) {
-      navigate("/");
+      navigate('/');
     }
 
-    if (userInformation?.role === "admin") {
-      setSearchPlaceholder("Buscar pelo nome do usuário");
-      setPageTitle("Usuários");
+    if (userInformation?.role === 'admin') {
+      setSearchPlaceholder('Buscar pelo nome do usuário');
+      setPageTitle('Usuários');
     }
   }, []);
 
@@ -57,6 +59,7 @@ export default function Homepage() {
 
   function handleFilterEquipment(event: React.FormEvent) {
     event.preventDefault();
+    setEquipmentName(equipmentInput);
   }
 
   return (
@@ -74,9 +77,10 @@ export default function Homepage() {
               backgroundColor="#FAFAFA"
               type="text"
               height="42px"
-              onChange={(event) => setInputSearch(event.target.value)}
+              onChange={event => setInputSearch(event.target.value)}
             />
             <Button width="20%" type="submit" fontSize="0.8rem">
+              <FiSearch className="Icon" />
               Buscar
             </Button>
           </form>
@@ -86,12 +90,12 @@ export default function Homepage() {
               items={filterOptions}
               width="100%"
               backgroundColor="#FAFAFA"
-              onChange={(event) => setStatusFilter(event.target.value)}
+              onChange={event => setStatusFilter(event.target.value)}
               height="42px"
             />
           </div>
         </section>
-        {userInformation?.role === "admin" ? (
+        {userInformation?.role === 'admin' ? (
           <>
             <UserList filterUserList={statusFilter} username={searchUsername} />
             <div className="btn-create-user">
@@ -105,12 +109,14 @@ export default function Homepage() {
             <section className="search-or-filter">
               <form className="searchTicket" onSubmit={handleFilterEquipment}>
                 <TextField
-                  placeholder={"Busque por um equipamento"}
+                  placeholder={'Busque por um equipamento'}
                   name="search"
                   width="75%"
                   backgroundColor="#FAFAFA"
                   type="text"
                   height="42px"
+                  onChange={event => setEquipmentInput(event.target.value)}
+                  required={false}
                 />
                 <Button width="20%" type="submit" fontSize="0.8rem">
                   Buscar
@@ -122,41 +128,86 @@ export default function Homepage() {
                   items={[
                     {
                       selected: true,
-                      value: "allEquipments",
-                      label: "Todos os equipamentos",
+                      value: '',
+                      label: 'todos os equipamentos',
+                    },
+                    {
+                      selected: false,
+                      value: 'finance',
+                      label: 'financeiro',
+                    },
+                    {
+                      selected: false,
+                      value: 'operations',
+                      label: 'operações',
+                    },
+                    {
+                      selected: false,
+                      value: 'rh',
+                      label: 'RH',
+                    },
+                    {
+                      selected: false,
+                      value: 'eps',
+                      label: 'EPS',
+                    },
+                    {
+                      selected: false,
+                      value: 'ti',
+                      label: 'TI',
+                    },
+                    {
+                      selected: false,
+                      value: 'epdi',
+                      label: 'EPDI',
+                    },
+                    {
+                      selected: false,
+                      value: 'others',
+                      label: 'outros',
                     },
                   ]}
                   width="100%"
                   backgroundColor="#FAFAFA"
-                  onChange={(event) => setStatusFilter(event.target.value)}
+                  onChange={event => setEquipmentFilter(event.target.value)}
                   height="42px"
                   color="#495057"
                 />
               </div>
             </section>
 
-            <EquipmentList />
+            <EquipmentList
+              filterEquipment={equipmentFilter}
+              nameEquipment={equipmentName}
+            />
 
             <div className="btn-create-equipment">
               <Link to="/equipment_register">
-                <Button width="20%">Cadastrar Equipamento</Button>
+                <Button width="20%">Cadastrar equipamento</Button>
               </Link>
             </div>
           </>
         ) : (
           <>
             <TicketList status={statusFilter} searchedTitle={searchUsername} />
-            {userInformation?.role === "client" ? (
-              <div className="btn-open-ticket">
+
+            <div className="btn-open-ticket">
+              <Link id="btn-solutions" to="/solutions_center">
+                <Button backgroundColor="#ADB5BD" color="#F2F2F3" width="25%">
+                  Acessar centro de soluções
+                </Button>
+              </Link>
+
+              {userInformation?.role === 'client' ? (
                 <Link to="/ticket_register">
                   <Button width="20%">Abrir chamado</Button>
                 </Link>
-              </div>
-            ) : null}
+              ) : null}
+            </div>
           </>
         )}
       </div>
-      <Footer id={userInformation?.role === "admin" ? "footer-admin" : ""} />
+      <Footer id={userInformation?.role === 'admin' ? 'footer-admin' : ''} />
     </div>
   );
 }

@@ -4,9 +4,9 @@
 
 Este repositório se refere ao projeto "Help Duck",que consiste em um sistema com 3 frentes:
 
-- **usuário comum**: pode abrir um chamado e acompanhar seu ciclo de vida;
-- **usuário suporte**: atende os chamados abertos;
-- **usuário administrador**: cadastra usuários e gera relatórios relacionado aos chamados.
+- **usuário comum**: pode abrir um chamado, acompanhar seu ciclo de vida ou consultar o centro de soluções;
+- **usuário suporte**: atende os chamados abertos e consulta o centro de soluções;
+- **usuário administrador**: cadastra usuários e equipamentos, além de visualizar relatórios.
 
 > Aplicação desenvolvida por alunos do 3º semestre do tecnólogo em Desenvolvimento de Software Multiplataforma, na FATEC Profº Jessen Vidal - São José dos Campos, SP :rocket:
 
@@ -35,5 +35,23 @@ $ yarn start
 A aplicação inciará localmente na porta 3000. Use o navegador para acessar o link [http://localhost:3000](http://localhost:3000) e executar as funcionalidades da aplicação.
 
 ## 💻 Demonstração
+- Funcionalidades do sistema acessadas pelo usuário comum:
 
-> Em breve
+<div align="center">
+  
+![usuario_comum](https://user-images.githubusercontent.com/69374340/172084663-1e8ae95b-0c84-493c-b4ab-5cfcda5a4eb3.gif)
+</div>
+
+- Funcionalidades do sistema acessadas pelo usuário suporte:
+
+<div align="center">
+  
+![usuario_suporte](https://user-images.githubusercontent.com/69374340/172084712-de2d2905-dc65-41af-97e8-f980eff5f2d1.gif)
+</div>
+
+- Funcionalidades do sistema acessadas pelo usuário administrador:
+
+<div align="center">
+  
+![usuario_administrador](./usuario_administrador.gif)
+</div>

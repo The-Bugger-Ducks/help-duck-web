@@ -1,0 +1,124 @@
+#dashboard .dashboard-container {
+  margin-left: 10%;
+  margin-right: 10%;
+}
+
+#dashboard Header {
+  padding: 0% 10%;
+  width: 100%;
+}
+
+#dashboard .footer {
+  position: fixed !important;
+  bottom: 0 !important;
+}
+
+#dashboard #footer-admin {
+  position: sticky !important;
+}
+
+#dashboard {
+  display: flex;
+  flex-direction: column;
+
+  gap: 1rem
+}
+
+#dashboard .dashboard-container {
+  flex: 1;
+  margin-bottom: 5rem;
+
+}
+
+#dashboard .dashboard-main {
+  display: flex;
+  flex-direction: column;
+
+  gap: 4rem;
+}
+
+#dashboard .dashboard-container h1 {
+  line-height: 5rem;
+  font-weight: 400;
+  color: var(--color-black-light);
+
+  display: flex;
+  align-items: center;
+
+  gap: 1rem;
+}
+#dashboard .dashboard-container h1 .go-back-icon {
+  cursor: pointer;
+}
+
+#dashboard .dashboard-container h1 .go-back-icon:hover {
+  filter: brightness(80%)
+}
+
+#dashboard .dashboard-container .dashboard-content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 4rem;
+}
+
+
+#dashboard .dashboard-container .dashboard-content section {
+  flex: 1;
+
+  min-width: 250px;
+}
+
+#dashboard .dashboard-container .dashboard-content h3 {
+  border-bottom: 1px solid var(--color-black-dark);
+  color: var(--color-black-light);
+  font-weight: 500;
+}
+
+#dashboard .dashboard-container .dashboard-content section ul {
+  list-style: none;
+
+  line-height: 2rem;
+}
+
+#dashboard .dashboard-container .dashboard-content section ul li {
+  display: flex;
+  justify-content: space-between;
+
+  color: var(--color-gray-dark)
+}
+
+#dashboard .dashboard-container .dashboard-content .total-row {
+  border-top: 1px solid var(--color-black-dark);
+
+  color: var(--color-black-light);
+
+  font-weight: 700;
+}
+
+@media only screen and (max-width: 500px) {
+  #dashboard .footer {
+    position: relative !important;
+  }
+
+  #dashboard .footer {
+    margin-top: 3rem;
+  }
+
+  #dashboard .dashboard-container .dashboard-content {
+    gap: 4rem;
+  }
+}
+
+@media only screen and (min-width: 501px) and (max-width: 1024px) {
+
+  #dashboard .footer {
+    position: relative !important;
+  }
+
+  #dashboard .dashboard-container {
+    margin-bottom: 0;
+  }
+
+  
+}

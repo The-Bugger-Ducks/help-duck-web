@@ -55,6 +55,7 @@
 
 .ticket-list-container table td {
   padding: 0.5rem;
+  border-bottom: 1px solid var(--color-white-dark) !important;
 }
 
 .ticket-list-container table tr {

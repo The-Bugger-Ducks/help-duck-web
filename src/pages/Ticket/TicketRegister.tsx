@@ -38,6 +38,7 @@ export default function TicketRegister() {
   const navigate = useNavigate();
 
   const ticketPriority = [
+    { value: '', label: 'Selecione uma opção', selected: false },
     { value: 'low', label: 'Prioridade baixa', selected: false },
     { value: 'medium', label: 'Prioridade média', selected: false },
     { value: 'high', label: 'Prioridade alta', selected: false },
@@ -55,7 +56,7 @@ export default function TicketRegister() {
       value: string;
       label: string;
       selected?: boolean;
-    }> = [];
+    }> = [{ value: '', label: 'Selecione uma opção', selected: false }];
 
     problems.content.map((problem: { id: string; title: string }) => {
       problemsList.push({
@@ -77,7 +78,7 @@ export default function TicketRegister() {
     value: string;
     label: string;
     selected?: boolean | undefined;
-  }[] = [];
+  }[] = [{ value: '', label: 'Selecione uma opção', selected: false }];
 
   equipments &&
     equipments.map(equipment => {
@@ -114,8 +115,7 @@ export default function TicketRegister() {
       title === '' ||
       description === '' ||
       priorityLevel === '' ||
-      problem === null ||
-      equipmentSelected === ''
+      problem === null
     ) {
       return alert('Preencha todos os campos');
     }
@@ -129,7 +129,7 @@ export default function TicketRegister() {
       user,
       priorityLevel,
       problem,
-      equipment: equipmentSelected,
+      equipment: equipmentSelected != '' ? equipmentSelected : null,
       department: user.department,
     };
 
@@ -217,6 +217,7 @@ export default function TicketRegister() {
                         padding={'0.2rem'}
                         height={'32px'}
                         backgroundColor={'#FAFAFA'}
+                        required={false}
                       />
                     </div>
                   </div>

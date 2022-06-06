@@ -1,0 +1,54 @@
+/* ESTILIZAÇÃO GERAL*/
+.solutionAdd-container {
+  /*height: 60vh;*/
+  width: 100%;
+  overflow-x: scroll;
+  border: 0.1rem solid #868e96;
+  border-radius: 0.5rem;
+  min-width: 100%;
+  padding: 1rem;
+}
+
+.solutionAdd-container p {
+  /*width: auto;*/
+  width: 100%;
+}
+
+.solutionAdd-container .separator {
+  height: 0.05rem;
+  background-color: #868e96;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+/* ESTILIZAÇÃO DO FORMULÁRIO */
+.solutionAdd-container form {
+  color: #495057;
+  padding: 1.2rem;
+  text-align: left;
+  margin-right: 0%;
+  height: 40vh;
+}
+
+.solutionAdd-container #tag-add-button {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1rem;
+}
+
+.solutionAdd-container #soluction-description {
+  margin-top: 1rem;
+  width: 100%;
+  height: 7rem;
+  text-align: center;
+}
+
+/* RESPONSIVIDADE */
+@media only screen and (max-width: 824px) {
+  .solutionAdd-container,
+  .section-solutionDetails {
+    display: block;
+    width: 100%;
+    margin: 0;
+  }
+}

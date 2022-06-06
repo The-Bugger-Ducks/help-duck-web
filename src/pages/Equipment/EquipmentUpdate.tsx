@@ -1,23 +1,23 @@
-import { useState, FormEvent, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useState, FormEvent, useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 
-import { departmentListVariable } from "../../shared/constants/departmentList";
+import { departmentListVariable } from '../../shared/constants/departmentList';
 
-import { FiArrowLeft } from "react-icons/fi";
+import { FiArrowLeft } from 'react-icons/fi';
 
-import { EquipmentRequests } from "../../shared/utils/requests/Equipment.requests";
-import { EquipmentUpdate } from "../../shared/interfaces/equipment.interface";
+import { EquipmentRequests } from '../../shared/utils/requests/Equipment.requests';
+import { EquipmentUpdate } from '../../shared/interfaces/equipment.interface';
 
-import Button from "../../shared/components/Button";
-import Footer from "../../shared/components/Footer";
-import Header from "../../shared/components/Header";
-import TextField from "../../shared/components/TextField";
-import ChoiceField from "../../shared/components/ChoiceField";
-import ButtonDelete from "../../shared/components/ButtonDelete";
-import LoadingContainer from "../../shared/components/Loading/LoadingContainer";
+import Button from '../../shared/components/Button';
+import Footer from '../../shared/components/Footer';
+import Header from '../../shared/components/Header';
+import TextField from '../../shared/components/TextField';
+import ChoiceField from '../../shared/components/ChoiceField';
+import ButtonDelete from '../../shared/components/ButtonDelete';
+import LoadingContainer from '../../shared/components/Loading/LoadingContainer';
 
-import "../../shared/styles/pages/equipment/EquipmentUpdate.css";
-import SessionController from "../../shared/utils/handlers/SessionController";
+import '../../shared/styles/pages/equipment/EquipmentUpdate.css';
+import SessionController from '../../shared/utils/handlers/SessionController';
 
 export default function EquipmentUpdatePage() {
   const equipmentRequests = new EquipmentRequests();
@@ -25,50 +25,50 @@ export default function EquipmentUpdatePage() {
   const { id } = useParams();
 
   const [loading, setLoading] = useState(false);
-  const [name, setName] = useState("");
-  const [model, setModel] = useState("");
-  const [brand, setBrand] = useState("");
-  const [type, setType] = useState("");
-  const [department, setDepartment] = useState("");
-  const [selectedDepartment, setSelectedDepartment] = useState("");
+  const [name, setName] = useState('');
+  const [model, setModel] = useState('');
+  const [brand, setBrand] = useState('');
+  const [type, setType] = useState('');
+  const [department, setDepartment] = useState('');
+  const [selectedDepartment, setSelectedDepartment] = useState('');
 
   function handleDepartmentLabel(departmentLabel: string) {
-    if (departmentLabel == "Marketing e vendas") {
-      setSelectedDepartment("marketingAndSales");
-    } else if (departmentLabel == "Financeiro") {
-      setSelectedDepartment("financial");
-    } else if (departmentLabel == "Operações") {
-      setSelectedDepartment("operations");
-    } else if (departmentLabel == "RH") {
-      setSelectedDepartment("rh");
-    } else if (departmentLabel == "EPS") {
-      setSelectedDepartment("eps");
-    } else if (departmentLabel == "TI") {
-      setSelectedDepartment("ti");
-    } else if (departmentLabel == "EPDI") {
-      setSelectedDepartment("epdi");
-    } else if (departmentLabel == "Outros") {
-      setSelectedDepartment("others");
+    if (departmentLabel === 'Marketing e vendas') {
+      setSelectedDepartment('marketingAndSales');
+    } else if (departmentLabel === 'Financeiro') {
+      setSelectedDepartment('finance');
+    } else if (departmentLabel === 'Operações') {
+      setSelectedDepartment('operations');
+    } else if (departmentLabel === 'RH') {
+      setSelectedDepartment('rh');
+    } else if (departmentLabel === 'EPS') {
+      setSelectedDepartment('eps');
+    } else if (departmentLabel === 'TI') {
+      setSelectedDepartment('ti');
+    } else if (departmentLabel === 'EPDI') {
+      setSelectedDepartment('epdi');
+    } else if (departmentLabel === 'Outros') {
+      setSelectedDepartment('others');
     }
   }
 
   function handleDepartmentValue(departmentValue: string) {
-    if (departmentValue == "marketingAndSales") {
-      setDepartment("Marketing e vendas");
-    } else if (departmentValue == "financial") {
-      setDepartment("Financeiro");
-    } else if (departmentValue == "operations") {
-      setDepartment("Operações");
-    } else if (departmentValue == "rh") {
-      setDepartment("RH");
-    } else if (departmentValue == "eps") {
-      setDepartment("EPS");
-    } else if (departmentValue == "ti") {
-      setDepartment("TI");
-    } else if (departmentValue == "epdi") {
-      setDepartment("EPDI");
-    } else if (departmentValue == "others") {
-      setDepartment("Outros");
+    if (departmentValue === 'marketingAndSales') {
+      setDepartment('Marketing e vendas');
+    } else if (departmentValue === 'finance') {
+      setDepartment('Financeiro');
+    } else if (departmentValue === 'operations') {
+      setDepartment('Operações');
+    } else if (departmentValue === 'rh') {
+      setDepartment('RH');
+    } else if (departmentValue === 'eps') {
+      setDepartment('EPS');
+    } else if (departmentValue === 'ti') {
+      setDepartment('TI');
+    } else if (departmentValue === 'epdi') {
+      setDepartment('EPDI');
+    } else if (departmentValue === 'others') {
+      setDepartment('Outros');
     }
   }
 
@@ -83,7 +83,7 @@ export default function EquipmentUpdatePage() {
   async function getEquipment() {
     setLoading(true);
     const response: EquipmentUpdate = await equipmentRequests.listEquipmentByID(
-      id ?? ""
+      id ?? ''
     );
 
     setName(response.name);
@@ -98,20 +98,20 @@ export default function EquipmentUpdatePage() {
   }
 
   function back() {
-    navigate("/homepage");
+    navigate('/homepage');
   }
 
   async function deleteEquipment() {
     const isConfirmed = window.confirm(
-      "Tem certeza de que deseja excluir o equipamento?"
+      'Tem certeza de que deseja excluir o equipamento?'
     );
 
     if (isConfirmed) {
       setLoading(true);
-      await equipmentRequests.deleteEquipment(id ?? "");
+      await equipmentRequests.deleteEquipment(id ?? '');
       setLoading(false);
-      alert("Equipamento deletado com sucesso!");
-      navigate("/homepage");
+      alert('Equipamento deletado com sucesso!');
+      navigate('/homepage');
     }
   }
 
@@ -121,7 +121,7 @@ export default function EquipmentUpdatePage() {
     const user = SessionController.getUserInfo();
 
     const payload: EquipmentUpdate = {
-      id: id ?? "",
+      id: id ?? '',
       name: name,
       model: model,
       brand: brand,
@@ -133,8 +133,8 @@ export default function EquipmentUpdatePage() {
     await equipmentRequests.updateEquipment(payload);
 
     setLoading(false);
-    alert("Equipamento editado com sucesso!");
-    navigate("/homepage");
+    alert('Equipamento editado com sucesso!');
+    navigate('/homepage');
   }
 
   return (
@@ -164,7 +164,7 @@ export default function EquipmentUpdatePage() {
                     <TextField
                       type="text"
                       placeholder={name}
-                      onChange={(event) => setName(event.target.value)}
+                      onChange={event => setName(event.target.value)}
                       name="name"
                       backgroundColor="#FAFAFA"
                     />
@@ -209,7 +209,7 @@ export default function EquipmentUpdatePage() {
                       name="department"
                       items={departmentListVariable(selectedDepartment)}
                       backgroundColor="#FAFAFA"
-                      onChange={(event) =>
+                      onChange={event =>
                         handleDepartmentValue(event.target.value)
                       }
                     />
@@ -222,11 +222,11 @@ export default function EquipmentUpdatePage() {
                   width="15rem"
                   onClick={deleteEquipment}
                 >
-                  Excluir
+                  Excluir equipamento
                 </ButtonDelete>
 
                 <Button type="submit" width="15rem" color="#FAFAFA">
-                  Editar
+                  Confirmar alterações
                 </Button>
               </section>
             </form>

@@ -1,45 +1,45 @@
-import { User } from "../interfaces/user.interface";
+import { User } from '../interfaces/user.interface';
 
-export function getOptionListSelectPerUserRole(role?: User["role"]) {
-  if (role == "admin") {
+export function getOptionListSelectPerUserRole(role?: User['role']) {
+  if (role === 'admin') {
     return [
       {
-        value: "allUsers",
-        label: "Todos os usuários",
+        value: 'allUsers',
+        label: 'Todos os usuários',
         selected: true,
       },
       {
-        value: "admin",
-        label: "Administradores",
+        value: 'admin',
+        label: 'Administradores',
         selected: false,
       },
       {
-        value: "support",
-        label: "Suportes",
+        value: 'support',
+        label: 'Suportes',
         selected: false,
       },
       {
-        value: "client",
-        label: "Comuns",
+        value: 'client',
+        label: 'Comuns',
         selected: false,
       },
-    ]
-  } else if (role == "support") {
+    ];
+  } else if (role === 'support') {
     return [
       {
         selected: true,
-        value: "underAnalysis",
-        label: "Meus atendimentos",
+        value: 'underAnalysis',
+        label: 'Meus atendimentos',
       },
       {
-        value: "awaiting",
-        label: "Abertos",
+        value: 'awaiting',
+        label: 'Chamados abertos',
       },
       {
-        value: "done",
-        label: "Fechados",
+        value: 'done',
+        label: 'Chamados fechados',
       },
-    ]
+    ];
   } else {
     return [
       {
@@ -51,6 +51,6 @@ export function getOptionListSelectPerUserRole(role?: User["role"]) {
         value: 'done',
         label: 'Todos os chamados concluídos',
       },
-    ]
+    ];
   }
 }

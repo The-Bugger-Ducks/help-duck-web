@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 interface UserInformationProps {
   name: React.ReactElement | string;
@@ -18,9 +18,9 @@ const UserComponent: React.FC<UserInformationProps> = ({
   return (
     <tr onClick={onClick}>
       <td id="name">{name}</td>
-      <td>{email}</td>
-      <td>{role}</td>
-      <td>{department}</td>
+      <td id="email">{email}</td>
+      <td id="role">{role}</td>
+      <td id="department">{department}</td>
     </tr>
   );
 };

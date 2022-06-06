@@ -1,66 +1,66 @@
-import { useState, FormEvent } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState, FormEvent } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-import { FiArrowLeft } from "react-icons/fi";
+import { FiArrowLeft } from 'react-icons/fi';
 
-import { EquipmentRequests } from "../../shared/utils/requests/Equipment.requests";
-import { Equipment } from "../../shared/interfaces/equipment.interface";
-import { departmentList } from "../../shared/constants/departmentList";
+import { EquipmentRequests } from '../../shared/utils/requests/Equipment.requests';
+import { Equipment } from '../../shared/interfaces/equipment.interface';
+import { departmentList } from '../../shared/constants/departmentList';
 
-import Button from "../../shared/components/Button";
-import Footer from "../../shared/components/Footer";
-import Header from "../../shared/components/Header";
-import TextField from "../../shared/components/TextField";
-import ChoiceField from "../../shared/components/ChoiceField";
-import LoadingContainer from "../../shared/components/Loading/LoadingContainer";
+import Button from '../../shared/components/Button';
+import Footer from '../../shared/components/Footer';
+import Header from '../../shared/components/Header';
+import TextField from '../../shared/components/TextField';
+import ChoiceField from '../../shared/components/ChoiceField';
+import LoadingContainer from '../../shared/components/Loading/LoadingContainer';
 
-import SessionController from "../../shared/utils/handlers/SessionController";
+import SessionController from '../../shared/utils/handlers/SessionController';
 
-import "../../shared/styles/pages/equipment/EquipmentRegister.css";
+import '../../shared/styles/pages/equipment/EquipmentRegister.css';
 
 export default function EquipmentRegister() {
   const equipmentRequests = new EquipmentRequests();
   const navigate = useNavigate();
 
   const [loading, setLoading] = useState(false);
-  const [name, setName] = useState("");
-  const [model, setModel] = useState("");
-  const [brand, setBrand] = useState("");
-  const [type, setType] = useState("");
-  const [department, setDepartment] = useState("");
+  const [name, setName] = useState('');
+  const [model, setModel] = useState('');
+  const [brand, setBrand] = useState('');
+  const [type, setType] = useState('');
+  const [department, setDepartment] = useState('');
 
   function back() {
-    navigate("/homepage");
+    navigate('/homepage');
   }
 
   function handleDepartment(departmentValue: string) {
-    if (departmentValue === "marketingAndSales") {
-      setDepartment("Marketing e vendas");
-    } else if (departmentValue === "financial") {
-      setDepartment("Financeiro");
-    } else if (departmentValue === "operations") {
-      setDepartment("Operações");
-    } else if (departmentValue === "rh") {
-      setDepartment("RH");
-    } else if (departmentValue === "eps") {
-      setDepartment("EPS");
-    } else if (departmentValue === "ti") {
-      setDepartment("TI");
-    } else if (departmentValue === "epdi") {
-      setDepartment("EPDI");
-    } else if (departmentValue == "others") {
-      setDepartment("Outros");
+    if (departmentValue === 'marketingAndSales') {
+      setDepartment('Marketing e vendas');
+    } else if (departmentValue === 'finance') {
+      setDepartment('Financeiro');
+    } else if (departmentValue === 'operations') {
+      setDepartment('Operações');
+    } else if (departmentValue === 'rh') {
+      setDepartment('RH');
+    } else if (departmentValue === 'eps') {
+      setDepartment('EPS');
+    } else if (departmentValue === 'ti') {
+      setDepartment('TI');
+    } else if (departmentValue === 'epdi') {
+      setDepartment('EPDI');
+    } else if (departmentValue === 'others') {
+      setDepartment('Outros');
     }
   }
 
   async function submitForm(event: FormEvent) {
     event.preventDefault();
-    if (name === "" || model === "" || brand === "" || type === "") {
-      return alert("Preencha todos os campos");
+    if (name === '' || model === '' || brand === '' || type === '') {
+      return alert('Preencha todos os campos');
     }
 
     const user = SessionController.getUserInfo();
-    if (!user) return alert("Não foi possivel cadastrar seu chamado");
+    if (!user) return alert('Não foi possivel cadastrar seu chamado');
 
     const payload: Equipment = {
       name: name,
@@ -75,9 +75,9 @@ export default function EquipmentRegister() {
 
     setLoading(false);
     if (response?.status === 201) {
-      alert("Equipamento cadastrado com sucesso!");
+      alert('Equipamento cadastrado com sucesso!');
 
-      navigate("/homepage");
+      navigate('/homepage');
     }
   }
 
@@ -108,7 +108,7 @@ export default function EquipmentRegister() {
                     <TextField
                       type="text"
                       placeholder="Nome do equipamento"
-                      onChange={(event) => setName(event.target.value)}
+                      onChange={event => setName(event.target.value)}
                       name="name"
                       backgroundColor="#FAFAFA"
                     />
@@ -116,7 +116,7 @@ export default function EquipmentRegister() {
                   <div>
                     <label htmlFor="brand">Marca</label>
                     <TextField
-                      onChange={(event) => setBrand(event.target.value)}
+                      onChange={event => setBrand(event.target.value)}
                       name="brand"
                       type="text"
                       placeholder="Marca do equipamento"
@@ -131,7 +131,7 @@ export default function EquipmentRegister() {
                     <TextField
                       type="text"
                       placeholder="Modelo do equipamento"
-                      onChange={(event) => setModel(event.target.value)}
+                      onChange={event => setModel(event.target.value)}
                       name="model"
                       backgroundColor="#FAFAFA"
                     />
@@ -141,7 +141,7 @@ export default function EquipmentRegister() {
                     <TextField
                       type="text"
                       placeholder="Tipo do equipamento"
-                      onChange={(event) => setType(event.target.value)}
+                      onChange={event => setType(event.target.value)}
                       name="type"
                       backgroundColor="#FAFAFA"
                     />
@@ -155,7 +155,7 @@ export default function EquipmentRegister() {
                       name="department"
                       items={departmentList()}
                       backgroundColor="#FAFAFA"
-                      onChange={(event) => handleDepartment(event.target.value)}
+                      onChange={event => handleDepartment(event.target.value)}
                     />
                   </div>
                 </section>
