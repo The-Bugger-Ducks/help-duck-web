@@ -1,23 +1,23 @@
-import { FormEvent, useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { FormEvent, useState, useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 
-import { UserRequests } from "../../shared/utils/requests/User.requests";
-import { FiArrowLeft } from "react-icons/fi";
-import { departmentListVariable } from "../../shared/constants/departmentList";
-import Button from "../../shared/components/Button";
-import ButtonDelete from "../../shared/components/ButtonDelete";
-import Footer from "../../shared/components/Footer";
-import Header from "../../shared/components/Header";
-import TextField from "../../shared/components/TextField";
-import SelectInput from "../../shared/components/ChoiceField";
-import LoadingContainer from "../../shared/components/Loading/LoadingContainer";
+import { UserRequests } from '../../shared/utils/requests/User.requests';
+import { FiArrowLeft } from 'react-icons/fi';
+import { departmentListVariable } from '../../shared/constants/departmentList';
+import Button from '../../shared/components/Button';
+import ButtonDelete from '../../shared/components/ButtonDelete';
+import Footer from '../../shared/components/Footer';
+import Header from '../../shared/components/Header';
+import TextField from '../../shared/components/TextField';
+import SelectInput from '../../shared/components/ChoiceField';
+import LoadingContainer from '../../shared/components/Loading/LoadingContainer';
 
-import { User } from "../../shared/interfaces/user.interface";
+import { User } from '../../shared/interfaces/user.interface';
 
-import SessionController from "../../shared/utils/handlers/SessionController";
+import SessionController from '../../shared/utils/handlers/SessionController';
 
-import "../../shared/styles/pages/user/UserUpdate.css";
-import ChoiceField from "../../shared/components/ChoiceField";
+import '../../shared/styles/pages/user/UserUpdate.css';
+import ChoiceField from '../../shared/components/ChoiceField';
 
 type Role = {
   value: string;
@@ -27,24 +27,24 @@ type Role = {
 
 export default function UserUpdate() {
   const [loading, setLoading] = useState(false);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [name, setName] = useState("");
-  const [lastname, setLastname] = useState("");
-  const [role, setRole] = useState<"admin" | "support" | "client">();
-  const [selectedDepartment, setSelectedDepartment] = useState("");
-  const [department, setDepartment] = useState("");
-  const [emailPlaceholder, setEmailPlaceholder] = useState("");
-  const [namePlaceholder, setNamePlaceholder] = useState("");
-  const [userID, setUserID] = useState("");
-  const [lastnamePlaceholder, setLastNamePlaceholder] = useState("");
-  const [, setRolePlaceholder] = useState<"admin" | "support" | "client">(
-    "client"
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [name, setName] = useState('');
+  const [lastname, setLastname] = useState('');
+  const [role, setRole] = useState<'admin' | 'support' | 'client'>();
+  const [selectedDepartment, setSelectedDepartment] = useState('');
+  const [department, setDepartment] = useState('');
+  const [emailPlaceholder, setEmailPlaceholder] = useState('');
+  const [namePlaceholder, setNamePlaceholder] = useState('');
+  const [userID, setUserID] = useState('');
+  const [lastnamePlaceholder, setLastNamePlaceholder] = useState('');
+  const [, setRolePlaceholder] = useState<'admin' | 'support' | 'client'>(
+    'client'
   );
   const [userProfiles, setUserProfiles] = useState<Role[]>([
-    { value: "client", label: "Cliente", selected: false },
-    { value: "support", label: "Suporte", selected: false },
-    { value: "admin", label: "Administrador", selected: false },
+    { value: 'client', label: 'Cliente', selected: false },
+    { value: 'support', label: 'Suporte', selected: false },
+    { value: 'admin', label: 'Administrador', selected: false },
   ]);
 
   const [isUser, setIsUser] = useState(false);
@@ -58,31 +58,31 @@ export default function UserUpdate() {
   const userRequest = new UserRequests();
 
   function handleDepartmentLabel(departmentLabel: string) {
-    if (departmentLabel == "marketingAndSales") {
-      setSelectedDepartment("marketingAndSales");
-    } else if (departmentLabel == "finance") {
-      setSelectedDepartment("finance");
-    } else if (departmentLabel == "operations") {
-      setSelectedDepartment("operations");
-    } else if (departmentLabel == "rh") {
-      setSelectedDepartment("rh");
-    } else if (departmentLabel == "eps") {
-      setSelectedDepartment("eps");
-    } else if (departmentLabel == "ti") {
-      setSelectedDepartment("ti");
-    } else if (departmentLabel == "epdi") {
-      setSelectedDepartment("epdi");
-    } else if (departmentLabel == "others") {
-      setSelectedDepartment("others");
+    if (departmentLabel == 'marketingAndSales') {
+      setSelectedDepartment('marketingAndSales');
+    } else if (departmentLabel == 'finance') {
+      setSelectedDepartment('finance');
+    } else if (departmentLabel == 'operations') {
+      setSelectedDepartment('operations');
+    } else if (departmentLabel == 'rh') {
+      setSelectedDepartment('rh');
+    } else if (departmentLabel == 'eps') {
+      setSelectedDepartment('eps');
+    } else if (departmentLabel == 'ti') {
+      setSelectedDepartment('ti');
+    } else if (departmentLabel == 'epdi') {
+      setSelectedDepartment('epdi');
+    } else if (departmentLabel == 'others') {
+      setSelectedDepartment('others');
     } else if (departmentLabel == null) {
-      setSelectedDepartment("");
+      setSelectedDepartment('');
     }
   }
 
   const getUser = async () => {
     setLoading(true);
 
-    const response: User = await userRequest.showRequest(id ?? "");
+    const response: User = await userRequest.showRequest(id ?? '');
 
     setEmailPlaceholder(response.email);
     setEmail(response.email);
@@ -95,19 +95,19 @@ export default function UserUpdate() {
     setUserID(response.id);
     setUserProfiles([
       {
-        value: "client",
-        label: "Cliente",
-        selected: response.role === "client",
+        value: 'client',
+        label: 'Cliente',
+        selected: response.role === 'client',
       },
       {
-        value: "support",
-        label: "Suporte",
-        selected: response.role === "support",
+        value: 'support',
+        label: 'Suporte',
+        selected: response.role === 'support',
       },
       {
-        value: "admin",
-        label: "Administrador",
-        selected: response.role === "admin",
+        value: 'admin',
+        label: 'Administrador',
+        selected: response.role === 'admin',
       },
     ]);
     setDepartment(response.department);
@@ -125,10 +125,10 @@ export default function UserUpdate() {
 
   useEffect(() => {
     if (!token) {
-      navigate("/");
+      navigate('/');
     }
-    if (user?.role !== "admin" && user?.id !== id) {
-      navigate("/");
+    if (user?.role !== 'admin' && user?.id !== id) {
+      navigate('/');
     }
   }, []);
 
@@ -144,15 +144,15 @@ export default function UserUpdate() {
 
   function TitlePage() {
     if (user?.id === id) {
-      return "Edição de perfil";
+      return 'Edição de perfil';
     }
-    return "Detalhes do usuário";
+    return 'Detalhes do usuário';
   }
 
   function DeleteButton() {
     return (
       <>
-        {user?.id !== id && user?.role === "admin" ? (
+        {user?.id !== id && user?.role === 'admin' ? (
           <ButtonDelete
             type="button"
             width="15rem"
@@ -170,25 +170,25 @@ export default function UserUpdate() {
     setLoading(false);
 
     if (response?.status === 200) {
-      alert("Usuário atualizado com sucesso!");
+      alert('Usuário atualizado com sucesso!');
       if (user?.id === id) {
         //@ts-expect-error
         delete payload.password;
         SessionController.setUserInfo(payload);
       }
-      navigate("/homepage");
+      navigate('/homepage');
     }
   }
 
   async function submitUserUpdate(event: FormEvent) {
     event.preventDefault();
     if (user?.id === id) {
-      if (password === "" || name === "" || lastname === "") {
-        return alert("Preencha todos os campos habilitados");
+      if (password === '' || name === '' || lastname === '') {
+        return alert('Preencha todos os campos habilitados');
       }
     } else {
-      if (email === "") {
-        return alert("Preencha o email");
+      if (email === '') {
+        return alert('Preencha o email');
       }
     }
     if (!id) {
@@ -211,7 +211,7 @@ export default function UserUpdate() {
       updateUser(payload);
     } else {
       oldPassword = window.prompt(
-        "Insira sua senha atual para realizar as altereções:"
+        'Insira sua senha atual para realizar as altereções:'
       );
 
       if (oldPassword === null) {
@@ -230,7 +230,7 @@ export default function UserUpdate() {
           updateUser(payload);
         } else {
           setLoading(false);
-          navigate("/homepage");
+          navigate('/homepage');
         }
       }
     }
@@ -242,7 +242,7 @@ export default function UserUpdate() {
     }
 
     const isConfirmed = window.confirm(
-      "Tem certeza de que deseja excluir o usuário?"
+      'Tem certeza de que deseja excluir o usuário?'
     );
 
     if (isConfirmed) {
@@ -252,8 +252,8 @@ export default function UserUpdate() {
       setLoading(false);
 
       if (response?.status === 200) {
-        alert("Usuário excluido com sucesso!");
-        navigate("/homepage");
+        alert('Usuário excluido com sucesso!');
+        navigate('/homepage');
       }
     }
   }
@@ -271,7 +271,7 @@ export default function UserUpdate() {
                   className="Icon"
                   color="var(--color-gray-dark)"
                   onClick={() => {
-                    navigate("/homepage");
+                    navigate('/homepage');
                   }}
                 />
               </div>
@@ -287,7 +287,7 @@ export default function UserUpdate() {
                     type="text"
                     placeholder={namePlaceholder}
                     defaultValue={namePlaceholder}
-                    onChange={(event) => setName(event.target.value)}
+                    onChange={event => setName(event.target.value)}
                     name="name"
                     disabled={isUser}
                   />
@@ -297,7 +297,7 @@ export default function UserUpdate() {
                   <TextField
                     placeholder={emailPlaceholder}
                     defaultValue={emailPlaceholder}
-                    onChange={(event) => setEmail(event.target.value)}
+                    onChange={event => setEmail(event.target.value)}
                     name="email"
                     disabled={isAdmin}
                   />
@@ -311,7 +311,7 @@ export default function UserUpdate() {
                     type="text"
                     placeholder={lastnamePlaceholder}
                     defaultValue={lastnamePlaceholder}
-                    onChange={(event) => setLastname(event.target.value)}
+                    onChange={event => setLastname(event.target.value)}
                     name="lastname"
                     disabled={isUser}
                   />
@@ -321,19 +321,16 @@ export default function UserUpdate() {
                   <label htmlFor="password">Senha</label>
                   <TextField
                     placeholder="Senha"
-                    onChange={(event) => setPassword(event.target.value)}
+                    onChange={event => setPassword(event.target.value)}
                     name="password"
                     type="password"
                     disabled={isUser}
                   />
                 </div>
-              </section>
-
-              <section className="user-update-data">
                 <div>
                   <label htmlFor="role">Cargo</label>
                   <SelectInput
-                    onChange={(event) => setRole(event.target.value)}
+                    onChange={event => setRole(event.target.value)}
                     name="role"
                     items={userProfiles}
                     disabled={isAdmin}
@@ -345,7 +342,7 @@ export default function UserUpdate() {
                   <ChoiceField
                     name="department"
                     items={departmentListVariable(selectedDepartment)}
-                    onChange={(event) => setDepartment(event.target.value)}
+                    onChange={event => setDepartment(event.target.value)}
                     disabled={isAdmin && user?.id === userID}
                   />
                 </div>

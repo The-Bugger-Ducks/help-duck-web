@@ -1,46 +1,46 @@
-import { useState } from "react";
+import { useState } from 'react';
 
 export function departmentList() {
   const departmentList = [
     {
       selected: false,
-      value: "",
-      label: "Selecione uma opção",
+      value: '',
+      label: 'Selecione uma opção',
     },
     {
       selected: false,
-      value: "marketingAndSales",
-      label: "marketing e vendas",
+      value: 'marketingAndSales',
+      label: 'marketing e vendas',
     },
     {
       selected: false,
-      value: "finance",
-      label: "financeiro",
+      value: 'finance',
+      label: 'financeiro',
     },
     {
       selected: false,
-      value: "operations",
-      label: "operações",
+      value: 'operations',
+      label: 'operações',
     },
     {
       selected: false,
-      value: "rh",
-      label: "RH",
+      value: 'rh',
+      label: 'RH',
     },
     {
       selected: false,
-      value: "eps",
-      label: "EPS",
+      value: 'eps',
+      label: 'EPS',
     },
     {
       selected: false,
-      value: "ti",
-      label: "TI",
+      value: 'ti',
+      label: 'TI',
     },
     {
       selected: false,
-      value: "epdi",
-      label: "EPDI",
+      value: 'epdi',
+      label: 'EPDI',
     },
   ];
 
@@ -54,45 +54,45 @@ export function departmentListVariable(selectedDepartment: string) {
 
   const departmentList = [
     {
-      selected: isSelected(""),
-      value: "",
-      label: "Selecione uma opção",
+      selected: isSelected(''),
+      value: '',
+      label: 'Selecione uma opção',
     },
 
     {
-      selected: isSelected("marketingAndSales"),
-      value: "marketingAndSales",
-      label: "marketing e vendas",
+      selected: isSelected('marketingAndSales'),
+      value: 'marketingAndSales',
+      label: 'marketing e vendas',
     },
     {
-      selected: isSelected("finance"),
-      value: "finance",
-      label: "financeiro",
+      selected: isSelected('finance'),
+      value: 'finance',
+      label: 'financeiro',
     },
     {
-      selected: isSelected("operations"),
-      value: "operations",
-      label: "operações",
+      selected: isSelected('operations'),
+      value: 'operations',
+      label: 'operações',
     },
     {
-      selected: isSelected("rh"),
-      value: "rh",
-      label: "RH",
+      selected: isSelected('rh'),
+      value: 'rh',
+      label: 'RH',
     },
     {
-      selected: isSelected("eps"),
-      value: "eps",
-      label: "EPS",
+      selected: isSelected('eps'),
+      value: 'eps',
+      label: 'EPS',
     },
     {
-      selected: isSelected("ti"),
-      value: "ti",
-      label: "TI",
+      selected: isSelected('ti'),
+      value: 'ti',
+      label: 'TI',
     },
     {
-      selected: isSelected("epdi"),
-      value: "epdi",
-      label: "EPDI",
+      selected: isSelected('epdi'),
+      value: 'epdi',
+      label: 'EPDI',
     },
   ];
 

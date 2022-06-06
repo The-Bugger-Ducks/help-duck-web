@@ -1,12 +1,12 @@
-import React from "react";
+import React from 'react';
 
-import {AiOutlineLike, AiOutlineDislike} from "react-icons/ai"
+import { AiOutlineLike, AiOutlineDislike } from 'react-icons/ai';
 
-import Button from "./Button";
+import Button from './Button';
 
-import { Solution } from "../interfaces/solution.interface";
+import { Solution } from '../interfaces/solution.interface';
 
-import "../styles/components/TicketSolution.css";
+import '../styles/components/TicketSolution.css';
 
 interface Props {
   solution: Solution;
@@ -14,7 +14,11 @@ interface Props {
   handleSolutionVote: (vote: boolean) => Promise<void>;
 }
 
-const TicketSolution: React.FC<Props> = ({ solution, hiddenSolutionVote, handleSolutionVote }) => {
+const TicketSolution: React.FC<Props> = ({
+  solution,
+  hiddenSolutionVote,
+  handleSolutionVote,
+}) => {
   const { solutionComment } = solution;
 
   const SolutionVoteContainer = () => {
@@ -32,7 +36,10 @@ const TicketSolution: React.FC<Props> = ({ solution, hiddenSolutionVote, handleS
         >
           <span className="solution-vote-button-text">
             <AiOutlineLike size="14px" />
-            FOI ÚTIL PRA MIM{" | "}{solution.upVote != 1 ? `${solution.upVote} votos`: `${solution.upVote} voto`}
+            FOI ÚTIL PRA MIM{' | '}
+            {solution.upVote != 1
+              ? `${solution.upVote} votos`
+              : `${solution.upVote} voto`}
           </span>
         </Button>
         <Button
@@ -46,26 +53,29 @@ const TicketSolution: React.FC<Props> = ({ solution, hiddenSolutionVote, handleS
           onClick={() => handleSolutionVote(false)}
         >
           <span className="solution-vote-button-text">
-            <AiOutlineDislike size="14px"  />
-            NÃO FOI ÚTIL PRA MIM{" | "}{solution.downVote != 1 ? `${solution.downVote} votos`: `${solution.downVote} voto`}
+            <AiOutlineDislike size="14px" />
+            NÃO FOI ÚTIL PRA MIM{' | '}
+            {solution.downVote != 1
+              ? `${solution.downVote} votos`
+              : `${solution.downVote} voto`}
           </span>
         </Button>
       </div>
     );
-  }
+  };
 
   return (
     <section id="solution-ticket-container">
-      <h4 className='solution-title'>SOLUÇÃO</h4>
+      <h4 className="solution-title">SOLUÇÃO</h4>
       <div className="solution-wrap">
         <p>{solutionComment.comment}</p>
         <div className="footer-solution">
           <div className="solution-votes">
-            {!hiddenSolutionVote ? <SolutionVoteContainer /> : null} 
+            {!hiddenSolutionVote ? <SolutionVoteContainer /> : null}
           </div>
           <small className="solution-name">
-            {solutionComment.ownerComment.firstName}
-            ({solutionComment.ownerComment.email})
+            {solutionComment.ownerComment.firstName}(
+            {solutionComment.ownerComment.email})
           </small>
         </div>
       </div>

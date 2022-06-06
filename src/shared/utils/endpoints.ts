@@ -1,11 +1,11 @@
 export enum USER_ENDPOINTS {
-  USER_LOGIN = "/auth/authentication",
-  USER_REGISTER = "/users/create",
-  USER_UPDATE = "/users/update",
+  USER_LOGIN = '/auth/authentication',
+  USER_REGISTER = '/users/create',
+  USER_UPDATE = '/users/update',
   USER_DELETE = `/users/delete/`,
-  USER_DETAILS = "/users/",
-  USER_UPDATE_PASSWORD = "/users/update-password/",
-  USER_SEARCH = "/users/search",
+  USER_DETAILS = '/users/',
+  USER_UPDATE_PASSWORD = '/users/update-password/',
+  USER_SEARCH = '/users/search',
 }
 
 export enum TICKET_ENDPOINTS {

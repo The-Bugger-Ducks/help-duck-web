@@ -1,22 +1,28 @@
-import { useEffect, useState, MouseEvent } from "react";
-import { useNavigate } from "react-router-dom";
-import { UserRequests } from "../utils/requests/User.requests";
+import { useEffect, useState, MouseEvent } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { UserRequests } from '../utils/requests/User.requests';
 
-import { FaArrowUp } from "react-icons/fa";
+import { FaArrowUp } from 'react-icons/fa';
 
-import UserComponent from "./UserComponent";
-import CustomTableRow from "./Loading/CustomTableRow";
-import Pagination from "./Pagination/Pagination";
+import UserComponent from './UserComponent';
+import CustomTableRow from './Loading/CustomTableRow';
+import Pagination from './Pagination/Pagination';
 
-import { User } from "../interfaces/user.interface";
-import { OrderByTypes, SortUserTableTypes } from "../constants/sortTableEnum";
-import { Pageable } from "../interfaces/pagable.interface";
+import { User } from '../interfaces/user.interface';
+import { OrderByTypes, SortUserTableTypes } from '../constants/sortTableEnum';
+import { Pageable } from '../interfaces/pagable.interface';
 
-import "../styles/components/UserList.css";
+import '../styles/components/UserList.css';
 
-export default function UserList({filterUserList, username} : {filterUserList: string, username: string})  {
+export default function UserList({
+  filterUserList,
+  username,
+}: {
+  filterUserList: string;
+  username: string;
+}) {
   const navigate = useNavigate();
-  
+
   const userRequest = new UserRequests();
 
   const [loading, setLoading] = useState(false);
@@ -27,32 +33,32 @@ export default function UserList({filterUserList, username} : {filterUserList: s
 
   const [orderBy, setOrderBy] = useState<OrderByTypes>();
   const [sort, setSort] = useState<SortUserTableTypes>();
-  const [uriParam, setUriParam] = useState("");
+  const [uriParam, setUriParam] = useState('');
 
   const [pageSize, setPageSize] = useState(20);
   const [pageNumber, setPageNumber] = useState(0);
 
   const tableHeaderOptions = [
-    { text: "Nome", type: SortUserTableTypes.name },
-    { text: "Email", type: SortUserTableTypes.email },
-    { text: "Tipo de usuário", type: SortUserTableTypes.role },
-    { text: "Departamento", type: SortUserTableTypes.department },
+    { text: 'Nome', type: SortUserTableTypes.name },
+    { text: 'Email', type: SortUserTableTypes.email },
+    { text: 'Tipo de usuário', type: SortUserTableTypes.role },
+    { text: 'Departamento', type: SortUserTableTypes.department },
   ];
 
   useEffect(() => {
-    getUserList()
-  }, [])
-  
+    getUserList();
+  }, []);
+
   useEffect(() => {
     if (filterUserList.length != 0 || username.length != 0) {
-      getUserList(uriParam)
+      getUserList(uriParam);
     }
-  }, [filterUserList, username])
+  }, [filterUserList, username]);
 
   async function getUserList(sorting?: string) {
     setLoading(true);
 
-    const role = filterUserList !== "allUsers" ? filterUserList : "";
+    const role = filterUserList !== 'allUsers' ? filterUserList : '';
 
     const response = await userRequest.searchUsers(username, role, sorting);
 
@@ -60,7 +66,7 @@ export default function UserList({filterUserList, username} : {filterUserList: s
 
     setUsers(response.content ?? []);
     setPageable(response);
-  };  
+  }
 
   function handleClickOptionSort(
     event: MouseEvent,
@@ -70,30 +76,30 @@ export default function UserList({filterUserList, username} : {filterUserList: s
 
     const optionAlreadySorted = currentTarget.id === headerSortTarget?.id;
 
-    const visibleStyle = currentTarget.classList.contains("visible");
-    const orderByStyle = currentTarget.classList.contains("order-by");
+    const visibleStyle = currentTarget.classList.contains('visible');
+    const orderByStyle = currentTarget.classList.contains('order-by');
 
     if (headerSortTarget && !optionAlreadySorted) {
-      headerSortTarget.classList.remove("visible");
-      headerSortTarget.classList.remove("order-by");
+      headerSortTarget.classList.remove('visible');
+      headerSortTarget.classList.remove('order-by');
     }
 
     if (!optionAlreadySorted) {
       setHeaderSortTarget(currentTarget);
-      currentTarget.classList.add("visible");
+      currentTarget.classList.add('visible');
     }
 
     let orderBy = OrderByTypes.none;
     if (visibleStyle && orderByStyle) {
       orderBy = OrderByTypes.none;
-      currentTarget.classList.remove("visible");
-      currentTarget.classList.remove("order-by");
+      currentTarget.classList.remove('visible');
+      currentTarget.classList.remove('order-by');
     } else if (visibleStyle && !orderByStyle) {
       orderBy = OrderByTypes.asc;
-      currentTarget.classList.add("order-by");
+      currentTarget.classList.add('order-by');
     } else {
       orderBy = OrderByTypes.desc;
-      currentTarget.classList.add("visible");
+      currentTarget.classList.add('visible');
     }
 
     handleTableSorting(sorting, orderBy);
@@ -102,7 +108,7 @@ export default function UserList({filterUserList, username} : {filterUserList: s
   function handleTableSorting(type: SortUserTableTypes, orderBy: OrderByTypes) {
     const containsOrderBy = orderBy !== OrderByTypes.none;
 
-    let sortAux = "";
+    let sortAux = '';
     if (containsOrderBy) {
       sortAux = `page=${pageNumber}&size=${pageSize}&sort=${type},${orderBy}`;
     } else {
@@ -111,38 +117,38 @@ export default function UserList({filterUserList, username} : {filterUserList: s
 
     setSort(type);
     setOrderBy(orderBy);
-    setUriParam(sortAux)
+    setUriParam(sortAux);
 
     getUserList(sortAux);
   }
 
   function handleRoleName(role: string) {
-    if (role === "support") {
-      return "suporte";
-    } else if (role === "admin") {
-      return "administrador";
+    if (role === 'support') {
+      return 'suporte';
+    } else if (role === 'admin') {
+      return 'administrador';
     } else {
-      return "cliente";
+      return 'cliente';
     }
   }
 
   function handleDepartmentName(department: string) {
-    if (department === "marketingAndSales"){
-      return "marketing e vendas";
-    } else if (department === "finance"){
-      return "financeiro";
-    } else if (department === "operations"){
-      return "operações";
-    } else if (department === "rh"){
-      return "RH";
-    } else if (department === "eps"){
-      return "EPS";
-    } else if (department === "ti"){
-      return "TI";
-    } else if (department === "epdi"){
-      return "EPDI";
+    if (department === 'marketingAndSales') {
+      return 'marketing e vendas';
+    } else if (department === 'finance') {
+      return 'financeiro';
+    } else if (department === 'operations') {
+      return 'operações';
+    } else if (department === 'rh') {
+      return 'RH';
+    } else if (department === 'eps') {
+      return 'EPS';
+    } else if (department === 'ti') {
+      return 'TI';
+    } else if (department === 'epdi') {
+      return 'EPDI';
     } else {
-      return "sem departamento definido";
+      return 'sem departamento definido';
     }
   }
 
@@ -150,14 +156,14 @@ export default function UserList({filterUserList, username} : {filterUserList: s
     setPageNumber(pageNumber);
     setPageSize(pageSize);
 
-    let sortAux = "";
+    let sortAux = '';
     if (orderBy) {
       sortAux = `page=${pageNumber}&size=${pageSize}&sort=${sort},${orderBy}`;
     } else {
       sortAux = `page=${pageNumber}&size=${pageSize}&sort=${sort}`;
     }
 
-    setUriParam(sortAux)
+    setUriParam(sortAux);
     getUserList(sortAux);
   }
 
@@ -172,9 +178,7 @@ export default function UserList({filterUserList, username} : {filterUserList: s
                   <th
                     id={`${index}`}
                     key={index}
-                    onClick={(event) =>
-                      handleClickOptionSort(event, option.type)
-                    }
+                    onClick={event => handleClickOptionSort(event, option.type)}
                   >
                     {option.text}
                     <FaArrowUp className="th-arrow" />

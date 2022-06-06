@@ -1,15 +1,15 @@
-import { apiTickets } from "../../services/Api.service";
+import { apiTickets } from '../../services/Api.service';
 
 import {
   handleResponseStatus,
   validateStatus,
-} from "../handlers/HandlerResponseStatusCodeFound";
-import SessionController from "../handlers/SessionController";
+} from '../handlers/HandlerResponseStatusCodeFound';
+import SessionController from '../handlers/SessionController';
 
-import Comment from "../../interfaces/comment.interface";
-import { User } from "../../interfaces/user.interface";
+import Comment from '../../interfaces/comment.interface';
+import { User } from '../../interfaces/user.interface';
 
-import { TICKET_ENDPOINTS } from "../endpoints";
+import { TICKET_ENDPOINTS } from '../endpoints';
 
 export class TicketRequests {
   public async showRequest(ticketId: string) {
@@ -22,7 +22,7 @@ export class TicketRequests {
       );
       return response.data;
     } catch (error) {
-      alert("Não foi possível encontrar o chamado. Tente novamente!");
+      alert('Não foi possível encontrar o chamado. Tente novamente!');
     }
   }
 
@@ -47,7 +47,7 @@ export class TicketRequests {
       return response;
     } catch (error) {
       console.log(error);
-      alert("Não foi possível cadastrar seu chamado");
+      alert('Não foi possível cadastrar seu chamado');
     }
   }
 
@@ -85,7 +85,7 @@ export class TicketRequests {
   }
 
   public async ticketListPerStatus(
-    status: "underAnalysis" | "awaiting" | "done",
+    status: 'underAnalysis' | 'awaiting' | 'done',
     sorting?: string
   ) {
     let url = `${TICKET_ENDPOINTS.TICKET_LIST_STATUS}${status}`;
@@ -168,7 +168,7 @@ export class TicketRequests {
         payload
       );
     } catch (error) {
-      alert("Não foi possível reservar o chamado, tente novamente!");
+      alert('Não foi possível reservar o chamado, tente novamente!');
     }
   }
   public async insertComment(ticketId: string, payload: Comment) {
@@ -178,7 +178,7 @@ export class TicketRequests {
         payload
       );
     } catch (error) {
-      alert("Não foi possível adicionar comentário, tente novamente!");
+      alert('Não foi possível adicionar comentário, tente novamente!');
     }
   }
   public async closeTicket(ticketId: string) {
@@ -187,17 +187,17 @@ export class TicketRequests {
         `${TICKET_ENDPOINTS.TICKET_CLOSE}${ticketId}`
       );
     } catch (error) {
-      alert("Não foi possível fechar o chamado, tente novamente!");
+      alert('Não foi possível fechar o chamado, tente novamente!');
     }
   }
   public async updatePriorityLevel(payload: {
     id: string;
-    priorityLevel: "high" | "medium" | "low";
+    priorityLevel: 'high' | 'medium' | 'low';
   }) {
     try {
       return await apiTickets.put(`${TICKET_ENDPOINTS.TICKET_UPDATE}`, payload);
     } catch (error) {
-      alert("Não foi possível alterar prioridade, tente novamente!");
+      alert('Não foi possível alterar prioridade, tente novamente!');
     }
   }
 }
